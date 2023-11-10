@@ -1,0 +1,3 @@
+export const constans={
+    secret: "566ffc2a3a5a2969f02a70acd536f7f21f0d98e1a7afbb967ed3449ffcbcd39ec1cdadc478047a04005deeb802f41bc9df4e401c263df8702be2b743ccae6b16"
+}
