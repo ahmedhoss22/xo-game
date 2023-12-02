@@ -1,0 +1,67 @@
+.message {
+  background: url("../../assets/bg-layer.png");
+  min-height: 100vh;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  direction: rtl; 
+  text-align: right; 
+  .layer {
+    background: url("../../assets/bgLayer.png");
+    min-height: 100vh;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+}
+
+.responsive-input {
+  width: 100%;
+}
+@media (min-width: 992px) {
+  .responsive-input {
+    width: 25%;
+  }
+}
+.input-with-icon {
+  position: relative;
+}
+
+.input-with-icon input,
+.input-with-icon textarea {
+  background: #d9d9d9a3;
+  border: none;
+  padding-right: 40px;
+}
+
+.input-with-icon .icon {
+  position: absolute;
+  color: #717070;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.form-control {
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.form-control:focus {
+  border-color: rgba(151, 35, 239, 1);
+  box-shadow: 0 0 5px rgba(151, 35, 239, 1);
+}
+.send-button {
+  background: linear-gradient(180deg, #9723ef 0%, #f04b9c 100%);
+  border: none;
+  border-radius: 50px;
+}

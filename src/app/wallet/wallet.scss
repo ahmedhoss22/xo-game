@@ -1,0 +1,31 @@
+.wallet{
+    header{
+        background-color: var(--purple-color) !important;
+        height: 90px;
+    
+    }
+    min-height: 100vh;
+    background-color: var(--dark-blue-color) !important;
+    .credit{
+        margin-bottom: 50px;
+margin-top: 100px;
+    }
+    .white-container{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #ffffff44;
+        border-radius: 50px;
+        width: 155px;
+        padding-right:15px;
+        gap: 7px;
+        position: relative;
+        
+    .userImage{
+        border: 1px solid white;
+        border-radius: 50px;
+        background: white;
+      }
+      }
+    
+}

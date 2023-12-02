@@ -1,0 +1,105 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --green-color: rgba(3, 132, 24, 1);
+  --blue-color: rgb(74, 111, 190);
+  --purple-color:#3C0384;
+  --red-color:#FF0000;
+  --baby-blue:#4DE9F5;
+  --dark-blue-color:#000029;
+}
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+.rtl {
+   direction: rtl; 
+   text-align: right; 
+}
+a {
+  text-decoration: none;
+}
+.red-color{
+  color: var(--red-color) !important;
+}
+.green-bg {
+  background: var(--green-color) !important;
+  transition: .8s ease;
+}
+.green-bg:hover {
+  background: rgb(7, 199, 39) !important;
+}
+
+.blue-bg {
+  transition: 0.7s;
+  background: var(--blue-color) !important;
+}
+.blue-bg:hover {
+  background: rgb(99, 145, 245) !important;
+}
+.white-bg {
+  transition: 0.7s;
+
+  background: rgba(255, 255, 255, 1) !important;
+}
+.white-bg:hover {
+  background: rgb(194, 194, 194) !important;
+}
+.border-radius-20 {
+  border-radius: 20px !important;
+}
+
+.input-with-icon {
+  position: relative;
+}
+
+.input-with-icon input {
+  padding-right: 40px; /* Adjust this value based on the icon size */
+}
+
+.input-with-icon .icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.input-with-icon .icon-text-area {
+  position: absolute;
+  right: 10px;
+  top: 17%;
+  transform: translateY(-50%);
+}
+
+.form-control {
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.form-control:focus {
+  border-color: var(--green-color) !important;
+  box-shadow: 0 0 5px var(--green-color) !important;
+}
+
+.pointer {
+  cursor: pointer;
+}
+.transform-btn {
+     font-size: 1rem;
+    font-weight: bold;
+     border-radius: 50px;
+    text-transform: uppercase;
+     transition: all 0.2s;
+    box-shadow: 0 var(--shadow-y) 0 rgba(163, 163, 163, 0.785) !important;
+ 
+  }
+  .transform-btn:hover {
+    --shadow-y: 8px;
+    transform: translateY(-2px);
+  }
+  .transform-btn:active {
+    transform: translateY(2px);
+    --shadow-y: 4px;
+  }

@@ -1,0 +1,41 @@
+.payment {
+    background: url("../../assets/bg-layer.png");
+    min-height: 100vh;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  .paypal{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+      .paypal-img-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .paypal-word{
+        width: 109px;
+        height: 28.91px;
+        
+    }
+    .paypal-icon{
+        width: 60px;
+height: 69.16px;
+
+    }
+    .visa-img{
+        width: 150px;
+height: 60.84px;
+
+    }
+  }
+  }
+
+  .visa{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+ 
+  }
