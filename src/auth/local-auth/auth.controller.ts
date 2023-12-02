@@ -6,9 +6,7 @@ import {Response as ExpressResponse , Request} from "express"
 
 @Controller("/auth")
 export class AuthController{
-    constructor(private readonly authService : AuthService){
-        
-    }
+    constructor(private readonly authService : AuthService){}
 
     @Post("/register")
     register(@Body() data :RegisterDto){
@@ -33,4 +31,5 @@ export class AuthController{
             })
             res.status(HttpStatus.OK).json({ message: 'Login successful' });
     }
+    
 }

@@ -2,12 +2,12 @@ import { AuthGuard } from "@nestjs/passport";
 import {ExecutionContext , Injectable} from "@nestjs/common"
 
 @Injectable()
-export class GoogleAuthGuard extends AuthGuard("google"){
+export class FacebookAuthGuard extends AuthGuard("facebook"){
     async canActivate (context :ExecutionContext){
         const activate = (await super.canActivate(context)) as boolean
         
         if (!activate) {
-            throw new Error('Google authentication failed');
+            throw new Error('Facebook authentication failed');
           }
 
         const request = context.switchToHttp().getRequest()

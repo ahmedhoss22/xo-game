@@ -1,28 +1,32 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
-import { Profile, Strategy } from 'passport-google-oauth20';
+import { Profile, Strategy, VerifyCallback } from 'passport-google-oauth20';
+import { AuthService } from '../local-auth/auth.service';
+import * as dotenv from "dotenv"
+dotenv.config()
 
 @Injectable()
 export class GoogleService extends PassportStrategy(Strategy,"google"){
-    constructor() {
+    constructor(
+      @Inject(AuthService) private readonly authService: AuthService
+    ) {
         super({
-          clientID: '547844523533-vaf23vvhoac4fja4lqi3e1rfapbsm6jn.apps.googleusercontent.com',
-          clientSecret: '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',
-          callbackURL: 'http://localhost:5000/api/auth/google/redirect',
+          clientID: process.env.GOOGLE_CLIENTID,
+          clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+          callbackURL: process.env.API_URL+'/api/auth/google/redirect',
           scope:["profile","email"]
         });
       }
     
-      async validate(accessToken: string, refreshToken: string, profile: Profile) {
+      async validate(accessToken: string, refreshToken: string, profile: Profile,done: VerifyCallback) {
         // You can perform operations with the retrieved user profile
-        console.log("Gooooooooooooooooogle");
-        
-        console.log(profile,accessToken);
-        
-        // return {
-        //   accessToken,
-        //   refreshToken,
-        //   profile,
-        // };
+        let name = profile.displayName
+        let email = profile.emails[0].value
+        let image = profile.photos[0].value
+
+        const user = await this.authService.googleLogin({ email, name, image}) 
+        done(null,user)
       }
+
+
 }

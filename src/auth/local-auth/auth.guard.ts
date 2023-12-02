@@ -34,7 +34,6 @@ export class AuthGuard implements CanActivate {
   }
 }
 
-
 export class AuthAdminGuard implements CanActivate {
   constructor(
     private readonly jwtService : JwtService,

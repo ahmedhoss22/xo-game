@@ -1,5 +1,5 @@
 import { IsDecimal, IsNotEmpty, IsString, Length, IsEmail, IsNumber, IsPositive ,IsOptional} from "class-validator";
-import { IsStrongPassword } from "../../utilites/password.util";
+import { IsStrongPassword } from "../../../utilites/password.util";
 import mongoose from "mongoose";
 
 export class RegisterDto {

@@ -11,11 +11,11 @@ export class UserService{
         @InjectModel(Users.name) private UserModel : Model<Users>
     ){}
 
-    async getUser(id :mongoose.Types.ObjectId) : Promise<Users>{
+    async getUser(id :any) : Promise<Users>{
         return await this.UserModel.findById(id)
     }
 
-    async updateUser(id :mongoose.Types.ObjectId,data : UpdateUserDto) : Promise<Users>{
+    async updateUser(id :any,data : UpdateUserDto) : Promise<Users>{
         return await this.UserModel.findByIdAndUpdate(id , data,{new:true})
     }
 
@@ -23,9 +23,21 @@ export class UserService{
         return await this.UserModel.find()
     }
 
-    async changePassword(id :mongoose.Types.ObjectId,data : changePasswordDto) : Promise<Users>{
+    async changePassword(id :any,data : changePasswordDto) : Promise<Users>{
         let user = await this.UserModel.findById(id)
         user.password = data.password
+        return await user.save()
+    }
+
+    async winnerCoins (id:mongoose.Types.ObjectId , coins:number):Promise<Users>{
+        let user = await this.UserModel.findById(id)
+        user.coins+= coins 
+        return await user.save()
+    }
+
+    async loserCoins (id:mongoose.Types.ObjectId , coins:number):Promise<Users>{
+        let user = await this.UserModel.findById(id)
+        user.coins-= coins 
         return await user.save()
     }
 
