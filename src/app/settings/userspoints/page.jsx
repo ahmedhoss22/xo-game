@@ -1,6 +1,6 @@
 import './usersPoints.scss'
-import bg1 from '../../../assets/bg1.png'
-import bg2 from '../../../assets/bg2.png'
+import bg1 from '../../../assets/photos/bg1.png'
+import bg2 from '../../../assets/photos/bg2.png'
 const usersPoints = () => {
   return (
     <div className="users-points rtl">

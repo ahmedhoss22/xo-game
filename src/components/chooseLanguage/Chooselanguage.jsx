@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import './chooseLanguage.scss'
 
-import country from "../../assets/country-flag.png";
+import country from "../../assets/photos/country-flag.png";
 const ChooseLanguage = () => {
   return (
     <> 

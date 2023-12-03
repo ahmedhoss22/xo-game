@@ -3,8 +3,12 @@ import "./message.scss";
 import { FaUserAlt } from "react-icons/fa";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import Title from "../../components/title/title";
 import Footer from "@/components/footer/Footer";
+import robot from "../../assets/photos/chatgpt.png";
+import localFont from 'next/font/local';
+
+const myFont = localFont({ src: '../../assets/fonts/Pacifico-Regular.ttf' });
+
 
 const message = () => {
   function handleMessage(values) {
@@ -12,9 +16,9 @@ const message = () => {
   }
 
   let validationSchema = Yup.object({
-    userName: Yup.string().required("User Name is required"),
-    email: Yup.string().required("Email is required"),
-    message: Yup.string().required("Message is required"),
+    userName: Yup.string().required("برجاء ادخال الاسم"),
+    email: Yup.string().required("برجاء ادخال الايميل"),
+    message: Yup.string().required("برجاء ادخال الرساله")
   });
 
   let formik = useFormik({
@@ -26,20 +30,30 @@ const message = () => {
     validationSchema,
     onSubmit: handleMessage,
   });
+
   return (
-    <div className=" message">
+    <>   <div className=" message">
       <div className="layer">
         <div className="container ">
-          <Title/>
-        
-          <div className="row  d-flex align-items-center  ">
+          <div style={{marginBottom:'55px'}}>
+          <div className="message-title" style={myFont.style}>
+      <img src={robot.src} alt=""  />
+      <div className="title-text d-flex"  >
+        <span className="gray-color ms-3">Tic</span>
+        <span className="purple-color ms-3">Tac</span>
+        <span className="blue-color ms-3">Too</span>
+      </div>
+    </div>
+          </div>
+
+          <div className="row  d-flex align-items-center  " >
             <form action="" onSubmit={formik.handleSubmit}>
               <div className="col-lg-6 responsive-input">
                 {" "}
                 {formik.touched.userName && formik.errors.userName ? (
-                  <div className="alert alert-danger">
+                  <h4>
                     {formik.errors.userName}
-                  </div>
+                  </h4>
                 ) : null}
               </div>
 
@@ -61,9 +75,9 @@ const message = () => {
 
               <div className="col-lg-6 responsive-input">
                 {formik.touched.email && formik.errors.email ? (
-                  <div className="alert alert-danger">
+                  <h4 >
                     {formik.errors.email}
-                  </div>
+                  </h4>
                 ) : null}
               </div>
 
@@ -85,16 +99,14 @@ const message = () => {
 
               <div className="col-lg-6 responsive-input">
                 {formik.touched.message && formik.errors.message ? (
-                  <div className="alert alert-danger">
+                  <h4  >
                     {formik.errors.message}
-                  </div>
+                  </h4>
                 ) : null}
               </div>
 
               <div className="position-relative d-flex align-items-center">
-
-
-              <div className="input-with-icon  responsive-input ">
+                <div className="input-with-icon  responsive-input ">
                   <textarea
                     type="message"
                     id="message"
@@ -106,24 +118,24 @@ const message = () => {
                     onBlur={formik.handleBlur}
                   />
                 </div>
-                </div>
-
-              <button
+              </div>
+      <button
                 type="submit"
-                className="send-button btn responsive-input   text-center text-white mt-4  p-2 transform-btn"
+                className="send-button btn responsive-input   text-center text-white mt-3 p-2 transform-btn"
               >
                 أرسل{" "}
               </button>
+          
             </form>
-          </div> 
+          </div>
         </div>
-        <div className=''>
-   <Footer/>
+    <div className="fixed-bottom">
+          <Footer />
         </div>
-     
-      </div> 
-    
-    </div>
+      </div>
+    </div>    
+    </>
+ 
   );
 };
 

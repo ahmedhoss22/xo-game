@@ -1,7 +1,7 @@
 import './store.scss'
-import money from '../../../assets/money-bag.png'
-import xo from '../../../assets/xo.png'
-import tickets from '../../../assets/Ticket.png'
+import money from '../../../assets/photos/money-bag.png'
+import xo from '../../../assets/photos/xo.png'
+import tickets from '../../../assets/photos/Ticket.png'
 const store = () => {
   return (
     <div className="store rtl">

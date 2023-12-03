@@ -1,5 +1,5 @@
 .message {
-  background: url("../../assets/bg-layer.png");
+  background: url("../../assets/photos/bg-layer.png");
   min-height: 100vh;
   background-position: center;
   background-repeat: no-repeat;
@@ -14,6 +14,35 @@
     background-size: cover;
   }
 }
+.message-title {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  img {
+    margin-top: 10px;
+  }
+  .title-text {
+    position: absolute;
+    top: 141px;
+    font-size: 80px;
+    font-weight: bold;
+  }
+}
+h1 {
+  // left: 410px;
+}
+.gray-color {
+  color: #9f9f9f !important;
+}
+.blue-color {
+  color: #7ac7ec !important;
+}
+.purple-color {
+  color: #9d3a9b !important;
+}
+
 
 .responsive-input {
   width: 100%;

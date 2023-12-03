@@ -1,10 +1,10 @@
 'use client'
 import "./login.scss";
-import emailIcon from "../../assets/email-icon.png";
-import passwordIcon from "../../assets/password-icon.png";
-import gIcon from "../../assets/google-icon.png";
+import emailIcon from "../../assets/photos/email-icon.png";
+import passwordIcon from "../../assets/photos/password-icon.png";
+import gIcon from "../../assets/photos/google-icon.png";
 import { BiLogoFacebook } from "react-icons/bi";
-import country from "../../assets/country-flag.png";
+import country from "../../assets/photos/country-flag.png";
 import Link from "next/link";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -31,13 +31,13 @@ const login = () => {
 
   return (
     <div className="login-bg">
-<div className="col-lg-2 col-md-4">
+<div className="col-lg-2 col-7  mb-10">
            <ChooseLanguage />
 
           </div>
       <div className="login m-2 ">
         <form
-          className="  col-md-3 form-shape shadow"
+          className="  col-lg-3 col-md-6  col-11 form-shape shadow"
           onSubmit={formik.handleSubmit}
         >
           <h1 className="text-center text-white mt-1   "> تسجيل الدخول</h1>

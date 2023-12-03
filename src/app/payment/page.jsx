@@ -2,22 +2,23 @@ import "./payment.scss";
 import Title from "../../components/title/title";
 import Footer from "@/components/footer/Footer";
 import { FaArrowLeft } from "react-icons/fa";
-import moneyImage from "../../assets/money-bag.png";
-import visaImage from "../../assets/visa-icon.png";
-import  paypalIcon from "../../assets/paypal-icon.png";
-import  paypalWord from "../../assets/paypal-word.png";
+import moneyImage from "../../assets/photos/money-bag.png";
+import visaImage from "../../assets/photos/visa-icon.png";
+import  paypalIcon from "../../assets/photos/paypal-icon.png";
+import  paypalWord from "../../assets/photos/paypal-word.png";
+import Link from "next/link";
 
 const payment = () => {
   return (
     <div className=" payment">
       <div className="container ">
-        <div className="row d-flex justify-content-between pt-4">
+        <div className="  d-flex justify-content-between pt-4">
           <div className="">
-            <FaArrowLeft className="text-white pointer h-5" />
+            <FaArrowLeft className="text-white pointer h-5 mt-10" />
           </div>
-          <div className="">
-            {/* <Title /> */}
-          </div>
+          <Link  href='/message'>
+            <Title />
+          </Link>
         </div>
   
 
@@ -38,6 +39,7 @@ const payment = () => {
       </div>
        
       </div>
+
       <Footer />
     </div>
   );

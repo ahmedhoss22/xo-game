@@ -1,30 +1,44 @@
 import { FaArrowLeft } from "react-icons/fa";
 import "./changeBg.scss";
-import userImage from "../../assets/userrr.png";
-import smallBg1 from "../../assets/chanfe-bg1.png";
-import smallBg2 from "../../assets/change-bg2.png";
-import smallBg3 from "../../assets/change-bg3.png";
-import smallBg4 from "../../assets/change-bg4.png";
-import smallBg5 from "../../assets/change-bg5.png";
+import userImage from "../../assets/photos/userrr.png";
+import smallBg1 from "../../assets/photos/chanfe-bg1.png";
+import smallBg2 from "../../assets/photos/change-bg2.png";
+import smallBg3 from "../../assets/photos/change-bg3.png";
+import smallBg4 from "../../assets/photos/change-bg4.png";
+import smallBg5 from "../../assets/photos/change-bg5.png";
 import Title from "@/components/title/Title";
+import Link from "next/link";
 
 const changeBg = () => {
   return (
     <div className="change-bg">
       <div className="container">
-        <header className="d-flex justify-content-between pt-3">
-          <FaArrowLeft className="text-white pointer h-5" />
+        <header
+          className="d-flex justify-content-between pt-3"
+          style={{ marginBottom: "200px" }}
+        >
+          <Link href={"/"}>
+            {" "}
+            <FaArrowLeft className="text-white pointer h-5" />
+          </Link>
+
           <div>
-                      <Title/>
+            <Link href="/message">
+              {" "}
+              <Title />
+            </Link>
           </div>
 
-          <div className="user white-container">
-            <img src={userImage.src} className="userImage" alt="" />
+          <Link
+            href={"/user"}
+            className="user white-container text-decoration-none"
+          >
+            <img src={userImage.src} className="userImage pointer" alt="" />
             <h5 className="text-white mt-1 ">User Name</h5>
-          </div>
+          </Link>
         </header>
         <div className="row">
-          <div className="col-lg-6 rtl gy-4">
+          <div className="col-lg-6 rtl gy-4 mb-4">
             <div className="change-title">
               <h3 className=" text-white   "> الخلفية</h3>
             </div>
@@ -40,7 +54,7 @@ const changeBg = () => {
               <img src={smallBg5.src} alt="" />
             </div>
           </div>
-          <div className="col-lg-6 rtl gy-4">
+          <div className="col-lg-6 rtl gy-4 ">
             <div className="change-title">
               <h3 className=" text-white   "> XOXO </h3>
             </div>{" "}

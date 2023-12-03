@@ -1,9 +1,9 @@
 'use client'
 import "./register.scss";
-import userIcon from "../../assets/user-icon.png";
-import emailIcon from "../../assets/email-icon.png";
-import passwordIcon from "../../assets/password-icon.png";
-import gIcon from "../../assets/google-icon.png";
+import userIcon from "../../assets/photos/user-icon.png";
+import emailIcon from "../../assets/photos/email-icon.png";
+import passwordIcon from "../../assets/photos/password-icon.png";
+import gIcon from "../../assets/photos/google-icon.png";
 import { BiLogoFacebook } from "react-icons/bi";
 import Link from "next/link";
 import { useFormik } from "formik";
@@ -39,7 +39,7 @@ const register = () => {
   return (
     <div className="register-bg">
 
-<div className="col-lg-2 col-md-4">
+<div className="col-lg-2 col-md-4 mb-10">
            <ChooseLanguage />
 
           </div>
@@ -145,7 +145,7 @@ const register = () => {
                   {/* حسابك عن طريق  */}
               </p>
             </div>
-            <div className="col-12 d-flex  mb-20 justify-content-between ">
+            <div className="col-12 d-flex  mb-10 justify-content-between ">
               <div className="col-5 d-flex blue-bg   border-radius-20 align-items-center justify-content-center p-1 transform-btn pointer">
                 <button className="btn form-control text-white">
                   facebook

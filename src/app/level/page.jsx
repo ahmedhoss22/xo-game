@@ -1,7 +1,7 @@
 "use client";
 import "./level.scss";
 import { FaArrowLeft } from "react-icons/fa";
-import userImage from "../../assets/userrr.png";
+import userImage from "../../assets/photos/userrr.png";
 
 const level = () => {
   return (

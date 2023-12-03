@@ -12,6 +12,8 @@
 # next.js
 /.next/
 /out/
+ 
+# .conda/
 .conda/
 
 # production
