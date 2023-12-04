@@ -30,8 +30,8 @@ const message = () => {
     <div className=" message">
       <div className="layer">
         <div className="container ">
-          <Title/>
-        
+          <Title />
+
           <div className="row  d-flex align-items-center  ">
             <form action="" onSubmit={formik.handleSubmit}>
               <div className="col-lg-6 responsive-input">
@@ -92,9 +92,7 @@ const message = () => {
               </div>
 
               <div className="position-relative d-flex align-items-center">
-
-
-              <div className="input-with-icon  responsive-input ">
+                <div className="input-with-icon  responsive-input ">
                   <textarea
                     type="message"
                     id="message"
@@ -106,7 +104,7 @@ const message = () => {
                     onBlur={formik.handleBlur}
                   />
                 </div>
-                </div>
+              </div>
 
               <button
                 type="submit"
@@ -115,14 +113,12 @@ const message = () => {
                 أرسل{" "}
               </button>
             </form>
-          </div> 
+          </div>
         </div>
-        <div className=''>
-   <Footer/>
+        <div className="">
+          <Footer />
         </div>
-     
-      </div> 
-    
+      </div>
     </div>
   );
 };

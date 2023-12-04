@@ -10,7 +10,7 @@ import Link from "next/link";
 const Footer = () => {
   return (
     <footer className="footer d-flex align-items-center justify-content-between ">
-      <Link href={""}>
+      <Link href={"/user"}>
         {" "}
         <img src={userIcon.src} alt="user" className="pointer" />
       </Link>
@@ -26,7 +26,7 @@ const Footer = () => {
         {" "}
         <img src={leaderIcon.src} alt="leader" className="pointer" />
       </Link>
-      <Link href={""}>
+      <Link href={"/"}>
         {" "}
         <img src={homeIcon.src} alt="home" className="pointer" />
       </Link>

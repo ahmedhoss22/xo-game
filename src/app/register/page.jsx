@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import "./register.scss";
 import userIcon from "../../assets/user-icon.png";
 import emailIcon from "../../assets/email-icon.png";
@@ -9,9 +9,24 @@ import Link from "next/link";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import ChooseLanguage from "@/components/chooseLanguage/Chooselanguage";
+import Api from "@/config/api";
+import { notifyError, notifySuccess } from "@/components/toastify/toastify";
+import { useRouter } from "next/navigation";
 
 const register = () => {
+  const router = useRouter()
+
   function handleRegister(values) {
+    Api.post("/auth/register",values)
+    .then(()=>{
+        notifySuccess("Account created !!")
+        router.push("/login")
+    })
+    .catch((err)=>{
+      let errMsg = err?.response?.data?.message
+      notifyError(Array.isArray(errMsg)? errMsg[0]:errMsg )
+      console.log(err);
+    })
     console.log(values);
   }
 
@@ -22,9 +37,17 @@ const register = () => {
       .max(20, "name maxlength"),
     email: Yup.string().required("email is required").email(),
     password: Yup.string().required("Password is required"),
-    rePassword: Yup.string().required("rePassword is required")
-    .oneOf([Yup.ref("password")], "password dosnot  match"),
+    rePassword: Yup.string()
+      .required("rePassword is required")
+      .oneOf([Yup.ref("password")], "password dosnot  match"),
   });
+
+  function googleRegister(){
+    location.href=process.env.NEXT_PUBLIC_API_SERVER+"/api/auth/google/login"
+  }
+  function facebookRegister(){
+    location.href=process.env.NEXT_PUBLIC_API_SERVER+"/api/auth/facebook/login"
+  }
 
   let formik = useFormik({
     initialValues: {
@@ -38,21 +61,19 @@ const register = () => {
   });
   return (
     <div className="register-bg">
-
-<div className="col-lg-2 col-md-4">
-           <ChooseLanguage />
-
-          </div>
+      <div className="col-lg-2 col-md-4">
+        <ChooseLanguage />
+      </div>
       <div className="register m-2 ">
         <form
           className="col-xl-3 col-md-5  form-shape shadow"
           onSubmit={formik.handleSubmit}
         >
-          <h1 className="text-center text-white mt-1   ">  انشاء حساب</h1>
+          <h1 className="text-center text-white mt-1   "> انشاء حساب</h1>
           <div className="row  d-flex align-content-center justify-content-center m-4 ">
             <div className="col-12 gy-4 ">
               {formik.touched.name && formik.errors.name ? (
-                <div className="alert alert-danger">{formik.errors.name}</div>
+                <div className="alert alert-danger" >{formik.errors.name}</div>
               ) : null}
               <div className="input-with-icon ">
                 <input
@@ -67,7 +88,7 @@ const register = () => {
                   required
                 />
                 <img src={userIcon.src} className="icon " alt="" />
-               </div>
+              </div>
             </div>{" "}
             <div className="col-12 gy-4">
               {formik.touched.email && formik.errors.email ? (
@@ -109,7 +130,7 @@ const register = () => {
                 <img src={passwordIcon.src} className="icon" alt="" />
               </div>
             </div>
-              <div className="col-12 gy-4">
+            <div className="col-12 gy-4">
               {formik.touched.rePassword && formik.errors.rePassword ? (
                 <div className="alert alert-danger">
                   {formik.errors.rePassword}
@@ -140,21 +161,21 @@ const register = () => {
             </div>
             <div className="col-12">
               <p className="text-center text-white mt-4 mb-4 middle-line ">
-                
-                 أنشأ
-                  {/* حسابك عن طريق  */}
+                أنشأ حسابك عن طريق
               </p>
             </div>
             <div className="col-12 d-flex  mb-20 justify-content-between ">
               <div className="col-5 d-flex blue-bg   border-radius-20 align-items-center justify-content-center p-1 transform-btn pointer">
-                <button className="btn form-control text-white">
+                <button className="btn form-control text-white" type="button" onClick={facebookRegister}>
                   facebook
                 </button>
                 <BiLogoFacebook className=" fs-1   text-white" />
               </div>
 
               <div className="col-5 d-flex white-bg p-1 border-radius-20 align-items-center justify-content-center transform-btn pointer">
-                <button className="btn form-control">Google</button>
+                <button className="btn form-control" type="button" onClick={googleRegister}>
+                  Google
+                </button>
                 <img src={gIcon.src} className="" alt="" />
               </div>
             </div>
