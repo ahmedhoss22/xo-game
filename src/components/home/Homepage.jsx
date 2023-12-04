@@ -56,7 +56,7 @@ const Homepage = () => {
             onClick={scrollRight}
           />
         </div> */}
-        <div className=" d-flex horizontal-scroll-container mb-4   high-z-index">
+        <div className="  d-flex horizontal-scroll-container mb-4   high-z-index">
           <div className="col-lg-5  wallet-layer gy-4">
             <div className="wallet d-flex  w-75 m-auto align-items-center justify-content-around text-white fw-bold rtl">
               <img src={playNowPhoto.src} className="w-50" alt="" />

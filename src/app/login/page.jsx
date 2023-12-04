@@ -9,10 +9,22 @@ import Link from "next/link";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import ChooseLanguage from "@/components/chooseLanguage/Chooselanguage";
+import Api from "@/config/api";
+import { notifyError, notifySuccess } from "@/components/toastify/toastify";
 
 const login = () => {
+  
   function handleLogin(values) {
-    console.log(values);
+    Api.post("/auth/login",values)
+    .then(()=>{
+      notifySuccess("Welconme !!")
+      router.push("/")
+  })
+  .catch((err)=>{
+    let errMsg = err?.response?.data?.message
+    notifyError(Array.isArray(errMsg)? errMsg[0]:errMsg )
+    console.log(err);
+  })
   }
 
   let validationSchema = Yup.object({

@@ -6,12 +6,43 @@ import money from "../../assets/photos/money-bag.png";
 import ticket from "../../assets/photos/Ticket.png";
 import xo from "../../assets/photos/xo.png";
 import vs from "../../assets/photos/VS.png";
-// import useSound from "use-sound";
-// import useSound from "use-sound";
-// import clickSound from '../../assets/sound/s.mp3'
-const playground = () => {
+import { useEffect, useState } from "react";
+import socket from "@/config/socket";
+import { notifyError } from "@/components/toastify/toastify";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchUserData } from "@/redux/slices/user";
 
-  // const [play] =useSound(clickSound)
+const playground = () => {
+  const [data, setData] = useState({});
+  const user = useSelector((state) => state.user.data);
+  const dispatch = useDispatch();
+  const apiUrl = process.env.NEXT_PUBLIC_API_SERVER;
+  useEffect(() => {
+    socket.on("matched", (data) => {
+      console.log("Game started");
+    });
+    socket.on("winner", (data) => {
+      console.log("You win !!");
+    });
+    socket.on("loser", (data) => {
+      console.log("You lose !!");
+    });
+    socket.on("player2-move", (data) => {
+      console.log("Player moved !!");
+    });
+    socket.on("error", (data) => {
+      console.log("You lose !!");
+      notifyError(data?.message);
+    });
+    dispatch(fetchUserData());
+
+    return () => {
+      socket.off("matched");
+      socket.off("winner");
+      socket.off("loser");
+      socket.off("error");
+    };
+  }, []);
 
   return (
     <>
@@ -20,15 +51,23 @@ const playground = () => {
         <div className="container">
           <header className="d-flex justify-content-between pt-3">
             <FaArrowLeft className="text-white pointer h-5" />
-            <div className="user white-container">
-              <img src={userImage.src} className="userImage" alt="" />
-              <h5 className="text-white mt-1 ">User Name</h5>
+            <div
+              className="user white-container"
+              style={{ justifyContent: "space-between" }}
+            >
+              <img
+                src={apiUrl + user.image}
+                className="userImage img rounded-circle"
+                style={{ width: "40px" }}
+                alt="user"
+              />
+              <h5 className="text-white mt-1 ">{user.name}</h5>
             </div>
           </header>
           <div className="prizes d-flex col-12 justify-content-center pt-3 ">
             <div className="prize1 white-container">
               <img src={money.src} className="money" alt="money" />
-              <h5>1000</h5>
+              <h5>{user.coins}</h5>
             </div>
             <div className="prize2 white-container">
               <img src={ticket.src} className="ticket mb-3" alt="ticket" />
@@ -42,7 +81,7 @@ const playground = () => {
 
           <div className="players  d-flex col-12 justify-content-center pt-3">
             <div className="player1">
-              <img src={userImage.src} className="userImage" alt="" />
+              <img src={apiUrl + user.image} className="userImage" alt="" style={{width:"30px"}} />
               <h2 className="o-player fw-bold">O</h2>
               <h5>1اللاعب الاول</h5>
             </div>

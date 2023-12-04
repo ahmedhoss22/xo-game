@@ -97,10 +97,15 @@ a {
  
   }
   .transform-btn:hover {
-    --shadow-y: 8px;
+    /* --shadow-y: 8px; */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transform: translateY(-2px);
   }
   .transform-btn:active {
     transform: translateY(2px);
     --shadow-y: 4px;
+  }
+
+  body{
+    max-height: 100vh !important;
   }
