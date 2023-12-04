@@ -9,7 +9,7 @@ import Link from "next/link";
 
 const Footer = () => {
   return (
-    <footer className="footer d-flex align-items-center justify-content-between fixed-bottom rtl ">
+    <footer className="footer d-flex align-items-center justify-content-between  rtl ">
       <Link href={"/user"}>
        
         <img src={userIcon.src} alt="user" className="pointer" />
