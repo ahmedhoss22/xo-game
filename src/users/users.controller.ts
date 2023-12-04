@@ -20,8 +20,10 @@ export class UserController {
 
   @Get('/user')
   @UseGuards(AuthGuard)
-  async getUser(@Body() data: any): Promise<Users> {
-    const user: Users = await this.userService.getUser(data._id);
+  async getUser(@Req() data: any): Promise<Users> {
+    console.log(data.user);
+    
+    const user: Users = await this.userService.getUser(data?.user?._id);
     return user;
   }
 

@@ -10,6 +10,8 @@ export class AuthController{
 
     @Post("/register")
     register(@Body() data :RegisterDto){
+        console.log(data);
+        
         return this.authService.register(data)
     }
 
@@ -17,8 +19,6 @@ export class AuthController{
     adminRegister(@Body() data :RegisterDto){
         return this.authService.register(data,true)
     }
-
-  
 
     @Post("/login")
     async login(@Body() data:LoginDto , @Response() res :ExpressResponse , @Req() request: Request){

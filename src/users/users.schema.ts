@@ -14,6 +14,7 @@ export class Users {
 
   @Prop({
     trim: true,
+    default:"/default.png"
   })
   image: string;
 
@@ -54,6 +55,21 @@ export class Users {
     default:0
   })
   coins: number;
+
+  @Prop({
+    trim:true
+  })
+  country: string;
+
+  @Prop({
+    default:0
+  })
+  winning: number;
+
+  @Prop({
+    default:0
+  })
+  level: number;
 }
 
 export const UsersSchema = SchemaFactory.createForClass(Users);

@@ -21,8 +21,8 @@ export class RegisterDto {
    @Length(2, 20)
    readonly name: String;
 
-   @IsString()
-   @IsNotEmpty()
-   @Length(2,20)
+   // @IsString()
+   // @IsNotEmpty()
+   // @Length(2,20)
    readonly country:String;
 }
