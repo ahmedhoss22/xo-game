@@ -40,7 +40,7 @@ const Homepage = () => {
           </div>
         </header>
         <div className="rtl  col-11 ms-4 mb-1 ">
-          <div className="user   white-container">
+          <div className="    white-container">
             <h5 className="text-white mt-1 ">User Name</h5>{" "}
             <img src={userImage.src} className="userImage" alt="" />
           </div>
