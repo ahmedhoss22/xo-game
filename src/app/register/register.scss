@@ -39,6 +39,10 @@
   content: '';
   height: 1px;
   background: white !important;
-  // display: block;
-  
+  // display: block;  
+}
+.facebook-btn:focus , .google-btn:focus{
+  box-shadow: none !important;
+  outline: 0 !important;
+  border-color: transparent !important;
 }

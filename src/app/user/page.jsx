@@ -22,7 +22,7 @@ const user = () => {
     return () => {};
   }, []);
 
-  const apiUrl = process.env.NEXT_PUBLIC_API_SERVER
+  // const apiUrl = process.env.NEXT_PUBLIC_API_SERVER
 
   return (
     <div className=" user ">
@@ -44,7 +44,7 @@ const user = () => {
           </div>
         </div>
 <div className="user-info rtl    d-flex  align-items-center mb-2 mt-10  ">
-<img src={apiUrl+user.image} className="" alt="user" />
+<img src={user.image} className="" alt="user" />
           <h2 className="text-white ms-4">{user.name}</h2>
         </div>
                 <div className="user-score rtl mb-4  d-flex text-white justify-content-between text-center">

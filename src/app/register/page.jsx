@@ -27,7 +27,6 @@ const register = () => {
       notifyError(Array.isArray(errMsg)? errMsg[0]:errMsg )
       console.log(err);
     })
-    console.log(values);
   }
 
   let validationSchema = Yup.object({
@@ -167,15 +166,15 @@ const register = () => {
               </p>
             </div>
             <div className="col-12 d-flex  mb-10 justify-content-between ">
-              <div className="col-5 d-flex blue-bg   border-radius-20 align-items-center justify-content-center p-1 transform-btn pointer">
-                <button className="btn form-control text-white" type="button" onClick={facebookRegister}>
+              <div onClick={facebookRegister} className="col-5 d-flex blue-bg   border-radius-20 align-items-center justify-content-center p-1 transform-btn pointer">
+                <button className="btn form-control text-white facebook-btn" type="button" >
                   facebook
                 </button>
                 <BiLogoFacebook className=" fs-1   text-white" />
               </div>
 
-              <div className="col-5 d-flex white-bg p-1 border-radius-20 align-items-center justify-content-center transform-btn pointer">
-                <button className="btn form-control" type="button" onClick={googleRegister}>
+              <div onClick={googleRegister} className="col-5 d-flex white-bg p-1 border-radius-20 align-items-center justify-content-center transform-btn pointer">
+                <button className="btn form-control google-btn" type="button" >
                   Google
                 </button>
                 <img src={gIcon.src} className="" alt="" />

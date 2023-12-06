@@ -21,7 +21,7 @@ const Footer = () => {
       </Link>
       <Link href={""}>
        
-        <img src={startIcon.src} alt="start" className="pointer" />
+        {/* <img src={startIcon.src} alt="start" className="pointer" /> */}
       </Link>
       <Link href={""}>
        
