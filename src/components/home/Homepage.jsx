@@ -12,11 +12,12 @@ import playNowPhoto from "../../assets/photos/playNow-photo.png";
 import playWithPhoto from "../../assets/photos/playWith-photo.png";
 import shareGamePhoto from "../../assets/photos/shareGame-photo.png";
 import addFriendPhoto from "../../assets/photos/addFriend-photo.png";
-import xIcon from "../../assets/photos/X.png";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { fetchUserData } from "@/redux/slices/user";
 import { useRouter } from "next/navigation";
+import xIcon from '../../assets/photos/X.png'
+import Link from "next/link";
 
 const scrollLeft = () => {
   document.getElementById("content").scrollLeft += 800;
@@ -66,17 +67,6 @@ const Homepage = () => {
             />
           </div>
         </div>
-
-        {/* <div className="col d-flex  ">
-          <IoIosArrowForward 
-            className="text-end    m-3 fs-2  "
-            onClick={scrollLeft}
-          />
-          <IoIosArrowForward 
-            className="text-end fa-solid fa-circle-chevron-left main-color fa-xl hover-color icon m-3 fs-2  "
-            onClick={scrollRight}
-          />
-        </div> */}
         <div className="  d-flex horizontal-scroll-container mb-4   high-z-index">
           <div
             className="col-lg-5  wallet-layer gy-4 pointer"
