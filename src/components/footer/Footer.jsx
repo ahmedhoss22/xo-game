@@ -1,4 +1,5 @@
 "use client";
+
 import "./footer.scss";
 import homeIcon from "../../assets/photos/home-page.png";
 import leaderIcon from "../../assets/photos/leader-board.png";
