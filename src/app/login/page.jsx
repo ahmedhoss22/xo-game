@@ -60,7 +60,7 @@ const login = () => {
               ) : null}
               <div className="input-with-icon">
                 <input
-                  className="form-control input-color"
+                  className="form-control input-color ltr"
                   type="text"
                   name="email"
                   id="email"
@@ -81,8 +81,8 @@ const login = () => {
               ) : null}
               <div className="input-with-icon ">
                 <input
-                  className="form-control input-color"
-                  type="text"
+                  className="form-control input-color ltr"
+                  type="password"
                   name="password"
                   id="password"
                   value={formik.values.password}

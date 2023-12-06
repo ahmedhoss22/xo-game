@@ -19,6 +19,10 @@
    direction: rtl; 
    text-align: right; 
 }
+.ltr {
+  direction: ltr; 
+  text-align: left; 
+}
 
 a {
   text-decoration: none;

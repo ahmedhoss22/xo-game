@@ -48,7 +48,7 @@ const Homepage = () => {
         </div>
         <div className="  d-flex horizontal-scroll-container mb-4   high-z-index">
         
-          <div className="col-lg-5  home-page-main-container-layer gy-4">
+          <Link href={'/playground'} className="col-lg-5 text-decoration-none home-page-main-container-layer gy-4">
             <div className="home-page-main-container d-flex  w-75 m-auto align-items-center justify-content-around text-white fw-bold rtl">
               <img src={playNowPhoto.src} className="w-50" alt="" />
               <div>
@@ -56,9 +56,9 @@ const Homepage = () => {
                 <IoIosArrowForward  className=" pointer h-5 " />
               </div>
             </div>
-          </div>
+          </Link>
 
-          <div className="col-lg-5  home-page-main-container-layer gy-4">
+          <Link href={'/playground'} className="col-lg-5 text-decoration-none home-page-main-container-layer gy-4">
             <div className="home-page-main-container d-flex  w-75 m-auto align-items-center justify-content-around text-white fw-bold rtl">
               <img src={playWithPhoto.src} alt="" />
               <div>
@@ -66,7 +66,7 @@ const Homepage = () => {
                 <IoIosArrowForward  className=" pointer h-5 " />
               </div>
             </div>
-          </div>  
+          </Link>  
           <Link href='/wallet' className="col-lg-5 text-decoration-none home-page-main-container-layer gy-4">
             <div className="home-page-main-container d-flex  w-75 m-auto align-items-center justify-content-around text-white fw-bold rtl">
               <img src={walletPhoto.src} alt="" />
