@@ -13,6 +13,7 @@ import playWithPhoto from "../../assets/photos/playWith-photo.png";
 import shareGamePhoto from "../../assets/photos/shareGame-photo.png";
 import addFriendPhoto from "../../assets/photos/addFriend-photo.png";
 import xIcon from '../../assets/photos/X.png'
+import Link from "next/link";
 
 const scrollLeft = () => {
   document.getElementById("content").scrollLeft += 800;
@@ -45,50 +46,40 @@ const Homepage = () => {
             <img src={userImage.src} className="userImage" alt="" />
           </div>
         </div>
-
-        {/* <div className="col d-flex  ">
-          <IoIosArrowForward 
-            className="text-end    m-3 fs-2  "
-            onClick={scrollLeft}
-          />
-          <IoIosArrowForward 
-            className="text-end fa-solid fa-circle-chevron-left main-color fa-xl hover-color icon m-3 fs-2  "
-            onClick={scrollRight}
-          />
-        </div> */}
         <div className="  d-flex horizontal-scroll-container mb-4   high-z-index">
-          <div className="col-lg-5  wallet-layer gy-4">
-            <div className="wallet d-flex  w-75 m-auto align-items-center justify-content-around text-white fw-bold rtl">
+        
+          <div className="col-lg-5  home-page-main-container-layer gy-4">
+            <div className="home-page-main-container d-flex  w-75 m-auto align-items-center justify-content-around text-white fw-bold rtl">
               <img src={playNowPhoto.src} className="w-50" alt="" />
               <div>
-                <h2 className="fw-bold">محفظتي</h2>
+                <h2 className="fw-bold">ألعب الان </h2>
                 <IoIosArrowForward  className=" pointer h-5 " />
               </div>
             </div>
           </div>
 
-          <div className="col-lg-5  wallet-layer gy-4">
-            <div className="wallet d-flex  w-75 m-auto align-items-center justify-content-around text-white fw-bold rtl">
+          <div className="col-lg-5  home-page-main-container-layer gy-4">
+            <div className="home-page-main-container d-flex  w-75 m-auto align-items-center justify-content-around text-white fw-bold rtl">
               <img src={playWithPhoto.src} alt="" />
               <div>
-                <h2 className="fw-bold">محفظتي</h2>
+                <h2 className="fw-bold">ألعب مع صديق</h2>
                 <IoIosArrowForward  className=" pointer h-5 " />
               </div>
             </div>
-          </div>
-          <div className="col-lg-5  wallet-layer gy-4">
-            <div className="wallet d-flex  w-75 m-auto align-items-center justify-content-around text-white fw-bold rtl">
+          </div>  
+          <Link href='/wallet' className="col-lg-5 text-decoration-none home-page-main-container-layer gy-4">
+            <div className="home-page-main-container d-flex  w-75 m-auto align-items-center justify-content-around text-white fw-bold rtl">
               <img src={walletPhoto.src} alt="" />
               <div>
                 <h2 className="fw-bold">محفظتي</h2>
                 <IoIosArrowForward  className=" pointer h-5 " />
               </div>
             </div>
-          </div>
+          </Link>
         </div>
         <div className="row d-flex high-z-index ">
-          <div className="col-lg-6  wallet-layer gy-1">
-            <div className="wallet d-flex  w-75 m-auto align-items-center justify-content-around text-white fw-bold rtl">
+          <div className="col-lg-6  home-page-main-container-layer gy-1">
+            <div className="home-page-main-container d-flex  w-75 m-auto align-items-center justify-content-around text-white fw-bold rtl">
               <img src={walletPhoto.src} alt="" />
               <div>
                 <h2 className="fw-bold">محفظتي</h2>
@@ -97,11 +88,11 @@ const Homepage = () => {
             </div>
           </div>
 
-          <div className="col-lg-6  wallet-layer gy-1">
-            <div className="wallet d-flex  w-75 m-auto align-items-center justify-content-around text-white fw-bold rtl">
+          <div className="col-lg-6  home-page-main-container-layer gy-1">
+            <div className="home-page-main-container d-flex  w-75 m-auto align-items-center justify-content-around text-white fw-bold rtl">
               <img src={shareGamePhoto.src} alt="" />
               <div>
-                <h2 className="fw-bold">محفظتي</h2>
+                <h2 className="fw-bold">شارك اللعبة</h2>
                 <IoIosArrowForward  className=" pointer h-5 " />
               </div>
             </div>
