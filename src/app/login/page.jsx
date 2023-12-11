@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import "./login.scss";
 import emailIcon from "../../assets/photos/email-icon.png";
 import passwordIcon from "../../assets/photos/password-icon.png";
@@ -13,18 +13,17 @@ import Api from "@/config/api";
 import { notifyError, notifySuccess } from "@/components/toastify/toastify";
 
 const login = () => {
-  
   function handleLogin(values) {
-    Api.post("/auth/login",values)
-    .then(()=>{
-      notifySuccess("Welconme !!")
-      router.push("/")
-  })
-  .catch((err)=>{
-    let errMsg = err?.response?.data?.message
-    notifyError(Array.isArray(errMsg)? errMsg[0]:errMsg )
-    console.log(err);
-  })
+    Api.post("/auth/login", values)
+      .then(() => {
+        notifySuccess("Welconme !!");
+        router.push("/");
+      })
+      .catch((err) => {
+        let errMsg = err?.response?.data?.message;
+        notifyError(Array.isArray(errMsg) ? errMsg[0] : errMsg);
+        console.log(err);
+      });
   }
 
   let validationSchema = Yup.object({
@@ -37,16 +36,24 @@ const login = () => {
       email: "",
       password: "",
     },
-    validationSchema,
+    // validationSchema,
     onSubmit: handleLogin,
   });
 
+  function googleRegister() {
+    location.href =
+      process.env.NEXT_PUBLIC_API_SERVER + "/api/auth/google/login";
+  }
+  function facebookRegister() {
+    location.href =
+      process.env.NEXT_PUBLIC_API_SERVER + "/api/auth/facebook/login";
+  }
+
   return (
     <div className="login-bg">
-<div className="col-lg-2 col-7  mb-10">
-           <ChooseLanguage />
-
-          </div>
+      <div className="col-lg-2 col-7  mb-10">
+        <ChooseLanguage />
+      </div>
       <div className="login m-2 ">
         <form
           className="  col-lg-3 col-md-6  col-11 form-shape shadow"
@@ -60,7 +67,7 @@ const login = () => {
               ) : null}
               <div className="input-with-icon">
                 <input
-                  className="form-control input-color ltr"
+                  className="form-control input-color "
                   type="text"
                   name="email"
                   id="email"
@@ -81,7 +88,7 @@ const login = () => {
               ) : null}
               <div className="input-with-icon ">
                 <input
-                  className="form-control input-color ltr"
+                  className="form-control input-color "
                   type="password"
                   name="password"
                   id="password"
@@ -104,23 +111,25 @@ const login = () => {
             </div>
             <div className="col-12  ">
               <p className="text-center  text-white mt-4 mb-4 middle-line ">
-                
-                 أنشأ 
-                 {/* حسابك عن طريق  */}
+                أنشأ
+                {/* حسابك عن طريق  */}
               </p>
-               
-
             </div>
             <div className="col-12 d-flex  mb-20 justify-content-between ">
-              <div className="col-5 d-flex blue-bg   border-radius-20 align-items-center justify-content-center p-1 transform-btn pointer">
-                <button className="btn form-control text-white">
+              <div onClick={facebookRegister} className="col-5 d-flex blue-bg   border-radius-20 align-items-center justify-content-center p-1 transform-btn pointer ">
+                <button
+                  className="btn form-control text-white facebook-btn"
+                  type="button"
+                >
                   facebook
                 </button>
                 <BiLogoFacebook className=" fs-1   text-white" />
               </div>
 
-              <div className="col-5 d-flex white-bg p-1 border-radius-20 align-items-center justify-content-center transform-btn pointer">
-                <button className="btn form-control">Google</button>
+              <div onClick={googleRegister} className="col-5 d-flex white-bg p-1 border-radius-20 align-items-center justify-content-center transform-btn pointer ">
+                <button className="btn form-control google-btn" type="button">
+                  Google
+                </button>
                 <img src={gIcon.src} className="" alt="" />
               </div>
             </div>

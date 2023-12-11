@@ -47,7 +47,6 @@ const playground = () => {
   return (
     <>
       <div className="playground">
-
         <div className="container">
           <header className="d-flex justify-content-between pt-3">
             <FaArrowLeft className="text-white pointer h-5" />
@@ -56,7 +55,9 @@ const playground = () => {
               style={{ justifyContent: "space-between" }}
             >
               <img
-                src={apiUrl + user.image}
+                src={
+                  user.provider == "local" ? apiUrl + user.image : user.image
+                }
                 className="userImage img rounded-circle"
                 style={{ width: "40px" }}
                 alt="user"
@@ -81,7 +82,12 @@ const playground = () => {
 
           <div className="players  d-flex col-12 justify-content-center pt-3">
             <div className="player1">
-              <img src={apiUrl + user.image} className="userImage" alt="" style={{width:"30px"}} />
+              <img
+                src={apiUrl + user.image}
+                className="userImage"
+                alt=""
+                style={{ width: "30px" }}
+              />
               <h2 className="o-player fw-bold">O</h2>
               <h5>1اللاعب الاول</h5>
             </div>
@@ -100,103 +106,98 @@ const playground = () => {
             <div className="big-box ">
               <div className="row ">
                 <div className="d-flex m-1 ">
-                  <div className="box1 col-3 mt-1 mb-1" >
-                  <h2 className="text-center  "> X</h2>
+                  <div className="box1 col-3 mt-1 mb-1">
+                    <h2 className="text-center  "> X</h2>
+                  </div>
+                  <div className="box1 col-3 m-1">
+                    <h2 className="text-center fw-bold "> X</h2>
+                  </div>
+                  <div className="box1 col-3 m-1">
+                    <h2 className="text-center fw-bold "> X</h2>
+                  </div>
+                  <div className="box1 col-3 m-1 ">
+                    <h2 className="text-center fw-bold "> X</h2>
+                  </div>
+                  <div className="box1 col-3 m-1">
+                    <h2 className="text-center fw-bold "> X</h2>
+                  </div>
                 </div>
-                <div className="box1 col-3 m-1">
-                  <h2 className="text-center fw-bold "> X</h2>
-                </div>
-                <div className="box1 col-3 m-1">
-                  <h2 className="text-center fw-bold "> X</h2>
-                </div>
-                <div className="box1 col-3 m-1 ">
-                  <h2 className="text-center fw-bold "> X</h2>
-                </div>
-                <div className="box1 col-3 m-1">
-                  <h2 className="text-center fw-bold "> X</h2>
-                </div>
-                </div>
-                
               </div>
               <div className="row ">
                 <div className="d-flex m-1">
                   <div className="box1 col-3 mt-1 mb-1">
-                  <h2 className="text-center  fw-bold "> X</h2>
+                    <h2 className="text-center  fw-bold "> X</h2>
+                  </div>
+                  <div className="box1 col-3 m-1">
+                    <h2 className="text-center fw-bold "> X</h2>
+                  </div>
+                  <div className="box1 col-3 m-1">
+                    <h2 className="text-center fw-bold "> X</h2>
+                  </div>
+                  <div className="box1 col-3 m-1 ">
+                    <h2 className="text-center fw-bold "> X</h2>
+                  </div>
+                  <div className="box1 col-3 m-1">
+                    <h2 className="text-center fw-bold "> X</h2>
+                  </div>
                 </div>
-                <div className="box1 col-3 m-1">
-                  <h2 className="text-center fw-bold "> X</h2>
-                </div>
-                <div className="box1 col-3 m-1">
-                  <h2 className="text-center fw-bold "> X</h2>
-                </div>
-                <div className="box1 col-3 m-1 ">
-                  <h2 className="text-center fw-bold "> X</h2>
-                </div>
-                <div className="box1 col-3 m-1">
-                  <h2 className="text-center fw-bold "> X</h2>
-                </div>
-                </div>
-                
               </div>
               <div className="row ">
                 <div className="d-flex m-1">
                   <div className="box1 col-3 mt-1 mb-1">
-                  <h2 className="text-center  fw-bold "> X</h2>
+                    <h2 className="text-center  fw-bold "> X</h2>
+                  </div>
+                  <div className="box1 col-3 m-1">
+                    <h2 className="text-center fw-bold "> X</h2>
+                  </div>
+                  <div className="box1 col-3 m-1">
+                    <h2 className="text-center fw-bold "> X</h2>
+                  </div>
+                  <div className="box1 col-3 m-1 ">
+                    <h2 className="text-center fw-bold "> X</h2>
+                  </div>
+                  <div className="box1 col-3 m-1">
+                    <h2 className="text-center fw-bold "> X</h2>
+                  </div>
                 </div>
-                <div className="box1 col-3 m-1">
-                  <h2 className="text-center fw-bold "> X</h2>
-                </div>
-                <div className="box1 col-3 m-1">
-                  <h2 className="text-center fw-bold "> X</h2>
-                </div>
-                <div className="box1 col-3 m-1 ">
-                  <h2 className="text-center fw-bold "> X</h2>
-                </div>
-                <div className="box1 col-3 m-1">
-                  <h2 className="text-center fw-bold "> X</h2>
-                </div>
-                </div>
-                
               </div>
               <div className="row ">
                 <div className="d-flex m-1">
                   <div className="box1 col-3 mt-1 mb-1">
-                  <h2 className="text-center  fw-bold "> X</h2>
+                    <h2 className="text-center  fw-bold "> X</h2>
+                  </div>
+                  <div className="box1 col-3 m-1">
+                    <h2 className="text-center fw-bold "> X</h2>
+                  </div>
+                  <div className="box1 col-3 m-1">
+                    <h2 className="text-center fw-bold "> X</h2>
+                  </div>
+                  <div className="box1 col-3 m-1 ">
+                    <h2 className="text-center fw-bold "> X</h2>
+                  </div>
+                  <div className="box1 col-3 m-1">
+                    <h2 className="text-center fw-bold "> X</h2>
+                  </div>
                 </div>
-                <div className="box1 col-3 m-1">
-                  <h2 className="text-center fw-bold "> X</h2>
-                </div>
-                <div className="box1 col-3 m-1">
-                  <h2 className="text-center fw-bold "> X</h2>
-                </div>
-                <div className="box1 col-3 m-1 ">
-                  <h2 className="text-center fw-bold "> X</h2>
-                </div>
-                <div className="box1 col-3 m-1">
-                  <h2 className="text-center fw-bold "> X</h2>
-                </div>
-                </div>
-                
               </div>
               <div className="row ">
                 <div className="d-flex m-1">
                   <div className="box1 col-3 mt-1 mb-1">
-                  <h2 className="text-center  fw-bold "> X</h2>
+                    <h2 className="text-center  fw-bold "> X</h2>
+                  </div>
+                  <div className="box1 col-3 m-1">
+                    <h2 className="text-center fw-bold "> X</h2>
+                  </div>
+                  <div className="box1 col-3 m-1">
+                    <h2 className="text-center fw-bold "> X</h2>
+                  </div>
+                  <div className="box1 col-3 m-1 ">
+                    <h2 className="text-center fw-bold "> X</h2>
+                  </div>
+                  <div className="box1 col-3 m-1">
+                    <h2 className="text-center fw-bold "> X</h2>
+                  </div>
                 </div>
-                <div className="box1 col-3 m-1">
-                  <h2 className="text-center fw-bold "> X</h2>
-                </div>
-                <div className="box1 col-3 m-1">
-                  <h2 className="text-center fw-bold "> X</h2>
-                </div>
-                <div className="box1 col-3 m-1 ">
-                  <h2 className="text-center fw-bold "> X</h2>
-                </div>
-                <div className="box1 col-3 m-1">
-                  <h2 className="text-center fw-bold "> X</h2>
-                </div>
-                </div>
-                
               </div>
             </div>
           </div>

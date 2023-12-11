@@ -1,7 +1,9 @@
 "use client";
+
 import "./footer.scss";
 import homeIcon from "../../assets/photos/home-page.png";
 import leaderIcon from "../../assets/photos/leader-board.png";
+import firstPlace from "../../assets/photos/first-place.png";
 import startIcon from "../../assets/photos/start.png";
 import cardIcon from "../../assets/photos/shopCard.png";
 import userIcon from "../../assets/photos/girl-icon.png";
@@ -23,8 +25,13 @@ const Footer = () => {
         <img src={startIcon.src} alt="start" className="pointer" />
       </Link>
       <Link href={""}>
-       
+        <div className="d-flex flex-columns">
+
+        {/* <img src={firstPlace.src} alt="leader" className="pointer" /> */}
         <img src={leaderIcon.src} alt="leader" className="pointer" />
+
+        </div>
+       
       </Link>
       <Link href={"/"}>
        

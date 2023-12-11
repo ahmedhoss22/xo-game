@@ -40,7 +40,7 @@ const changeBg = () => {
         <div className="row">
           <div className="col-lg-6 rtl gy-4 mb-4">
             <div className="change-title">
-              <h3 className=" text-white   "> الخلفية</h3>
+              <h3 className=" text-white"> الخلفية</h3>
             </div>
             <div className="main-bg d-flex align-items-center justify-content-center gap-5">
               <FaArrowLeft className="text-white pointer h-5" />

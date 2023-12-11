@@ -1,0 +1,10 @@
+.loading-page {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 100;
+    backdrop-filter: blur(20px); 
+    background-color: rgba(255, 255, 255, 0.8); 
+}

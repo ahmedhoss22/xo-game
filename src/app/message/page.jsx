@@ -4,7 +4,8 @@ import { FaUserAlt } from "react-icons/fa";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import Footer from "@/components/footer/Footer";
-import robot from "../../assets/photos/chatgpt.png";
+// import robot from "../../assets/photos/chatgpt.png";
+import robot from "../../assets/photos/chatgpt.png"
 import localFont from 'next/font/local';
 
 const myFont = localFont({ src: '../../assets/fonts/Pacifico-Regular.ttf' });
