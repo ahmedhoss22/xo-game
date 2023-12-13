@@ -5,6 +5,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { PaypalModule } from './paypal/paypal.module';
 import * as dotenv from 'dotenv';
 import { GatwayModule } from './gatway/gatway.module';
+import { LevelModule } from './level/level.module';
 
 @Module({
   imports: [
@@ -13,6 +14,8 @@ import { GatwayModule } from './gatway/gatway.module';
     PaypalModule,
     MongooseModule.forRoot('mongodb://127.0.0.1:27017/xo-game'),
     GatwayModule,
+    LevelModule,
+    
   ],
   providers: [Logger],
 })
