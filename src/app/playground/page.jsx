@@ -54,7 +54,6 @@ const playground = () => {
     )
   );
 
-console.log(grid);
   return (
     <>
       <div className="playground">
@@ -113,7 +112,12 @@ console.log(grid);
                   <div className="d-flex m-1">
                     {row.map((content, colIndex) => (
                       <div key={colIndex} className="box1 col-3 m-1">
-                        <h2 className="text-center fw-bold " style={{color:"#fff"}}>{content}</h2>
+                        <h2
+                          className="text-center fw-bold "
+                          style={{ color: "#fff" }}
+                        >
+                          {content}
+                        </h2>
                       </div>
                     ))}
                   </div>

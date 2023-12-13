@@ -15,16 +15,16 @@
     top: 65px;
     font-size: 30px;
     font-weight: bold;
+    margin-right: 26px;
   }
-}
 
-/* Media query for small screens */
+ 
 @media only screen and (max-width: 600px) {
   .title {
     .title-text {
-      font-size: 25px; /* Adjust the font size for small screens */
-      // top: 50px; /* Adjust the top position for small screens */
-    }
+      font-size: 25px;
+      margin-right: 43px;
+        }
   }
 }
 
@@ -38,4 +38,5 @@
 
 .purple-color {
   color: #9d3a9b !important;
+}
 }

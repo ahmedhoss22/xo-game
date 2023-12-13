@@ -29,7 +29,7 @@ const user = () => {
       <div className="container ">
         <div className="row d-flex justify-content-between pt-4">
           <div className="col-1" onClick={()=>router.push("/")}>
-            <FaArrowLeft className="text-white pointer h-5 arrow" />
+            <FaArrowLeft className="text-white pointer h-5 arrow mt-10" />
           </div>
 
           <div className="col-6">
