@@ -16,7 +16,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { fetchUserData } from "@/redux/slices/user";
 import { useRouter } from "next/navigation";
-import xIcon from '../../assets/photos/X.png'
+import xIcon from "../../assets/photos/X.png";
 import Link from "next/link";
 
 const scrollLeft = () => {
@@ -27,14 +27,19 @@ const scrollRight = () => {
 };
 const Homepage = () => {
   const user = useSelector((state) => state.user.data);
+  const online = useSelector((state) => state.user.online);
   const apiUrl = process.env.NEXT_PUBLIC_API_SERVER;
 
   const router = useRouter();
   const dispatch = useDispatch();
-  console.log(user);
 
   useEffect(() => {
     dispatch(fetchUserData());
+    if (!online) {
+      router.push("/login");
+    } else {
+      router.push("/");
+    }
   }, []);
 
   return (
@@ -81,7 +86,10 @@ const Homepage = () => {
             </div>
           </div>
 
-          <div className="col-lg-5  wallet-layer gy-4 pointer" onClick={() => router.push("/playground")}>
+          <div
+            className="col-lg-5  wallet-layer gy-4 pointer"
+            onClick={() => router.push("/playground")}
+          >
             <div className="wallet d-flex  w-75 m-auto align-items-center justify-content-around text-white fw-bold rtl">
               <img src={playWithPhoto.src} alt="" />
               <div>
@@ -103,7 +111,10 @@ const Homepage = () => {
             </div>
           </div> */}
         </div>
-        <div className="row d-flex high-z-index pointer" onClick={() => router.push("/playground")}>
+        <div
+          className="row d-flex high-z-index pointer"
+          onClick={() => router.push("/playground")}
+        >
           <div className="col-lg-6  wallet-layer gy-1">
             <div className="wallet d-flex  w-75 m-auto align-items-center justify-content-around text-white fw-bold rtl">
               <img src={walletPhoto.src} alt="" />
@@ -114,7 +125,10 @@ const Homepage = () => {
             </div>
           </div>
 
-          <div className="col-lg-6  wallet-layer gy-1" onClick={() => router.push("/")}>
+          <div
+            className="col-lg-6  wallet-layer gy-1"
+            onClick={() => router.push("/")}
+          >
             <div className="wallet d-flex  w-75 m-auto align-items-center justify-content-around text-white fw-bold rtl">
               <img src={shareGamePhoto.src} alt="" />
               <div>

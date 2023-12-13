@@ -44,6 +44,17 @@ const playground = () => {
     };
   }, []);
 
+  const rows = 5;
+  const cols = 5;
+
+  // Create a 2D array to represent the grid with alternating content
+  const grid = Array.from({ length: rows }, (_, rowIndex) =>
+    Array.from({ length: cols }, (_, colIndex) =>
+      (rowIndex + colIndex) % 2 === 0 ? "X" : "Y"
+    )
+  );
+
+console.log(grid);
   return (
     <>
       <div className="playground">
@@ -62,31 +73,25 @@ const playground = () => {
                 style={{ width: "40px" }}
                 alt="user"
               />
-              <h5 className="text-white mt-1 ">{user.name}</h5>
+              <h5 className="text-white mt-1 username">{user.name}</h5>
             </div>
           </header>
           <div className="prizes d-flex col-12 justify-content-center pt-3 ">
-            <div className="prize1 white-container">
-              <img src={money.src} className="money" alt="money" />
-              <h5>{user.coins}</h5>
-            </div>
             <div className="prize2 white-container">
               <img src={ticket.src} className="ticket mb-3" alt="ticket" />
-              <h5>50</h5>
-            </div>
-            <div className="prize3 white-container">
-              <img src={xo.src} className="xo mb-3" alt="xo" />
-              <h5>10</h5>
+              <h5>{user.coins}</h5>
             </div>
           </div>
 
           <div className="players  d-flex col-12 justify-content-center pt-3">
             <div className="player1">
               <img
-                src={apiUrl + user.image}
+                src={
+                  user.provider == "local" ? apiUrl + user.image : user.image
+                }
                 className="userImage"
                 alt=""
-                style={{ width: "30px" }}
+                style={{ width: "30px", borderRadius: "50%" }}
               />
               <h2 className="o-player fw-bold">O</h2>
               <h5>1اللاعب الاول</h5>
@@ -101,104 +106,19 @@ const playground = () => {
               <h5>2اللاعب الثاني</h5>
             </div>
           </div>
-
-          <div className="d-flex  justify-content-center pt-3">
-            <div className="big-box ">
-              <div className="row ">
-                <div className="d-flex m-1 ">
-                  <div className="box1 col-3 mt-1 mb-1">
-                    <h2 className="text-center  "> X</h2>
-                  </div>
-                  <div className="box1 col-3 m-1">
-                    <h2 className="text-center fw-bold "> X</h2>
-                  </div>
-                  <div className="box1 col-3 m-1">
-                    <h2 className="text-center fw-bold "> X</h2>
-                  </div>
-                  <div className="box1 col-3 m-1 ">
-                    <h2 className="text-center fw-bold "> X</h2>
-                  </div>
-                  <div className="box1 col-3 m-1">
-                    <h2 className="text-center fw-bold "> X</h2>
+          <div className="d-flex justify-content-center pt-3">
+            <div className="big-box">
+              {grid.map((row, rowIndex) => (
+                <div key={rowIndex} className="row">
+                  <div className="d-flex m-1">
+                    {row.map((content, colIndex) => (
+                      <div key={colIndex} className="box1 col-3 m-1">
+                        <h2 className="text-center fw-bold " style={{color:"#fff"}}>{content}</h2>
+                      </div>
+                    ))}
                   </div>
                 </div>
-              </div>
-              <div className="row ">
-                <div className="d-flex m-1">
-                  <div className="box1 col-3 mt-1 mb-1">
-                    <h2 className="text-center  fw-bold "> X</h2>
-                  </div>
-                  <div className="box1 col-3 m-1">
-                    <h2 className="text-center fw-bold "> X</h2>
-                  </div>
-                  <div className="box1 col-3 m-1">
-                    <h2 className="text-center fw-bold "> X</h2>
-                  </div>
-                  <div className="box1 col-3 m-1 ">
-                    <h2 className="text-center fw-bold "> X</h2>
-                  </div>
-                  <div className="box1 col-3 m-1">
-                    <h2 className="text-center fw-bold "> X</h2>
-                  </div>
-                </div>
-              </div>
-              <div className="row ">
-                <div className="d-flex m-1">
-                  <div className="box1 col-3 mt-1 mb-1">
-                    <h2 className="text-center  fw-bold "> X</h2>
-                  </div>
-                  <div className="box1 col-3 m-1">
-                    <h2 className="text-center fw-bold "> X</h2>
-                  </div>
-                  <div className="box1 col-3 m-1">
-                    <h2 className="text-center fw-bold "> X</h2>
-                  </div>
-                  <div className="box1 col-3 m-1 ">
-                    <h2 className="text-center fw-bold "> X</h2>
-                  </div>
-                  <div className="box1 col-3 m-1">
-                    <h2 className="text-center fw-bold "> X</h2>
-                  </div>
-                </div>
-              </div>
-              <div className="row ">
-                <div className="d-flex m-1">
-                  <div className="box1 col-3 mt-1 mb-1">
-                    <h2 className="text-center  fw-bold "> X</h2>
-                  </div>
-                  <div className="box1 col-3 m-1">
-                    <h2 className="text-center fw-bold "> X</h2>
-                  </div>
-                  <div className="box1 col-3 m-1">
-                    <h2 className="text-center fw-bold "> X</h2>
-                  </div>
-                  <div className="box1 col-3 m-1 ">
-                    <h2 className="text-center fw-bold "> X</h2>
-                  </div>
-                  <div className="box1 col-3 m-1">
-                    <h2 className="text-center fw-bold "> X</h2>
-                  </div>
-                </div>
-              </div>
-              <div className="row ">
-                <div className="d-flex m-1">
-                  <div className="box1 col-3 mt-1 mb-1">
-                    <h2 className="text-center  fw-bold "> X</h2>
-                  </div>
-                  <div className="box1 col-3 m-1">
-                    <h2 className="text-center fw-bold "> X</h2>
-                  </div>
-                  <div className="box1 col-3 m-1">
-                    <h2 className="text-center fw-bold "> X</h2>
-                  </div>
-                  <div className="box1 col-3 m-1 ">
-                    <h2 className="text-center fw-bold "> X</h2>
-                  </div>
-                  <div className="box1 col-3 m-1">
-                    <h2 className="text-center fw-bold "> X</h2>
-                  </div>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
         </div>
