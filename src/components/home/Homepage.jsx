@@ -14,9 +14,25 @@ import addFriendPhoto from "../../assets/photos/addFriend-photo.png";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { fetchUserData } from "@/redux/slices/user";
-import { useRouter } from "next/navigation";
-import xIcon from '../../assets/photos/X.png'
-import Link from "next/link";
+import { useRouter } from "next/navigation"; 
+import { motion } from "framer-motion";
+
+const textVariants = {
+  initial: {
+    x: -500,
+    opacity: 0,
+  },
+  animate: {
+    x: 0,
+    opacity: 1,
+    transition: {
+      duration: 1,
+      staggerChildren: 0.1,
+    },
+  },
+ 
+};
+
 
 const scrollLeft = () => {
   document.getElementById("content").scrollLeft += 800;
@@ -45,10 +61,14 @@ const Homepage = () => {
             <img src={money.src} className="money" alt="money" />
             <h5>{user.coins}</h5>
           </div> */}
-          <div className="ticket-prize white-container justify-center">
-            <img src={ticket.src} className="ticket mb-3" alt="ticket" />
-            <h5>{user.coins}</h5>
-          </div>
+          <motion.div className="ticket-prize white-container justify-center"
+              variants={textVariants}
+              initial={"initial"}
+              animate={"animate"} 
+          >
+            <motion.img src={ticket.src} className="ticket mb-3" alt="ticket"   variants={textVariants} />
+            <motion.h5  variants={textVariants}>{user.coins}</motion.h5>
+          </motion.div>
           <div className="col-3">
             <Title />
           </div>
