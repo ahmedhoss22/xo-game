@@ -11,6 +11,9 @@ import * as Yup from "yup";
 import ChooseLanguage from "@/components/chooseLanguage/Chooselanguage";
 import Api from "@/config/api";
 import { notifyError, notifySuccess } from "@/components/toastify/toastify";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 const login = () => {
   function handleLogin(values) {
@@ -25,7 +28,11 @@ const login = () => {
         console.log(err);
       });
   }
-
+  const router = useRouter()
+  const online = useSelector((state)=>state.user.online)
+  useEffect(()=>{
+    if(online) router.push("/")
+  },[])
   let validationSchema = Yup.object({
     email: Yup.string().required("email is required").email(),
     password: Yup.string().required("Password is required"),

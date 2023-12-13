@@ -16,6 +16,7 @@ import { useEffect } from "react";
 import { fetchUserData } from "@/redux/slices/user";
 import { useRouter } from "next/navigation"; 
 import { motion } from "framer-motion";
+import { useRouter } from "next/navigation";
 
 const textVariants = {
   initial: {
@@ -32,7 +33,7 @@ const textVariants = {
   },
  
 };
-
+ 
 
 const scrollLeft = () => {
   document.getElementById("content").scrollLeft += 800;
@@ -42,14 +43,19 @@ const scrollRight = () => {
 };
 const Homepage = () => {
   const user = useSelector((state) => state.user.data);
+  const online = useSelector((state) => state.user.online);
   const apiUrl = process.env.NEXT_PUBLIC_API_SERVER;
 
   const router = useRouter();
   const dispatch = useDispatch();
-  console.log(user);
 
   useEffect(() => {
     dispatch(fetchUserData());
+    if (!online) {
+      router.push("/login");
+    } else {
+      router.push("/");
+    }
   }, []);
 
   return (
@@ -105,8 +111,11 @@ const Homepage = () => {
              </div> </div>
           </div>
 
-          <div className="col-lg-6  home-page-main-container-layer gy-4 pointer" onClick={() => router.push("/playground")}>
-            <div className="home-page-main-container playWith d-flex  w-75 m-auto align-items-center justify-content-around text-white fw-bold rtl">
+          <div
+            className="col-lg-5  wallet-layer gy-4 pointer"
+            onClick={() => router.push("/playground")}
+          >
+            <div className="wallet d-flex  w-75 m-auto align-items-center justify-content-around text-white fw-bold rtl">
               <img src={playWithPhoto.src} alt="" />
               <div className="text-play-container">
                 <h2 className="fw-bold">
@@ -122,9 +131,12 @@ const Homepage = () => {
           </div>
         
         </div>
-        <div className="row d-flex high-z-index pointer" onClick={() => router.push("/playground")}>
-          <div className="col-lg-6  home-page-main-container-layer gy-4">
-            <div className="home-page-main-container wallet d-flex  w-75 m-auto align-items-center justify-content-around text-white fw-bold rtl">
+        <div
+          className="row d-flex high-z-index pointer"
+          onClick={() => router.push("/playground")}
+        >
+          <div className="col-lg-6  wallet-layer gy-1">
+            <div className="wallet d-flex  w-75 m-auto align-items-center justify-content-around text-white fw-bold rtl">
               <img src={walletPhoto.src} alt="" />
               <div className="text-play-container">
                 <h2 className="fw-bold">محفظتي</h2>
@@ -136,8 +148,11 @@ const Homepage = () => {
             </div>
           </div>
 
-          <div className="col-lg-6  home-page-main-container-layer gy-4" onClick={() => router.push("/")}>
-            <div className="home-page-main-container shareGame d-flex  w-75 m-auto align-items-center justify-content-around text-white fw-bold rtl">
+          <div
+            className="col-lg-6  wallet-layer gy-1"
+            onClick={() => router.push("/")}
+          >
+            <div className="wallet d-flex  w-75 m-auto align-items-center justify-content-around text-white fw-bold rtl">
               <img src={shareGamePhoto.src} alt="" />
               <div className="text-play-container">
                 <h2 className="fw-bold">شارك اللعبة</h2>
