@@ -4,14 +4,14 @@ const users = () => {
   return (
     <div className="users rtl">
       <div className="container">
-        <div className="header col-12 d-flex align-items-center justify-content-around  text-white fw-bold">
+        <div className="header col-12 d-flex align-items-center justify-content-around  text-white fw-bold overflow-x-auto relative">
           <h5>أسم المستخدم</h5>
           <h5>الأيميل </h5>
           <h5>رقم الهاتف </h5>
           <h5>المحفظة </h5>
           <h5>الأعدادت </h5>
         </div>
-        <div className="row pt-4">
+        <div className="row pt-4 overflow-x-auto relative">
           <div className=" col-12 d-flex align-items-center justify-content-around  text-white ">
           <p>أسم المستخدم</p>
           <p>الأيميل </p>
@@ -35,9 +35,9 @@ const users = () => {
           </div>
           <hr className='text-white  p-4 mt-1 '/>
        
-          <button className="text-white col-md-2 transform-btn  ">أنشاء حساب </button>
         </div>
- 
+           <button className="text-white col-md-2 transform-btn  ">أنشاء حساب </button>
+
       </div>
     </div>
   );

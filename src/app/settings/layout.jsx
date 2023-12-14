@@ -4,8 +4,7 @@ import "./settings.scss";
 import Link from "next/link";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 
-export default function AdminPanel({  children}) {
- 
+export default function AdminPanel({ children }) {
   const [isSidebarActive, setIsSidebarActive] = useState(false);
 
   const toggleSidebar = () => {
@@ -13,7 +12,7 @@ export default function AdminPanel({  children}) {
   };
 
   return (
-    <div className='settings'>
+    <div className="settings">
       <div className="wrapper d-flex align-items-stretch">
         <nav
           id="sidebar"
@@ -35,18 +34,9 @@ export default function AdminPanel({  children}) {
           </div>
           <div className="sidebar mt-4">
             <h1 className="">
-              <a className="logo primary-sidebar">
-                XO DASHBOARD
-              </a>
+              <a className="logo primary-sidebar">XO DASHBOARD</a>
             </h1>
-            {/* <div className=" d-flex align-items-center justify-content-center mb-4">
-              <img
-                className="  rounded-circle w-75 shadow "
-                height={190}
-                src={doctor.src}
-                alt="Doctor"
-              />
-            </div> */}
+    
 
             <ul className="list-unstyled components mb-5">
               <li>
@@ -54,20 +44,19 @@ export default function AdminPanel({  children}) {
                   <span className="fa fa-sticky-note mr-3" /> الدعم
                 </Link>
               </li>
-             
+              <li className="active">
+                <Link prefetch href="store">
+                  <span className="fa fa-home mr-3" /> المتجر
+                </Link>
+              </li>{" "}
               <li className="active">
                 <Link prefetch href="users">
                   <span className="fa fa-home mr-3" /> المستخدمين
                 </Link>
               </li>
-              <li className="active">
-                <Link prefetch href="store">
-                  <span className="fa fa-home mr-3" /> المتجر
-                </Link>
-              </li>
               <li>
                 <Link prefetch href="gifts">
-                  <span className="fa fa-user mr-3" /> هدايا المتجر 
+                  <span className="fa fa-user mr-3" /> هدايا المتجر
                 </Link>
               </li>
               <li>
@@ -76,13 +65,18 @@ export default function AdminPanel({  children}) {
                 </Link>
               </li>
               <li>
+                <Link prefetch href="privacysettings">
+                  <span className="fa fa-user mr-3" /> سياسة الخصوصية
+                </Link>
+              </li>
+              <li>
                 <Link prefetch href="userspoints">
                   <span className="fa fa-user mr-3" /> نقاط دخول المستوايات
                 </Link>
               </li>
               <li>
-                <Link prefetch href="privacysettings">
-                  <span className="fa fa-user mr-3" /> سياسة الخصوصية
+                <Link prefetch href="/">
+                  <span className="fa fa-user mr-3" /> الذهاب الي وجهة المستخدم
                 </Link>
               </li>
             </ul>

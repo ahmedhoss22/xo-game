@@ -16,7 +16,7 @@ const support = () => {
         <div className='col-lg-4'>
           <textarea name="" id="" className=' border-radues-20 form-control mb-4' rows="3"> </textarea>
             <div className="d-flex justify-content-between">
-            <button className="edit-btn fw-bold transform-btn ">تعديل</button>
+            <button className="edit-btn fw-bold transform-btn ">أرسال الرد</button>
             <button className="delete-btn fw-bold transform-btn ">حذف</button>
           </div>
         </div>
@@ -29,7 +29,7 @@ const support = () => {
         <div className='col-lg-4'>
           <textarea name="" id="" className=' border-radues-20 form-control mb-4' rows="3"> </textarea>
             <div className="d-flex justify-content-between">
-            <button className="edit-btn fw-bold transform-btn ">تعديل</button>
+            <button className="edit-btn fw-bold transform-btn ">أرسال الرد</button>
             <button className="delete-btn fw-bold transform-btn ">حذف</button>
           </div>
         </div>

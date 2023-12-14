@@ -11,7 +11,7 @@
   justify-content: center;
   background-color: #ffffff44;
   border-radius: 50px;
-  width: 155px;
+  width: 156px;
   padding-right:15px;
   gap: 7px;
   position: relative;
@@ -22,14 +22,17 @@
   background: white;
 }
 }
-.prize1 , .prize2  , .prize3{
+.prize1 , .prize2  , .prize3{  
+  height: 33px;
+  color: white;
+  width: 100px;
+  margin-right: 20px;
+
   h5{
     margin-left: 25px;
     margin-bottom: 5px;
   }
-  color: white;
-  width: 100px;
-  margin-right: 20px;
+
   .money  {
   position: absolute;
   left: -12px;

@@ -6,17 +6,15 @@ import "./homepage.scss";
 import Title from "../title/Title"; 
 import ticket from "../../assets/photos/Ticket.png";
 import walletPhoto from "../../assets/photos/wallet-photo.png";
-import playNowPhoto from "../../assets/photos/playNow-photo.png";
-import playNowPhotoBg from "../../assets/photos/playNow-bg.png";
+import playNowPhoto from "../../assets/photos/playNow-photo.png"; 
 import playWithPhoto from "../../assets/photos/playWith-photo.png";
-import shareGamePhoto from "../../assets/photos/shareGame-photo.png";
-import addFriendPhoto from "../../assets/photos/addFriend-photo.png";
+import shareGamePhoto from "../../assets/photos/shareGame-photo.png"; 
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { fetchUserData } from "@/redux/slices/user";
-import { useRouter } from "next/navigation"; 
+import { fetchUserData } from "@/redux/slices/user"; 
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const textVariants = {
   initial: {
@@ -60,8 +58,7 @@ const Homepage = () => {
 
   return (
     <div className="home-page">
-      <div className="layer">
-        <header className="d-flex justify-content-between mb-4 align-items-center   text-white p-4 ">
+         <header className="d-flex justify-content-between mb-4 align-items-center   text-white p-4 ">
           {/* <img src={xIcon.src} alt="" /> */}
           {/* <div className="prize1 white-container justify-center" style={{justifyContent:"center"}}>
             <img src={money.src} className="money" alt="money" />
@@ -79,7 +76,8 @@ const Homepage = () => {
             <Title />
           </div>
         </header>
-        <div className="rtl  col-11 ms-4 mb-1 ">
+        <Link href='/user' className="link">
+              <div className="rtl  col-11 ms-4 mb-1 ">
           <div className="white-container justify-center">
             <h5 className="text-white mt-1 " style={{ fontSize: "15px" }}>
               {user?.name?.slice(0, 13)}
@@ -92,6 +90,8 @@ const Homepage = () => {
             />
           </div>
         </div>
+        </Link>
+    
         <div className=" row  d-flex horizontal-scroll-container mb-4   high-z-index">
           <div
             className="col-lg-6  home-page-main-container-layer  gy-4 pointer"
@@ -110,33 +110,36 @@ const Homepage = () => {
                 </div>
              </div> </div>
           </div>
-
           <div
-            className="col-lg-5  wallet-layer gy-4 pointer"
+            className="col-lg-6  home-page-main-container-layer  gy-4 pointer"
             onClick={() => router.push("/playground")}
-          >
-            <div className="wallet d-flex  w-75 m-auto align-items-center justify-content-around text-white fw-bold rtl">
-              <img src={playWithPhoto.src} alt="" />
+          >              
+
+
+
+            <div className="home-page-main-container playWith  w-75 m-auto d-flex  align-items-center justify-content-around text-white fw-bold rtl">
+ 
+             
+              <img src={playWithPhoto.src} className=" " alt="" />
               <div className="text-play-container">
-                <h2 className="fw-bold">
+              <h2 className="fw-bold">
                   العب مع
                   <br /> صديقك
-                </h2>
-                <div className="arrow ">
-
+                </h2>                <div className="arrow ">
                 <IoIosArrowForward className=" pointer h-5 " />
-              </div>
-              </div>
-            </div>
-          </div>
-        
+
+                </div>
+             </div> 
+             </div> 
+           </div>
+ 
         </div>
         <div
           className="row d-flex high-z-index pointer"
           onClick={() => router.push("/playground")}
         >
-          <div className="col-lg-6  wallet-layer gy-1">
-            <div className="wallet d-flex  w-75 m-auto align-items-center justify-content-around text-white fw-bold rtl">
+          <div className="col-lg-6  home-page-main-container-layer gy-1">
+            <div className="home-page-main-container wallet d-flex  w-75 m-auto align-items-center justify-content-around text-white fw-bold rtl">
               <img src={walletPhoto.src} alt="" />
               <div className="text-play-container">
                 <h2 className="fw-bold">محفظتي</h2>
@@ -149,10 +152,10 @@ const Homepage = () => {
           </div>
 
           <div
-            className="col-lg-6  wallet-layer gy-1"
+            className="col-lg-6 home-page-main-container-layer gy-1"
             onClick={() => router.push("/")}
           >
-            <div className="wallet d-flex  w-75 m-auto align-items-center justify-content-around text-white fw-bold rtl">
+            <div className="home-page-main-container shareGame d-flex  w-75 m-auto align-items-center justify-content-around text-white fw-bold rtl">
               <img src={shareGamePhoto.src} alt="" />
               <div className="text-play-container">
                 <h2 className="fw-bold">شارك اللعبة</h2>
@@ -169,13 +172,13 @@ const Homepage = () => {
             <ChooseLanguage />
           </div>
         </div>
+       
 
-        <div className="  footer-container high-z-index ">
+        <div className="  high-z-index ">
           <Footer />
         </div>
       </div>
-    </div>
-  );
+   );
 };
 
 export default Homepage;

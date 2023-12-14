@@ -11,6 +11,7 @@ import socket from "@/config/socket";
 import { notifyError } from "@/components/toastify/toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUserData } from "@/redux/slices/user";
+import Link from "next/link";
 
 const playground = () => {
   const [data, setData] = useState({});
@@ -59,21 +60,23 @@ const playground = () => {
       <div className="playground">
         <div className="container">
           <header className="d-flex justify-content-between pt-3">
-            <FaArrowLeft className="text-white pointer h-5" />
-            <div
-              className="user white-container"
-              style={{ justifyContent: "space-between" }}
-            >
-              <img
-                src={
-                  user.provider == "local" ? apiUrl + user.image : user.image
-                }
-                className="userImage img rounded-circle"
-                style={{ width: "40px" }}
-                alt="user"
-              />
-              <h5 className="text-white mt-1 username">{user.name}</h5>
-            </div>
+            <Link href='/' className="link">            <FaArrowLeft className="text-white pointer h-5" />
+</Link>
+<Link href='/user' className="link">
+              <div className="rtl  col-11 ms-4 mb-1 ">
+          <div className="white-container justify-center">
+            <h5 className="text-white mt-1 " style={{ fontSize: "15px" }}>
+              {user?.name?.slice(0, 13)}
+            </h5>
+            <img
+              src={user.provider == "local" ? apiUrl + user.image : user.image}
+              className="userImage circle-image"
+              style={{ width: "40px" }}
+              alt=""
+            />
+          </div>
+        </div>
+        </Link>
           </header>
           <div className="prizes d-flex col-12 justify-content-center pt-3 ">
             <div className="prize2 white-container">

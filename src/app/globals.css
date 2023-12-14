@@ -24,8 +24,9 @@
   text-align: left; 
 }
 
-a {
+.link {
   text-decoration: none;
+  color: black !important;
 }
 .red-color{
   color: var(--red-color) !important;
