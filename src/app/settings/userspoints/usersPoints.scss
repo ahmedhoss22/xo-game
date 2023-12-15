@@ -1,19 +1,37 @@
 .users-points {
-    img{
-        width: 200px;
-        height: 133px;
-            }
-   
-    .header{
-        background-color: var(--purple-color) !important;
-        border-radius: 25px;
-        padding: 10px;
-        margin: 10px;
-    }
-    button{
-        background: linear-gradient(180deg, #37007B 0%, #4044A7 100%);
+  img {
+    width: 200px;
+    height: 133px;
+  }
+
+  .header {
+    background-color: var(--purple-color) !important;
+    border-radius: 25px;
+    padding: 10px;
+    margin: 10px;
+  }
+  button {
+    background: linear-gradient(180deg, #37007b 0%, #4044a7 100%);
     padding: 5px 20px;
     border-radius: 20px;
-    
-    }
-      }
+  }
+}
+.modal-content{
+  border-radius: 24px !important; 
+
+}
+.setting-modal {
+  background: url("../../../assets/photos/bg-layer.png");
+//   background-repeat: no-repeat; 
+  background-size: cover;
+  color:#fff;
+  border-radius: 20px;
+  overflow: hidden;
+  background-color: #37007b;
+  button.save-btn , button.close-btn{
+    background: linear-gradient(180deg, #37007b 0%, #4044a7 100%);
+    padding: 5px 20px;
+    border-radius: 20px;
+  }
+
+}
