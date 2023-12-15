@@ -49,11 +49,11 @@ const Homepage = () => {
 
   useEffect(() => {
     dispatch(fetchUserData());
-    if (!online) {
-      router.push("/login");
-    } else {
-      router.push("/");
-    }
+    // if (!online) {
+    //   router.push("/login");
+    // } else {
+    //   router.push("/");
+    // }
   }, []);
 
   return (

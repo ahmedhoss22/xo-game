@@ -24,28 +24,49 @@ const usersPoints = () => {
     <>
       <div className="users-points rtl">
         <div className="container">
-          <div className="header col-12 d-flex align-items-center justify-content-around  text-white fw-bold">
-            <h5> المستوايات</h5>
-            <h5>النقاط المطلوبة </h5>
-            <h5>الخلفية </h5>
-            <h5>لون x /o </h5>
-            <button
+
+        <div className="row mb-4">
+          <div className=" gy-4">
+            <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+              <table className="w-full text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                <thead className="  text-gray-700 uppercase header text-white dark:bg-gray-700 dark:text-gray-400">
+                  <tr className="text-center">
+                    <th scope="col" className="px-6 py-3">
+                    المستوايات
+                    </th>
+
+                             <th scope="col" className="px-6 py-3">
+            النقاط المطلوبة 
+                    </th>
+                    <th scope="col" className="px-6 py-3">
+                    الخلفية
+                    </th>
+
+                    <th scope="col" className="px-6 py-3">
+                    لون x /o                     </th>
+                    
+                    <th scope="col" className="px-6 py-3">
+                    <button
               className="fw-bold transform-btn "
               onClick={() => setModal({ ...modal, open: true })}
             >
               اضافة مستوي
-            </button>
-          </div>
-          <div className="row pt-4">
-            {levels.map((ele, ind) => (
-              <div key={ind}>
-                <div
-                  key={ind}
-                  className=" col-12 d-flex align-items-center justify-content-around  text-white "
-                >
-                  <p>المستوي {ele.number} </p>
-                  <p>{ele.coins}</p>
-                  <div
+            </button>                    </th>
+                  
+                  </tr>
+                </thead>
+                <tbody>
+                {levels.map((ele, ind) => (
+
+                  <tr  key={ind} className=" text-center border-b dark:bg-gray-800 dark:border-gray-700   dark:hover:bg-gray-600 pointer">
+                    <td className="px-6 py-4 font-semibold text-gray-900 text-white dark:text-white  ">
+                    المستوي {ele.number}  
+                    </td>
+                    <td className="px-6 py-4 font-semibold text-gray-900 text-white dark:text-white  ">
+                    {ele.coins}
+                    </td>
+                    <td className="px-6 py-4 font-semibold text-gray-900 text-white dark:text-white  ">
+                    <div
                     style={{
                       width: "50px",
                       height: "50px",
@@ -53,7 +74,9 @@ const usersPoints = () => {
                       borderRadius: "50%",
                     }}
                   ></div>
-                  <div
+                    </td>
+                    <td className="px-6 py-4 font-semibold text-gray-900 text-white dark:text-white  ">
+                    <div
                     style={{
                       width: "50px",
                       height: "50px",
@@ -61,7 +84,9 @@ const usersPoints = () => {
                       borderRadius: "50%",
                     }}
                   ></div>
-                  <button
+                    </td>
+                    <td className="px-6 py-4 font-semibold text-gray-900 text-white dark:text-white  ">
+                    <button
                     className="edit-btn fw-bold transform-btn "
                     onClick={() =>
                       setModal({ data: ele, open: true, update: true })
@@ -69,11 +94,16 @@ const usersPoints = () => {
                   >
                     تعديل
                   </button>
-                </div>
-                <hr className="text-white  p-4 mt-1 " />
-              </div>
-            ))}
+                    </td>
+                  </tr>)
+                  )}
+                  
+                </tbody>
+              </table>
+            </div>
           </div>
+        </div>
+        
         </div>
       </div>
       <LevelModal

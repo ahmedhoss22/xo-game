@@ -2,16 +2,15 @@
    
 .header{
     background-color: var(--purple-color) !important;
-    border-radius: 25px;
-    padding: 10px;
-    margin: 10px;
+  
 }
 button{
     background: linear-gradient(180deg, #37007B 0%, #4044A7 100%);
 padding: 5px 20px;
 border-radius: 20px;
 
-}.delete-btn{
+}
+.delete-btn{
     color: var(--red-color) !important;
 
 }

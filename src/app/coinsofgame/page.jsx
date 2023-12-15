@@ -1,9 +1,9 @@
-'use client'
+"use client";
 import Footer from "@/components/footer/Footer";
 import "./coinsOfGame.scss";
-import Link from "next/link"; 
+import Link from "next/link";
 import ticket from "../../assets/photos/Ticket.png";
-import { motion } from "framer-motion"; 
+import { motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
@@ -26,7 +26,6 @@ const textVariants = {
 };
 
 const coinsOfGame = () => {
-
   // const user = useSelector((state) => state.user.data);
   // const online = useSelector((state) => state.user.online);
   // const apiUrl = process.env.NEXT_PUBLIC_API_SERVER;
@@ -61,82 +60,64 @@ const coinsOfGame = () => {
             />
             {/* <motion.h5  variants={textVariants}>{user.coins}</motion.h5> */}
           </motion.div>
-          <div className="col-3">
+          <div className="col-3 ">
             <Title />
           </div>
         </header>
-        <Link href='/user' className="link">
-              <div className="rtl  col-11 ms-4 mb-1 ">
-          <div className="white-container justify-center">
-            <h5 className="text-white mt-1 " style={{ fontSize: "15px" }}>
-              {/* {user?.name?.slice(0, 13)} */}
-            </h5>
-            {/* <img
+        <Link href="/user" className="link ">
+          <div className="rtl  col-11 ms-4 mb-4 ">
+            <div className="white-container justify-center">
+              <h5 className="text-white mt-1 " style={{ fontSize: "15px" }}>
+                {/* {user?.name?.slice(0, 13)} */}
+              </h5>
+              {/* <img
               src={user.provider == "local" ? apiUrl + user.image : user.image}
               className="userImage circle-image"
               style={{ width: "40px" }}
               alt=""
             /> */}
+            </div>
           </div>
-        </div>
         </Link>
-     
-       
 
- <Link href={''} className='link mt-10'>
+        <Link href={""} className="link">
           <div className="row mb-4  coins pointer ">
             <div className="col-9  d-flex align-items-center justify-content-center ">
-                     <h4>rwan</h4> 
+              <h4>rwan</h4>
             </div>
-     
+
             <div className="col-3    text-white level">
-             <h4> level 5 </h4>
-             <h4> Play Now </h4>
-              
+              <h1> 5 </h1>
+              <h6> Play Now </h6>
             </div>
+          </div>
+        </Link>
 
- 
-
-
-        </div>
- </Link>
-
- 
- <Link href={''} className='link mt-10'>
+        <Link href={""} className="link mt-10">
           <div className="row mb-4  coins pointer ">
             <div className="col-9  d-flex align-items-center justify-content-center ">
-                     <h4>rwan</h4> 
+              <h4>rwan</h4>
             </div>
-     
+
             <div className="col-3    text-white level">
-             <h4> level 5 </h4>
-             <h4> Play Now </h4>
-              
+              <h1> 5 </h1>
+              <h6> Play Now </h6>
             </div>
+          </div>
+        </Link>
 
- 
-
-
-        </div>
- </Link>
- 
- <Link href={''} className='link mt-10'>
+        <Link href={""} className="link mt-10">
           <div className="row mb-4  coins pointer ">
             <div className="col-9  d-flex align-items-center justify-content-center ">
-                     <h4>rwan</h4> 
+              <h4>rwan</h4>
             </div>
-     
+
             <div className="col-3    text-white level">
-             <h4> level 5 </h4>
-             <h4> Play Now </h4>
-              
+              <h1> 5 </h1>
+              <h6> Play Now </h6>
             </div>
-
- 
-
-
-        </div>
- </Link>
+          </div>
+        </Link>
       </div>
 
       <div className="   high-z-index ">
