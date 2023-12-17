@@ -28,11 +28,12 @@ const login = () => {
         console.log(err);
       });
   }
-  const router = useRouter()
-  const online = useSelector((state)=>state.user.online)
-  useEffect(()=>{
-    if(online) router.push("/")
-  },[])
+
+  const router = useRouter();
+  const online = useSelector((state) => state.user.online);
+  useEffect(() => {
+    if (online) router.push("/");
+  }, []);
   let validationSchema = Yup.object({
     email: Yup.string().required("email is required").email(),
     password: Yup.string().required("Password is required"),
@@ -123,7 +124,10 @@ const login = () => {
               </p>
             </div>
             <div className="col-12 d-flex  mb-20 justify-content-between ">
-              <div onClick={facebookRegister} className="col-5 d-flex blue-bg   border-radius-20 align-items-center justify-content-center p-1 transform-btn pointer ">
+              <div
+                onClick={facebookRegister}
+                className="col-5 d-flex blue-bg   border-radius-20 align-items-center justify-content-center p-1 transform-btn pointer "
+              >
                 <button
                   className="btn form-control text-white facebook-btn"
                   type="button"
@@ -133,7 +137,10 @@ const login = () => {
                 <BiLogoFacebook className=" fs-1   text-white" />
               </div>
 
-              <div onClick={googleRegister} className="col-5 d-flex white-bg p-1 border-radius-20 align-items-center justify-content-center transform-btn pointer ">
+              <div
+                onClick={googleRegister}
+                className="col-5 d-flex white-bg p-1 border-radius-20 align-items-center justify-content-center transform-btn pointer "
+              >
                 <button className="btn form-control google-btn" type="button">
                   Google
                 </button>

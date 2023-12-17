@@ -75,6 +75,11 @@ export default function AdminPanel({ children }) {
                 </Link>
               </li>
               <li>
+                <Link prefetch href="playingPoints">
+                  <span className="fa fa-user mr-3" /> نقاط اللعب 
+                </Link>
+              </li>
+              <li>
                 <Link prefetch href="/">
                   <span className="fa fa-user mr-3" /> الذهاب الي وجهة المستخدم
                 </Link>

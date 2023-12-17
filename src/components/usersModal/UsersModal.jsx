@@ -5,15 +5,15 @@ import React, { useEffect, useState } from "react";
 import { notifyError, notifySuccess } from "../toastify/toastify";
 import { Form } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import { fetcLevels } from "@/redux/slices/levels";
+import { fetchAllUsesrData } from "@/redux/slices/user";
 
-const LevelModal = ({ open, handleClose, update, data }) => {
+const UsersModal = ({ open, handleClose, update, data }) => {
   const dispatch = useDispatch();
   const [intialState, setIntialState] = useState({
-    number: 0,
+    email: "",
     coins: 0,
-    bg: "#000",
-    color: "#fff",
+    password: "",
+    name: "",
   });
 
   useEffect(() => {
@@ -22,13 +22,13 @@ const LevelModal = ({ open, handleClose, update, data }) => {
   }, [update, data]);
 
   function handleSubmit(values) {
-    const url = update ? "/level/update" : "/level";
-    console.log(url);
+    const url = update ? "/users/user/update" : "/users/user";
+    console.log(values);
     Api.post(url, values)
       .then(() => {
         notifySuccess("Data submitted");
         formik.handleReset();
-        dispatch(fetcLevels());
+        dispatch(fetchAllUsesrData());
         handleClose();
       })
       .catch((err) => {
@@ -36,6 +36,8 @@ const LevelModal = ({ open, handleClose, update, data }) => {
         notifyError(Array.isArray(error) ? error[0] : error);
       });
   }
+
+
   const formik = useFormik({
     initialValues: intialState,
     onSubmit: handleSubmit,
@@ -46,17 +48,17 @@ const LevelModal = ({ open, handleClose, update, data }) => {
       <Form onSubmit={formik.handleSubmit} className="setting-modal">
         <Modal.Header closeButton>
           <Modal.Title>
-            {update ? "Update Level" : "Add new Level "}
+            {update ? "تعديل بيانات مستخدم" : "اضافة مستخدم"}
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Row>
             <Col xs={6}>
-              <Form.Label htmlFor="number">Level number</Form.Label>
+              <Form.Label htmlFor="number">البريد الالكتروني</Form.Label>
               <Form.Control
-                type="number"
-                value={formik?.values?.number}
-                name="number"
+                type="email"
+                value={formik?.values?.email}
+                name="email"
                 onChange={formik.handleChange}
                 id="number"
                 aria-describedby="number"
@@ -64,67 +66,39 @@ const LevelModal = ({ open, handleClose, update, data }) => {
               />
             </Col>
             <Col xs={6}>
-              <Form.Label htmlFor="coins">Coins</Form.Label>
+              <Form.Label htmlFor="password">كلمة السر</Form.Label>
               <Form.Control
-                type="number"
-                id="coins"
+                type="password"
+                id="password"
                 aria-describedby="number"
                 required
-                value={formik?.values?.coins}
-                name="coins"
+                value={formik?.values?.password}
+                name="password"
                 onChange={formik.handleChange}
               />
             </Col>
           </Row>
           <Row style={{ marginTop: "20px", marginBottom: "20px" }}>
             <Col xs={6}>
-              <Form.Label htmlFor="numer">Background code</Form.Label>
+              <Form.Label htmlFor="numer">الاسم</Form.Label>
               <Form.Control
                 type="text"
                 id="color"
-                aria-describedby="color"
-                value={formik?.values?.bg}
-                name="bg"
+                value={formik?.values?.name}
+                name="name"
                 onChange={formik.handleChange}
                 required
               />
             </Col>
             <Col xs={6}>
-              <Form.Label htmlFor="numer">color code</Form.Label>
+              <Form.Label htmlFor="numer">الكوينز</Form.Label>
               <Form.Control
-                type="text"
-                id="color"
-                value={formik?.values?.color}
-                name="color"
-                onChange={formik.handleChange}
-                aria-describedby="color"
-                required
-                style={{ width: "100%" }}
-              />
-            </Col>
-          </Row>
-          <Row>
-            <Col xs={6}>
-              <Form.Label htmlFor="numer">Background color</Form.Label>
-              <Form.Control
-                type="color"
+                type="number"
                 id="color"
                 aria-describedby="color"
-                value={formik?.values?.bg}
-                name="bg"
+                value={formik?.values?.coins}
+                name="coins"
                 onChange={formik.handleChange}
-                required
-              />
-            </Col>
-            <Col xs={6}>
-              <Form.Label htmlFor="numer">color</Form.Label>
-              <Form.Control
-                type="color"
-                id="color"
-                value={formik?.values?.color}
-                name="color"
-                onChange={formik.handleChange}
-                aria-describedby="color"
                 required
               />
             </Col>
@@ -147,4 +121,4 @@ const LevelModal = ({ open, handleClose, update, data }) => {
   );
 };
 
-export default LevelModal;
+export default UsersModal;
