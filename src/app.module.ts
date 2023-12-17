@@ -6,6 +6,7 @@ import { PaypalModule } from './paypal/paypal.module';
 import * as dotenv from 'dotenv';
 import { GatwayModule } from './gatway/gatway.module';
 import { LevelModule } from './level/level.module';
+import { PlayingCoinsModule } from './playing-coins/playing-coins.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { LevelModule } from './level/level.module';
     MongooseModule.forRoot('mongodb://127.0.0.1:27017/xo-game'),
     GatwayModule,
     LevelModule,
+    PlayingCoinsModule,
     
   ],
   providers: [Logger],

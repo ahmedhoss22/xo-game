@@ -12,6 +12,7 @@ import { RoomDto } from './dto/room.dto';
 import { PlayingGameDto } from './dto/playingGame.dto';
 import { UserService } from 'src/users/users.service';
 import mongoose from 'mongoose';
+import { UtilitsService } from './utiltis.service';
 
 @WebSocketGateway(5001, {
   cors: {
@@ -23,7 +24,10 @@ import mongoose from 'mongoose';
 })
 export class RoomsService implements OnGatewayDisconnect {
   // constructor() {}
-  constructor(private readonly userService: UserService) {}
+  constructor(
+    private readonly userService: UserService,
+    private readonly utilitsService: UtilitsService,
+  ) {}
 
   private server: Server;
   private waitingPlayers: MatchDto[] = [];
@@ -36,35 +40,39 @@ export class RoomsService implements OnGatewayDisconnect {
   @SubscribeMessage('start-game')
   async handleMatch(client: Socket, data: MatchDto) {
     const roomName: string = 'room' + Date.now().toString();
-
+    this.waitingPlayers = this.waitingPlayers.filter(
+      (ele) => ele.socketID != client.id,
+    );
     // Check if the server instance is available
-    if (!this.server) {
-      console.error('Server instance not available.');
-      return this.server.to(client.id).emit('error', {
-        message: 'Server instance not available.',
-      });
-    }
+    if (!this.server)
+      return this.utilitsService.errorHandle(
+        client.id,
+        'Server instance not available.',
+      );
 
     // Validate data (coins and userID)
-    if (!data.coins || !data.userID) {
-      return this.server
-        .to(client.id)
-        .emit('error', { message: 'coins and userID is required !!' });
+    if (!data.coins || !data.userID || !data.winCoins || !data.rounds) {
+      return this.utilitsService.errorHandle(
+        client.id,
+        'coins and userID and winCoins and rounds is required !!',
+      );
     }
 
     // valid object id
     if (!mongoose.isValidObjectId(data.userID)) {
-      return this.server
-        .to(client.id)
-        .emit('error', { message: 'userID is not Valid !!' });
+      return this.utilitsService.errorHandle(
+        client.id,
+        'userID is not Valid !!',
+      );
     }
 
     // valid coins in player acc
     let user = await this.userService.getUser(data.userID);
     if (user.coins < data.coins) {
-      return this.server
-        .to(client.id)
-        .emit('error', { message: 'user coins not enough !!' });
+      return this.utilitsService.errorHandle(
+        client.id,
+        'user coins not enough !!',
+      );
     }
 
     // Check for a matching player
@@ -83,7 +91,11 @@ export class RoomsService implements OnGatewayDisconnect {
       });
       console.log('Waiting players : ' + this.waitingPlayers.length);
     } else {
-      this.waitingPlayers.push({ ...data, socketID: client.id });
+      this.waitingPlayers.push({
+        ...data,
+        socketID: client.id,
+        winCoins: data.winCoins,
+      });
       console.log('Waiting players : ' + this.waitingPlayers.length);
       return;
     }
@@ -102,6 +114,7 @@ export class RoomsService implements OnGatewayDisconnect {
       const matchedPlayer = this.waitingPlayers.splice(matchedIndex, 1)[0];
       this.playingRooms.push({
         coins: data.coins,
+        winCoins: data.winCoins,
         roomName,
         socketID1: matchedPlayer.socketID,
         socketID2,
@@ -109,7 +122,10 @@ export class RoomsService implements OnGatewayDisconnect {
         userID2: data.userID,
         player1Moves: [],
         player2Moves: [],
+        rounds: data.rounds,
         turn: 1,
+        player1Wins: 0,
+        player2Wins: 0,
       });
       return true; // Return true when a match is found
     }
@@ -127,97 +143,134 @@ export class RoomsService implements OnGatewayDisconnect {
   @SubscribeMessage('player-move')
   handlePlayerMove(client: Socket, data: PlayingGameDto) {
     //validation
-    if (!data.move) {
-      return this.server.to(client.id).emit('error', {
-        message: 'Move is required !!',
-      });
-    }
-
-    if (!data.roomName) {
-      return this.server.to(client.id).emit('error', {
-        message: 'roomName is required !!',
-      });
-    }
-
-    if (!data.userID) {
-      return this.server.to(client.id).emit('error', {
-        message: 'userID is required !!',
-      });
+    if (!data.move || !data.roomName || !data.userID) {
+      return this.utilitsService.errorHandle(
+        client.id,
+        'Move and userID and roomName is required !!',
+      );
     }
 
     if (!mongoose.isValidObjectId(data.userID)) {
-      return this.server.to(client.id).emit('error', {
-        message: 'userID is not Valid !!',
-      });
+      return this.utilitsService.errorHandle(
+        client.id,
+        'userID is not Valid !!',
+      );
     }
 
     let match = this.playingRooms.find((ele) => ele.roomName == data.roomName);
-
     if (!match) {
-      return this.server.to(client.id).emit('error', {
-        message: 'Player not in match !!',
-      });
+      return this.utilitsService.errorHandle(
+        client.id,
+        'Player not in match !!',
+      );
     }
-
     if (
       match.player1Moves.includes(data.move) ||
       match.player2Moves.includes(data.move)
     ) {
-      return this.server.to(client.id).emit('error', {
-        message: 'Move is already taken !!',
+      return this.utilitsService.errorHandle(
+        client.id,
+        'Move is already taken !!',
+      );
+    }
+
+    let player =
+      client.id == match.socketID1
+        ? {
+            playerNo: 1,
+            playerMoves: match.player1Moves,
+            playerWins: match.player1Wins,
+            playerSocket: match.socketID1,
+          }
+        : {
+            playerNo: 2,
+            playerMoves: match.player2Moves,
+            playerWins: match.player2Wins,
+            playerSocket: match.socketID2,
+          };
+
+    console.log(player);
+
+    //turn validation
+    if (player.playerNo == 1 && match.turn == 2) {
+      return this.utilitsService.errorHandle(
+        client.id,
+        'Its the turn for other player !!',
+      );
+    }
+    if (player.playerNo == 2 && match.turn == 1) {
+      return this.utilitsService.errorHandle(
+        client.id,
+        'Its the turn for other player !!',
+      );
+    }
+
+    // display turn for other player
+
+    if (player.playerNo == 1) {
+      console.log('Other move 1');
+      this.server.to(match.socketID2).emit('other-move', {
+        move: data.move,
+      });
+    } else {
+      console.log('Other move 2');
+      this.server.to(match.socketID1).emit('other-move', {
+        move: data.move,
       });
     }
 
-    // set move
-    if (data.userID == match.userID1) {
-      //check for the player turn
-      if (match.turn == 2) {
-        return this.server.to(client.id).emit('error', {
-          message: "It's the turn for other player !!",
-        });
+    //turn Switch
+    player.playerNo == 1
+      ? match.player1Moves.push(data.move)
+      : match.player2Moves.push(data.move);
+    player.playerNo == 1 ? (match.turn = 2) : (match.turn = 1);
+
+    let winner = this.utilitsService.checkWinner(
+      client.id == match.socketID1 ? match.player1Moves : match.player2Moves,
+    );
+
+    if (winner) {
+      // update player winning times
+      if (client.id == match.socketID1) {
+        match.player1Wins += 1;
+      } else {
+        match.player2Wins += 1;
       }
-      match.player1Moves.push(data.move);
-      match.turn = 2;
 
-      console.log(match);
-      //check for winning
-      let winner = this.checkWinner(match.player1Moves);
-
-      // End game if winner
-      if (winner) {
-        this.handleEndGame(
-          client.id,
-          match.userID1,
-          match.socketID2,
-          match.userID2,
-          match.coins,
-          match.roomName,
-        );
+      let gameEnd = this.utilitsService.checkEndGame(match);
+      if (gameEnd) {
+        if (client.id == match.socketID1) {
+          this.utilitsService.handleEndGame(
+            client.id,
+            match.userID1,
+            match.socketID2,
+            match.userID2,
+            match.coins,
+            match.winCoins,
+            match.roomName,
+          );
+        } else {
+          this.utilitsService.handleEndGame(
+            client.id,
+            match.userID2,
+            match.socketID1,
+            match.userID1,
+            match.coins,
+            match.winCoins,
+            match.roomName,
+          );
+        }
+      } else {
+        match.player1Moves = [];
+        match.player2Moves = [];
+        this.server.emit('reset-game', { message: 'new round' , data:match});
       }
     } else {
-      //check for the player turn
-      if (match.turn == 1) {
-        return this.server.to(client.id).emit('error', {
-          message: "It's the turn for other player !!",
+      this.server
+        .to(client.id == match.socketID2 ? match.socketID1 : match.socketID2)
+        .emit('my-turn', {
+          message: 'Your turn ',
         });
-      }
-      match.player2Moves.push(data.move);
-      match.turn = 1;
-
-      //check for winning
-      let winner = this.checkWinner(match.player1Moves);
-
-      // End game if player 2 winner
-      if (winner) {
-        this.handleEndGame(
-          client.id,
-          match.userID2,
-          match.socketID1,
-          match.userID1,
-          match.coins,
-          match.roomName,
-        );
-      }
     }
 
     // update playing room
@@ -228,97 +281,6 @@ export class RoomsService implements OnGatewayDisconnect {
         return ele;
       }
     });
-  }
-
-  checkWinner(moves: number[]): boolean {
-    moves = moves.sort((a, b) => a - b);
-    let checkMoves = moves.join('');
-    let winner: boolean = false;
-
-    // Array of winning conditions
-    const winningConditions: number[][] = [
-      [1, 2, 3],
-      [2, 3, 4],
-      [3, 4, 5],
-      [6, 7, 8],
-      [8, 9, 10],
-      [11, 12, 13],
-      [12, 13, 14],
-      [16, 17, 18],
-      [17, 18, 19],
-      [18, 19, 20],
-      [21, 22, 23],
-      [22, 23, 24],
-      [23, 24, 25],
-      [1, 6, 11],
-      [6, 11, 16],
-      [11, 16, 21],
-      [2, 7, 12],
-      [7, 12, 17],
-      [12, 17, 22],
-      [3, 8, 13],
-      [8, 13, 18],
-      [13, 18, 23],
-      [4, 9, 14],
-      [9, 14, 19],
-      [14, 19, 24],
-      [5, 10, 15],
-      [10, 15, 20],
-      [15, 10, 25],
-      [1, 7, 13],
-      [2, 8, 14],
-      [3, 9, 15],
-      [6, 12, 18],
-      [7, 13, 19],
-      [8, 14, 20],
-      [11, 17, 23],
-      [12, 18, 24],
-      [3, 7, 11],
-      [4, 8, 12],
-      [5, 9, 13],
-      [8, 12, 16],
-      [9, 13, 17],
-      [10, 14, 18],
-      [13, 17, 21],
-      [14, 18, 22],
-      [15, 19, 23],
-    ];
-
-    // Check if any winning condition is met
-    for (const condition of winningConditions) {
-      if (condition.every((num) => checkMoves.includes(num.toString()))) {
-        winner = true;
-        break;
-      }
-    }
-
-    return winner;
-  }
-
-  async handleEndGame(
-    winnerSocket: string,
-    winnerId: mongoose.Types.ObjectId,
-    loserSocket: string,
-    loserId: mongoose.Types.ObjectId,
-    coins: number,
-    matchSocket,
-  ) {
-    this.server.to(winnerSocket).emit('winner', {
-      message: 'Winner player !!',
-    });
-    this.server.to(loserSocket).emit('loser', {
-      message: 'You lose !!',
-    });
-
-    try {
-      await this.userService.winnerCoins(winnerId, coins);
-      await this.userService.loserCoins(loserId, coins);
-    } catch (error) {
-      let errorMsg = error.message;
-      console.log(errorMsg);
-      this.server.to(matchSocket).emit('error', {
-        message: errorMsg,
-      });
-    }
+    console.log(this.playingRooms);
   }
 }

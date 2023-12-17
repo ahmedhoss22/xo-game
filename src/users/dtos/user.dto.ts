@@ -29,9 +29,9 @@ export class UserrDto {
   @Length(2, 20)
   readonly name: String;
 
-  //    @IsString()
   // @IsNotEmpty()
   // @Length(2,20)
+  @IsString()
   @IsOptional()
   readonly country: String;
 
@@ -42,4 +42,9 @@ export class UserrDto {
   @IsNumber()
   @IsOptional()
   readonly level: number;
+
+  @IsNumber()
+  @IsOptional()
+  readonly coins: number;
+
 }
