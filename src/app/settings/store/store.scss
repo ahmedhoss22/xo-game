@@ -14,4 +14,42 @@
         color: var(--red-color) !important;
     
     }
+    .prize {
+        background-color: var(--purple-color) !important;
+        border-radius: 15px;
+        display: flex;
+        flex-direction: column;
+        width: 78px;
+        height: 114px;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 15px;
+          .count{
+              color: var(--red-color) !important;
+          }
+        .img-container {
+          height: 57px;
+          width: 78px;
+          background-color: #d9d9d9;
+          border-radius: 15px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+   
+        }
+        .ticket-img{
+          width: 56px;
+      height: 56px;
+      
+        } 
+      }
+      .delete-update-btn {
+        width: 50%;
+
+      }
+      @media only screen  and (max-width: 1200px) {
+        .delete-update-btn  {
+          width: 100%;
+        }
+      }
       }

@@ -1,11 +1,33 @@
+'use client'
 import "./wallet.scss";
 import visaImage from "../../assets/photos/visa-icon.png";
 import paypalWord from "../../assets/photos/paypal-word.png";
 import { FaArrowLeft } from "react-icons/fa";
 import userImage from "../../assets/photos/userrr.png";
 import Title from "@/components/title/Title";
+import { fetchUserData } from "@/redux/slices/user";
+import { useDispatch, useSelector } from "react-redux";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+import Link from "next/link";
 
 const wallet = () => {
+
+  const user = useSelector((state) => state.user.data);
+  const online = useSelector((state) => state.user.online);
+  const apiUrl = process.env.NEXT_PUBLIC_API_SERVER;
+
+  const router = useRouter();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchUserData());
+    // if (!online) {
+    //   router.push("/login");
+    // } else {
+    //   router.push("/");
+    // }
+  }, []);
   return (
     <div className="wallet">
       <header className="d-flex justify-content-between mb-4 align-items-center pt-3 text-white p-4 ">
@@ -17,10 +39,24 @@ const wallet = () => {
         </div>
         <h2>المحفظة</h2>
         <div className="d-flex gap-5">
-          <div className="user white-container">
+          {/* <div className="user white-container">
             <img src={userImage.src} className="userImage" alt="" />
             <h5 className="  mt-1 ">User Name</h5>
+          </div> */}
+            <Link href='/user' className="link">
+              <div className="rtl  col-11 ms-4 mb-1 ">
+          <div className="user-container justify-center">
+            <h5 className="text-white mt-1 " style={{ fontSize: "15px" }}>
+              {user?.name?.slice(0, 13)}
+            </h5>
+            <img
+              src={user.provider == "local" ? apiUrl + user.image : user.image}
+              className="userImage circle-image"
+               alt="user image"
+            />
           </div>
+        </div>
+        </Link>
         </div>
       </header>
       <div className="container">

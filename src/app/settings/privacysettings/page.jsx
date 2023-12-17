@@ -4,6 +4,8 @@ import { useState } from "react";
 import { TextField } from "@mui/material";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 
 const style = {
   position: "absolute",
@@ -23,6 +25,21 @@ const privacySettings = () => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+  function handlePrivacy(values) {
+    console.log(values);
+  }
+
+  let validationSchema = Yup.object({
+    privacy: Yup.string().required("برجاء ادخال رساله سياسة الخصوصية ."),
+  });
+
+  let formik = useFormik({
+    initialValues: { 
+      privacy: "",
+    },
+    validationSchema,
+    onSubmit: handlePrivacy,
+  });
 
 
   return (
@@ -84,28 +101,38 @@ const privacySettings = () => {
 
  
       </div>
-      <Modal
+    
+             <Modal
         open={open}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style}>
+        <Box sx={style}>      <form onSubmit={formik.handleSubmit}>
+
           <div className="row  rtl">
             <h2 className="text-center">تعديل سياسة الخصوصية</h2>
-
+  {formik.touched.privacy && formik.errors.privacy ? (
+                    <h4>{formik.errors.privacy}</h4>
+                  ) : null}
             
             <TextField
               className="mb-4"
-              id="mobile"
+              id="privacy"
+              name="privacy"
+              value={formik.values.privacy}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}             
               label="سياسة التخوصية"
               variant="outlined"
             />
         
-        <button className="   fw-bold transform-btn  green-bg pt-2 pb-2 text-white ">تعديل</button>
-          </div>
+        <button type="submit" className="  fw-bold transform-btn  green-bg pt-2 pb-2 text-white ">تعديل</button>
+          </div>      </form>
         </Box>
       </Modal>
+
+ 
     </div>
   );
 };

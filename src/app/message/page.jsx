@@ -54,7 +54,9 @@ const message = () => {
     <>
  
       <div className=" message">
-        <div className="layer">
+        
+        <div className="layer d-flex flex-column ">
+      <div className="flex-grow"> 
           <div className="container ">
 
             <motion.div style={{ marginBottom: "55px" }}>
@@ -132,11 +134,12 @@ const message = () => {
                 <div className="position-relative d-flex align-items-center">
                   <div className="input-with-icon  responsive-input ">
                     <textarea
-                      type="message"
+                      type="text"
+                    
+                      placeholder="Type message here .........."
+                      className=" form-control ltr "  
                       id="message"
                       name="message"
-                      placeholder="Type message here .........."
-                      className=" form-control ltr "
                       value={formik.values.message}
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
@@ -162,10 +165,9 @@ const message = () => {
                 </Button> */}
               </form>
             </div>
-          </div>
-          <div className="fixed-bottom">
+          </div>          </div>
+
             <Footer />
-          </div>
         </div>
       </div>
     </>

@@ -5,24 +5,20 @@
     background-repeat: no-repeat; 
     background-size: cover; 
     background-attachment: fixed;
-    .white-container{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #ffffff44;
-  border-radius: 50px;
-  width: 156px;
-  padding-right:15px;
-  gap: 7px;
-  position: relative;
-  
-.userImage{
-  border: 1px solid white;
-  border-radius: 50px;
-  background: white;
-}
-}
-.prize1 , .prize2  , .prize3{  
+    .ticket-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #ffffff44;
+      border-radius: 50px;
+      width: 153px;
+      height: 35px;
+      padding-right: 15px;
+      gap: 7px;
+      position: relative;
+   
+    }
+.ticket {  
   height: 33px;
   color: white;
   width: 100px;
@@ -33,19 +29,8 @@
     margin-bottom: 5px;
   }
 
-  .money  {
-  position: absolute;
-  left: -12px;
-  top: -2px;
-  border: 1px solid white;
-  border-radius: 50px;
-  background: white;
-  height: 33px;
-  width: 33px;
-
-
-}
-.ticket {
+ 
+.ticket-img {
   position: absolute;
   left: -6px;
   top: -1px;
@@ -56,17 +41,7 @@
   width: 33px;
 
 }
-.xo  {
-  position: absolute;
-  left: -2px;
-  top: -1px;
-  background-color:var(--purple-color) !important; ;
-  border: 1px solid white;
-  padding: 10px 5px;
-  border-radius: 50px;
-  height: 33px;
-  width: 33px;
-}
+ 
 }
 
 .player1 , .player2{
@@ -109,7 +84,8 @@
 }
 }
 
-  }
+
 .username{
   font-size: small;
-}
+} 
+ }

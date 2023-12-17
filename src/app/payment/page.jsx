@@ -58,7 +58,8 @@ const payment = () => {
   const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
   return (
-    <div className=" payment">
+    <div className=" payment d-flex flex-column ">
+    <div className="flex-grow">
       <div className="container ">
         <div className="  d-flex justify-content-between pt-4">
           <div className="">
@@ -208,15 +209,13 @@ const payment = () => {
             >
               Done
             </button>
-            <div>.</div>
-            <div>.</div>
+          
           </form>
         </div>
       </div>
-      <div className="fixed-bottom">
-        <Footer />
       </div>
-    </div>
+         <Footer />
+     </div>
   );
 };
 

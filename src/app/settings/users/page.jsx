@@ -1,9 +1,11 @@
 "use client";
 import "./users.scss";
-import Box from "@mui/material/Box"; 
+import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import { useState } from "react";
 import { TextField } from "@mui/material";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 
 const style = {
   position: "absolute",
@@ -23,9 +25,53 @@ const users = () => {
   const handleOpenEdit = () => setOpenEdit(true);
   const handleCloseEdit = () => setOpenEdit(false);
 
+  function handleEditUser(values) {
+    console.log(values);
+  }
+
+  let validationEditUserSchema = Yup.object({
+    userName: Yup.string().required("برجاء ادخال اسم المستخدم   ."),
+    email: Yup.string().required("برجاء ادخال الايميل   ."),
+    mobile: Yup.number().required("برجاء ادخال رقم الهاتف   ."),
+    wallet: Yup.number().required("برجاء ادخال  رصيد المحفظة  ."),
+  });
+
+  let formikEditUser = useFormik({
+    initialValues: {
+      userName: "",
+      email: "",
+      mobile: 0,
+      wallet: 0,
+    },
+    validationEditUserSchema,
+    onSubmit: handleEditUser,
+  });
+
   const [openCreateUser, setOpenCreateUser] = useState(false);
   const handleOpenCreateUser = () => setOpenCreateUser(true);
   const handleCloseCreateUser = () => setOpenCreateUser(false);
+
+  function handleCreateUser(values) {
+    console.log(values);
+  }
+
+  let validationCreateUserSchema = Yup.object({
+    userName: Yup.string().required("برجاء ادخال اسم المستخدم   ."),
+    email: Yup.string().required("برجاء ادخال الايميل   ."),
+    mobile: Yup.number().required("برجاء ادخال رقم الهاتف   ."),
+    wallet: Yup.number().required("برجاء ادخال  رصيد المحفظة  ."),
+  });
+
+  let formikCreateUser = useFormik({
+    initialValues: {
+      userName: "",
+      email: "",
+      mobile: 0,
+      wallet: 0,
+    },
+    validationCreateUserSchema,
+    onSubmit: handleCreateUser,
+  });
 
   return (
     <div className="users rtl">
@@ -89,9 +135,10 @@ const users = () => {
           </div>
         </div>
 
-        <button className="text-white col-md-2 transform-btn  "              
-                     onClick={handleOpenCreateUser}
->
+        <button
+          className="text-white col-md-2 transform-btn  "
+          onClick={handleOpenCreateUser}
+        >
           أنشاء حساب{" "}
         </button>
       </div>
@@ -103,36 +150,71 @@ const users = () => {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <div className="row rtl ">
-            <h2 className="text-center"> تعديل بيانات المستخدم</h2>
+          {" "}
+          <form onSubmit={formikEditUser.handleSubmit}>
+            <div className="row rtl ">
+              <h2 className="text-center"> تعديل بيانات المستخدم</h2>
+              {formikEditUser.touched.userName && formikEditUser.errors.userName ? (
+                <h4>{formikEditUser.errors.userName}</h4>
+              ) : null}
+              <TextField
+                className="mb-4"
+                id="userName"
+                name="userName"
+                value={formikEditUser.values.userName}
+                onChange={formikEditUser.handleChange}
+                onBlur={formikEditUser.handleBlur}
+                label="الأسم"
+                variant="outlined"
+              />
+              {formikEditUser.touched.email && formikEditUser.errors.email ? (
+                <h4>{formikEditUser.errors.email}</h4>
+              ) : null}
+              <TextField
+                className="mb-4"
+                id="email"
+                name="email"
+                value={formikEditUser.values.email}
+                onChange={formikEditUser.handleChange}
+                onBlur={formikEditUser.handleBlur}
+                label="الأيميل"
+                variant="outlined"
+              />
+              {formikEditUser.touched.mobile && formikEditUser.errors.mobile ? (
+                <h4>{formikEditUser.errors.mobile}</h4>
+              ) : null}
+              <TextField
+                className="mb-4"
+                id="mobile"
+                name="mobile"
+                value={formikEditUser.values.mobile}
+                onChange={formikEditUser.handleChange}
+                onBlur={formikEditUser.handleBlur}
+                label="رقم الهاتف"
+                variant="outlined"
+              />
+              {formikEditUser.touched.wallet && formikEditUser.errors.wallet ? (
+                <h4>{formikEditUser.errors.wallet}</h4>
+              ) : null}
+              <TextField
+                className="mb-4"
+                id="wallet"
+                name="wallet"
+                value={formikEditUser.values.wallet}
+                onChange={formikEditUser.handleChange}
+                onBlur={formikEditUser.handleBlur}
+                label="المحفظة "
+                variant="outlined"
+              />
 
-            <TextField
-              className="mb-4"
-              id="userName"
-              label="الأسم"
-              variant="outlined"
-            />
-            <TextField
-              className="mb-4"
-              id="email"
-              label="الأيميل"
-              variant="outlined"
-            />
-
-            <TextField
-              className="mb-4"
-              id="mobile"
-              label="رقم الهاتف"
-              variant="outlined"
-            />
-            <TextField
-              className="mb-4"
-              id="wallet"
-              label="المحفظة "
-              variant="outlined"
-            />
-            <button className="   fw-bold transform-btn  green-bg pt-2 pb-2 text-white ">تعديل</button>
-          </div>
+              <button
+                type="submit"
+                className="  fw-bold transform-btn  green-bg pt-2 pb-2 text-white "
+              >
+                تعديل
+              </button>
+            </div>{" "}
+          </form>
         </Box>
       </Modal>
 
@@ -143,36 +225,64 @@ const users = () => {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
+        <form onSubmit={formikCreateUser.handleSubmit}>
           <div className="row rtl ">
             <h2 className="text-center"> أنشاء مستخدم</h2>
-
+            {formikCreateUser.touched.userName && formikCreateUser.errors.userName ? (
+                <h4>{formikCreateUser.errors.userName}</h4>
+              ) : null}
             <TextField
               className="mb-4"
               id="userName"
+              name="userName"
+              value={formikCreateUser.values.userName}
+              onChange={formikCreateUser.handleChange}
+              onBlur={formikCreateUser.handleBlur}
               label="الأسم"
               variant="outlined"
-            />
+            />  {formikCreateUser.touched.userName && formikCreateUser.errors.userName ? (
+              <h4>{formikCreateUser.errors.userName}</h4>
+            ) : null}
             <TextField
               className="mb-4"
               id="email"
+              name="email"
+              value={formikCreateUser.values.email}
+              onChange={formikCreateUser.handleChange}
+              onBlur={formikCreateUser.handleBlur}
               label="الأيميل"
               variant="outlined"
             />
-
+  {formikCreateUser.touched.userName && formikCreateUser.errors.userName ? (
+                <h4>{formikCreateUser.errors.userName}</h4>
+              ) : null}
             <TextField
               className="mb-4"
               id="mobile"
+              name="mobile"
+              value={formikCreateUser.values.mobile}
+              onChange={formikCreateUser.handleChange}
+              onBlur={formikCreateUser.handleBlur}
               label="رقم الهاتف"
               variant="outlined"
-            />
+            />  {formikCreateUser.touched.userName && formikCreateUser.errors.userName ? (
+              <h4>{formikCreateUser.errors.userName}</h4>
+            ) : null}
             <TextField
               className="mb-4"
               id="wallet"
+              name="wallet"
+              value={formikCreateUser.values.wallet}
+              onChange={formikCreateUser.handleChange}
+              onBlur={formikCreateUser.handleBlur}
               label="المحفظة "
               variant="outlined"
             />
-            <button className="   fw-bold transform-btn  green-bg pt-2 pb-2 text-white ">أنشاء</button>
+            <button         type="submit" className="   fw-bold transform-btn  green-bg pt-2 pb-2 text-white ">
+              أنشاء
+            </button>
           </div>
+          </form>
         </Box>
       </Modal>
     </div>

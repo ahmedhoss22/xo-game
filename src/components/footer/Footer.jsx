@@ -11,19 +11,20 @@ import Link from "next/link";
 
 const Footer = () => {
   return (
+ 
+   
 
 
-
-    <footer className="footer   d-flex align-items-center justify-content-between  rtl ">
+    <footer className="footer mt-auto   d-flex align-items-center justify-content-between  rtl ">
       <Link href={"/user"}>
        
         <img src={userIcon.src} alt="user" className="pointer" />
       </Link>
-      <Link href={""}>
+      <Link href={"/card"}>
        
         <img src={cardIcon.src} alt="card" className="pointer" />
       </Link>
-      <Link href={""}>
+      <Link href={"/playground"}>
        
         <img src={startIcon.src} alt="start" className="pointer" />
       </Link>

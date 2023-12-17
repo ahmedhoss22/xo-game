@@ -65,7 +65,7 @@ const playground = () => {
             </Link>
             <Link href="/user" className="link">
               <div className="rtl  col-11 ms-4 mb-1 ">
-                <div className="white-container justify-center">
+                <div className="user-container justify-center">
                   <h5 className="text-white mt-1 " style={{ fontSize: "15px" }}>
                     {user?.name?.slice(0, 13)}
                   </h5>
@@ -76,16 +76,15 @@ const playground = () => {
                         : user.image
                     }
                     className="userImage circle-image"
-                    style={{ width: "40px" }}
-                    alt=""
+                     alt="user image"
                   />
                 </div>
               </div>
             </Link>
           </header>
           <div className="prizes d-flex col-12 justify-content-center pt-3 ">
-            <div className="prize2 white-container">
-              <img src={ticket.src} className="ticket mb-3" alt="ticket" />
+            <div className="ticket ticket-container">
+              <img src={ticket.src} className="ticket-img mb-3" alt="ticket" />
               <h5>{user.coins}</h5>
             </div>
           </div>

@@ -28,7 +28,7 @@
     position: relative;
     z-index: 1;
   }
-  .white-container {
+  .ticket-container {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -38,11 +38,7 @@
     padding-right: 15px;
     gap: 7px;
     position: relative;
-    .userImage {
-      border: 1px solid white;
-      border-radius: 50px;
-      background: white;
-    }
+  
   }
   .ticket-prize{
    h5 {
@@ -73,27 +69,26 @@
       z-index: 1;
     }
    
-  .coins{
-    width: 50%;
-    margin: auto;
-    background: white;
-    border: 1px solid white !important;
-    border-radius: 20px;
-    height: 100px;
-    .level{
-            background:   linear-gradient(180deg, #9723ef 0%, #f04b9c 100%);
+  .start-play{ 
+  .start-play-div1{
+          background: white;
+          height: 130px;
+          
+
+     }
+   
+    .start-play-div2{
+      background:   linear-gradient(180deg, #9723ef 0%, #f04b9c 100%);
       display: flex;
-  align-items: center;
+      align-items: center;
       justify-content: center;
       flex-direction: column;
-      border-top-right-radius: 20px;
-      border-bottom-right-radius: 20px;
+      // border-top-right-radius: 20px;
 
-    }
-  }
-  @media only screen  and (max-width: 1200px) {
-    .coins {
-      width: 100%;
+    } .border-bottom-div { 
+      border-top: 1px solid rgba(128, 128, 128, 0.367); 
+      margin-top: 10px; 
+      margin-bottom: 10px;  
     }
   }
   

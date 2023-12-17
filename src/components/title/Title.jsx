@@ -3,6 +3,8 @@ import "./title.scss";
 import robot from "../../assets/photos/chatgpt.png";
 import localFont from 'next/font/local';
 import { motion } from "framer-motion";
+import Link from "next/link";
+
 
 const myFont = localFont({ src: '../../assets/fonts/Pacifico-Regular.ttf' });
 
@@ -24,7 +26,8 @@ const textVariants = {
 
 const Title = ({ height, fontsize, top }) => {
   return (
-    <motion.div className="title" style={myFont.style}
+    <Link href={'/'} className="link">
+       <motion.div href="/" className="title" style={myFont.style}
     variants={textVariants}
     initial={"initial"}
     animate={"animate"} 
@@ -36,6 +39,8 @@ const Title = ({ height, fontsize, top }) => {
         <motion.span className="blue-color ms-3" variants={textVariants}>Too</motion.span>
       </motion.div>
     </motion.div>
+    </Link>
+   
   );
 };
 
