@@ -5,15 +5,14 @@ import React, { useEffect, useState } from "react";
 import { notifyError, notifySuccess } from "../toastify/toastify";
 import { Form } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import { fetcLevels } from "@/redux/slices/levels";
+import { fetchPlayingCoins } from "@/redux/slices/playingCoins";
 
-const LevelModal = ({ open, handleClose, update, data }) => {
+const PlayingCoinsModal = ({ open, handleClose, update, data }) => {
   const dispatch = useDispatch();
   const [intialState, setIntialState] = useState({
-    number: 0,
+    rounds: 0,
     coins: 0,
-    bg: "#000",
-    color: "#fff",
+    winCoins: 0,
   });
 
   useEffect(() => {
@@ -22,13 +21,13 @@ const LevelModal = ({ open, handleClose, update, data }) => {
   }, [update, data]);
 
   function handleSubmit(values) {
-    const url = update ? "/level/update" : "/level";
-    console.log(url);
+    const url = update ? "/playing-coins/update" : "/playing-coins";
+    console.log(values);
     Api.post(url, values)
       .then(() => {
         notifySuccess("Data submitted");
         formik.handleReset();
-        dispatch(fetcLevels());
+        dispatch(fetchPlayingCoins());
         handleClose();
       })
       .catch((err) => {
@@ -46,17 +45,17 @@ const LevelModal = ({ open, handleClose, update, data }) => {
       <Form onSubmit={formik.handleSubmit} className="setting-modal">
         <Modal.Header closeButton>
           <Modal.Title>
-            {update ? "Update Level" : "Add new Level "}
+            {update ? "تعديل على نقاط اللعب" : "اضافة نقاط لعب"}
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Row>
             <Col xs={6}>
-              <Form.Label htmlFor="number">Level number</Form.Label>
+              <Form.Label htmlFor="number">نقاط الدخول</Form.Label>
               <Form.Control
                 type="number"
-                value={formik?.values?.number}
-                name="number"
+                value={formik?.values?.coins}
+                name="coins"
                 onChange={formik.handleChange}
                 id="number"
                 aria-describedby="number"
@@ -64,67 +63,28 @@ const LevelModal = ({ open, handleClose, update, data }) => {
               />
             </Col>
             <Col xs={6}>
-              <Form.Label htmlFor="coins">Coins</Form.Label>
+              <Form.Label htmlFor="coins">نقاط الفوز</Form.Label>
               <Form.Control
                 type="number"
                 id="coins"
                 aria-describedby="number"
                 required
-                value={formik?.values?.coins}
-                name="coins"
+                value={formik?.values?.winCoins}
+                name="winCoins"
                 onChange={formik.handleChange}
               />
             </Col>
           </Row>
           <Row style={{ marginTop: "20px", marginBottom: "20px" }}>
             <Col xs={6}>
-              <Form.Label htmlFor="numer">Background code</Form.Label>
+              <Form.Label htmlFor="numer">عدد الجولات</Form.Label>
               <Form.Control
-                type="text"
+                type="number"
                 id="color"
                 aria-describedby="color"
-                value={formik?.values?.bg}
-                name="bg"
+                value={formik?.values?.rounds}
+                name="rounds"
                 onChange={formik.handleChange}
-                required
-              />
-            </Col>
-            <Col xs={6}>
-              <Form.Label htmlFor="numer">color code</Form.Label>
-              <Form.Control
-                type="text"
-                id="color"
-                value={formik?.values?.color}
-                name="color"
-                onChange={formik.handleChange}
-                aria-describedby="color"
-                required
-                style={{ width: "100%" }}
-              />
-            </Col>
-          </Row>
-          <Row>
-            <Col xs={6}>
-              <Form.Label htmlFor="numer">Background color</Form.Label>
-              <Form.Control
-                type="color"
-                id="color"
-                aria-describedby="color"
-                value={formik?.values?.bg}
-                name="bg"
-                onChange={formik.handleChange}
-                required
-              />
-            </Col>
-            <Col xs={6}>
-              <Form.Label htmlFor="numer">color</Form.Label>
-              <Form.Control
-                type="color"
-                id="color"
-                value={formik?.values?.color}
-                name="color"
-                onChange={formik.handleChange}
-                aria-describedby="color"
                 required
               />
             </Col>
@@ -147,4 +107,4 @@ const LevelModal = ({ open, handleClose, update, data }) => {
   );
 };
 
-export default LevelModal;
+export default PlayingCoinsModal;

@@ -134,3 +134,8 @@
 
     }
   }
+
+  .model-btn{
+    background: linear-gradient(180deg, #37007B 0%, #4044A7 100% ) !important;
+
+}

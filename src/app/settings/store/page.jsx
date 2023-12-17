@@ -120,8 +120,25 @@ const store = () => {
               variant="outlined"
             />
         
+        <div className="d-flex align-items-center justify-content-between"> <button
+              type="submit"
+              className="  fw-bold transform-btn model-btn pt-2 pb-2 text-white  "
+              style={{padding:' 0 50px'}}
+            >
+تعديل      
+            </button>
+            <button
+              className="  fw-bold transform-btn model-btn pt-2 pb-2 text-white "
+
+style={{padding:' 0 50px'}}              onClick={handleClose}
+            >
+              الغاء
+            </button>
+
+           
+            </div>
         
-        <button type="submit" className="  fw-bold transform-btn  green-bg pt-2 pb-2 text-white ">تعديل</button>
+        {/* <button type="submit" className="  fw-bold transform-btn  model-btn pt-2 pb-2 text-white ">تعديل</button> */}
           </div>      </form>
         </Box>
       </Modal>

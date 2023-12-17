@@ -24,7 +24,7 @@ const textVariants = {
  
 };
 
-const Title = ({ height, fontsize, top }) => {
+const Title = ( ) => {
   return (
     <Link href={'/'} className="link">
        <motion.div href="/" className="title" style={myFont.style}
@@ -32,8 +32,8 @@ const Title = ({ height, fontsize, top }) => {
     initial={"initial"}
     animate={"animate"} 
     >
-      <motion.img src={robot.src} alt="" style={{ height: height }}  variants={textVariants}/>
-      <motion.div className="title-text d-flex" style={{ fontSize: fontsize, top: top }} variants={textVariants}>
+      <motion.img src={robot.src} alt="" variants={textVariants}/>
+      <motion.div className="title-text d-flex"  variants={textVariants}>
         <motion.span className="gray-color ms-3" variants={textVariants}>Tic</motion.span>
         <motion.span className="purple-color ms-3" variants={textVariants}>Tac</motion.span>
         <motion.span className="blue-color ms-3" variants={textVariants}>Too</motion.span>
