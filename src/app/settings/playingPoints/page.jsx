@@ -42,11 +42,6 @@ const PlayingPoints = () => {
                       <th scope="col" className="px-6 py-3">
                         عدد المحاولات{" "}
                       </th>
-
-                      <th scope="col" className="px-6 py-3">
-                        {" "}
-                        عدد مرات الفوز
-                      </th>
                       <th scope="col" className="px-6 py-3">
                         <button
                           className="fw-bold transform-btn "
@@ -68,6 +63,9 @@ const PlayingPoints = () => {
                         </td>
                         <td className="px-6 py-4 font-semibold text-gray-900 text-white dark:text-white  ">
                           {ele.winCoins}
+                        </td>
+                        <td className="px-6 py-4 font-semibold text-gray-900 text-white dark:text-white  ">
+                          {ele.rounds}
                         </td>
 
                         <td className="px-6 py-4 font-semibold text-gray-900 text-white dark:text-white  ">

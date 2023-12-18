@@ -118,7 +118,7 @@ const playground = () => {
                 <div key={rowIndex} className="row">
                   <div className="d-flex m-1">
                     {row.map((content, colIndex) => (
-                      <div key={colIndex} className="box1 col-3 m-1">
+                      <div key={colIndex} className="box1 col-3 m-1 pointer" style={{userSelect:"none"}}>
                         <h2
                           className="text-center fw-bold "
                           style={{ color: "#fff" }}
