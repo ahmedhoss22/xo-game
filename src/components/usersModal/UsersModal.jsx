@@ -67,10 +67,10 @@ const UsersModal = ({ open, handleClose, update, data }) => {
         {" "}
         <form onSubmit={formik.handleSubmit}>
           <div className="row rtl ">
-            <h2 className="text-center">
+            <h4 className="text-center">
               {" "}
               {update ? "تعديل بيانات مستخدم" : "اضافة مستخدم"}
-            </h2>
+            </h4>
             {formik.touched.name && formik.errors.name ? (
               <h4>{formik.errors.name}</h4>
             ) : null}
@@ -78,7 +78,7 @@ const UsersModal = ({ open, handleClose, update, data }) => {
               className="mb-4"
               id="name"
               name="name"
-              value={formik?.values?.email}
+              value={formik?.values?.name}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               label="الأسم"
