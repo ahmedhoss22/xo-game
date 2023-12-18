@@ -5,7 +5,7 @@ import { Howl } from 'howler';
 import { useEffect } from 'react';
 import useSound from 'use-sound';
 
-const Loading = () => {
+const Loading = ({text}) => {
 //   const audioClips = [
 //     {
 //       sound: '../../assets/sound/s.mp3',
@@ -32,6 +32,7 @@ const Loading = () => {
   return (
     <div className='loading-page'> 
       <GridLoader color="#8c0e68" />
+      <h2 className='fw-bold' style={ {color:"#8c0e68"}}>{text}</h2>
       {/* <button onClick={() => soundPlay(audioClips[0].sound)}>Play Sound</button> */}
       {/* <button onClick={playSound}>Play Sound</button> */}
 
