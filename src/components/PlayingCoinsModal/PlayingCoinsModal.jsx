@@ -9,20 +9,27 @@ import { fetchPlayingCoins } from "@/redux/slices/playingCoins";
 
 const PlayingCoinsModal = ({ open, handleClose, update, data }) => {
   const dispatch = useDispatch();
-  const [intialState, setIntialState] = useState({
+  const [intialState, setInitialState] = useState({
     rounds: 0,
     coins: 0,
     winCoins: 0,
+    name:""
+  });
+  
+  const formik = useFormik({
+    initialValues: intialState,
+    onSubmit: handleSubmit,
   });
 
   useEffect(() => {
-    if (update) setIntialState(data);
-    formik.setValues(data);
+    if (update && data) {
+      setInitialState(data);
+      formik.setValues(data);
+    }
   }, [update, data]);
 
   function handleSubmit(values) {
     const url = update ? "/playing-coins/update" : "/playing-coins";
-    console.log(values);
     Api.post(url, values)
       .then(() => {
         notifySuccess("Data submitted");
@@ -35,10 +42,6 @@ const PlayingCoinsModal = ({ open, handleClose, update, data }) => {
         notifyError(Array.isArray(error) ? error[0] : error);
       });
   }
-  const formik = useFormik({
-    initialValues: intialState,
-    onSubmit: handleSubmit,
-  });
 
   return (
     <Modal show={open} onHide={handleClose}>
@@ -50,6 +53,18 @@ const PlayingCoinsModal = ({ open, handleClose, update, data }) => {
         </Modal.Header>
         <Modal.Body>
           <Row>
+          <Col xs={6}>
+              <Form.Label htmlFor="name">الاسم</Form.Label>
+              <Form.Control
+                type="text"
+                value={formik?.values?.name}
+                name="name"
+                onChange={formik.handleChange}
+                id="name"
+                aria-describedby="name"
+                required
+              />
+            </Col>
             <Col xs={6}>
               <Form.Label htmlFor="number">نقاط الدخول</Form.Label>
               <Form.Control
@@ -62,6 +77,8 @@ const PlayingCoinsModal = ({ open, handleClose, update, data }) => {
                 required
               />
             </Col>
+          </Row>
+          <Row style={{ marginTop: "20px", marginBottom: "20px" }}>
             <Col xs={6}>
               <Form.Label htmlFor="coins">نقاط الفوز</Form.Label>
               <Form.Control
@@ -74,14 +91,12 @@ const PlayingCoinsModal = ({ open, handleClose, update, data }) => {
                 onChange={formik.handleChange}
               />
             </Col>
-          </Row>
-          <Row style={{ marginTop: "20px", marginBottom: "20px" }}>
             <Col xs={6}>
               <Form.Label htmlFor="numer">عدد الجولات</Form.Label>
               <Form.Control
                 type="number"
-                id="color"
-                aria-describedby="color"
+                id="rounds"
+                aria-describedby="rounds"
                 value={formik?.values?.rounds}
                 name="rounds"
                 onChange={formik.handleChange}

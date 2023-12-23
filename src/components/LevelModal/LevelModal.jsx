@@ -9,17 +9,25 @@ import { fetcLevels } from "@/redux/slices/levels";
 
 const LevelModal = ({ open, handleClose, update, data }) => {
   const dispatch = useDispatch();
-  const [intialState, setIntialState] = useState({
+  const [intialState, setInitialState] = useState({
     number: 0,
     coins: 0,
     bg: "#000",
     color: "#fff",
   });
 
+  const formik = useFormik({
+    initialValues: intialState,
+    onSubmit: handleSubmit,
+  });
+
   useEffect(() => {
-    if (update) setIntialState(data);
-    formik.setValues(data);
+    if (update && data) {
+      setInitialState(data);
+      formik.setValues(data);
+    }
   }, [update, data]);
+
 
   function handleSubmit(values) {
     const url = update ? "/level/update" : "/level";
@@ -36,10 +44,6 @@ const LevelModal = ({ open, handleClose, update, data }) => {
         notifyError(Array.isArray(error) ? error[0] : error);
       });
   }
-  const formik = useFormik({
-    initialValues: intialState,
-    onSubmit: handleSubmit,
-  });
 
   return (
     <Modal show={open} onHide={handleClose}>
@@ -68,7 +72,7 @@ const LevelModal = ({ open, handleClose, update, data }) => {
               <Form.Control
                 type="number"
                 id="coins"
-                aria-describedby="number"
+                aria-describedby="coins"
                 required
                 value={formik?.values?.coins}
                 name="coins"
@@ -78,11 +82,11 @@ const LevelModal = ({ open, handleClose, update, data }) => {
           </Row>
           <Row style={{ marginTop: "20px", marginBottom: "20px" }}>
             <Col xs={6}>
-              <Form.Label htmlFor="numer">Background code</Form.Label>
+              <Form.Label htmlFor="bg">Background code</Form.Label>
               <Form.Control
                 type="text"
-                id="color"
-                aria-describedby="color"
+                id="bg"
+                aria-describedby="bg"
                 value={formik?.values?.bg}
                 name="bg"
                 onChange={formik.handleChange}
@@ -90,14 +94,14 @@ const LevelModal = ({ open, handleClose, update, data }) => {
               />
             </Col>
             <Col xs={6}>
-              <Form.Label htmlFor="numer">color code</Form.Label>
+              <Form.Label htmlFor="color">Color code</Form.Label>
               <Form.Control
                 type="text"
-                id="color"
-                value={formik?.values?.color}
+                id="colorCode"
                 name="color"
+                value={formik?.values?.color}
                 onChange={formik.handleChange}
-                aria-describedby="color"
+                aria-describedby="colorCode"
                 required
                 style={{ width: "100%" }}
               />
@@ -105,31 +109,32 @@ const LevelModal = ({ open, handleClose, update, data }) => {
           </Row>
           <Row>
             <Col xs={6}>
-              <Form.Label htmlFor="numer">Background color</Form.Label>
+              <Form.Label htmlFor="bgColor">Background color</Form.Label>
               <Form.Control
                 type="color"
-                id="color"
-                aria-describedby="color"
-                value={formik?.values?.bg}
+                id="bgColor"
+                aria-describedby="bgColor"
                 name="bg"
+                value={formik?.values?.bg}
                 onChange={formik.handleChange}
                 required
               />
             </Col>
             <Col xs={6}>
-              <Form.Label htmlFor="numer">color</Form.Label>
+              <Form.Label htmlFor="textColor">Color</Form.Label>
               <Form.Control
                 type="color"
-                id="color"
-                value={formik?.values?.color}
+                id="textColor"
                 name="color"
+                value={formik?.values?.color}
                 onChange={formik.handleChange}
-                aria-describedby="color"
+                aria-describedby="textColor"
                 required
               />
             </Col>
           </Row>
         </Modal.Body>
+
         <Modal.Footer>
           <Button
             variant="secondary"

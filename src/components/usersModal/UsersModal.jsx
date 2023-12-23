@@ -23,16 +23,22 @@ const style = {
 
 const UsersModal = ({ open, handleClose, update, data }) => {
   const dispatch = useDispatch();
-  const [intialState, setIntialState] = useState({
+  const [intialState, setInitialState] = useState({
     email: "",
     coins: 0,
-    password: "",
+    // password: "",
     name: "",
+  });
+  const formik = useFormik({
+    initialValues: intialState,
+    onSubmit: handleSubmit,
   });
 
   useEffect(() => {
-    if (update) setIntialState(data);
-    formik.setValues(data);
+    if (update && data) {
+      setInitialState(data);
+      formik.setValues(data);
+    }
   }, [update, data]);
 
   function handleSubmit(values) {
@@ -50,11 +56,6 @@ const UsersModal = ({ open, handleClose, update, data }) => {
         notifyError(Array.isArray(error) ? error[0] : error);
       });
   }
-
-  const formik = useFormik({
-    initialValues: intialState,
-    onSubmit: handleSubmit,
-  });
 
   return (
     <Modal
@@ -97,7 +98,7 @@ const UsersModal = ({ open, handleClose, update, data }) => {
               label="الأيميل"
               variant="outlined"
             />
-            {formik.touched.password && formik.errors.password ? (
+            {/* {formik.touched.password && formik.errors.password ? (
               <h4>{formik.errors.password}</h4>
             ) : null}
             <TextField
@@ -110,7 +111,7 @@ const UsersModal = ({ open, handleClose, update, data }) => {
               onBlur={formik.handleBlur}
               label="رقم السر"
               variant="outlined"
-            />
+            /> */}
             {formik.touched.coins && formik.errors.coins ? (
               <h4>{formik.errors.coins}</h4>
             ) : null}

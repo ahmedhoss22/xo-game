@@ -1,10 +1,12 @@
 "use client";
-import "./playingPoints.scss"; 
+import "./playingPoints.scss";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchLevels } from "@/redux/slices/levels";
 import PlayingCoinsModal from "@/components/PlayingCoinsModal/PlayingCoinsModal";
 import { fetchPlayingCoins } from "@/redux/slices/playingCoins";
+import Api from "@/config/api";
+import { notifyError, notifySuccess } from "@/components/toastify/toastify";
 
 const PlayingPoints = () => {
   const dispatch = useDispatch();
@@ -21,6 +23,18 @@ const PlayingPoints = () => {
   });
   const handleClose = () =>
     setModal({ open: false, update: false, data: null });
+
+  function handleDelete(id) {
+    Api.delete("/playing-coins/" + id)
+      .then(() => {
+        notifySuccess("Data Deleted !!");
+        dispatch(fetchPlayingCoins());
+      })
+      .catch((err) => {
+        let error = err?.response?.data?.message;
+        notifyError(Array.isArray(error) ? error[0] : error);
+      });
+  }
   return (
     <>
       <div className="users-points rtl">
@@ -32,9 +46,11 @@ const PlayingPoints = () => {
                   <thead className="  text-gray-700 uppercase header text-white dark:bg-gray-700 dark:text-gray-400">
                     <tr className="text-center">
                       <th scope="col" className="px-6 py-3">
+                        الاسم
+                      </th>
+                      <th scope="col" className="px-6 py-3">
                         نقاط الدخول{" "}
                       </th>
-
                       <th scope="col" className="px-6 py-3">
                         نقاط الفوز
                       </th>
@@ -59,6 +75,9 @@ const PlayingPoints = () => {
                         className=" text-center border-b dark:bg-gray-800 dark:border-gray-700   dark:hover:bg-gray-600 pointer"
                       >
                         <td className="px-6 py-4 font-semibold text-gray-900 text-white dark:text-white  ">
+                          {ele.name}{" "}
+                        </td>
+                        <td className="px-6 py-4 font-semibold text-gray-900 text-white dark:text-white  ">
                           {ele.coins}{" "}
                         </td>
                         <td className="px-6 py-4 font-semibold text-gray-900 text-white dark:text-white  ">
@@ -76,6 +95,12 @@ const PlayingPoints = () => {
                             }
                           >
                             تعديل
+                          </button>
+                          <button
+                            className="edit-btn fw-bold transform-btn mr-2"
+                            onClick={() => handleDelete(ele._id)}
+                          >
+                            حذف
                           </button>
                         </td>
                       </tr>
