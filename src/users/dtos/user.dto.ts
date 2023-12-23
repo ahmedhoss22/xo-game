@@ -43,8 +43,8 @@ export class UserrDto {
   @IsOptional()
   readonly level: number;
 
-  @IsNumber()
-  @IsOptional()
+  // @IsNumber()
+  // @IsOptional()
   readonly coins: number;
 
 }

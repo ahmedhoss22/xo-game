@@ -27,4 +27,8 @@ export class PlayingCoinsService {
   updatePlayingCoins (data:UpdatePlayingCoinsDto):Promise<PlayingCoins>{
     return this.PlayingCoins.findByIdAndUpdate(data._id,data)
   }
+
+  async deletePlayingCoins(id: mongoose.Types.ObjectId): Promise<PlayingCoins> {
+    return this.PlayingCoins.findByIdAndDelete(id);
+  }
 }

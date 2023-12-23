@@ -15,7 +15,11 @@ export class PlayingCoinsDto {
   @IsNumber()
   @IsPositive()
   @IsNotEmpty({ message: 'winCoins is requried !!' })
-  readonly winCoins: string;
+  readonly winCoins: number;
+
+  @IsString()
+  @IsNotEmpty({ message: 'winCoins is requried !!' })
+  readonly name: string;
 
   @IsOptional()
   _id: mongoose.Types.ObjectId;
