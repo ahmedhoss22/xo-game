@@ -3,9 +3,13 @@ import './loading.scss';
 import { GridLoader } from 'react-spinners';
 import { Howl } from 'howler';  
 import { useEffect } from 'react';
-import useSound from 'use-sound';
+import useSound from 'use-sound'; 
+import localFont from 'next/font/local';
 
-const Loading = ({text}) => {
+
+const myFont = localFont({ src: '../../assets/fonts/Pacifico-Regular.ttf' });
+
+const Loading = ({text , backGround}) => {
 //   const audioClips = [
 //     {
 //       sound: '../../assets/sound/s.mp3',
@@ -30,9 +34,18 @@ const Loading = ({text}) => {
 // const [playSound] = useSound('http://commondatastorage.googleapis.com/codeskulptor-demos/DDR_assets/Kangaroo_MusiQue_-_The_Neverwritten_Role_Playing_Game.mp3');
 
   return (
-    <div className='loading-page'> 
-      <GridLoader color="#8c0e68" />
-      <h2 className='fw-bold' style={ {color:"#8c0e68"}}>{text}</h2>
+    <div className='loading-page' > 
+    <div  style={ {zIndex: '100'}}>
+             <GridLoader color="#8c0e68" />
+
+    </div>
+    <div style={ {color:"#8c0e68" , zIndex: '100'}}>    <div style={myFont.style  } >
+      <h1 className='fw-bold'>{text}</h1>
+
+    </div>
+
+    </div>
+
       {/* <button onClick={() => soundPlay(audioClips[0].sound)}>Play Sound</button> */}
       {/* <button onClick={playSound}>Play Sound</button> */}
 

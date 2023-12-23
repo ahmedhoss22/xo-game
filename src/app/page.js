@@ -9,18 +9,18 @@ const Home = () => {
   const isLoading = useSelector(selectLoading);
 
   useEffect(() => {
-    dispatch(startLoading());
+    // dispatch(startLoading());
 
     setTimeout(() => {
       dispatch(stopLoading());
-    }, 3000);
+    }, 1000);
   }, [dispatch]);
 
   return (
     <div>
        <div>
       {isLoading ? (
-        <Loading text="XO Game is Loading ..." />
+        <Loading text="XO Game is Loading ..."  backGround= "url../../assets/photos/home.png" />
       ) : (
         <Homepage/>   
         )}

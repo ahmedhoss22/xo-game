@@ -53,7 +53,7 @@ export default function AdminPanel({ children }) {
               </li>{" "}
                
               <li>
-                <Link prefetch href="gifts">
+                <Link prefetch href="changecoins">
                   <span className="fa fa-user mr-3" /> هدايا المتجر
                 </Link>
               </li>
