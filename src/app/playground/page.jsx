@@ -1,10 +1,8 @@
 "use client";
 import "./playground.scss";
 import { FaArrowLeft } from "react-icons/fa";
-import userImage from "../../assets/photos/userrr.png";
-import money from "../../assets/photos/money-bag.png";
-import ticket from "../../assets/photos/Ticket.png";
-import xo from "../../assets/photos/xo.png";
+import userImage from "../../assets/photos/userrr.png"; 
+import ticket from "../../assets/photos/Ticket.png"; 
 import vs from "../../assets/photos/VS.png";
 import { useEffect, useState } from "react";
 import socket from "@/config/socket";
@@ -12,8 +10,12 @@ import { notifyError } from "@/components/toastify/toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUserData } from "@/redux/slices/user";
 import Link from "next/link";
+import sound from "../../assets/sound/clickSound.wav";
+import useSound from "use-sound";
 
 const playground = () => {
+  const [play] = useSound(sound);
+ 
   const [data, setData] = useState({});
   const user = useSelector((state) => state.user.data);
   const dispatch = useDispatch();
@@ -64,23 +66,21 @@ const playground = () => {
               <FaArrowLeft className="text-white pointer h-5" />
             </Link>
             <Link href="/user" className="link">
-              <div className="rtl  col-11 ms-4 mb-1 ">
-                <div className="user-container justify-center">
-                  <h5 className="text-white mt-1 " style={{ fontSize: "15px" }}>
-                    {user?.name?.slice(0, 13)}
-                  </h5>
-                  <img
-                    src={
-                      user.provider == "local"
-                        ? apiUrl + user.image
-                        : user.image
-                    }
-                    className="userImage circle-image"
-                     alt="user image"
-                  />
-                </div>
-              </div>
-            </Link>
+          <div className="rtl  col-11 ms-4 mb-1 ">
+            <div className="user-container justify-center">
+              <h5 className="text-white mt-1 " style={{ fontSize: "15px" }}>
+                {user?.name?.slice(0, 13) || 'user not found'}
+              </h5>
+              <img
+                src={
+                  user.provider == "local" ? apiUrl + user.image : user.image
+                || userImage.src}
+                className="userImage circle-image"
+                alt="user image"
+              />
+            </div>
+          </div>
+        </Link>
           </header>
           <div className="prizes d-flex col-12 justify-content-center pt-3 ">
             <div className="ticket ticket-container">
@@ -118,7 +118,7 @@ const playground = () => {
                 <div key={rowIndex} className="row">
                   <div className="d-flex m-1">
                     {row.map((content, colIndex) => (
-                      <div key={colIndex} className="box1 col-3 m-1 pointer" style={{userSelect:"none"}}>
+                      <div onClick={play} key={colIndex} className="box1 col-3 m-1 pointer" style={{userSelect:"none"}}>
                         <h2
                           className="text-center fw-bold "
                           style={{ color: "#fff" }}

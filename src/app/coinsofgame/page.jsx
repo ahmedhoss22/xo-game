@@ -12,6 +12,7 @@ import Title from "@/components/title/Title";
 import { FaUserAlt } from "react-icons/fa";
 import { MdNotStarted } from "react-icons/md";
 import { fetchPlayingCoins } from "@/redux/slices/playingCoins";
+import userImage from "../../assets/photos/userrr.png"; 
 
 const textVariants = {
   initial: {
@@ -74,21 +75,21 @@ const coinsOfGame = () => {
             </div>
           </header>
           <Link href="/user" className="link">
-            <div className="rtl  col-11 ms-4 mb-1 ">
-              <div className="user-container justify-center">
-                <h5 className="text-white mt-1 " style={{ fontSize: "15px" }}>
-                  {user?.name?.slice(0, 13)}
-                </h5>
-                <img
-                  src={
-                    user.provider == "local" ? apiUrl + user.image : user.image
-                  }
-                  className="userImage circle-image"
-                  alt="user image"
-                />
-              </div>
+          <div className="rtl  col-11 ms-4 mb-1 ">
+            <div className="user-container justify-center">
+              <h5 className="text-white mt-1 " style={{ fontSize: "15px" }}>
+                {user?.name?.slice(0, 13) || 'user not found'}
+              </h5>
+              <img
+                src={
+                  user.provider == "local" ? apiUrl + user.image : user.image
+                || userImage.src}
+                className="userImage circle-image"
+                alt="user image"
+              />
             </div>
-          </Link>
+          </div>
+        </Link>
           <Link href={""} className="link mt-10">
             <div className="row mb-4  start-play ">
               {playingCoins.map((ele, ind) => (

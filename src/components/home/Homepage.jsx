@@ -9,12 +9,16 @@ import walletPhoto from "../../assets/photos/wallet-photo.png";
 import playNowPhoto from "../../assets/photos/playNow-photo.png";
 import playWithPhoto from "../../assets/photos/playWith-photo.png";
 import shareGamePhoto from "../../assets/photos/shareGame-photo.png";
+import userImage from "../../assets/photos/userrr.png"; 
+import bgSound from "../../assets/sound/bg1.mp3";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { fetchUserData } from "@/redux/slices/user";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import useSound from "use-sound"; 
+import sound from "../../assets/sound/s.mp3";
 
 const textVariants = {
   initial: {
@@ -37,14 +41,33 @@ const scrollLeft = () => {
 const scrollRight = () => {
   document.getElementById("content").scrollLeft -= 800;
 };
+
+
 const Homepage = () => {
+
+
+ 
+    const [play] = useSound(sound);
+   
+  // const [playBg, { stop }] = useSound(bgSound, { volume: 0.5, loop: true });
+
+  // useEffect(() => {
+  //   playBg();
+
+  //   return () => {
+  //     stop();
+  //   };
+  // }, [playBg, stop]);
+
+
+ 
   const user = useSelector((state) => state.user.data);
   const online = useSelector((state) => state.user.online);
   const apiUrl = process.env.NEXT_PUBLIC_API_SERVER;
 
   const router = useRouter();
   const dispatch = useDispatch();
-
+  
   useEffect(() => {
     dispatch(fetchUserData());
     // if (!online) {
@@ -56,6 +79,8 @@ const Homepage = () => {
 
   return (
     <div className="home-page d-flex flex-column ">
+    {/* <button onClick={()=>setValue(value+1)}></button> */}
+  
       <div className="flex-grow">
         <header className="d-flex justify-content-between mb-4 align-items-center   text-white p-4 ">
           {/* <img src={xIcon.src} alt="" /> */}
@@ -85,12 +110,12 @@ const Homepage = () => {
           <div className="rtl  col-11 ms-4 mb-1 ">
             <div className="user-container justify-center">
               <h5 className="text-white mt-1 " style={{ fontSize: "15px" }}>
-                {user?.name?.slice(0, 13)}
+                {user?.name?.slice(0, 13) || 'user not found'}
               </h5>
               <img
                 src={
                   user.provider == "local" ? apiUrl + user.image : user.image
-                }
+                || userImage.src}
                 className="userImage circle-image"
                 alt="user image"
               />
@@ -98,7 +123,12 @@ const Homepage = () => {
           </div>
         </Link>
 
+
+        
+
         <div className=" row  d-flex horizontal-scroll-container mb-4   high-z-index">
+
+
           <div
             className="col-lg-6  home-page-main-container-layer  gy-4 pointer"
             onClick={() => router.push("/coinsofgame")}
@@ -113,6 +143,9 @@ const Homepage = () => {
               </div>{" "}
             </div>
           </div>
+
+   
+          
           <div
             className="col-lg-6  home-page-main-container-layer  gy-4 pointer"
             onClick={() => router.push("/coinsofgame")}
@@ -135,7 +168,7 @@ const Homepage = () => {
           className="row d-flex high-z-index pointer"
           onClick={() => router.push("/playground")}
         >
-          <div className="col-lg-6  home-page-main-container-layer gy-1">
+          <div className="col-lg-6  home-page-main-container-layer gy-4">
             <div className="home-page-main-container wallet d-flex  w-75 m-auto align-items-center justify-content-around text-white fw-bold rtl">
               <img src={walletPhoto.src} alt="" />
               <div className="text-play-container">
@@ -148,7 +181,7 @@ const Homepage = () => {
           </div>
 
           <div
-            className="col-lg-6 home-page-main-container-layer gy-1"
+            className="col-lg-6 home-page-main-container-layer gy-4"
             onClick={() => router.push("/")}
           >
             <div className="home-page-main-container shareGame d-flex  w-75 m-auto align-items-center justify-content-around text-white fw-bold rtl">
