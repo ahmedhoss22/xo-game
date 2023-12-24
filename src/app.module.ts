@@ -7,6 +7,8 @@ import * as dotenv from 'dotenv';
 import { GatwayModule } from './gatway/gatway.module';
 import { LevelModule } from './level/level.module';
 import { PlayingCoinsModule } from './playing-coins/playing-coins.module';
+import { StoreModule } from './store/store.module';
+import { MulterModule } from '@nestjs/platform-express';
 
 @Module({
   imports: [
@@ -17,6 +19,7 @@ import { PlayingCoinsModule } from './playing-coins/playing-coins.module';
     GatwayModule,
     LevelModule,
     PlayingCoinsModule,
+    StoreModule,
     
   ],
   providers: [Logger],

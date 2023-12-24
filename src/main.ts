@@ -9,6 +9,7 @@ import * as cors from "cors"
 import * as express from 'express';
 import {NestExpressApplication} from "@nestjs/platform-express"
 import {join} from "path"
+import * as bodyParser from 'body-parser';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule, { });
@@ -33,6 +34,7 @@ async function bootstrap() {
     }),
   );
   app.use(cookieParser());
+  app.use(bodyParser.urlencoded({ extended: true }));
   app.setGlobalPrefix('api');
   app.use(cors({
     origin:process.env.APP_DOMAIN || '*',

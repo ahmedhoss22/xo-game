@@ -5,7 +5,7 @@ export class LevelDto {
   @IsNumber()
   @IsPositive()
   @IsNotEmpty({ message: 'number is requried !!' })
-  readonly number: string;
+  readonly number: number;
 
   @IsNumber()
   @IsNotEmpty({ message: 'coins is requried !!' })
