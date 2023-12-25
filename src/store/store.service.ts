@@ -26,4 +26,8 @@ export class StoreService {
         delete data._id
         return this.Store.findByIdAndUpdate(id,data)
     }
+
+    deleteStore (id : mongoose.Types.ObjectId):Promise<Store>{
+        return this.Store.findByIdAndDelete(id)
+    }
 }

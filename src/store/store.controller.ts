@@ -12,6 +12,8 @@ import {
   MaxFileSizeValidator,
   FileTypeValidator,
   BadRequestException,
+  Delete,
+  Param,
 } from '@nestjs/common';
 import { StoreDto } from './dtos/store.dto';
 import { StoreService } from './store.service';
@@ -21,6 +23,7 @@ import { multerConfig } from 'src/utilites/multerConfig';
 import { filterFilter } from 'src/utilites/file-filter';
 import { IsNotEmpty, IsOptional } from 'class-validator';
 import { UpdateStoreDto } from './dtos/update-store.dto';
+import mongoose from 'mongoose';
 
 @Controller('store')
 export class StoreController {
@@ -79,7 +82,7 @@ export class StoreController {
           }),
           new FileTypeValidator({ fileType: 'image/*' }),
         ],
-        fileIsRequired:false
+        fileIsRequired: false,
       }),
     )
     file: Express.Multer.File,
@@ -94,5 +97,12 @@ export class StoreController {
 
     await this.storeService.updateStore(data._id, data);
     return { message: 'Updated !!' };
+  }
+
+  @Delete('/:id')
+  @UseGuards(AuthAdminGuard)
+  async deleteStore(@Param('id') id: mongoose.Types.ObjectId) {
+    await this.storeService.deleteStore(id);
+    return { message: 'Store Deleted !!' };
   }
 }
