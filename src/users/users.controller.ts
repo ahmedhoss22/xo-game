@@ -69,4 +69,11 @@ export class UserController {
     await this.userService.deleteUser(data.id)
     return "User deleted !!"
   }
+
+  @Get('/user/:id')
+  @UseGuards(AuthAdminGuard)
+  async getUserData(@Param() data : any) {
+    let user = await this.userService.getUserData(data.id)
+    return user
+  }
 }

@@ -9,20 +9,20 @@ import { UpdateStoreDto } from './dtos/update-store.dto';
 export class StoreService {
     constructor(@InjectModel(Store.name) private Store :Model<Store> ){}
 
-    addStore(data :StoreDto){
+    addStore(data :StoreDto): Promise<Store>{
         let newStore = new this.Store(data)
         return newStore.save()
     }
 
-    getAllStores(){
+    getAllStores(): Promise<Store[]>{
         return this.Store.find()
     }
 
-    getStore(id :mongoose.Types.ObjectId){
+    getStore(id :mongoose.Types.ObjectId): Promise<Store>{
         return this.Store.findById(id)
     }
 
-    updateStore(id:mongoose.Types.ObjectId,data:UpdateStoreDto){
+    updateStore(id:mongoose.Types.ObjectId,data:UpdateStoreDto): Promise<Store>{
         delete data._id
         return this.Store.findByIdAndUpdate(id,data)
     }

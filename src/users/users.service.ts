@@ -55,4 +55,8 @@ export class UserService {
     user.coins -= coins;
     return await user.save();
   }
+
+  async getUserData(id: mongoose.Types.ObjectId): Promise<Users>{
+    return this.UserModel.findById(id)
+  }
 }

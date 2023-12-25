@@ -39,16 +39,18 @@ export class RoomsService implements OnGatewayDisconnect {
 
   @SubscribeMessage('start-game')
   async handleMatch(client: Socket, data: MatchDto) {
-    const roomName: string = 'room' + Date.now().toString();
-    this.waitingPlayers = this.waitingPlayers.filter(
-      (ele) => ele.socketID != client.id,
-    );
-    // Check if the server instance is available
     if (!this.server)
       return this.utilitsService.errorHandle(
         client.id,
         'Server instance not available.',
       );
+
+    if (!data) {
+      return this.utilitsService.errorHandle(
+        client.id,
+        'coins and userID and winCoins and rounds is required !!',
+      );
+    }
 
     // Validate data (coins and userID)
     if (!data.coins || !data.userID || !data.winCoins || !data.rounds) {
@@ -57,6 +59,11 @@ export class RoomsService implements OnGatewayDisconnect {
         'coins and userID and winCoins and rounds is required !!',
       );
     }
+
+    const roomName: string = 'room' + Date.now().toString();
+    this.waitingPlayers = this.waitingPlayers.filter(
+      (ele) => ele.socketID != client.id,
+    );
 
     // valid object id
     if (!mongoose.isValidObjectId(data.userID)) {
@@ -68,6 +75,9 @@ export class RoomsService implements OnGatewayDisconnect {
 
     // valid coins in player acc
     let user = await this.userService.getUser(data.userID);
+    if (!user) {
+      return this.utilitsService.errorHandle(client.id, 'Invalid user ID !!');
+    }
     if (user.coins < data.coins) {
       return this.utilitsService.errorHandle(
         client.id,
@@ -89,6 +99,10 @@ export class RoomsService implements OnGatewayDisconnect {
         roomName,
         players: [room.socketID1, room.socketID2],
       });
+
+      let arr = [...this.waitingPlayers, ...this.playingRooms];
+      this.server.to(client.id).emit('online-players', arr);
+      this.server.emit('online-players', arr);
       console.log('Waiting players : ' + this.waitingPlayers.length);
     } else {
       this.waitingPlayers.push({
@@ -96,6 +110,11 @@ export class RoomsService implements OnGatewayDisconnect {
         socketID: client.id,
         winCoins: data.winCoins,
       });
+
+      let arr = [...this.waitingPlayers, ...this.playingRooms];
+      this.server.to(client.id).emit('online-players', arr);
+      this.server.emit('online-players', arr);
+
       console.log('Waiting players : ' + this.waitingPlayers.length);
       return;
     }
@@ -137,6 +156,9 @@ export class RoomsService implements OnGatewayDisconnect {
       (ele) => ele.socketID != client.id,
     );
     console.log('Waiting players ' + this.waitingPlayers.length);
+    let arr = [...this.waitingPlayers, ...this.playingRooms];
+    this.server.to(client.id).emit('online-players', arr);
+    this.server.emit('online-players', arr);
   }
 
   //game play
@@ -263,7 +285,7 @@ export class RoomsService implements OnGatewayDisconnect {
       } else {
         match.player1Moves = [];
         match.player2Moves = [];
-        this.server.emit('reset-game', { message: 'new round' , data:match});
+        this.server.emit('reset-game', { message: 'new round', data: match });
       }
     } else {
       this.server
@@ -282,5 +304,18 @@ export class RoomsService implements OnGatewayDisconnect {
       }
     });
     console.log(this.playingRooms);
+  }
+
+  @SubscribeMessage('online-players')
+  getOnlinePlayers(client: Socket) {
+    let arr = [...this.waitingPlayers, ...this.playingRooms];
+    this.server.to(client.id).emit('online-players', arr);
+    this.server.emit('online-players', arr);
+  }
+
+  @SubscribeMessage('exit-waiting')
+  exitWaiting(client: Socket) {
+    let arr = this.waitingPlayers.filter((ele) => ele.socketID != client.id);
+    this.waitingPlayers = arr;
   }
 }
