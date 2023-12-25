@@ -4,7 +4,7 @@ const loadingSlice = createSlice({
   name: 'loading',
 
   initialState: {
-    isLoading: true,
+    isLoading: false,
   },
   reducers: {
     startLoading: (state) => {

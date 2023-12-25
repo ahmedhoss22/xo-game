@@ -4,6 +4,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import levels from './slices/levels';
 import playingCoins from './slices/playingCoins';
 import loadingReducer from './slices/loadingSlice';
+import room from './slices/room';
 
 const store = configureStore({
   reducer: {
@@ -11,7 +12,7 @@ const store = configureStore({
     user,
     playingCoins,
     loading: loadingReducer,
-    
+    room,
 
   },
 });
