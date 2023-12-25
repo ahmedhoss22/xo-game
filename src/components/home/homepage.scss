@@ -69,28 +69,41 @@
   }
 
   .playNow {
-    background-image: url("../../assets/photos/playNow-bgg.png"),
+     background-image: 
       linear-gradient(
         89.65deg,
         rgba(4, 4, 4, 0.75) 21.87%,
         rgba(61, 30, 114, 0) 96.35%
-      );
-  }
-  .playWith {
-    background-image: linear-gradient(
-        89.65deg,
-        rgba(4, 4, 4, 0.75) 21.87%,
-        rgba(61, 30, 114, 0) 96.35%
       ),
-      url("../../assets/photos/playWith-bgg.png");
+      url("../../assets/photos/playNow-bgg.png");
+    background-size: cover;  
+    background-position: center;  
+    position: relative;  
+    
   }
+
   .wallet {
     background: url("../../assets/photos/wallet-bg.png");
   }
   .shareGame {
     background: url("../../assets/photos/shareGame-bg.png");
+    
   }
+  .playWith {
+     background-image: 
+      linear-gradient(
+        89.65deg,
+        rgba(4, 4, 4, 0.75) 21.87%,
+        rgba(61, 30, 114, 0) 96.35%
+      ),
+      url("../../assets/photos/playWith-bgg.png");
+    background-size: cover;  
+    background-position: center;  
+    position: relative;  
+    border-radius: 20px;
 
+  }
+  
   .home-page-main-container-layer {
     .home-page-main-container {
       box-shadow: 0px 4px 16px -8px #00000040;

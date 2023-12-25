@@ -18,6 +18,9 @@ import { setRoomData } from "@/redux/slices/room";
 import { notifyError } from "@/components/toastify/toastify";
 import { startLoading, stopLoading } from "@/redux/slices/loadingSlice";
 import Loading from "@/components/loading/Loading";
+import userImage from "../../assets/photos/userrr.png";
+import useSound from "use-sound";
+import bgSound from "../../assets/sound/bg1.mp3";
 
 const textVariants = {
   initial: {
@@ -59,7 +62,7 @@ const coinsOfGame = () => {
     socket.on("mathced", (data) => {
       dispatch(setRoomData(data));
       dispatch(stopLoading());
-      router.push("/playground")
+      router.push("/playground");
     });
 
     socket.emit("online-players");
@@ -104,6 +107,16 @@ const coinsOfGame = () => {
     dispatch(stopLoading());
   }
 
+  // const [playBg, { stop }] = useSound(bgSound, { volume: 0.05, loop: true });
+
+  // useEffect(() => {
+  //   playBg();
+
+  //   return () => {
+  //     stop();
+  //   }; 
+  // }, [playBg, stop]);
+
   return (
     <>
       {loading ? (
@@ -136,22 +149,19 @@ const coinsOfGame = () => {
                 </div>
               </header>
               <Link href="/user" className="link">
-                <div
-                  className="rtl  col-11 ms-4 mb-1 "
-                  style={{ cursor: "auto" }}
-                >
+                <div className="rtl  col-11 ms-4 mb-1 ">
                   <div className="user-container justify-center">
                     <h5
                       className="text-white mt-1 "
                       style={{ fontSize: "15px" }}
                     >
-                      {user?.name?.slice(0, 13)}
+                      {user?.name?.slice(0, 13) || "user not found"}
                     </h5>
                     <img
                       src={
                         user.provider == "local"
                           ? apiUrl + user.image
-                          : user.image
+                          : user.image || userImage.src
                       }
                       className="userImage circle-image"
                       alt="user image"

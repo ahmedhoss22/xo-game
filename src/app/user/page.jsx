@@ -44,23 +44,23 @@ const user = () => {
           </div>
         </div>
 <div className="user-info rtl    d-flex  align-items-center mb-2 mt-10  ">
-<img src={user.image} className="" alt="user" />
-          <h2 className="text-white ms-4">{user.name}</h2>
+<img src={user?.image || userImage.src} className="" alt="user" />
+          <h2 className="text-white ms-4">{user?.name ||'user not found'}</h2>
         </div>
                 <div className="user-score rtl mb-4  d-flex text-white justify-content-between text-center">
 
           <h2>مجموع البارايات التي فزت بها</h2>
-          <h2>{user.winning}</h2>
+          <h2>{user?.winning}</h2>
         </div>
                 <div className="user-score rtl mb-4  d-flex text-white justify-content-between text-center">
 
           <h2>النقود</h2>
-          <h2>{user.coins}</h2>
+          <h2>{user?.coins}</h2>
         </div>
                 <div className="user-score rtl mb-4  d-flex text-white justify-content-between text-center">
 
           <h2> المستوي</h2>
-          <h2>{user.level}</h2>
+          <h2>{user?.level}</h2>
         </div>
         {/*         <div className="user-score rtl mb-4  d-flex text-white justify-content-between text-center">
 
