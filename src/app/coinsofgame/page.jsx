@@ -96,7 +96,7 @@ const coinsOfGame = () => {
       userID: user._id,
       rounds: data.rounds,
     });
-    dispatch(startLoading());
+    // dispatch(startLoading());
   }
 
   function handleClose() {
