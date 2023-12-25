@@ -47,16 +47,15 @@ const Homepage = () => {
 
 
  
-    const [play] = useSound(sound);
-   
-  // const [playBg, { stop }] = useSound(bgSound, { volume: 0.5, loop: true });
+  // const [play] = useSound(sound);
+  // const [playBg, { stop }] = useSound(bgSound, { volume: 0.05, loop: true });
 
   // useEffect(() => {
   //   playBg();
 
   //   return () => {
   //     stop();
-  //   };
+  //   }; 
   // }, [playBg, stop]);
 
 
