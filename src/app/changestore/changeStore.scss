@@ -35,41 +35,34 @@ border-radius: 10px;
 border: none;
 
 }
-  .ticket-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #ffffff44;
-    border-radius: 50px;
-    width: 156px;
-    padding-right: 15px;
-    gap: 7px;
-    position: relative;
-  
-  }
-  .ticket-prize{
-   h5 {
-     margin-left: 25px;
-     margin-bottom: 5px;
-   }
-   color: white;
-   width: 124px;
-   height: 41px;
+.ticket-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffffff44;
+  border-radius: 50px;
+  width: max-content; /* Set the width to fit the content */
+  padding-right: 15px;
+  gap: 7px;
+.ticket-prize {
+  color: white;
+  height: 41px;
+  margin-right: 20px;
+  display: flex;
+  align-items: center;
+}
 
-   margin-right: 20px;
+.ticket {
+  border: 1px solid white;
+  border-radius: 50px;
+  background: white;
+  height: 41px;
+  width: 43px;
+  margin-right: 5px; /* Adjust the margin as needed */
+}
+}
 
-   .ticket {
-     position: absolute;
-     left: 1px;
-     top: -1px;
-     border: 1px solid white;
-     border-radius: 50px;
-     background: white;
-     height: 41px;
-     width: 43px;
-   }
 
- }    
 
     .high-z-index {
       position: relative;

@@ -35,9 +35,10 @@ const LevelModal = ({ open, handleClose, update, data }) => {
     Api.post(url, values)
       .then(() => {
         notifySuccess("Data submitted");
-        formik.handleReset();
+        // formik.handleReset();
         dispatch(fetcLevels());
         handleClose();
+        formik.resetForm()
       })
       .catch((err) => {
         let error = err?.response?.data?.message;

@@ -87,20 +87,22 @@ const Homepage = () => {
             <img src={money.src} className="money" alt="money" />
             <h5>{user.coins}</h5>
           </div> */}
-          <motion.div
-            className="ticket-prize ticket-container justify-center"
-            variants={textVariants}
-            initial={"initial"}
-            animate={"animate"}
-          >
-            <motion.img
-              src={ticket.src}
-              className="ticket mb-3"
-              alt="ticket"
-              variants={textVariants}
-            />
-            <motion.h5 variants={textVariants}>{user.coins}</motion.h5>
-          </motion.div>
+            <motion.div
+  className="ticket-container justify-center"
+  variants={textVariants}
+  initial={"initial"}
+  animate={"animate"}
+>
+  <motion.img
+    src={ticket.src}
+    className="ticket"
+    alt="ticket"
+    variants={textVariants}
+  />
+  <motion.div className="ticket-prize " variants={textVariants}>
+    <motion.h5>{user.coins}</motion.h5>
+  </motion.div>
+</motion.div>
           <div className="col-3">
             <Title />
           </div>

@@ -8,5 +8,14 @@ const Api = axios.create({
       },
 })
 
+export const handleApiError = (error) => {
+	if (Array.isArray(error.response?.data?.error)) {
+		error.response.data.error.map((e) => toast.error(e.message));
+	} else {
+		const errorMes = error.response?.data?.error || error.response?.data?.message;
+		toast.error(errorMes);
+	}
+	return error.response.data.error;
+};
 
 export default Api

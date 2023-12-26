@@ -12,6 +12,23 @@ import { fetchUserData } from "@/redux/slices/user";
 import Link from "next/link";
 import sound from "../../assets/sound/clickSound.wav";
 import useSound from "use-sound";
+import { motion } from "framer-motion";
+
+
+const textVariants = {
+  initial: {
+    x: -500,
+    opacity: 0,
+  },
+  animate: {
+    x: 0,
+    opacity: 1,
+    transition: {
+      duration: 1,
+      staggerChildren: 0.1,
+    },
+  },
+};
 
 const playground = () => {
   const [play] = useSound(sound);
@@ -83,10 +100,22 @@ const playground = () => {
         </Link>
           </header>
           <div className="prizes d-flex col-12 justify-content-center pt-3 ">
-            <div className="ticket ticket-container">
-              <img src={ticket.src} className="ticket-img mb-3" alt="ticket" />
-              <h5>{user.coins}</h5>
-            </div>
+          <motion.div
+  className="ticket-container justify-center"
+  variants={textVariants}
+  initial={"initial"}
+  animate={"animate"}
+>
+  <motion.img
+    src={ticket.src}
+    className="ticket"
+    alt="ticket"
+    variants={textVariants}
+  />
+  <motion.div className="ticket-prize " variants={textVariants}>
+    <motion.h5>{user.coins}00000000000000</motion.h5>
+  </motion.div>
+</motion.div>
           </div>
 
           <div className="players  d-flex col-12 justify-content-center pt-3">
