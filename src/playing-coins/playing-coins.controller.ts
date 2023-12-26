@@ -15,7 +15,7 @@ export class PlayingCoinsController {
     return { message: 'Created !!' };
   }
 
-  @UseGuards(AuthAdminGuard)
+  // @UseGuards(AuthAdminGuard)
   @Get('/all')
   async getPlayingCoins() {
     let data = await this.playingCoinsService.getAllPlayingCoins();

@@ -317,5 +317,7 @@ export class RoomsService implements OnGatewayDisconnect {
   exitWaiting(client: Socket) {
     let arr = this.waitingPlayers.filter((ele) => ele.socketID != client.id);
     this.waitingPlayers = arr;
+    let arr2 = [...this.waitingPlayers, ...this.playingRooms];
+    this.server.emit('online-players', arr2);
   }
 }
