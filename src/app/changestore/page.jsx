@@ -12,6 +12,8 @@ import { fetchUserData } from "@/redux/slices/user";
 import Title from "@/components/title/Title";
 import { fetchPlayingCoins } from "@/redux/slices/playingCoins";
 import { Button, Card } from "react-bootstrap";
+import userImage from "../../assets/photos/userrr.png"; 
+import { getAllItems } from "@/redux/slices/storeSlice";
 
 const textVariants = {
   initial: {
@@ -29,6 +31,12 @@ const textVariants = {
 };
 
 const changeStore = () => {
+  const dispatch = useDispatch();
+  const items = useSelector((state) => state.storeSlice.items);
+  useEffect(() => {
+    dispatch(getAllItems());
+  }, []);
+
   const user = useSelector((state) => state.user.data);
   const online = useSelector((state) => state.user.online);
   const apiUrl = process.env.NEXT_PUBLIC_API_SERVER;
@@ -38,8 +46,7 @@ const changeStore = () => {
     dispatch(fetchPlayingCoins());
   }, []);
 
-  const router = useRouter();
-  const dispatch = useDispatch();
+  const router = useRouter(); 
 
   useEffect(() => {
     dispatch(fetchUserData());
@@ -55,180 +62,73 @@ const changeStore = () => {
       <div className="flex-grow">
         <div className="container high-z-index  ">
           <header className="d-flex justify-content-between mb-4 align-items-center   text-white p-4 ">
-            <motion.div
-              className="ticket-prize ticket-container justify-center"
-              variants={textVariants}
-              initial={"initial"}
-              animate={"animate"}
-            >
-              <motion.img
-                src={ticket.src}
-                className="ticket mb-3"
-                alt="ticket"
-                variants={textVariants}
-              />
-              <motion.h5 variants={textVariants}>{user.coins}</motion.h5>
-            </motion.div>
+          <motion.div
+  className="ticket-container justify-center"
+  variants={textVariants}
+  initial={"initial"}
+  animate={"animate"}
+>
+  <motion.img
+    src={ticket.src}
+    className="ticket"
+    alt="ticket"
+    variants={textVariants}
+  />
+  <motion.div className="ticket-prize " variants={textVariants}>
+    <motion.h5>{user.coins} </motion.h5>
+  </motion.div>
+</motion.div>
+
             <div className="col-3 ">
               <Title />
             </div>
           </header>
           <Link href="/user" className="link">
-            <div className="rtl  col-11 ms-4 mb-1 ">
-              <div className="user-container justify-center">
-                <h5 className="text-white mt-1 " style={{ fontSize: "15px" }}>
-                  {user?.name?.slice(0, 13)}
-                </h5>
-                <img
-                  src={
-                    user.provider == "local" ? apiUrl + user.image : user.image
-                  }
-                  className="userImage circle-image"
-                  alt="user image"
-                />
-              </div>
+          <div className="rtl  col-11 ms-4 mb-1 ">
+            <div className="user-container justify-center">
+              <h5 className="text-white mt-1 " style={{ fontSize: "15px" }}>
+                {user?.name?.slice(0, 13) || 'user not found'}
+              </h5>
+              <img
+                src={
+                  user.provider == "local" ? apiUrl + user.image : user.image
+                || userImage.src}
+                className="userImage circle-image"
+                alt="user image"
+              />
             </div>
-          </Link>
+          </div>
+        </Link>
+
     
           <div className="row rtl text-center d-flex align-items-center justify-content-center">
-            <div className="col-lg-2  col-md-4 d-flex align-items-center justify-content-center mb-3 ">
+            {items.map((item,key)=>(
+                <div key={key} className="col-lg-2  col-md-4 d-flex align-items-center justify-content-center mb-3 ">
               <Card
                 style={{
                   width: "15rem",
-                  height: "18rem",
+                  height: "21rem",
                   background: "#37007B ",
                   color: "white",
                 }}
               >
                 <Card.Img
                   variant="top"
-                  src={img.src}
-                  style={{ height: "10rem" }}
+                  src={apiUrl + item.image}
+                  style={{ height: "12rem" }}
                 />
                 <Card.Body>
-                  <Card.Title>الاسم </Card.Title>
-                  <Card.Text className="d-flex align-items-center justify-content-center gap-2"> 2000 <img src={ticket.src} alt="" /></Card.Text>
+                  <Card.Title>{item.name} </Card.Title>
+                  <Card.Text className="d-flex align-items-center justify-content-center gap-2"> {item.cost} <img src={ticket.src} alt="" /></Card.Text>
                   <Button className="w-100 transform-btn ">
                     استبدال الأن{" "}
                   </Button>
                 </Card.Body>
               </Card>
             </div>
-            <div className="col-lg-2  col-md-4 d-flex align-items-center justify-content-center mb-3 ">
-            <Card
-                style={{
-                  width: "15rem",
-                  height: "18rem",
-                  background: "#37007B ",
-                  color: "white",
-                }}
-              >
-                <Card.Img
-                  variant="top"
-                  src={img.src}
-                  style={{ height: "10rem" }}
-                />
-                <Card.Body>
-                  <Card.Title>الاسم </Card.Title>
-                  <Card.Text className="d-flex align-items-center justify-content-center gap-2"> 2000 <img src={ticket.src} alt="" /></Card.Text>
-                  <Button className="w-100 transform-btn ">
-                    استبدال الأن{" "}
-                  </Button>
-                </Card.Body>
-              </Card>
-            </div>
-            <div className="col-lg-2  col-md-4 d-flex align-items-center justify-content-center mb-3 ">
-            <Card
-                style={{
-                  width: "15rem",
-                  height: "18rem",
-                  background: "#37007B ",
-                  color: "white",
-                }}
-              >
-                <Card.Img
-                  variant="top"
-                  src={img.src}
-                  style={{ height: "10rem" }}
-                />
-                <Card.Body>
-                  <Card.Title>الاسم </Card.Title>
-                  <Card.Text className="d-flex align-items-center justify-content-center gap-2"> 2000 <img src={ticket.src} alt="" /></Card.Text>
-                  <Button className="w-100 transform-btn ">
-                    استبدال الأن{" "}
-                  </Button>
-                </Card.Body>
-              </Card>
-            </div>
-            <div className="col-lg-2  col-md-4 d-flex align-items-center justify-content-center mb-3 ">
-            <Card
-                style={{
-                  width: "15rem",
-                  height: "18rem",
-                  background: "#37007B ",
-                  color: "white",
-                }}
-              >
-                <Card.Img
-                  variant="top"
-                  src={img.src}
-                  style={{ height: "10rem" }}
-                />
-                <Card.Body>
-                  <Card.Title>الاسم </Card.Title>
-                  <Card.Text className="d-flex align-items-center justify-content-center gap-2"> 2000 <img src={ticket.src} alt="" /></Card.Text>
-                  <Button className="w-100 transform-btn ">
-                    استبدال الأن{" "}
-                  </Button>
-                </Card.Body>
-              </Card>
-            </div>{" "}
-            <div className="col-lg-2  col-md-4 d-flex align-items-center justify-content-center mb-3 ">
-            <Card
-                style={{
-                  width: "15rem",
-                  height: "18rem",
-                  background: "#37007B ",
-                  color: "white",
-                }}
-              >
-                <Card.Img
-                  variant="top"
-                  src={img.src}
-                  style={{ height: "10rem" }}
-                />
-                <Card.Body>
-                  <Card.Title>الاسم </Card.Title>
-                  <Card.Text className="d-flex align-items-center justify-content-center gap-2"> 2000 <img src={ticket.src} alt="" /></Card.Text>
-                  <Button className="w-100 transform-btn ">
-                    استبدال الأن{" "}
-                  </Button>
-                </Card.Body>
-              </Card>
-            </div>{" "}
-            <div className="col-lg-2  col-md-4 d-flex align-items-center justify-content-center mb-3 ">
-            <Card
-                style={{
-                  width: "15rem",
-                  height: "18rem",
-                  background: "#37007B ",
-                  color: "white",
-                }}
-              >
-                <Card.Img
-                  variant="top"
-                  src={img.src}
-                  style={{ height: "10rem" }}
-                />
-                <Card.Body>
-                  <Card.Title>الاسم </Card.Title>
-                  <Card.Text className="d-flex align-items-center justify-content-center gap-2"> 2000 <img src={ticket.src} alt="" /></Card.Text>
-                  <Button className="w-100 transform-btn ">
-                    استبدال الأن{" "}
-                  </Button>
-                </Card.Body>
-              </Card>
-            </div>
+            ))}
+          
+          
           </div>
 
           <Link href={""} className="link mt-10"></Link>

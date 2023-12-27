@@ -65,8 +65,8 @@ const usersPoints = () => {
                     <td className="px-6 py-4 font-semibold text-gray-900 text-white dark:text-white  ">
                     {ele.coins}
                     </td>
-                    <td className="px-6 py-4 font-semibold text-gray-900 text-white dark:text-white  ">
-                    <div
+                    <td className="d-flex align-items-center justify-content-center px-6 py-4 font-semibold text-gray-900 text-white dark:text-white  ">
+                    <div 
                     style={{
                       width: "50px",
                       height: "50px",
@@ -77,6 +77,7 @@ const usersPoints = () => {
                     </td>
                     <td className="px-6 py-4 font-semibold text-gray-900 text-white dark:text-white  ">
                     <div
+                    
                     style={{
                       width: "50px",
                       height: "50px",

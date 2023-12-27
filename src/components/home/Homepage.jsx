@@ -81,26 +81,28 @@ const Homepage = () => {
     {/* <button onClick={()=>setValue(value+1)}></button> */}
   
       <div className="flex-grow">
-        <header className="d-flex justify-content-between mb-4 align-items-center   text-white p-4 ">
+        <header className="d-flex justify-content-between mb-4 align-items-center   text-white p-4 mt-2 ">
           {/* <img src={xIcon.src} alt="" /> */}
           {/* <div className="prize1 white-container justify-center" style={{justifyContent:"center"}}>
             <img src={money.src} className="money" alt="money" />
             <h5>{user.coins}</h5>
           </div> */}
-          <motion.div
-            className="ticket-prize ticket-container justify-center"
-            variants={textVariants}
-            initial={"initial"}
-            animate={"animate"}
-          >
-            <motion.img
-              src={ticket.src}
-              className="ticket mb-3"
-              alt="ticket"
-              variants={textVariants}
-            />
-            <motion.h5 variants={textVariants}>{user.coins}</motion.h5>
-          </motion.div>
+            <motion.div
+  className="ticket-container justify-center"
+  variants={textVariants}
+  initial={"initial"}
+  animate={"animate"}
+>
+  <motion.img
+    src={ticket.src}
+    className="ticket"
+    alt="ticket"
+    variants={textVariants}
+  />
+  <motion.div className="ticket-prize " variants={textVariants}>
+    <motion.h5>{user.coins}</motion.h5>
+  </motion.div>
+</motion.div>
           <div className="col-3">
             <Title />
           </div>
@@ -121,9 +123,6 @@ const Homepage = () => {
             </div>
           </div>
         </Link>
-
-
-        
 
         <div className=" row  d-flex horizontal-scroll-container mb-4   high-z-index">
 
@@ -195,9 +194,9 @@ const Homepage = () => {
           </div>
         </div>
         <div className="rtl">
-          <div className=" col-xl-2 col-lg-3 col-md-6 col-7  ms-4 high-z-index">
+          {/* <div className=" col-xl-2 col-lg-3 col-md-6 col-7  ms-4 high-z-index">
             <ChooseLanguage />
-          </div>
+          </div> */}
         </div>
       </div>
 

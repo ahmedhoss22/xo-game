@@ -5,44 +5,71 @@
     background-repeat: no-repeat; 
     background-size: cover; 
     background-attachment: fixed;
-    .ticket-container {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background-color: #ffffff44;
-      border-radius: 50px;
-      width: 153px;
-      height: 35px;
-      padding-right: 15px;
-      gap: 7px;
-      position: relative;
+//     .ticket-container {
+//       display: flex;
+//       align-items: center;
+//       justify-content: center;
+//       background-color: #ffffff44;
+//       border-radius: 50px;
+//       width: 153px;
+//       height: 35px;
+//       padding-right: 15px;
+//       gap: 7px;
+//       position: relative;
    
-    }
-.ticket {  
-  height: 33px;
-  color: white;
-  width: 100px;
-  margin-right: 20px;
+//     }
+// .ticket {  
+//   height: 33px;
+//   color: white;
+//   width: 100px;
+//   margin-right: 20px;
 
-  h5{
-    margin-left: 25px;
-    margin-bottom: 5px;
+//   h5{
+//     margin-left: 25px;
+//     margin-bottom: 5px;
+//   }
+
+ 
+// .ticket-img {
+//   position: absolute;
+//   left: -6px;
+//   top: -1px;
+//   border: 1px solid white;
+//   border-radius: 50px;
+//   background: white;
+//   height: 33px;
+//   width: 33px;
+
+// }
+ 
+// }
+
+  .ticket-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ffffff44;
+    border-radius: 50px;
+    width: max-content;  
+    padding-right: 15px;
+    height:  35px;;
+    gap: 7px;
+  .ticket-prize {
+    color: white;
+    height: 41px;
+    margin-right: 20px;
+    display: flex;
+    align-items: center;
   }
-
- 
-.ticket-img {
-  position: absolute;
-  left: -6px;
-  top: -1px;
-  border: 1px solid white;
-  border-radius: 50px;
-  background: white;
-  height: 33px;
-  width: 33px;
-
-}
- 
-}
+  
+  .ticket {
+    height: 35px;
+    border: 1px solid white;
+    border-radius: 50px;
+    background: white; 
+    margin-right: 5px;  
+  }
+  }
 
 .player1 , .player2{
   text-align: center;

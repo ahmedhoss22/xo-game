@@ -125,9 +125,7 @@ const UsersModal = ({ open, handleClose, update, data }) => {
               label="المحفظة "
               variant="outlined"
             />
-            <div className="d-flex">
-              
-            </div>
+          
   
             <div className="d-flex align-items-center justify-content-between"> <button
               type="submit"
