@@ -8,6 +8,8 @@ import {
   Post,
   Delete,
   Param,
+  ValidationPipe,
+  BadRequestException,
 } from '@nestjs/common';
 import { AuthGuard, AuthAdminGuard } from '../auth/local-auth/auth.guard';
 import { UserService } from './users.service';
@@ -25,8 +27,6 @@ export class UserController {
   @Get('/user')
   @UseGuards(AuthGuard)
   async getUser(@Req() data: any): Promise<Users> {
-    console.log(data.user);
-
     const user: Users = await this.userService.getUser(data?.user?._id);
     return user;
   }
@@ -65,15 +65,20 @@ export class UserController {
 
   @Delete('/user/:id')
   @UseGuards(AuthAdminGuard)
-  async deleteUser(@Param() data : any) {
-    await this.userService.deleteUser(data.id)
-    return "User deleted !!"
+  async deleteUser(@Param() data: any) {
+    await this.userService.deleteUser(data.id);
+    return 'User deleted !!';
   }
 
   @Get('/user/:id')
   @UseGuards(AuthAdminGuard)
-  async getUserData(@Param() data : any) {
-    let user = await this.userService.getUserData(data.id)
-    return user
+  async getUserData(
+    @Param('id', new ValidationPipe({ transform: true }))
+    id: mongoose.Types.ObjectId,
+  ) {
+    if (!mongoose.isValidObjectId(id))
+      throw new BadRequestException('Inavalid object id');
+    let user = await this.userService.getUserData(id);
+    return user;
   }
 }

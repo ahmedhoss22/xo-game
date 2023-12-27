@@ -98,6 +98,7 @@ export class RoomsService implements OnGatewayDisconnect {
         message: 'You are matched! Start playing.',
         roomName,
         players: [room.socketID1, room.socketID2],
+        room,
       });
 
       let arr = [...this.waitingPlayers, ...this.playingRooms];
@@ -211,8 +212,6 @@ export class RoomsService implements OnGatewayDisconnect {
             playerSocket: match.socketID2,
           };
 
-    console.log(player);
-
     //turn validation
     if (player.playerNo == 1 && match.turn == 2) {
       return this.utilitsService.errorHandle(
@@ -227,20 +226,6 @@ export class RoomsService implements OnGatewayDisconnect {
       );
     }
 
-    // display turn for other player
-
-    if (player.playerNo == 1) {
-      console.log('Other move 1');
-      this.server.to(match.socketID2).emit('other-move', {
-        move: data.move,
-      });
-    } else {
-      console.log('Other move 2');
-      this.server.to(match.socketID1).emit('other-move', {
-        move: data.move,
-      });
-    }
-
     //turn Switch
     player.playerNo == 1
       ? match.player1Moves.push(data.move)
@@ -250,6 +235,9 @@ export class RoomsService implements OnGatewayDisconnect {
     let winner = this.utilitsService.checkWinner(
       client.id == match.socketID1 ? match.player1Moves : match.player2Moves,
     );
+
+    // display turn for other player
+    this.server.to(match.roomName).emit('player-move', match);
 
     if (winner) {
       // update player winning times
@@ -303,7 +291,6 @@ export class RoomsService implements OnGatewayDisconnect {
         return ele;
       }
     });
-    console.log(this.playingRooms);
   }
 
   @SubscribeMessage('online-players')
@@ -319,5 +306,14 @@ export class RoomsService implements OnGatewayDisconnect {
     this.waitingPlayers = arr;
     let arr2 = [...this.waitingPlayers, ...this.playingRooms];
     this.server.emit('online-players', arr2);
+  }
+
+  @SubscribeMessage('get-room-data')
+  getRoomData(client: Socket, id: mongoose.Types.ObjectId) {
+    if (!id) return;
+    let room = this.playingRooms.find(
+      (ele) => ele.userID1 == id || ele.userID2,
+    );
+    this.server.to(client.id).emit('get-room-data', room);
   }
 }

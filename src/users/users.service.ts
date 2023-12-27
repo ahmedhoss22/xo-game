@@ -20,8 +20,6 @@ export class UserService {
   }
 
   async updateUser(data: UpdateUserDto): Promise<Users> {
-    console.log(data);
-
     return await this.UserModel.findByIdAndUpdate(data._id, data, {
       new: true,
     });
@@ -56,7 +54,7 @@ export class UserService {
     return await user.save();
   }
 
-  async getUserData(id: mongoose.Types.ObjectId): Promise<Users>{
-    return this.UserModel.findById(id)
+  async getUserData(id: mongoose.Types.ObjectId): Promise<Users> {
+    return this.UserModel.findById(id);
   }
 }

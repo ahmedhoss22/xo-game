@@ -8,8 +8,7 @@ import {
   OnGatewayDisconnect,
 } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
-import { instrument } from "@socket.io/admin-ui";
-
+import { instrument } from '@socket.io/admin-ui';
 
 @WebSocketGateway(5001, {
   cors: {
@@ -30,13 +29,14 @@ export class MyGatway
     this.server.on('connection', (socket) => {});
     instrument(this.server, {
       auth: false,
-      mode: "development",
+      mode: 'development',
     });
   }
 
   handleConnection(client: Socket, ...args: any[]) {
-    this.onlinePlayers.push(client.id);
-    console.log(this.onlinePlayers.length, ' Online Players !!');
+    if (!this.onlinePlayers.includes(client.id)) {
+      this.onlinePlayers.push(client.id);
+    }
   }
 
   handleDisconnect(client: Socket) {
