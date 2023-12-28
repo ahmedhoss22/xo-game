@@ -129,25 +129,28 @@ const coinsOfGame = () => {
         <div className="coins-of-game d-flex flex-column ">
           <div className="flex-grow">
             <div className="container high-z-index  ">
-              <header className="d-flex justify-content-between mb-4 align-items-center   text-white p-4 ">
-                <motion.div
-                  className="ticket-prize ticket-container justify-center"
-                  variants={textVariants}
-                  initial={"initial"}
-                  animate={"animate"}
-                >
-                  <motion.img
-                    src={ticket.src}
-                    className="ticket mb-3"
-                    alt="ticket"
-                    variants={textVariants}
-                  />
-                  <motion.h5 variants={textVariants}>{user.coins}</motion.h5>
-                </motion.div>
-                <div className="col-3 ">
-                  <Title />
-                </div>
-              </header>
+            <header className="d-flex justify-content-between mb-4 align-items-center   text-white p-4 mt-2 ">
+        
+            <motion.div
+  className="ticket-container justify-center"
+  variants={textVariants}
+  initial={"initial"}
+  animate={"animate"}
+>
+  <motion.img
+    src={ticket.src}
+    className="ticket"
+    alt="ticket"
+    variants={textVariants}
+  />
+  <motion.div className="ticket-prize " variants={textVariants}>
+    <motion.h5>{user.coins}</motion.h5>
+  </motion.div>
+</motion.div>
+          <div className="col-3">
+            <Title />
+          </div>
+        </header>
               <Link href="/user" className="link">
                 <div className="rtl  col-11 ms-4 mb-1 ">
                   <div className="user-container justify-center">

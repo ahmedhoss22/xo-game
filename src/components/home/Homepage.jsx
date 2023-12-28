@@ -19,6 +19,8 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import useSound from "use-sound"; 
 import sound from "../../assets/sound/s.mp3";
+import WithAuth from "../withAuth/WithAuth"; 
+import country from "../../assets/photos/country-flag.png";
 
 const textVariants = {
   initial: {
@@ -124,7 +126,7 @@ const Homepage = () => {
           </div>
         </Link>
 
-        <div className=" row  d-flex horizontal-scroll-container mb-4   high-z-index">
+        <div className=" row  d-flex horizontal-scroll-container mb-1   high-z-index">
 
 
           <div
@@ -193,11 +195,29 @@ const Homepage = () => {
             </div>
           </div>
         </div>
-        <div className="rtl">
-          {/* <div className=" col-xl-2 col-lg-3 col-md-6 col-7  ms-4 high-z-index">
-            <ChooseLanguage />
-          </div> */}
+  
+        {!user    ?        <div className="rtl">
+          <div className="col-xl-2 col-lg-3 col-md-5 col-7  ms-4 high-z-index">
+          <Link href={"/login"} className="text-decoration-none">
+        {" "}
+        <div className=" language-btn d-flex align-items-center justify-content-center  border-radius-20 m-2 transform-btn pointer ">
+          <button className="text-white ">تسجيل الدخول الان</button>
+          <img style={{width:'70px'}}   src={country.src} alt="" />
         </div>
+      </Link> 
+          </div>
+        </div>: <div className="rtl">
+          <div className="col-xl-2 col-lg-3 col-md-5 col-7  ms-4 high-z-index">
+          <Link href={"/login"} className="text-decoration-none">
+        {" "}
+        <div className=" language-btn d-flex align-items-center justify-content-center  border-radius-20 m-2 transform-btn pointer ">
+          <button className="text-white ">تسجيل الخروج </button>
+          <img   src={country.src} alt="" />
+        </div>
+      </Link> 
+          </div>
+        </div>}
+   
       </div>
 
       <div className="  high-z-index ">

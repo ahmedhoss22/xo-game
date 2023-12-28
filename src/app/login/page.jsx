@@ -16,18 +16,22 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 const login = () => {
-  function handleLogin(values) {
-    Api.post("/auth/login", values)
-      .then(() => {
-        notifySuccess("Welconme !!");
-        router.push("/");
-      })
-      .catch((err) => {
-        let errMsg = err?.response?.data?.message;
-        notifyError(Array.isArray(errMsg) ? errMsg[0] : errMsg);
-        console.log(err);
-      });
-  }
+// ... your login component code
+
+function handleLogin(values) {
+  Api.post("/auth/login", values)
+    .then(() => {
+      notifySuccess("Welcome!!");
+      router.push("/");
+    })
+    .catch((err) => {
+      let errMsg = err?.response?.data?.message;
+      notifyError(Array.isArray(errMsg) ? errMsg[0] : errMsg);
+      console.log(err);
+    });
+}
+
+// ... rest of your login component code
 
   const router = useRouter();
   const online = useSelector((state) => state.user.online);
@@ -59,13 +63,21 @@ const login = () => {
 
   return (
     <div className="login-bg">
-      <div className="col-lg-2 col-7  mb-10">
-        <ChooseLanguage />
-      </div>
-      <div className="login m-2 ">
+             <div className="rtl">
+          <div className="col-xl-2 col-lg-3 col-md-5 col-7  ms-4 high-z-index">
+          <Link href={"/register"} className="text-decoration-none">
+        {" "}
+        <div className=" language-btn d-flex align-items-center justify-content-center  border-radius-20 m-2 transform-btn pointer ">
+          <button className="text-white ">أنشاء حسابك الان</button>
+          <img style={{width:'70px'}}   src={country.src} alt="" />
+        </div>
+      </Link> 
+          </div>
+        </div>
+      <div className="login m-2  ">
         <form
-          className="  col-lg-3 col-md-6  col-11 form-shape shadow"
-          onSubmit={formik.handleSubmit}
+          className="  col-lg-3 col-md-6  col-11 form-shape shadow mt-4"
+          onSubmit={formik.handleSubmit}  
         >
           <h1 className="text-center text-white mt-1   "> تسجيل الدخول</h1>
           <div className="row  d-flex align-content-center justify-content-center m-4 ">
@@ -119,11 +131,11 @@ const login = () => {
             </div>
             <div className="col-12  ">
               <p className="text-center  text-white mt-4 mb-4 middle-line ">
-                أنشأ
-                {/* حسابك عن طريق  */}
+              أنشأ
+               حسابك        {/*  عن طريق  */}
               </p>
             </div>
-            <div className="col-12 d-flex  mb-20 justify-content-between ">
+            <div className="col-12 d-flex  mb-10 justify-content-between ">
               <div
                 onClick={facebookRegister}
                 className="col-5 d-flex blue-bg   border-radius-20 align-items-center justify-content-center p-1 transform-btn pointer "

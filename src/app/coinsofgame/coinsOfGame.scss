@@ -24,46 +24,37 @@
     }
     
   header {
-    height:80px;
+    height:70px;
     position: relative;
     z-index: 1;
   }
+
   .ticket-container {
     display: flex;
     align-items: center;
     justify-content: center;
     background-color: #ffffff44;
     border-radius: 50px;
-    width: 156px;
+    width: max-content; /* Set the width to fit the content */
     padding-right: 15px;
     gap: 7px;
-    position: relative;
-  
+  .ticket-prize {
+    color: white;
+    height: 41px;
+    margin-right: 20px;
+    display: flex;
+    align-items: center;
   }
-  .ticket-prize{
-   h5 {
-     margin-left: 25px;
-     margin-bottom: 5px;
-   }
-   color: white;
-   width: 124px;
-   height: 41px;
-
-   margin-right: 20px;
-
-   .ticket {
-     position: absolute;
-     left: 1px;
-     top: -1px;
-     border: 1px solid white;
-     border-radius: 50px;
-     background: white;
-     height: 41px;
-     width: 43px;
-   }
-
- }    
-
+  
+  .ticket {
+    border: 1px solid white;
+    border-radius: 50px;
+    background: white;
+    height: 41px;
+    width: 43px;
+    margin-right: 5px; /* Adjust the margin as needed */
+  }
+  }
     .high-z-index {
       position: relative;
       z-index: 1;

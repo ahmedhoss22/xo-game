@@ -12,6 +12,7 @@ import ChooseLanguage from "@/components/chooseLanguage/Chooselanguage";
 import Api from "@/config/api";
 import { notifyError, notifySuccess } from "@/components/toastify/toastify";
 import { useRouter } from "next/navigation";
+import country from "../../assets/photos/country-flag.png";
 
 const register = () => {
   const router = useRouter()
@@ -61,13 +62,18 @@ const register = () => {
   return (
     <div className="register-bg">
 
-<div className="col-lg-2 col-md-4 mb-10">
-           <ChooseLanguage />
-
+<div className="col-xl-2 col-lg-3 col-md-5 col-7  ms-4 high-z-index">
+          <Link href={"/login"} className="text-decoration-none">
+        {" "}
+        <div className=" language-btn d-flex align-items-center justify-content-center  border-radius-20 m-2 transform-btn pointer ">
+          <button className="text-white ">تسجيل الدخول</button>
+          <img style={{width:'70px'}}   src={country.src} alt="" />
+        </div>
+      </Link> 
           </div>
       <div className="register m-2 ">
         <form
-          className="col-xl-3 col-md-5  form-shape shadow"
+          className="col-xl-3 col-md-5  form-shape shadow" 
           onSubmit={formik.handleSubmit}
         >
           <h1 className="text-center text-white mt-1   "> انشاء حساب</h1>
@@ -152,7 +158,7 @@ const register = () => {
                 <img src={passwordIcon.src} className="icon" alt="" />
               </div>
             </div>
-            <div className="col-6">
+            <div className="col-6 mt-2 mb-2">
               <button
                 type="submit"
                 className="btn form-control border-radius-20  green-bg text-white mt-4 transform-btn"
@@ -160,12 +166,13 @@ const register = () => {
                 انشاء حساب
               </button>
             </div>
+
             <div className="col-12">
-              <p className="text-center text-white mt-4 mb-4 middle-line ">
-                أنشأ حسابك عن طريق
+              <p className="text-center text-white middle-line ">
+                أنشأ حسابك 
               </p>
             </div>
-            <div className="col-12 d-flex  mb-10 justify-content-between ">
+            <div className="col-12 d-flex mb-4   justify-content-between ">
               <div onClick={facebookRegister} className="col-5 d-flex blue-bg   border-radius-20 align-items-center justify-content-center p-1 transform-btn pointer">
                 <button className="btn form-control text-white facebook-btn" type="button" >
                   facebook
@@ -180,6 +187,7 @@ const register = () => {
                 <img src={gIcon.src} className="" alt="" />
               </div>
             </div>
+
           </div>
         </form>
       </div>
