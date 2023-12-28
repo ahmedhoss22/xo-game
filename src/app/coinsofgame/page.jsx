@@ -46,6 +46,7 @@ const coinsOfGame = () => {
   const [error, setError] = useState("");
   const loading = useSelector((state) => state.loading.isLoading);
   const router = useRouter();
+
   useEffect(() => {
     dispatch(fetchPlayingCoins());
   }, []);
@@ -59,9 +60,9 @@ const coinsOfGame = () => {
       setError(data.message);
     });
 
-    socket.on("mathced", (data) => {
-      dispatch(setRoomData(data));
+    socket.on("matched", (data) => {
       dispatch(stopLoading());
+      dispatch(setRoomData(data));
       router.push("/playground");
     });
 
@@ -99,7 +100,7 @@ const coinsOfGame = () => {
       userID: user._id,
       rounds: data.rounds,
     });
-    // dispatch(startLoading());
+    dispatch(startLoading());
   }
 
   function handleClose() {
