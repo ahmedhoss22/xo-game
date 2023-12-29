@@ -2,7 +2,6 @@
 
 import "./user.scss";
 import Footer from "@/components/footer/Footer";
-import ChooseLanguage from "@/components/chooseLanguage/ChooseLanguage";
 import settingImage from "../../assets/photos/Settings.png";
 import userImage from "../../assets/photos/girl-icon-user.png";
 import { FaArrowLeft } from "react-icons/fa";
@@ -11,6 +10,7 @@ import { fetchUserData } from "@/redux/slices/user";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Title from "@/components/title/Title";
+// import ChooseLanguage from "@/components/chooseLanguage/Chooselanguage";
 
 const user = () => {
   const router = useRouter();
@@ -37,7 +37,7 @@ const user = () => {
           </div>
 
           <div className="col-lg-3 col-md-4 ">
-            <ChooseLanguage />
+            {/* <ChooseLanguage /> */}
           </div>
           <div className="col-1">
             <img src={settingImage.src} alt="settings" />

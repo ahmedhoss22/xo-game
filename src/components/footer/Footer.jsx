@@ -4,7 +4,7 @@ import "./footer.scss";
 import homeIcon from "../../assets/photos/home-page.png";
 import leaderIcon from "../../assets/photos/leader-board.png";
 import firstPlace from "../../assets/photos/first-place.png";
-import startIcon from "../../assets/photos/start.png";
+import startIcon from "../../assets/photos/Start.png";
 import cardIcon from "../../assets/photos/shopCard.png";
 import userIcon from "../../assets/photos/girl-icon.png";
 import Link from "next/link";
