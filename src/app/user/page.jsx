@@ -1,7 +1,7 @@
 "use client";
 
 import "./user.scss";
-import Title from "../../components/title/title";
+import Title from "@/components/title/title";
 import Footer from "@/components/footer/Footer";
 import ChooseLanguage from "@/components/chooseLanguage/ChooseLanguage";
 import settingImage from "../../assets/photos/Settings.png";
