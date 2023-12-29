@@ -1,6 +1,6 @@
 "use client";
 import "./payment.scss";
-import Title from "../../components/title/title";
+import Title from "@/components/title/Title";
 import Footer from "@/components/footer/Footer";
 import { FaArrowLeft } from "react-icons/fa";
 import moneyImage from "../../assets/photos/money-bag.png";
