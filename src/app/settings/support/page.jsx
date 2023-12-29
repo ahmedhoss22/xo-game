@@ -49,7 +49,6 @@ const support = () => {
                     <td className="px-6 py-4 font-semibold text-gray-900 text-white dark:text-white  ">
                       rwanabdelfattah301@gmail.com
                     </td>
-
                     <td className="px-6 py-4 font-semibold text-gray-900 text-white dark:text-white  ">
                       <form onSubmit={formik.handleSubmit}>
                         <textarea
