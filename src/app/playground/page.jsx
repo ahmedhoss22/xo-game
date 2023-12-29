@@ -150,7 +150,7 @@ const playground = () => {
       <div className="playground">
         <StartGameSoundBg/>
         <div className="container">
-          <header className="d-flex justify-content-between pt-1">
+          <header className="d-flex justify-content-between pt-3">
             <Link href="/coinsofgame" className="link">
               <FaArrowLeft className="text-white pointer h-5" />
             </Link>
@@ -192,7 +192,7 @@ const playground = () => {
             </motion.div>
           </div>
 
-          <div className="players  d-flex col-12 justify-content-center pt-3">
+          <div className="players  d-flex col-12 justify-content-center pt-1">
             <motion.div
               className="player1 d-flex"
               style={{
@@ -270,6 +270,7 @@ const playground = () => {
                         <h2
                           className="text-center fw-bold "
                           style={{ color: "#fff" }}
+                          
                         >
                           {content}
                         </h2>

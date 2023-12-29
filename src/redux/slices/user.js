@@ -13,8 +13,8 @@ export const fetchUserData = createAsyncThunk(
   }
 );
 
-export const fetchAllUsesrData = createAsyncThunk(
-  "user/fetchAllUsesrData",
+export const fetchAllUsersData = createAsyncThunk(
+  "user/fetchAllUsersData",
   async (_, thunkAPI) => {
     try {
       const response = await Api.get("/users/all");
@@ -45,7 +45,7 @@ const userSlice = createSlice({
       state.online = true
       state.data = action.payload;
     });
-    builder.addCase(fetchAllUsesrData.fulfilled, (state, action) => {
+    builder.addCase(fetchAllUsersData.fulfilled, (state, action) => {
       state.all = action.payload;
     });
   },

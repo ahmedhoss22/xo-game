@@ -21,6 +21,7 @@ import sound from "../../assets/sound/s.mp3";
 import country from "../../assets/photos/country-flag.png";
 import SoundBg from "../soundBg/SoundBg";
 
+
 const textVariants = {
   initial: {
     x: -500,
@@ -121,9 +122,13 @@ const Homepage = () => {
               router.push("/coinsofgame");
               play();
             }}
+          
           >
             <div className="home-page-main-container playNow d-flex  w-75 m-auto align-items-center justify-content-around text-white fw-bold rtl">
-              <img src={playNowPhoto.src} className=" " alt="" />
+              <motion.img src={playNowPhoto.src} className=" "   
+              // initial={{ opacity: 0 }}
+            // animate={{ opacity: 1 }}
+            alt="" />
               <div className="text-play-container">
                 <h2 className="fw-bold">العب الان</h2>
                 <div className="arrow ">

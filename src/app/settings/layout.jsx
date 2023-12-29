@@ -1,13 +1,42 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./settings.scss";
 import Link from "next/link";
 import localFont from 'next/font/local';
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 const myFont = localFont({ src: '../../assets/fonts/Pacifico-Regular.ttf' });
+import { redirect } from "next/navigation"; 
+import { useDispatch, useSelector } from "react-redux";
+import { fetchUserData } from "@/redux/slices/user";
+
 
 export default function AdminPanel({ children }) {
   const [isSidebarActive, setIsSidebarActive] = useState(false);
+  const dispatch = useDispatch();
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    dispatch(fetchUserData())
+      .then(() => setLoading(false))
+      .catch((error) => {
+        console.error('Error fetching user data:', error);
+        setLoading(false);
+      });
+  }, [dispatch]);
+
+  const user = useSelector((state) => state.user.data);
+
+  if (loading) {
+    return <></>;
+  }
+
+  const isAdmin = user?.isAdmin;
+
+  if (!isAdmin) {
+    redirect('/');
+  }
+
+ 
 
   const toggleSidebar = () => {
     setIsSidebarActive(!isSidebarActive);
@@ -62,7 +91,7 @@ export default function AdminPanel({ children }) {
                   <span className="fa fa-user mr-3" /> المستخدمين
                 </Link>
               </li>   <li>
-                <Link prefetch href="playingPoints">
+                <Link prefetch href="playingpoints">
                   <span className="fa fa-user mr-3" /> نقاط اللعب 
                 </Link>
               </li>

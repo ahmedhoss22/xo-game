@@ -3,14 +3,15 @@ import "./users.scss";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Api from "@/config/api";
-import { fetchAllUsesrData } from "@/redux/slices/user";
+import { fetchAllUsersData } from "@/redux/slices/user";
 import UsersModal from "@/components/usersModal/UsersModal";
 
 const users = () => {
+  
   const dispatch = useDispatch();
   const users = useSelector((state) => state.user.all);
   useEffect(() => {
-    dispatch(fetchAllUsesrData());
+    dispatch(fetchAllUsersData());
   }, []);
 
   const [modal, setModal] = useState({
@@ -25,7 +26,7 @@ const users = () => {
     try {
       console.log(id);
       await Api.delete("/users/user/" + id);
-      dispatch(fetchAllUsesrData());
+      dispatch(fetchAllUsersData());
     } catch (error) {
       console.log(error.message);
     }
