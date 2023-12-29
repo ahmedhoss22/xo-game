@@ -1,7 +1,6 @@
 "use client";
 
 import "./user.scss";
-import Title from "@/components/title/title";
 import Footer from "@/components/footer/Footer";
 import ChooseLanguage from "@/components/chooseLanguage/ChooseLanguage";
 import settingImage from "../../assets/photos/Settings.png";
@@ -11,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchUserData } from "@/redux/slices/user";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
+import Title from "@/components/title/Title";
 
 const user = () => {
   const router = useRouter();
