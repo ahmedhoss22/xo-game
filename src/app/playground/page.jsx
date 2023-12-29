@@ -10,12 +10,14 @@ import { notifyError, notifySuccess } from "@/components/toastify/toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUserData } from "@/redux/slices/user";
 import Link from "next/link";
-import sound from "../../assets/sound/clickSound.wav";
+import click from "../../assets/sound/clickSound.wav";
+import win from "../../assets/sound/success1.mp3";
+import lose from "../../assets/sound/lose1.mp3"; 
 import useSound from "use-sound";
 import { fetchOtherUser, setRoomData } from "@/redux/slices/room";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-
+import StartGameSoundBg from "@/components/startGameSoundBg/StartGameSoundBg";
 
 const textVariants = {
   initial: {
@@ -32,8 +34,14 @@ const textVariants = {
   },
 };
 
+ 
+
 const playground = () => {
-  const [play] = useSound(sound);
+  const [clickSound] = useSound(click);
+  const [winSound] = useSound(win);
+  const [loseSound] = useSound(lose); 
+
+
   const router = useRouter();
   const [data, setData] = useState({});
   const user = useSelector((state) => state.user.data);
@@ -41,9 +49,10 @@ const playground = () => {
   const apiUrl = process.env.NEXT_PUBLIC_API_SERVER;
   const room = useSelector((state) => state.room.data);
   const player2 = useSelector((state) => state.room.otherPlayer);
+  const turn = useSelector((state) => state.room.data.turn);
 
   // console.log("player2",player2);
-  console.log("room", room);
+  // console.log("room", room);
   // console.log(user);
 
   useEffect(() => {
@@ -51,16 +60,20 @@ const playground = () => {
     socket.on("winner", (data) => {
       console.log("You win !!");
       notifySuccess("You win");
+      winSound()
       setTimeout(() => {
         router.push("/coinsofgame");
-      }, 1000);
+        // dispatch(setRoomData({}));
+      }, 4000);
     });
     socket.on("loser", (data) => {
       console.log("You win !!");
-      notifySuccess("You win");
+      notifyError("You lose");
+      loseSound()
       setTimeout(() => {
         router.push("/coinsofgame");
-      }, 1000);
+        // dispatch(setRoomData({}));
+      }, 4000);
     });
     socket.on("player-move", (data) => {
       dispatch(setRoomData(data));
@@ -116,7 +129,9 @@ const playground = () => {
   );
 
   function handleMove(row, column) {
-    play();
+    if(turn===2){
+      clickSound()
+    }
     let move = row * 5 + column;
 
     socket.emit("player-move", {
@@ -133,9 +148,10 @@ const playground = () => {
   return (
     <>
       <div className="playground">
+        <StartGameSoundBg/>
         <div className="container">
-          <header className="d-flex justify-content-between pt-3">
-            <Link href="/" className="link">
+          <header className="d-flex justify-content-between pt-1">
+            <Link href="/coinsofgame" className="link">
               <FaArrowLeft className="text-white pointer h-5" />
             </Link>
             <Link href="/user" className="link">
@@ -158,75 +174,91 @@ const playground = () => {
             </Link>
           </header>
           <div className="prizes d-flex col-12 justify-content-center pt-3 ">
-          <motion.div
-  className="ticket-container justify-center"
-  variants={textVariants}
-  initial={"initial"}
-  animate={"animate"}
->
-  <motion.img
-    src={ticket.src}
-    className="ticket"
-    alt="ticket"
-    variants={textVariants}
-  />
-  <motion.div className="ticket-prize " variants={textVariants}>
-    <motion.h5>{user.coins}00000000000000</motion.h5>
-  </motion.div>
-</motion.div>
+            <motion.div
+              className="ticket-container justify-center"
+              variants={textVariants}
+              initial={"initial"}
+              animate={"animate"}
+            >
+              <motion.img
+                src={ticket.src}
+                className="ticket"
+                alt="ticket"
+                variants={textVariants}
+              />
+              <motion.div className="ticket-prize " variants={textVariants}>
+                <motion.h5>{user.coins}</motion.h5>
+              </motion.div>
+            </motion.div>
           </div>
 
           <div className="players  d-flex col-12 justify-content-center pt-3">
-            <div
+            <motion.div
               className="player1 d-flex"
-              style={{ flexDirection: "column", justifyContent: "center" ,alignItems:"center"}}
+              style={{
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+              variants={textVariants}
+              initial={"initial"}
+              animate={"animate"}
             >
-              <div className="image-box">
-                <img
+               <motion.div className="image-box"                 variants={textVariants}
+>
+               <motion.img
                   src={
                     user.provider == "local"
                       ? apiUrl + user?.image
                       : user?.image
                   }
                   className="userImage"
-                  alt=""
-                  style={{
-                    width: "30px",
-                    height:"30px",
-                    borderRadius: "50%",
-                    display: "block",
-                  }}
-                />
-              </div>
-              <h2 className="o-player fw-bold">
-                {user?._id == room?.userID1 ? "X" : "O"}
-              </h2>
-              <h5>{user?.name}</h5>
-            </div>
+                  alt="" 
+                  variants={textVariants}
 
-            <div className="vs">
-              <img src={vs.src} alt="VS" />
-            </div>
-            <div className="player2">
-              <img
+                />
+              </motion.div>
+              <motion.h2 className="o-player fw-bold"                 variants={textVariants}
+>
+                {user?._id == room?.userID1 ? "X" : "O"}
+              </motion.h2>
+              <motion.h5                  variants={textVariants}
+>{user?.name}</motion.h5>
+            </motion.div>
+
+            <motion.div className="vs"  variants={textVariants}
+                 initial={"initial"}
+                 animate={"animate"}>
+              <motion.img src={vs.src} alt="VS"                 variants={textVariants}
+ />
+            </motion.div>
+            <motion.div className="player2"
+                 variants={textVariants}
+                 initial={"initial"}
+                 animate={"animate"}
+            >
+              <motion.img
                 src={
                   player2?.provider == "local"
                     ? apiUrl + player2?.image
                     : player2?.image
-                }
-                className="userImage"
+                } 
                 alt=""
+                variants={textVariants}
+
               />
-              <h2 className="x-player fw-bold">
+              <motion.h2 className="x-player fw-bold"                 variants={textVariants}
+>
                 {user?._id != room?.userID1 ? "X" : "O"}
-              </h2>
-              <h5>{player2.name}</h5>
-            </div>
+              </motion.h2>
+              <motion.h5                  variants={textVariants}
+>{player2.name}</motion.h5>
+            </motion.div>
           </div>
           <div className="d-flex justify-content-center pt-3">
             <div className="big-box">
               {grid.map((row, rowIndex) => (
-                <div key={rowIndex} className="row">
+                <row key={rowIndex} className="row">
                   <div className="d-flex m-1">
                     {row.map((content, colIndex) => (
                       <button
@@ -244,7 +276,7 @@ const playground = () => {
                       </button>
                     ))}
                   </div>
-                </div>
+                </row>
               ))}
             </div>
           </div>

@@ -18,9 +18,8 @@ import { setRoomData } from "@/redux/slices/room";
 import { notifyError } from "@/components/toastify/toastify";
 import { startLoading, stopLoading } from "@/redux/slices/loadingSlice";
 import Loading from "@/components/loading/Loading";
-import userImage from "../../assets/photos/userrr.png";
-import useSound from "use-sound";
-import bgSound from "../../assets/sound/bg1.mp3";
+import userImage from "../../assets/photos/userrr.png"; 
+import SoundBg from "@/components/soundBg/SoundBg";
 
 const textVariants = {
   initial: {
@@ -106,17 +105,7 @@ const coinsOfGame = () => {
   function handleClose() {
     socket.emit("exit-waiting");
     dispatch(stopLoading());
-  }
-
-  // const [playBg, { stop }] = useSound(bgSound, { volume: 0.05, loop: true });
-
-  // useEffect(() => {
-  //   playBg();
-
-  //   return () => {
-  //     stop();
-  //   }; 
-  // }, [playBg, stop]);
+  } 
 
   return (
     <>
@@ -128,6 +117,7 @@ const coinsOfGame = () => {
         />
       ) : (
         <div className="coins-of-game d-flex flex-column ">
+          <SoundBg/>
           <div className="flex-grow">
             <div className="container high-z-index  ">
             <header className="d-flex justify-content-between mb-4 align-items-center   text-white p-4 mt-2 ">
