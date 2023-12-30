@@ -51,5 +51,5 @@ const userSlice = createSlice({
   },
 });
 
-export const {} = userSlice.actions;
+export const {offlineUser,onlineUser} = userSlice.actions;
 export default userSlice.reducer;

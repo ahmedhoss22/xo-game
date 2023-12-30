@@ -12,7 +12,7 @@ import shareGamePhoto from "../../assets/photos/shareGame-photo.png";
 import userImage from "../../assets/photos/userrr.png";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { fetchUserData } from "@/redux/slices/user";
+import { fetchUserData, offlineUser } from "@/redux/slices/user";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -46,7 +46,6 @@ const scrollRight = () => {
 const Homepage = () => {
   const [play] = useSound(sound);
 
-
   const user = useSelector((state) => state.user.data);
   const online = useSelector((state) => state.user.online);
   const apiUrl = process.env.NEXT_PUBLIC_API_SERVER;
@@ -62,7 +61,10 @@ const Homepage = () => {
     //   router.push("/");
     // }
   }, []);
-
+  function handleLogout(){
+    dispatch(offlineUser())
+    router.push("/login");
+  }
   return (
     <div className="home-page d-flex flex-column ">
       <SoundBg/>
@@ -207,13 +209,13 @@ const Homepage = () => {
         ) : (
           <div className="rtl">
             <div className="col-xl-2 col-lg-3 col-md-5 col-7  ms-4 high-z-index">
-              <Link href={"/login"} className="text-decoration-none">
+              <div onClick={handleLogout} className="text-decoration-none">
                 {" "}
                 <div className=" language-btn d-flex align-items-center justify-content-center  border-radius-20 m-2 transform-btn pointer ">
                   <button className="text-white ">تسجيل الخروج </button>
                   <img src={country.src} alt="" />
                 </div>
-              </Link>
+              </div>
             </div>
           </div>
         )}
