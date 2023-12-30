@@ -270,6 +270,12 @@ export class RoomsService implements OnGatewayDisconnect {
             match.roomName,
           );
         }
+        this.waitingPlayers = this.waitingPlayers.filter(
+          (ele) => ele.userID != match.userID1 || ele.userID != match.userID2,
+        );
+        this.playingRooms = this.playingRooms.filter(
+          (ele) => ele.roomName != match.roomName,
+        );
       } else {
         match.player1Moves = [];
         match.player2Moves = [];

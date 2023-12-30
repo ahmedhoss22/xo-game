@@ -71,7 +71,7 @@ export class UserController {
   }
 
   @Get('/user/:id')
-  @UseGuards(AuthAdminGuard)
+  @UseGuards(AuthGuard)
   async getUserData(
     @Param('id', new ValidationPipe({ transform: true }))
     id: mongoose.Types.ObjectId,
