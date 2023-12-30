@@ -1,6 +1,5 @@
 "use client";
 import { IoIosArrowForward } from "react-icons/io";
-import ChooseLanguage from "../chooseLanguage/Chooselanguage";
 import Footer from "../footer/Footer";
 import "./homepage.scss";
 import Title from "../title/Title";
@@ -20,6 +19,8 @@ import useSound from "use-sound";
 import sound from "../../assets/sound/s.mp3";
 import country from "../../assets/photos/country-flag.png";
 import SoundBg from "../soundBg/SoundBg";
+import dynamic from 'next/dynamic';
+
 
 const textVariants = {
   initial: {
@@ -42,6 +43,7 @@ const scrollLeft = () => {
 const scrollRight = () => {
   document.getElementById("content").scrollLeft -= 800;
 };
+
 
 const Homepage = () => {
   const [play] = useSound(sound);
@@ -123,9 +125,13 @@ const Homepage = () => {
               router.push("/coinsofgame");
               play();
             }}
+          
           >
             <div className="home-page-main-container playNow d-flex  w-75 m-auto align-items-center justify-content-around text-white fw-bold rtl">
-              <img src={playNowPhoto.src} className=" " alt="" />
+              <motion.img src={playNowPhoto.src} className=" "   
+              // initial={{ opacity: 0 }}
+            // animate={{ opacity: 1 }}
+            alt="" />
               <div className="text-play-container">
                 <h2 className="fw-bold">العب الان</h2>
                 <div className="arrow ">
