@@ -103,8 +103,8 @@ export class UtilitsService {
   }
 
   checkEndGame(data: RoomDto): boolean {
-    let player1win = data.player1Wins > data.turn / 2;
-    let player2win = data.player2Wins > data.turn / 2;
+    let player1win = data.player1Wins > data.rounds / 2;
+    let player2win = data.player2Wins > data.rounds / 2;
     console.log(data);
     
     return (player1win || player2win) as boolean;
