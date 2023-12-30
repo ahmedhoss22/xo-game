@@ -126,7 +126,7 @@ function handleLogin(values) {
                 type="submit"
                 className="btn form-control border-radius-20  green-bg text-white mt-4 btn-padding transform-btn"
               >
-                انشاء حساب
+تسجيل الدخول
               </button>
             </div>
             <div className="col-12  ">

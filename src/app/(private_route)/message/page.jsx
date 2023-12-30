@@ -4,14 +4,14 @@ import { FaUserAlt } from "react-icons/fa";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import Footer from "@/components/footer/Footer";
-import robot from "../../assets/photos/chatgpt.png";
-import whatsApp from "../../assets/photos/whatsAppp.png";
+import robot from "../../../assets/photos/chatgpt.png";
+import whatsApp from "../../../assets/photos/whatsAppp.png";
 import localFont from "next/font/local";
 import Button from "@mui/material/Button";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import { motion } from "framer-motion";
 
-const myFont = localFont({ src: "../../assets/fonts/Pacifico-Regular.ttf" });
+const myFont = localFont({ src: "../../../assets/fonts/Pacifico-Regular.ttf" });
 
 const textVariants = {
   initial: {

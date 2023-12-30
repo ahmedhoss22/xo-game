@@ -12,7 +12,7 @@ import { fetchUserData } from "@/redux/slices/user";
 import Link from "next/link";
 import click from "../../assets/sound/clickSound.wav";
 import win from "../../assets/sound/success1.mp3";
-import lose from "../../assets/sound/lose1.mp3"; 
+import lose from "../../assets/sound/lose1.mp3";
 import useSound from "use-sound";
 import { fetchOtherUser, setRoomData } from "@/redux/slices/room";
 import { useRouter } from "next/navigation";
@@ -34,13 +34,10 @@ const textVariants = {
   },
 };
 
- 
-
 const playground = () => {
   const [clickSound] = useSound(click);
   const [winSound] = useSound(win);
-  const [loseSound] = useSound(lose); 
-
+  const [loseSound] = useSound(lose);
 
   const router = useRouter();
   const [data, setData] = useState({});
@@ -60,7 +57,7 @@ const playground = () => {
     socket.on("winner", (data) => {
       console.log("You win !!");
       notifySuccess("You win");
-      winSound()
+      winSound();
       setTimeout(() => {
         router.push("/coinsofgame");
         // dispatch(setRoomData({}));
@@ -69,7 +66,7 @@ const playground = () => {
     socket.on("loser", (data) => {
       console.log("You win !!");
       notifyError("You lose");
-      loseSound()
+      loseSound();
       setTimeout(() => {
         router.push("/coinsofgame");
         // dispatch(setRoomData({}));
@@ -129,8 +126,8 @@ const playground = () => {
   );
 
   function handleMove(row, column) {
-    if(turn===2){
-      clickSound()
+    if (turn === 2) {
+      clickSound();
     }
     let move = row * 5 + column;
 
@@ -148,7 +145,7 @@ const playground = () => {
   return (
     <>
       <div className="playground">
-        <StartGameSoundBg/>
+        <StartGameSoundBg />
         <div className="container">
           <header className="d-flex justify-content-between pt-3">
             <Link href="/coinsofgame" className="link">
@@ -204,55 +201,55 @@ const playground = () => {
               initial={"initial"}
               animate={"animate"}
             >
-               <motion.div className="image-box"                 variants={textVariants}
->
-               <motion.img
+              <motion.div className="image-box" variants={textVariants}>
+                <motion.img
                   src={
                     user.provider == "local"
                       ? apiUrl + user?.image
-                      : user?.image
+                      : user?.image || userImage.src
                   }
                   className="userImage"
-                  alt="" 
+                  alt=""
                   variants={textVariants}
-
                 />
               </motion.div>
-              <motion.h2 className="o-player fw-bold"                 variants={textVariants}
->
+              <motion.h2 className="o-player fw-bold" variants={textVariants}>
                 {user?._id == room?.userID1 ? "X" : "O"}
               </motion.h2>
-              <motion.h5                  variants={textVariants}
->{user?.name}</motion.h5>
+              <motion.h5 variants={textVariants}>
+                {user?.name || "player 1"}
+              </motion.h5>
             </motion.div>
 
-            <motion.div className="vs"  variants={textVariants}
-                 initial={"initial"}
-                 animate={"animate"}>
-              <motion.img src={vs.src} alt="VS"                 variants={textVariants}
- />
+            <motion.div
+              className="vs"
+              variants={textVariants}
+              initial={"initial"}
+              animate={"animate"}
+            >
+              <motion.img src={vs.src} alt="VS" variants={textVariants} />
             </motion.div>
-            <motion.div className="player2"
-                 variants={textVariants}
-                 initial={"initial"}
-                 animate={"animate"}
+            <motion.div
+              className="player2"
+              variants={textVariants}
+              initial={"initial"}
+              animate={"animate"}
             >
               <motion.img
                 src={
                   player2?.provider == "local"
                     ? apiUrl + player2?.image
-                    : player2?.image
-                } 
+                    : player2?.image || userImage.src
+                }
                 alt=""
                 variants={textVariants}
-
               />
-              <motion.h2 className="x-player fw-bold"                 variants={textVariants}
->
+              <motion.h2 className="x-player fw-bold" variants={textVariants}>
                 {user?._id != room?.userID1 ? "X" : "O"}
               </motion.h2>
-              <motion.h5                  variants={textVariants}
->{player2.name}</motion.h5>
+              <motion.h5 variants={textVariants}>
+                {player2.name || "player 2"}
+              </motion.h5>
             </motion.div>
           </div>
           <div className="d-flex justify-content-center pt-3">
@@ -270,7 +267,6 @@ const playground = () => {
                         <h2
                           className="text-center fw-bold "
                           style={{ color: "#fff" }}
-                          
                         >
                           {content}
                         </h2>
@@ -288,3 +284,4 @@ const playground = () => {
 };
 
 export default playground;
+
