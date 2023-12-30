@@ -88,7 +88,7 @@ export default function AdminPanel({ children }) {
                 </Link>
               </li>{" "}
               <li>
-                <Link prefetch href="playingpoints">
+                <Link prefetch href="playingPoints">
                   <span className="fa fa-user mr-3" /> نقاط اللعب
                 </Link>
               </li>
