@@ -1,0 +1,80 @@
+.payment {
+  background: url("../../../assets/photos/bg-layer.png");
+  min-height: 100vh;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+ 
+  
+  .paypal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    .paypal-img-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      .paypal-word {
+        width: 109px;
+        height: 28.91px;
+      }
+      .paypal-icon {
+        width: 60px;
+        height: 69.16px;
+      }
+      .visa-img {
+        width: 150px;
+        height: 60.84px;
+      }
+    }
+  }
+  @media screen and (min-width: 768px) and (max-width: 1199px) {
+    .paypal {
+      margin-top: -130px;  
+    }
+  }
+  
+  @media screen and (min-width: 1200px) {
+    .paypal {
+      margin-top: -158px;  
+    }
+  }
+  
+  .visa {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  button{
+    padding: 5px 50px;
+    border-radius: 20px;
+
+  }
+  .css-iwcgw7-MuiFormLabel-root-MuiInputLabel-root {
+    color: white !important;
+  }
+  .css-1717ajk-MuiFormLabel-root-MuiInputLabel-root.Mui-focused {
+    color: white !important;
+  }
+  .css-1717ajk-MuiFormLabel-root-MuiInputLabel-root {
+    color: white !important;
+  }
+  .css-v4u5dn-MuiInputBase-root-MuiInput-root:after {
+    border-bottom: 2px solid white !important;
+  }
+  .css-v4u5dn-MuiInputBase-root-MuiInput-root::before {
+    border-bottom: 2px solid white !important;
+  }
+  .css-1x51dt5-MuiInputBase-input-MuiInput-input {
+    color: white;
+  }
+  .css-12wnr2w-MuiButtonBase-root-MuiCheckbox-root.Mui-checked,
+  .css-12wnr2w-MuiButtonBase-root-MuiCheckbox-root.MuiCheckbox-indeterminate {
+    color: var(--green-color) !important;
+  }
+  .css-1d1r5q-MuiFormHelperText-root {
+    color:white;
+  }
+}

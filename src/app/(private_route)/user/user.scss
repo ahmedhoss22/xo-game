@@ -1,0 +1,18 @@
+.user {
+    background: url("../../../assets/photos/bg-layer.png");
+    min-height: 100vh;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  .user-info {
+    img {
+      width: 112px;
+      height: 101px;
+    }
+  }
+.arrow:hover{
+  transform: scale(1.1);
+  transition: .3s;
+}
+}
+

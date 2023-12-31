@@ -37,7 +37,7 @@ const Footer = () => {
         </div>
        
       </Link>
-      <Link href={"/"}>
+      <Link href={"/home"}>
        
         <img src={homeIcon.src} alt="home" className="pointer" />
       </Link>

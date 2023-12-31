@@ -8,7 +8,7 @@ import { Providers } from "@/redux/Providers";
 
 const cairo = Cairo({
   subsets: ["latin"],
-  // weight: ["400", "500", "700", "900"],
+  weight: ["400", "500", "700", "900"],
 });
 
 export const metadata = {
@@ -17,6 +17,7 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
+  
   
   return (
     <html lang="en">

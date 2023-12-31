@@ -2,14 +2,14 @@
 import { fetchUserData } from "@/redux/slices/user";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { redirect } from "next/navigation"; 
+import { redirect } from "next/navigation";
 
-export default function PrivateRoot({children}) {
+export default function GuestRoot({children}) {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
 
  const user = useSelector((state) => state.user.data); 
-  
+  console.log(user);
   useEffect(() => {
     dispatch(fetchUserData())
     .unwrap()
@@ -27,12 +27,11 @@ export default function PrivateRoot({children}) {
     return <></>; 
   }
 
-  if (!user) {
-    redirect('/register') || redirect('/');
-  } 
- 
+  if (user) {
+    redirect('/home'); 
+  }
+
  return (
-  <>{children} 
-  </>
+  <>{children}</>
  )
 }

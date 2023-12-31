@@ -1,34 +1,16 @@
 'use client'
 import Loading from '@/components/loading/Loading';
-import Homepage from '../components/home/Homepage'
+import Homepage from './(private_route)/home/page'
+import Login from './(guest_route)/login/page'
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import { selectLoading, startLoading, stopLoading } from '@/redux/slices/loadingSlice';
-// import { authMiddleware } from '../../authMiddleware'; // Import the authMiddleware
+import { selectLoading, startLoading, stopLoading } from '@/redux/slices/loadingSlice'; 
+import WinModel from '@/components/winModel/WinModel';
 
-const Home = () => {
+const MainPage = () => {
   const dispatch = useDispatch();
   const isLoading = useSelector(selectLoading);
-
-  // useEffect(() => {
-  //   // Add the authMiddleware check
-  //   authMiddleware()
-  //     .then((isAuthenticated) => {
-  //       if (!isAuthenticated) {
-  //         // Redirect or handle unauthorized access
-  //         console.log('User is not authenticated. Redirect or handle accordingly.');
-  //       } else {
-  //         // Proceed with loading logic
-  //         // dispatch(startLoading());
-  //         setTimeout(() => {
-  //           dispatch(stopLoading());
-  //         }, 1000);
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       console.error('Error checking authentication:', error);
-  //     });
-  // }, [dispatch]);
+ 
   useEffect(() => {
     // dispatch(startLoading());
 
@@ -40,14 +22,17 @@ const Home = () => {
   return (
     <div>
       <div>
-        {isLoading ? (
+       {/* <WinModel/> */}
+         {/* {isLoading ? (
           <Loading text="XO Game is Loading ..."  />
         ) : (
-          <Homepage />
-        )}
+          <Homepage/>
+
+        )} */}
+        <Login/>
       </div>
     </div>
   );
 };
 
-export default Home;
+export default MainPage;
