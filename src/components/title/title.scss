@@ -19,19 +19,7 @@
   }
 
  
-@media only screen and (max-width: 600px) {
-  .title {
-    .title-text {
-      font-size: 22px;
-      margin-right: 43px;
-        }
-        
-  img {
-     height: auto;
-  }
 
-  }
-}
 
 .gray-color {
   color: #9f9f9f !important;
@@ -45,3 +33,17 @@
   color: #9d3a9b !important;
 }
 }
+
+// @media only screen and (max-width: 600px) {
+//   .title {
+//     .title-text {
+//       font-size: 22px;
+//       margin-right: 43px;
+//         }
+        
+//   img {
+//      height: auto;
+//   }
+
+//   }
+// }

@@ -4,13 +4,15 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { redirect } from "next/navigation";
 
-export default function PrivateRoot() {
+export default function PrivateRoot({ children }) {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
-  const user = useSelector((state) => state.user.data);
-  
+
+  const online = useSelector((state) => state.user.online);
+
   useEffect(() => {
     dispatch(fetchUserData())
+      .unwrap()
       .then(() => setLoading(false))
       .catch((error) => {
         console.error('Error fetching user data:', error);
@@ -18,18 +20,16 @@ export default function PrivateRoot() {
       });
   }, [dispatch]);
 
- 
-
   if (loading) {
-    return <></>; 
+    return <></>;
   }
 
-  if (!user) {
-    redirect('/');
+  if (!online && !loading) {
+    redirect('/login');
   }
 
   return (
-    <>
+    <>{children}
     </>
-  );
+  )
 }

@@ -1,0 +1,77 @@
+.card-page {
+  background: url("../../../assets/photos/bg-layer.png");
+  min-height: 100vh;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+.ticket {
+  background-color: var(--purple-color) !important;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  width: 78px;
+  height: 114px;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 15px;
+    .count{
+        color: var(--red-color) !important;
+    }
+  .img-container {
+    height: 57px;
+    width: 78px;
+    background-color: #d9d9d9;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+ 
+  }
+  .ticket-img{
+    width: 56px;
+height: 56px;
+
+  }
+ 
+}
+.payment-method{
+  .visa , .paypal{
+    width: 108px;
+height: 25px;
+border-radius: 15px;
+background-color: #d9d9d9;
+display: flex;
+align-items: center;
+justify-content: center;
+img{
+    width: 50px;
+height: 20.28px;
+}
+.paypal-icon{
+    width: 20px;
+height: 23.05px;
+
+}
+.paypal-word{
+    width: 50px;
+height: 13.26px;
+
+}
+
+}
+}
+ 
+@media (min-width: 1200px) {
+  .justify-content-between-lg {
+    justify-content: space-between !important;
+  }
+}
+ 
+@media (max-width: 1199px) {
+  .justify-content-around {
+    justify-content: space-around !important;
+  }
+}
+
+}

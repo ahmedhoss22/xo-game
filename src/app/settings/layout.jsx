@@ -33,7 +33,7 @@ export default function AdminPanel({ children }) {
   const isAdmin = user?.isAdmin;
 
   if (!isAdmin) {
-    redirect("/");
+    redirect("/home");
   }
 
   const toggleSidebar = () => {
@@ -103,7 +103,7 @@ export default function AdminPanel({ children }) {
                 </Link>
               </li>
               <li>
-                <Link prefetch href="/">
+                <Link prefetch href="/home">
                   <span className="fa fa-user mr-3" /> الذهاب الي وجهة المستخدم
                 </Link>
               </li>
