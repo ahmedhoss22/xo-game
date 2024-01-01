@@ -1,5 +1,5 @@
 import "./card.scss";
-import Title from "../../components/title/Title";
+import Title from "@/components/title/Title";
 import Footer from "@/components/footer/Footer";
 import { FaArrowLeft } from "react-icons/fa"; 
 import ticketImage from "../../assets/photos/Ticket.png";

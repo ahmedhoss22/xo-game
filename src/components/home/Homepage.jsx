@@ -57,11 +57,11 @@ const Homepage = () => {
 
   useEffect(() => {
     dispatch(fetchUserData());
-    // if (!online) {
-    //   router.push("/login");
-    // } else {
-    //   router.push("/");
-    // }
+    if (!online) {
+      router.push("/login");
+    } else {
+      router.push("/");
+    }
   }, []);
   function handleLogout(){
     dispatch(offlineUser())
@@ -165,7 +165,7 @@ const Homepage = () => {
         <div
           className="row d-flex high-z-index pointer"
           onClick={() => {
-            router.push("/playground");
+            router.push("//coinsofgame");
             play();
           }}
         >
@@ -219,7 +219,7 @@ const Homepage = () => {
                 {" "}
                 <div className=" language-btn d-flex align-items-center justify-content-center  border-radius-20 m-2 transform-btn pointer ">
                   <button className="text-white ">تسجيل الخروج </button>
-                  <img src={country.src} alt="" />
+                  {/* <img src={country.src} alt="" /> */}
                 </div>
               </div>
             </div>

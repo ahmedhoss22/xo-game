@@ -7,9 +7,7 @@ import { redirect } from "next/navigation";
 export default function PrivateRoot() {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
-
- const user = useSelector((state) => state.user.data);
-  console.log(user);
+  const user = useSelector((state) => state.user.data);
   
   useEffect(() => {
     dispatch(fetchUserData())
