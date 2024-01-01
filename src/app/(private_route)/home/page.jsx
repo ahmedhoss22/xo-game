@@ -46,6 +46,8 @@ const Homepage = () => {
   const [play] = useSound(sound);
 
   const user = useSelector((state) => state.user.data);
+  
+  const isAdmin = user?.isAdmin;
   const online = useSelector((state) => state.user.online);
   const apiUrl = process.env.NEXT_PUBLIC_API_SERVER;
   const [loading ,setLoading] = useState(true)
@@ -208,14 +210,17 @@ const Homepage = () => {
           </div>
         ) : (
           <div className="rtl">
-            <div className="col-xl-2 col-lg-3 col-md-5 col-7  ms-4 high-z-index">
+          
+                 <div className="col-xl-2 col-lg-3 col-md-5 col-7  ms-4 high-z-index">
               <div onClick={handleLogout} className="text-decoration-none">
-                {" "}
+              
                 <div className="   logOut-btn d-flex align-items-center justify-content-center  border-radius-20 m-2 transform-btn pointer ">
                   <button className="text-white ">تسجيل الخروج </button>
                 </div>
-              </div>
+             </div>
+
             </div>
+         
           </div>
         )}
       </div>

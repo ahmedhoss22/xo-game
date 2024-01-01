@@ -61,7 +61,7 @@ const changeStore = () => {
     <div className="change-store d-flex flex-column ">
       <div className="flex-grow">
         <div className="container high-z-index  ">
-          <header className="d-flex justify-content-between mb-4 align-items-center   text-white p-4 ">
+          <header className="d-flex justify-content-between-lg justify-content-around mb-4 align-items-center   text-white p-4 ">
           <motion.div
   className="ticket-container justify-center"
   variants={textVariants}

@@ -29,9 +29,12 @@ const wallet = () => {
     // }
   }, []);
   return (
-    <div className="wallet">
+    <div className="wallet-page">
       <header className="d-flex justify-content-between mb-4 align-items-center pt-3 text-white p-4 ">
-        <FaArrowLeft className=" pointer h-5" />
+        <Link href={'/home'} className="link">
+                  <FaArrowLeft className=" pointer h-5 text-white" />
+
+        </Link>
 
         <div className="col-3">
           {" "}

@@ -69,7 +69,7 @@ const register = () => {
           </Link>
         </div>
       <div className="register m-2 ">
-      <form className="col-xl-3  col-lg-4 col-md-5 col-sm-7 col-10 form-shape shadow mt-2"
+      <form className="col-xl-3  col-lg-4 col-md-5 col-sm-7 col-10 form-shape shadow mt-4"
 
           onSubmit={formik.handleSubmit}
         >

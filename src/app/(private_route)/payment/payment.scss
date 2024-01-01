@@ -77,4 +77,15 @@
   .css-1d1r5q-MuiFormHelperText-root {
     color:white;
   }
+  @media (min-width: 992px) {
+    .justify-content-between-lg {
+      justify-content: space-between !important;
+    }
+  }
+   
+  @media (max-width: 991px) {
+    .justify-content-around {
+      justify-content: space-around !important;
+    }
+  }
 }

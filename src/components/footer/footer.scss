@@ -1,19 +1,40 @@
 .footer{
     background: linear-gradient(180deg, #3C0384 0%, #953976 100%);
+    padding: 8px 60px;
  
-img{
-    width: 220px; 
+// img{
+//     width: 220px; 
 
-}
+// }
 
-   
+   .footer-icons{
+    width: 50px;
+    height: 50px;
+   }
 
 }  
-@media (max-width: 570px) {
-.footer{
-    height: 45px;
-    img{
-        height: 30px;
+/* Medium-sized screens */
+@media (max-width: 992px) {
+    .footer {
+      padding: 8px 20px;  
+  
+      .footer-icons {
+        width: 40px;
+        height: 40px;
+      }
+  
     }
-}
   }
+  
+  /* Smaller screens */
+  @media (max-width: 480px) {
+    .footer {
+        padding: 8px 10px;  
+  
+        .footer-icons {
+          width: 25px;
+          height: 25px;
+        }
+    }
+  }
+  

@@ -68,37 +68,37 @@ export default function AdminPanel({ children }) {
 
             <ul className="list-unstyled components mb-5">
               <li>
-                <Link prefetch href="support">
+                <Link prefetch href="support" as={'/settings/support'}>
                   <span className="fa fa-sticky-note mr-3" /> الدعم
                 </Link>
               </li>
               <li className="active">
-                <Link prefetch href="store">
+                <Link prefetch href="store"  as={'/settings/store'}>
                   <span className="fa fa-home mr-3" /> المتجر
                 </Link>
               </li>{" "}
               <li>
-                <Link prefetch href="changecoins">
+                <Link prefetch href="changecoins"  as={'/settings/changecoins'}>
                   <span className="fa fa-user mr-3" /> هدايا المتجر
                 </Link>
               </li>
               <li>
-                <Link prefetch href="users">
+                <Link prefetch href="users"  as={'/settings/users'}>
                   <span className="fa fa-user mr-3" /> المستخدمين
                 </Link>
               </li>{" "}
               <li>
-                <Link prefetch href="playingPoints">
+                <Link prefetch href="playingpoints"  as={'/settings/playingpoints'}>
                   <span className="fa fa-user mr-3" /> نقاط اللعب
                 </Link>
               </li>
               <li>
-                <Link prefetch href="privacysettings">
+                <Link prefetch href="privacysettings"  as={'/settings/privacysettings'}>
                   <span className="fa fa-user mr-3" /> سياسة الخصوصية
                 </Link>
               </li>
               <li>
-                <Link prefetch href="userspoints">
+                <Link prefetch href="userspoints"  as={'/settings/userspoints'}>
                   <span className="fa fa-user mr-3" /> نقاط دخول المستوايات
                 </Link>
               </li>
