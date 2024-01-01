@@ -39,87 +39,86 @@ export class RoomsService implements OnGatewayDisconnect {
 
   @SubscribeMessage('start-game')
   async handleMatch(client: Socket, data: MatchDto) {
-    if (!this.server)
+    if (!this.server) {
       return this.utilitsService.errorHandle(
         client.id,
         'Server instance not available.',
       );
-
-    if (!data) {
+    }
+  
+    if (!data || !data.coins || !data.userID || !data.winCoins || !data.rounds) {
       return this.utilitsService.errorHandle(
         client.id,
-        'coins and userID and winCoins and rounds is required !!',
+        'coins, userID, winCoins, and rounds are required!',
       );
     }
-
-    // Validate data (coins and userID)
-    if (!data.coins || !data.userID || !data.winCoins || !data.rounds) {
-      return this.utilitsService.errorHandle(
-        client.id,
-        'coins and userID and winCoins and rounds is required !!',
-      );
-    }
-
+  
     const roomName: string = 'room' + Date.now().toString();
     this.waitingPlayers = this.waitingPlayers.filter(
-      (ele) => ele.socketID != client.id,
+      (ele) => ele.socketID !== client.id,
     );
-
-    // valid object id
+  
     if (!mongoose.isValidObjectId(data.userID)) {
       return this.utilitsService.errorHandle(
         client.id,
-        'userID is not Valid !!',
+        'userID is not valid!',
       );
     }
-
-    // valid coins in player acc
-    let user = await this.userService.getUser(data.userID);
-    if (!user) {
-      return this.utilitsService.errorHandle(client.id, 'Invalid user ID !!');
-    }
-    if (user.coins < data.coins) {
-      return this.utilitsService.errorHandle(
-        client.id,
-        'user coins not enough !!',
-      );
-    }
-
-    // Check for a matching player
-    const matched = this.checkForMatching(data, client.id, roomName);
-
-    if (matched) {
-      let room = this.playingRooms.find((ele) => ele.roomName == roomName);
-
-      this.server.to(room.socketID1).socketsJoin(room.roomName);
-      this.server.to(room.socketID2).socketsJoin(room.roomName);
-
-      this.server.to(room.roomName).emit('matched', {
-        message: 'You are matched! Start playing.',
-        roomName,
-        players: [room.socketID1, room.socketID2],
-        room,
-      });
-
-      let arr = [...this.waitingPlayers, ...this.playingRooms];
-      this.server.to(client.id).emit('online-players', arr);
-      this.server.emit('online-players', arr);
-      console.log('Waiting players : ' + this.waitingPlayers.length);
-    } else {
-      this.waitingPlayers.push({
-        ...data,
-        socketID: client.id,
-        winCoins: data.winCoins,
-      });
-
-      let arr = [...this.waitingPlayers, ...this.playingRooms];
-      this.server.to(client.id).emit('online-players', arr);
-      this.server.emit('online-players', arr);
-
-      console.log('Waiting players : ' + this.waitingPlayers.length);
-      return;
+  
+    try {
+      // Fetch user details
+      let user = await this.userService.getUser(data.userID);
+      
+      if (!user) {
+        return this.utilitsService.errorHandle(client.id, 'Invalid user ID!');
+      }
+  
+      if (user.coins < data.coins) {
+        return this.utilitsService.errorHandle(
+          client.id,
+          'User coins not enough!',
+        );
+      }
+  
+      // Check for a matching player
+      const matched = this.checkForMatching(data, client.id, roomName);
+  
+      if (matched) {
+        let room = this.playingRooms.find((ele) => ele.roomName == roomName);
+  
+        this.server.to(room.socketID1).socketsJoin(room.roomName);
+        this.server.to(room.socketID2).socketsJoin(room.roomName);
+  
+        this.server.to(room.roomName).emit('matched', {
+          message: 'You are matched! Start playing.',
+          roomName,
+          players: [room.socketID1, room.socketID2],
+          room,
+        });
+  
+        let arr = [...this.waitingPlayers, ...this.playingRooms];
+        this.server.to(client.id).emit('online-players', arr);
+        this.server.emit('online-players', arr);
+        console.log('Waiting players: ' + this.waitingPlayers.length);
+      } else {
+        this.waitingPlayers.push({
+          ...data,
+          socketID: client.id,
+          winCoins: data.winCoins,
+        });
+  
+        let arr = [...this.waitingPlayers, ...this.playingRooms];
+        this.server.to(client.id).emit('online-players', arr);
+        this.server.emit('online-players', arr);
+  
+        console.log('Waiting players: ' + this.waitingPlayers.length);
+      }
+    } catch (error) {
+      console.error('Error fetching user details:', error);
+      return this.utilitsService.errorHandle(client.id, 'Error fetching user details.');
     }
   }
+  
 
   checkForMatching(
     data: MatchDto,
