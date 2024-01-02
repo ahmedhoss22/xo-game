@@ -9,6 +9,8 @@ import { LevelModule } from './level/level.module';
 import { PlayingCoinsModule } from './playing-coins/playing-coins.module';
 import { StoreModule } from './store/store.module';
 import { MulterModule } from '@nestjs/platform-express';
+import { CoinStoreModule } from './coinStore/coinStore.module';
+import { OrderModule } from './order/order.module';
 
 @Module({
   imports: [
@@ -20,6 +22,8 @@ import { MulterModule } from '@nestjs/platform-express';
     LevelModule,
     PlayingCoinsModule,
     StoreModule,
+    CoinStoreModule,
+    OrderModule,
     
   ],
   providers: [Logger],

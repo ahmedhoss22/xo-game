@@ -35,7 +35,7 @@ export class StoreController {
     FileInterceptor('image', multerConfig('./public/store', 'store')),
   ) // Use the file upload interceptor
   async addStore(
-    @Body() data: any,
+    @Body() data: StoreDto,
     @UploadedFile(
       new ParseFilePipe({
         validators: [
@@ -43,12 +43,14 @@ export class StoreController {
             maxSize: 5 * 1024 * 1024,
             message: 'File size must be less than 5 mb',
           }),
-          new FileTypeValidator({ fileType: 'image/jpeg' }),
+          new FileTypeValidator({ fileType: '' }),
         ],
       }),
     )
     file: Express.Multer.File,
   ) {
+    console.log(file);
+    
     if (!file) {
       throw new BadRequestException({ message: 'Image is required!' });
     }

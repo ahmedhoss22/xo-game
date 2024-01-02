@@ -18,7 +18,6 @@ async function bootstrap() {
   // app.useGlobalFilters(new HttpExceptionFilter());
   app.useStaticAssets(join(__dirname,"..","public"),{});
 
-
   //sessions
   app.use(
     session({
