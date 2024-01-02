@@ -16,7 +16,7 @@ const style = {
   p: 4,
 };
 
-const WinModel = ({ open, loser, winner }) => { 
+const WinModel = ({ open, winner }) => { 
   return (
     <div> 
     <Modal
@@ -26,10 +26,10 @@ const WinModel = ({ open, loser, winner }) => {
     >
       <Box sx={style} className='text-center text-white'>
         <Typography id="modal-modal-title" variant="h4" component="h2" className='fw-bold'>
-         {winner ? `${winner} You Win !! 🥇`: `${loser} You Lose 😔` } 
+         {winner ? ` You Win !! 🥇`: ` You Lose 😔` } 
         </Typography>
         <Typography id="modal-modal-description"   sx={{ mt: 2 }}>
-        {winner ? `Congratulations 🎉🎉💗 `: `        Good luck next time 💗 ` } 
+        {winner ? `Congratulations 🎉🎉💗 `: ` Good luck next time 💗 ` } 
         </Typography>
       </Box>
     </Modal>

@@ -37,9 +37,8 @@ const textVariants = {
 
 const playground = () => {
   const [modal, setModal] = useState({
-    open: true,
-    loser : '',
-    winner: '',
+    open: true, 
+    winner: false,
   }); 
 
  
@@ -66,23 +65,23 @@ const playground = () => {
     socket.on("winner", (data) => {
       console.log("You win !!");
       notifySuccess("You win");
-      setModal({ open: true});
+      setModal({ open: true , winner:true});
 
       winSound();
       setTimeout(() => { 
-        setModal({ open: false});
+        setModal({ open: false , winner:true});
         router.push("/coinsofgame");
        
         // dispatch(setRoomData({}));
       }, 4000);
     });
     socket.on("loser", (data) => {
-      console.log("You win !!");
+      console.log("You lose !!");
       notifyError("You lose");
-      setModal({ open: true});
+      setModal({ open: true , winner:false});
       loseSound();
       setTimeout(() => {
-        setModal({ open: false});
+        setModal({ open: false , winner:false});
         router.push("/coinsofgame");
         // dispatch(setRoomData({}));
       }, 4000);
@@ -306,8 +305,7 @@ console.log(room);
           </div>
         </div>
         <WinModel
-          open={modal.open}
-          loser={modal.loser}
+          open={modal.open} 
           winner={modal.winner} 
         />
       </div>
