@@ -1,8 +1,4 @@
 import "./card.scss";
-<<<<<<< HEAD:src/app/card/page.jsx
-import Title from "@/components/title/Title";
-=======
->>>>>>> 32e8828726a1fc57bcdc94320fddcede7719d1be:src/app/(private_route)/card/page.jsx
 import Footer from "@/components/footer/Footer";
 import Title from "@/components/title/Title";
 import { FaArrowLeft } from "react-icons/fa"; 
