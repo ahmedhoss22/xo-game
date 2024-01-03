@@ -18,6 +18,7 @@ import { fetchOtherUser, setRoomData } from "@/redux/slices/room";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import StartGameSoundBg from "@/components/startGameSoundBg/StartGameSoundBg";
+import WinModel from "@/components/winModel/WinModel";
 
 const textVariants = {
   initial: {
@@ -35,6 +36,13 @@ const textVariants = {
 };
 
 const playground = () => {
+  const [modal, setModal] = useState({
+    open: true, 
+    winner: false,
+  }); 
+
+ 
+
 
   const [clickSound] = useSound(click);
   const [winSound] = useSound(win);
@@ -57,17 +65,23 @@ const playground = () => {
     socket.on("winner", (data) => {
       console.log("You win !!");
       notifySuccess("You win");
+      setModal({ open: true , winner:true});
+
       winSound();
-      setTimeout(() => {
+      setTimeout(() => { 
+        setModal({ open: false , winner:true});
         router.push("/coinsofgame");
+       
         // dispatch(setRoomData({}));
       }, 4000);
     });
     socket.on("loser", (data) => {
-      console.log("You win !!");
+      console.log("You lose !!");
       notifyError("You lose");
+      setModal({ open: true , winner:false});
       loseSound();
       setTimeout(() => {
+        setModal({ open: false , winner:false});
         router.push("/coinsofgame");
         // dispatch(setRoomData({}));
       }, 4000);
@@ -290,6 +304,10 @@ console.log(room);
             </div>
           </div>
         </div>
+        <WinModel
+          open={modal.open} 
+          winner={modal.winner} 
+        />
       </div>
     </>
   );

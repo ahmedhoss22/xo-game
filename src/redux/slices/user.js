@@ -37,8 +37,9 @@ const userSlice = createSlice({
       state.online = true;
     },
     offlineUser: (state, action) => {
+ 
+      state.data={}     
       state.online = false;
-      state.data={}
     },
   },
   extraReducers: (builder) => {

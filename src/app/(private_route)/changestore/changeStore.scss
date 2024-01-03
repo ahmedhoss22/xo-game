@@ -68,7 +68,17 @@ border: none;
       position: relative;
       z-index: 1;
     }
-   
+    @media (min-width: 992px) {
+      .justify-content-between-lg {
+        justify-content: space-between !important;
+      }
+    }
+     
+    @media (max-width: 991px) {
+      .justify-content-around {
+        justify-content: space-around !important;
+      }
+    }
   
   
 }

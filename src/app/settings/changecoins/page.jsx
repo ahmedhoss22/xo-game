@@ -5,12 +5,13 @@ import StoreModal from "@/components/storeModal/StoreModal";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteItem, getAllItems } from "@/redux/slices/storeSlice";
+import { Button, Card } from "react-bootstrap";
 
 const changeCoins = () => {
   const dispatch = useDispatch();
   const items = useSelector((state) => state.storeSlice.items);
   const apiUrl = process.env.NEXT_PUBLIC_API_SERVER;
-// console.log(items);
+  // console.log(items);
   useEffect(() => {
     dispatch(getAllItems());
   }, []);
@@ -23,11 +24,10 @@ const changeCoins = () => {
   const handleClose = () =>
     setModal({ open: false, update: false, data: null });
 
-    async function handleDelete(id) {
-      await dispatch(deleteItem(id));
-      dispatch(getAllItems());
-    }
-    
+  async function handleDelete(id) {
+    await dispatch(deleteItem(id));
+    dispatch(getAllItems());
+  }
 
   return (
     <div className="change-coins rtl">
@@ -55,44 +55,54 @@ const changeCoins = () => {
                     </th>
                   </tr>
                 </thead>
-                <tbody> 
+                <tbody>
                   {items.map((item, key) => (
                     <tr
                       key={key}
                       className=" text-center border-b dark:bg-gray-800 dark:border-gray-700   dark:hover:bg-gray-600 pointer"
                     >
-                      <td className="px-6 py-4 font-semibold text-gray-900 text-white dark:text-white  ">
-                        <div className="d-flex align-items-center justify-content-center">
-                          <div className="col-md-3 prize ">
-                            <div className="img-container">
-                              <img
-                              src={apiUrl + item.image} 
-                                className="img"
-                                alt=""
-                              />
+                      <td className="d-flex align-items-center justify-content-center  px-6 py-4 font-semibold text-gray-900 text-white dark:text-white  ">
+                        <Card
+                          style={{
+                            width: "15rem",
+                            height: "21rem",
+                            background: "#37007B ",
+                            color: "white",
+                          }}
+                        >
+                          <Card.Img
+                            variant="top"
+                            src={apiUrl + item.image}
+                            style={{ height: "12rem" }}
+                          />
+                          <Card.Body>
+                            <Card.Title>{item.name} </Card.Title>
+                            <Card.Text className="d-flex align-items-center justify-content-center gap-2">
+                              {" "}
+                              {item.cost} <img src={tickets.src} alt="" />
+                            </Card.Text>
+                            <div className="d-flex ">
+                              <Button
+                                onClick={() =>
+                                  setModal({
+                                    data: item,
+                                    open: true,
+                                    update: true,
+                                  })
+                                }
+                                className="update-btn w-100 transform-btn m-1 "
+                              >
+                                تعديل{" "}
+                              </Button>
+                              <Button
+                                onClick={() => handleDelete(item._id)}
+                                className="m-1 delete-btn w-100 transform-btn "
+                              >
+                                حذف{" "}
+                              </Button>
                             </div>
-                            <h5 className="count">{item.name}</h5>
-                            <div className="price text-white d-flex align-items-center justify-content-center gap-2">
-                            {item.cost} <img                                 src={tickets.src}
- alt="item-image" />
-                            </div>
-                          </div>
-                        </div>
-                        <div className="delete-update-btn d-flex justify-content-between m-auto ">
-                          <button
-                            className="edit-btn fw-bold transform-btn "
-                            onClick={()=>setModal({
-                              data: item,
-                              open: true,
-                              update: true,
-                            })}
-                          >
-                            تعديل
-                          </button>
-                          <button className="delete-btn fw-bold transform-btn " onClick={()=>handleDelete(item._id)}>
-                            حذف
-                          </button>
-                        </div>{" "}
+                          </Card.Body>
+                        </Card>
                       </td>
 
                       <td className="px-6 py-4 font-semibold text-gray-900 text-white dark:text-white  "></td>

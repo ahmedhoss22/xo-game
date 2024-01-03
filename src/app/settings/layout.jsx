@@ -4,36 +4,45 @@ import "./settings.scss";
 import Link from "next/link";
 import localFont from "next/font/local";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
-const myFont = localFont({ src: "../../assets/fonts/Pacifico-Regular.ttf" });
 import { redirect } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUserData } from "@/redux/slices/user";
+import { selectLoading, stopLoading } from "@/redux/slices/loadingSlice";
+import Loading from "@/components/loading/Loading";
+
+const myFont = localFont({ src: "../../assets/fonts/Pacifico-Regular.ttf" });
 
 export default function AdminPanel({ children }) {
   const [isSidebarActive, setIsSidebarActive] = useState(false);
   const dispatch = useDispatch();
-  const [loading, setLoading] = useState(true);
+  const isLoading = useSelector(selectLoading);
+  const user = useSelector((state) => state.user.data);
+  const online = useSelector((state) => state.user.online);
 
   useEffect(() => {
     dispatch(fetchUserData())
       .unwrap()
-      .then(() => setLoading(false))
+      .then(() => dispatch(stopLoading()))
       .catch((error) => {
         console.error("Error fetching user data:", error);
-        setLoading(false);
+        dispatch(stopLoading());
       });
   }, [dispatch]);
 
-  const user = useSelector((state) => state.user.data);
-
-  if (loading) {
-    return <></>;
+  if (isLoading) {
+    return <Loading text="Loading..." />;
   }
 
   const isAdmin = user?.isAdmin;
 
+  if (!user) {
+    redirect('/login');
+    return null;
+  }
+
   if (!isAdmin) {
     redirect("/home");
+    return null;
   }
 
   const toggleSidebar = () => {
@@ -68,37 +77,37 @@ export default function AdminPanel({ children }) {
 
             <ul className="list-unstyled components mb-5">
               <li>
-                <Link prefetch href="support">
+                <Link prefetch href="support" as={'/settings/support'}>
                   <span className="fa fa-sticky-note mr-3" /> الدعم
                 </Link>
               </li>
               <li className="active">
-                <Link prefetch href="store">
+                <Link prefetch href="coinsstore"  as={'/settings/coinsstore'}>
                   <span className="fa fa-home mr-3" /> المتجر
                 </Link>
               </li>{" "}
               <li>
-                <Link prefetch href="changecoins">
+                <Link prefetch href="changecoins"  as={'/settings/changecoins'}>
                   <span className="fa fa-user mr-3" /> هدايا المتجر
                 </Link>
               </li>
               <li>
-                <Link prefetch href="users">
+                <Link prefetch href="users"  as={'/settings/users'}>
                   <span className="fa fa-user mr-3" /> المستخدمين
                 </Link>
               </li>{" "}
               <li>
-                <Link prefetch href="playingPoints">
+                <Link prefetch href="playingpoints"  as={'/settings/playingpoints'}>
                   <span className="fa fa-user mr-3" /> نقاط اللعب
                 </Link>
               </li>
               <li>
-                <Link prefetch href="privacysettings">
+                <Link prefetch href="privacysettings"  as={'/settings/privacysettings'}>
                   <span className="fa fa-user mr-3" /> سياسة الخصوصية
                 </Link>
               </li>
               <li>
-                <Link prefetch href="userspoints">
+                <Link prefetch href="userspoints"  as={'/settings/userspoints'}>
                   <span className="fa fa-user mr-3" /> نقاط دخول المستوايات
                 </Link>
               </li>

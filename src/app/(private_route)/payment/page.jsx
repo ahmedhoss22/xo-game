@@ -61,7 +61,7 @@ const payment = () => {
     <div className=" payment d-flex flex-column ">
     <div className="flex-grow">
       <div className="container ">
-        <div className="  d-flex justify-content-between pt-4">
+        <div className="  d-flex justify-content-between-lg justify-content-around  pt-4">
           <div className="">
             <FaArrowLeft className="text-white pointer h-5 mt-10" />
           </div>

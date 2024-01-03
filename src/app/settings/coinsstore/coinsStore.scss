@@ -1,4 +1,4 @@
-.store {
+.coins-store {
    
     .header{
         background-color: var(--purple-color) !important;
@@ -26,6 +26,7 @@
         margin-bottom: 15px;
           .count{
               color: var(--red-color) !important;
+              width: fit-content;
           }
         .img-container {
           height: 57px;

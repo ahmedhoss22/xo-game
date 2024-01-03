@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import { TextField, Button } from "@mui/material";
-import { getAllItems } from "@/redux/slices/storeSlice";
+import coinsStoreSlice, { getAllItems } from "@/redux/slices/coinsStoreSlice";
 
 const style = {
   position: "absolute",
@@ -21,12 +21,11 @@ const style = {
   p: 4,
 };
 
-const StoreModal = ({ open, handleClose, update, data }) => {
+const CoinsStoreModel = ({ open, handleClose, update, data }) => {
   const dispatch = useDispatch();
   const [initialState, setInitialState] = useState({
-    cost: "",
-    name: "",
-    image: null,
+    // coins: "",
+    price: "", 
   });
   const formik = useFormik({
     initialValues: initialState,
@@ -43,13 +42,9 @@ const StoreModal = ({ open, handleClose, update, data }) => {
   function handleSubmit(values) {
    
 
-    const url = update ? "/store/update" : "/store";
+    const url = update ? "/coin-store/update" : "/coin-store";
     console.log(values);
-    Api.post(url, values, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    })
+    Api.post(url, values )
       .then(() => {
         notifySuccess("Data submitted");
         formik.resetForm();
@@ -62,11 +57,7 @@ const StoreModal = ({ open, handleClose, update, data }) => {
       });
   }
 
-  const handleImageChange = (event) => {
-    formik.setFieldValue("image", event.currentTarget.files[0]);
-  };
-  const apiUrl = process.env.NEXT_PUBLIC_API_SERVER;
-
+  
   return (
     <Modal
       open={open}
@@ -78,84 +69,37 @@ const StoreModal = ({ open, handleClose, update, data }) => {
         <form onSubmit={formik.handleSubmit}>
           <div className="row rtl ">
             <h4 className="text-center">
-              {update ? "تعديل بيانات منتج" : "اضافة منتج"}
+              {update ? "تعديل  الكوينز" : "اضافة كوينز"}
             </h4>
-            {formik.touched.name && formik.errors.name ? (
-              <h4>{formik.errors.name}</h4>
+            {formik.touched.price && formik.errors.price ? (
+              <h4>{formik.errors.price}</h4>
             ) : null}
             <TextField
               className="mb-4"
-              id="name"
-              name="name"
-              value={formik?.values?.name}
+              id="price"
+              name="price"
+              type="number"
+              value={formik?.values?.price}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              label="أسم المنتج"
+              label="السعر"
               variant="outlined"
             />
-            {formik.touched.cost && formik.errors.cost ? (
-              <h4>{formik.errors.cost}</h4>
+            {/* {formik.touched.coins && formik.errors.coins ? (
+              <h4>{formik.errors.coins}</h4>
             ) : null}
             <TextField
               className="mb-4"
-              id="cost"
-              name="cost"
-              value={formik?.values?.cost}
+              id="coins"
+              type="number"
+              name="coins"
+              value={formik?.values?.coins}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               label="عدد الكوينز"
               variant="outlined"
             />
-            {formik.touched.image && formik.errors.image ? (
-              <h4>{formik.errors.image}</h4>
-            ) : null}
-            <input
-              type="file"
-              id="image"
-              name="image"
-              onChange={handleImageChange}
-              style={{ display: "none" }}
-            />
-            <label htmlFor="image" className="text-center">
-              <Button
-                component="span"
-                className="mb-4"
-                variant="outlined"
-                style={{ textTransform: "none" }}
-              >
-                اختيار صورة المنتج
-              </Button>
-            </label>
-            {formik.values.image && formik.values.image instanceof File && (
-  <div className="d-flex align-items-center justify-content-center">
-    <img
-      src={URL.createObjectURL(formik.values.image)}
-      alt="Product"
-      style={{
-        width: "200px",
-        height: "200px",
-        marginTop: "5px",
-        marginBottom: "10px",
-      }}
-    />
-  </div>
-)}
-
-{formik.values.image && typeof formik.values.image === 'string' && (
-  <div className="d-flex align-items-center justify-content-center">
-    <img
-      src={apiUrl+formik.values.image}
-      alt="Product"
-      style={{
-        width: "200px",
-        height: "200px",
-        marginTop: "5px",
-        marginBottom: "10px",
-      }}
-    />
-  </div>
-)}
-
+  */}
 
             <div className="d-flex align-items-center justify-content-between">
               {" "}
@@ -181,4 +125,4 @@ const StoreModal = ({ open, handleClose, update, data }) => {
   );
 };
 
-export default StoreModal;
+export default CoinsStoreModel;

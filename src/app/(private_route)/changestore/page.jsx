@@ -3,16 +3,15 @@ import Footer from "@/components/footer/Footer";
 import Title from "@/components/title/Title";
 import "./changeStore.scss";
 import Link from "next/link";
-import ticket from "../../../assets/photos/Ticket.png"; 
+import ticket from "@/assets/photos/Ticket.png"; 
 import { motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { fetchUserData } from "@/redux/slices/user";
-
 import { fetchPlayingCoins } from "@/redux/slices/playingCoins";
 import { Button, Card } from "react-bootstrap";
-import userImage from "../../../assets/photos/userrr.png"; 
+import userImage from "@/assets/photos/userrr.png"; 
 import { getAllItems } from "@/redux/slices/storeSlice";
 
 const textVariants = {
@@ -32,7 +31,8 @@ const textVariants = {
 
 const changeStore = () => {
   const dispatch = useDispatch();
-  const items = useSelector((state) => state.storeSlice.items);
+  const items = useSelector((state) => state.storeSlice.items); 
+
   useEffect(() => {
     dispatch(getAllItems());
   }, []);
@@ -46,22 +46,20 @@ const changeStore = () => {
     dispatch(fetchPlayingCoins());
   }, []);
 
-  const router = useRouter(); 
-
   useEffect(() => {
     dispatch(fetchUserData());
-    // if (!online) {
-    //   router.push("/login");
-    // } else {
-    //   router.push("/coinsofgame");
-    // }
   }, []);
+
+  const getProductId = (id)=>{
+    console.log(id);
+
+  }
 
   return (
     <div className="change-store d-flex flex-column ">
       <div className="flex-grow">
         <div className="container high-z-index  ">
-          <header className="d-flex justify-content-between mb-4 align-items-center   text-white p-4 ">
+          <header className="d-flex justify-content-between-lg justify-content-around mb-4 align-items-center   text-white p-4 ">
           <motion.div
   className="ticket-container justify-center"
   variants={textVariants}
@@ -120,7 +118,7 @@ const changeStore = () => {
                 <Card.Body>
                   <Card.Title>{item.name} </Card.Title>
                   <Card.Text className="d-flex align-items-center justify-content-center gap-2"> {item.cost} <img src={ticket.src} alt="" /></Card.Text>
-                  <Button className="w-100 transform-btn ">
+                  <Button onClick={()=>getProductId(item._id)} className="w-100 transform-btn ">
                     استبدال الأن{" "}
                   </Button>
                 </Card.Body>

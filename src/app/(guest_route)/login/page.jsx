@@ -19,7 +19,7 @@ const login = () => {
     Api.post("/auth/login", values)
       .then(() => {
         notifySuccess("Welcome!!");
-        router.push("/home");
+        router.push("/coinsofgame");
       })
       .catch((err) => {
         let errMsg = err?.response?.data?.message;
