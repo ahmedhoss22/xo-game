@@ -82,7 +82,7 @@ export default function AdminPanel({ children }) {
                 </Link>
               </li>
               <li className="active">
-                <Link prefetch href="store"  as={'/settings/store'}>
+                <Link prefetch href="coinsstore"  as={'/settings/coinsstore'}>
                   <span className="fa fa-home mr-3" /> المتجر
                 </Link>
               </li>{" "}

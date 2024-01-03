@@ -1,14 +1,25 @@
+'use client'
 import "./card.scss";
 import Footer from "@/components/footer/Footer";
 import Title from "@/components/title/Title";
 import { FaArrowLeft } from "react-icons/fa"; 
-import ticketImage from "../../../assets/photos/Ticket.png";
-import visaImage from "../../../assets/photos/visa-icon.png";
-import paypalIcon from "../../../assets/photos/paypal-icon.png";
-import paypalWord from "../../../assets/photos/paypal-word.png";
+import ticketImage from "@/assets/photos/Ticket.png";
+import visaImage from "@/assets/photos/visa-icon.png";
+import paypalIcon from "@/assets/photos/paypal-icon.png";
+import paypalWord from "@/assets/photos/paypal-word.png";
 import Link from "next/link";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllItems } from "@/redux/slices/coinsStoreSlice";
+import { useEffect } from "react";
 
 const card = () => {
+  const dispatch = useDispatch();
+  const items = useSelector((state) => state.coinsStoreSlice.items);
+console.log(items);
+  useEffect(() => {
+    dispatch(getAllItems());
+  }, []);
+
   return (
     <div className=" card-page d-flex flex-column ">
     <div className="flex-grow">
@@ -23,39 +34,23 @@ const card = () => {
 </div>
 
 
-        <div className="">
+        {/* <div className=""> */}
           {/* <div className="  g-5 justify-content-center  align-items-center"> */}
-          <div className="row d-flex justify-content-around  w-25 m-auto">
-            <div className="col-md-3 ticket">
+       
+            <div className="row w-25 m-auto  d-flex justify-content-around ">
+
+       
+          {items.map((item, key) => (  
+             <div key={key} className="col-6   ">
+            <div  className="  ticket">
               <div className="img-container">
                 <img src={ticketImage.src} className="ticket-img" alt="" />
               </div>
               <h5 className="count">20000</h5>
-              <h5 className="price text-white">40$</h5>
+              <h5 className="price text-white">{item.price}$</h5>
             </div>
-            <div className="col-md-3 ticket">
-              <div className="img-container">
-                <img src={ticketImage.src} className="ticket-img" alt="" />
-              </div>
-              <h5 className="count">20000</h5>
-              <h5 className="price text-white">40$</h5>
-            </div>
-          </div>
-          <div className="row d-flex justify-content-around  w-25 m-auto">
-            <div className="col-3 ticket">
-              <div className="img-container">
-                <img src={ticketImage.src} className="ticket-img" alt="" />
-              </div>
-              <h5 className="count">20000</h5>
-              <h5 className="price text-white">40$</h5>
-            </div>
-            <div className="col-md-3 ticket">
-              <div className="img-container">
-                <img src={ticketImage.src} className="ticket-img" alt="" />
-              </div>
-              <h5 className="count">20000</h5>
-              <h5 className="price text-white">40$</h5>
-            </div>
+              </div>      ))}
+       
           </div>
           <div className="text-white  p-2 fs-1 fw-bold  w-25 m-auto">
             <hr />
@@ -74,7 +69,7 @@ const card = () => {
             </div>
           </div>
 
-          </div>
+          {/* </div> */}
         </div>
       
       </div>

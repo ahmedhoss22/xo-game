@@ -31,8 +31,7 @@ export default function PrivateRoot({ children }) {
     return null;
   }
 
-  console.log(online);
-  console.log(user);
+ 
 
   return (
     <>
