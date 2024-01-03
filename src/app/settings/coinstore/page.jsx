@@ -1,14 +1,14 @@
 "use client";
-import "./coinsStore.scss";
+import "./coinStore.scss";
 import tickets from "@/assets/photos/Ticket.png";
-import CoinsStoreModel from "@/components/coinsStoreModel/CoinsStoreModel";
+import CoinStoreModel from "@/components/coinStoreModel/CoinStoreModel";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteItem, getAllItems } from "@/redux/slices/coinsStoreSlice";
+import { deleteItem, getAllItems } from "@/redux/slices/coinStoreSlice";
 
-const coinsStore = () => {
+const coinStore = () => {
   const dispatch = useDispatch();
-  const items = useSelector((state) => state.coinsStoreSlice.items);
+  const items = useSelector((state) => state.coinStoreSlice.items);
 
   useEffect(() => {
     dispatch(getAllItems());
@@ -66,7 +66,7 @@ const coinsStore = () => {
                               />
                             </div>
                             <h5 className="count">20000</h5>
-                            <h5 className="price text-white">{item.price}$</h5>
+                            <h5 className="price text-white">{item?.price}$</h5>
                           </div>
                         </div>
                         <div className="delete-update-btn d-flex justify-content-between m-auto ">
@@ -83,7 +83,7 @@ const coinsStore = () => {
                             تعديل
                           </button>
                           <button
-                            onClick={() => handleDelete(item._id)}
+                            onClick={() => handleDelete(item?._id)}
                             className="delete-btn fw-bold transform-btn "
                           >
                             حذف
@@ -99,7 +99,7 @@ const coinsStore = () => {
           </div>
         </div>
       </div>
-      <CoinsStoreModel
+      <CoinStoreModel
         open={modal.open}
         data={modal.data}
         update={modal.update}
@@ -109,4 +109,4 @@ const coinsStore = () => {
   );
 };
 
-export default coinsStore;
+export default coinStore;

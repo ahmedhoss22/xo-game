@@ -60,31 +60,32 @@ const usersPoints = () => {
 
                   <tr  key={ind} className=" text-center border-b dark:bg-gray-800 dark:border-gray-700   dark:hover:bg-gray-600 pointer">
                     <td className="px-6 py-4 font-semibold text-gray-900 text-white dark:text-white  ">
-                    المستوي {ele.number}  
+                    المستوي {ele?.number}  
                     </td>
                     <td className="px-6 py-4 font-semibold text-gray-900 text-white dark:text-white  ">
-                    {ele.coins}
+                    {ele?.coins}
                     </td>
                     <td className="d-flex align-items-center justify-content-center px-6 py-4 font-semibold text-gray-900 text-white dark:text-white  ">
                     <div 
                     style={{
                       width: "50px",
                       height: "50px",
-                      backgroundColor: ele.bg,
+                      backgroundColor: ele?.bg,
                       borderRadius: "50%",
                     }}
                   ></div>
                     </td>
                     <td className="px-6 py-4 font-semibold text-gray-900 text-white dark:text-white  ">
-                    <div
+                  <div className="d-flex align-items-center justify-content-center">    <div
                     
                     style={{
                       width: "50px",
                       height: "50px",
-                      backgroundColor: ele.color,
+                      backgroundColor: ele?.color,
                       borderRadius: "50%",
                     }}
-                  ></div>
+                  ></div></div>
+                
                     </td>
                     <td className="px-6 py-4 font-semibold text-gray-900 text-white dark:text-white  ">
                     <button

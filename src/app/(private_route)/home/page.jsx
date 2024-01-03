@@ -3,12 +3,12 @@ import { IoIosArrowForward } from "react-icons/io";
 import Footer from "@/components/footer/Footer";
 import Title from "@/components/title/Title";
 import "./homepage.scss";
-import ticket from "../../../assets/photos/Ticket.png";
-import walletPhoto from "../../../assets/photos/wallet-photo.png";
-import playNowPhoto from "../../../assets/photos/playNow-photo.png";
-import playWithPhoto from "../../../assets/photos/playWith-photo.png";
-import shareGamePhoto from "../../../assets/photos/shareGame-photo.png";
-import userImage from "../../../assets/photos/userrr.png";
+import ticket from "@/assets/photos/Ticket.png";
+import walletPhoto from "@/assets/photos/wallet-photo.png";
+import playNowPhoto from "@/assets/photos/playNow-photo.png";
+import playWithPhoto from "@/assets/photos/playWith-photo.png";
+import shareGamePhoto from "@/assets/photos/shareGame-photo.png";
+import userImage from "@/assets/photos/userrr.png";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { fetchUserData, offlineUser } from "@/redux/slices/user";
@@ -16,8 +16,8 @@ import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import useSound from "use-sound";
-import sound from "../../../assets/sound/s.mp3";
-import SoundBg from "../../../components/soundBg/SoundBg";
+import sound from "@/assets/sound/s.mp3";
+import SoundBg from "@/components/soundBg/SoundBg";
  
 
 const textVariants = {
@@ -87,7 +87,7 @@ const Homepage = () => {
               variants={textVariants}
             />
             <motion.div className="ticket-prize " variants={textVariants}>
-              <motion.h5>{user.coins}</motion.h5>
+              <motion.h5>{user?.coins}</motion.h5>
             </motion.div>
           </motion.div>
           <div className="col-3">
@@ -103,8 +103,8 @@ const Homepage = () => {
               <img
                 src={
                   user.provider == "local"
-                    ? apiUrl + user.image
-                    : user.image || userImage.src
+                    ? apiUrl + user?.image
+                    : user?.image || userImage.src
                 }
                 className="userImage circle-image"
                 alt="user image"

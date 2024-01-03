@@ -30,7 +30,8 @@ export default function PrivateRoot({ children }) {
     redirect('/login');
     return null;
   }
-
+console.log(online);
+console.log(user);
  
 
   return (

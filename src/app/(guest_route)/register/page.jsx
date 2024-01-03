@@ -1,14 +1,11 @@
 "use client";
 import "./register.scss";
-import userIcon from "../../../assets/photos/user-icon.png";
-import emailIcon from "../../../assets/photos/email-icon.png";
-import passwordIcon from "../../../assets/photos/password-icon.png";
-import gIcon from "../../../assets/photos/google-icon.png";
-import { BiLogoFacebook } from "react-icons/bi";
+import userIcon from "@/assets/photos/user-icon.png";
+import emailIcon from "@/assets/photos/email-icon.png";
+import passwordIcon from "@/assets/photos/password-icon.png"; 
 import Link from "next/link";
 import { useFormik } from "formik";
-import * as Yup from "yup";
-import ChooseLanguage from "@/components/chooseLanguage/Chooselanguage";
+import * as Yup from "yup"; 
 import Api from "@/config/api";
 import { notifyError, notifySuccess } from "@/components/toastify/toastify";
 import { useRouter } from "next/navigation"; 

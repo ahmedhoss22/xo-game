@@ -9,7 +9,7 @@ import paypalIcon from "@/assets/photos/paypal-icon.png";
 import paypalWord from "@/assets/photos/paypal-word.png";
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllItems } from "@/redux/slices/coinsStoreSlice";
+import { getAllItems } from "@/redux/slices/coinStoreSlice";
 import { useEffect } from "react";
 
 const card = () => {
@@ -47,7 +47,7 @@ console.log(items);
                 <img src={ticketImage.src} className="ticket-img" alt="" />
               </div>
               <h5 className="count">20000</h5>
-              <h5 className="price text-white">{item.price}$</h5>
+              <h5 className="price text-white">{item?.price}$</h5>
             </div>
               </div>      ))}
        

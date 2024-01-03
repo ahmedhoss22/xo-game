@@ -1,17 +1,15 @@
 "use client";
 import "./login.scss";
-import emailIcon from "../../../assets/photos/email-icon.png";
-import passwordIcon from "../../../assets/photos/password-icon.png";
-import gIcon from "../../../assets/photos/google-icon.png";
+import emailIcon from "@/assets/photos/email-icon.png";
+import passwordIcon from "@/assets/photos/password-icon.png";
+import gIcon from "@/assets/photos/google-icon.png";
 import { BiLogoFacebook } from "react-icons/bi";
 import Link from "next/link";
 import { useFormik } from "formik";
-import * as Yup from "yup";
-import ChooseLanguage from "@/components/chooseLanguage/Chooselanguage";
+import * as Yup from "yup"; 
 import Api from "@/config/api";
 import { notifyError, notifySuccess } from "@/components/toastify/toastify";
-import { redirect, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import {  useRouter } from "next/navigation"; 
 import { useSelector } from "react-redux";
 
 const login = () => {

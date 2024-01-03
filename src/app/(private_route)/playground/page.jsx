@@ -1,18 +1,18 @@
 "use client";
 import "./playground.scss";
 import { FaArrowLeft } from "react-icons/fa";
-import userImage from "../../../assets/photos/userrr.png";
-import ticket from "../../../assets/photos/Ticket.png";
-import vs from "../../../assets/photos/VS.png";
+import userImage from "@/assets/photos/userrr.png";
+import ticket from "@/assets/photos/Ticket.png";
+import vs from "@/assets/photos/VS.png";
 import { useEffect, useState } from "react";
 import socket from "@/config/socket";
 import { notifyError, notifySuccess } from "@/components/toastify/toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUserData } from "@/redux/slices/user";
 import Link from "next/link";
-import click from "../../../assets/sound/clickSound.wav";
-import win from "../../../assets/sound/success1.mp3";
-import lose from "../../../assets/sound/lose1.mp3";
+import click from "@/assets/sound/clickSound.wav";
+import win from "@/assets/sound/success1.mp3";
+import lose from "@/assets/sound/lose1.mp3";
 import useSound from "use-sound";
 import { fetchOtherUser, setRoomData } from "@/redux/slices/room";
 import { useRouter } from "next/navigation";
@@ -114,7 +114,7 @@ console.log(room);
       console.log("player-move", data);
     });
 
-    if (room?.userID1 === user._id) {
+    if (room?.userID1 === user?._id) {
       otherPlayerId = room?.userID2;
       setPlayerNumber(1)
     } else if (room?.userID2 === user._id) {
@@ -130,7 +130,7 @@ console.log(room);
     }else{
       setHoverClass(`o-hover`)  
     }
-  }, [user._id, room]);
+  }, [user?._id, room]);
 
   const rows = 5;
   const cols = 5;
@@ -184,8 +184,8 @@ console.log(room);
                   <img
                     src={
                       user.provider == "local"
-                        ? apiUrl + user.image
-                        : user.image || userImage.src
+                        ? apiUrl + user?.image
+                        : user?.image || userImage.src
                     }
                     className="userImage circle-image"
                     alt="user image"
@@ -272,7 +272,7 @@ console.log(room);
                 {user?._id != room?.userID1 ? "X" : "O"}
               </motion.h2>
               <motion.h5 variants={textVariants}>
-                {player2.name || "player 2"}
+                {player2?.name || "player 2"}
               </motion.h5>
             </motion.div>
           </div>

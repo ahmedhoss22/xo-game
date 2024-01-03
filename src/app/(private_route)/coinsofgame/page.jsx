@@ -88,7 +88,7 @@ const coinsOfGame = () => {
   }, []);
 
   function calcOnlinePlayers(coins) {
-    let arr = players.filter((ele) => ele.coins == coins);
+    let arr = players.filter((ele) => ele?.coins == coins);
     return arr.length;
   }
 
@@ -154,7 +154,7 @@ const coinsOfGame = () => {
                     <img
                       src={
                         user.provider == "local"
-                          ? apiUrl + user.image
+                          ? apiUrl + user?.image
                           : user.image || userImage.src
                       }
                       className="userImage circle-image"
@@ -186,14 +186,14 @@ const coinsOfGame = () => {
                           <MdNotStarted
                             style={{ fontSize: "50px", color: " purple" }}
                           />
-                          <h4>{ele.name}</h4>
+                          <h4>{ele?.name}</h4>
                         </div>
                         <p>ألعب مع ناس محترفين وأثبت نفسك .</p>
 
                         <div className="border-bottom-div d-flex align-items-center justify-content-between">
                           <div className="d-flex gap-1 align-items-center text-secondary  ">
                             <FaUserAlt className="fs-6 mb-3" />
-                            <p>{calcOnlinePlayers(ele.coins)} </p>
+                            <p>{calcOnlinePlayers(ele?.coins)} </p>
                           </div>
                           <div className="d-flex gap-1 align-items-center text-secondary  ">
                             <img
@@ -201,7 +201,7 @@ const coinsOfGame = () => {
                               alt="tickets"
                               className="fs-6 mb-3"
                             />
-                            <p>{ele.coins} الدخول</p>
+                            <p>{ele?.coins} الدخول</p>
                           </div>
                         </div>
                       </div>
@@ -209,7 +209,7 @@ const coinsOfGame = () => {
                         className="col-3    text-white start-play-div2"
                         style={{ borderRadius: "0 6px 6px 0" }}
                       >
-                        <h1> {ele.winCoins} </h1>
+                        <h1> {ele?.winCoins} </h1>
                         <h6> ألعب الان</h6>
                       </div>
                     </div>

@@ -1,15 +1,17 @@
 "use client";
-import "./changeCoins.scss";
-import tickets from "../../../assets/photos/Ticket.png";
-import StoreModal from "@/components/storeModal/StoreModal";
+import "./order.scss";
+import ticket from "@/assets/photos/Ticket.png";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteItem, getAllItems } from "@/redux/slices/storeSlice";
+import { deleteItem, getAllItems } from "@/redux/slices/orderSlice";
 import { Button, Card } from "react-bootstrap";
 
-const changeCoins = () => {
+const order = () => {
+
   const dispatch = useDispatch();
-  const items = useSelector((state) => state.storeSlice.items);
+  const items = useSelector((state) => state.orderSlice.items);
+  console.log(items[0]?.user?.name);
+  console.log(items);
   const apiUrl = process.env.NEXT_PUBLIC_API_SERVER;
   // console.log(items);
   useEffect(() => {
@@ -30,7 +32,7 @@ const changeCoins = () => {
   }
 
   return (
-    <div className="change-coins rtl">
+    <div className="order-page rtl">
       <div className="container">
         <div className="row mb-4">
           <div className=" gy-4">
@@ -39,26 +41,18 @@ const changeCoins = () => {
                 <thead className="  text-gray-700 uppercase header text-white dark:bg-gray-700 dark:text-gray-400">
                   <tr className="text-center">
                     <th scope="col" className="px-6 py-3">
-                      أسم المنتج{" "}
+                      اسم المستخدم
                     </th>
-                          <th scope="col" className="px-6 py-3">
-                      صورة المنتج{" "}
+                    <th scope="col" className="px-6 py-3">
+                      اسم المنتج
+                    </th>{" "}
+                    <th scope="col" className="px-6 py-3">
+                      صورة المنتج
                     </th>
                     <th scope="col" className="px-6 py-3">
                       عدد التوكنز{" "}
                     </th>
-
-              
-                    <th scope="col" className="px-6 py-3">التعديل و الحذف</th>
-
-                    <th scope="col" className="px-6 py-3">
-                      <button
-                        className="fw-bold transform-btn "
-                        onClick={() => setModal({ open: true, update: false })}
-                      >
-                        أنشاء منتج
-                      </button>
-                    </th>
+                    <th scope="col" className="px-6 py-3"></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -67,53 +61,46 @@ const changeCoins = () => {
                       key={key}
                       className=" text-center border-b dark:bg-gray-800 dark:border-gray-700   dark:hover:bg-gray-600 pointer"
                     >
-                      <td className="text-center px-6 py-4 font-semibold text-gray-900 text-white dark:text-white  ">
-                        {item?.name}
+                      <td className=" text-center px-6 py-4 font-semibold text-gray-900 text-white dark:text-white  ">
+                        {item?.user?.name}{" "}
                       </td>
+                      <td className=" text-center px-6 py-4 font-semibold text-gray-900 text-white dark:text-white  ">
+                        {item?.store?.name}{" "}
+                      </td>
+
                       <td className=" px-6 py-4 font-semibold text-gray-900 text-white dark:text-white  ">
                         <div className="d-flex align-items-center justify-content-center ">
                           <img
                             variant="top"
-                            src={apiUrl + item?.image}
+                            src={apiUrl + item?.store?.image}
                             style={{
                               height: "90px",
                               width: "90px",
                               borderRadius: "50px",
-                              border:'solid 2px white'
+                              border: "solid 2px white",
                             }}
                           />
                         </div>
                       </td>
-                      <td className="text-center px-6 py-4 font-semibold text-gray-900 text-white dark:text-white  ">
+                      <td className=" text-center px-6 py-4 font-semibold text-gray-900 text-white dark:text-white  ">
                         <div className="d-flex align-items-center justify-content-center gap-2">
-                          {item?.cost} <img src={tickets.src} alt="" />
+                          {item?.store?.cost} <img src={ticket.src} alt="" />
                         </div>
                       </td>
+
                       <td className="text-center px-6 py-4 font-semibold text-gray-900 text-white dark:text-white  ">
                         <div className="d-flex ">
-                          <Button
-                            onClick={() =>
-                              setModal({
-                                data: item,
-                                open: true,
-                                update: true,
-                              })
-                            }
-                            className="update-btn w-100 transform-btn m-1 "
-                          >
-                            تعديل{" "}
+                          <Button className="update-btn w-100 transform-btn m-1 ">
+                            قبول{" "}
                           </Button>
                           <Button
                             onClick={() => handleDelete(item?._id)}
                             className="m-1 delete-btn w-100 transform-btn "
                           >
-                            حذف{" "}
+                            رفض{" "}
                           </Button>
                         </div>
                       </td>
-                   
-
-                      <td className="px-6 py-4 font-semibold text-gray-900 text-white dark:text-white  "></td>
                     </tr>
                   ))}
                 </tbody>
@@ -122,14 +109,8 @@ const changeCoins = () => {
           </div>
         </div>
       </div>
-      <StoreModal
-        open={modal.open}
-        data={modal.data}
-        update={modal.update}
-        handleClose={handleClose}
-      />
     </div>
   );
 };
 
-export default changeCoins;
+export default order;
