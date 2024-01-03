@@ -28,32 +28,32 @@ const Footer = () => {
     <footer className="footer mt-auto   d-flex align-items-center justify-content-between  rtl ">
       {isAdmin ? (
         <Link href={"/settings"} className=" text-white link">
-          <RiAdminLine  className="pointer footer-icons" />
+          <RiAdminLine  className="pointer footer-icons"  color="#fff"/>
         </Link>
       ) : (
         <Link href={"/user"} className=" text-white link">
-          <FaRegUserCircle className="pointer footer-icons" />
+          <FaRegUserCircle className="pointer footer-icons"  color="#fff"/>
         </Link>
       )}
 
       <Link href={"/payment"} className=" text-white link">
-        <RiVisaFill className="pointer footer-icons" />
+        <RiVisaFill className="pointer footer-icons"  color="#fff"/>
       </Link>
       <Link href={"/card"} className=" text-white link">
-        <FaShoppingCart className="pointer footer-icons" />
+        <FaShoppingCart className="pointer footer-icons" color="#fff"/>
       </Link>
       <Link href={"/coinsofgame"} className=" text-white link">
-        <MdNotStarted className="pointer footer-icons" />
+        <MdNotStarted className="pointer footer-icons"  color="#fff"/>
       </Link>
       <Link href={"/wallet"} className=" text-white link">
-        <IoWalletOutline className="pointer footer-icons" />
+        <IoWalletOutline className="pointer footer-icons" color="#fff" />
       </Link>
       <Link href={"/changestore"} className=" text-white link">
-        <FaStore className="pointer footer-icons" />
+        <FaStore className="pointer footer-icons" color="#fff" />
       </Link>
 
       <Link href={"/home"} className=" text-white link">
-        <FaHome className="pointer footer-icons" />
+        <FaHome className="pointer footer-icons" color="#fff" />
       </Link>
     </footer>
   );
