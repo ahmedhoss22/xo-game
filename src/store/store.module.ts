@@ -13,5 +13,6 @@ import { MulterModule } from '@nestjs/platform-express';
     MongooseModule.forFeature([{ name: Store.name, schema: StoreSchema }]),
     MongooseModule.forFeature([{ name: Users.name, schema: UsersSchema }]),
   ],
+  exports:[StoreService]
 })
 export class StoreModule {}
