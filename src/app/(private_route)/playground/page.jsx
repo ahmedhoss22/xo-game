@@ -37,7 +37,7 @@ const textVariants = {
 
 const playground = () => {
   const [modal, setModal] = useState({
-    open: true, 
+    open: false, 
     winner: false,
   }); 
 
@@ -208,9 +208,10 @@ console.log(room);
                 variants={textVariants}
               />
               <motion.div className="ticket-prize " variants={textVariants}>
-                <motion.h5>{user.coins}</motion.h5>
+                <motion.h5>{user.coins} </motion.h5>
               </motion.div>
             </motion.div>
+            
           </div>
 
           <div className="players  d-flex col-12 justify-content-center pt-1">

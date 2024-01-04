@@ -24,7 +24,7 @@ const style = {
 const CoinStoreModel = ({ open, handleClose, update, data }) => {
   const dispatch = useDispatch();
   const [initialState, setInitialState] = useState({
-    // coins: "",
+    coins: "",
     price: "", 
   });
   const formik = useFormik({
@@ -85,7 +85,7 @@ const CoinStoreModel = ({ open, handleClose, update, data }) => {
               label="السعر"
               variant="outlined"
             />
-            {/* {formik.touched.coins && formik.errors.coins ? (
+            {formik.touched.coins && formik.errors.coins ? (
               <h4>{formik.errors.coins}</h4>
             ) : null}
             <TextField
@@ -99,7 +99,7 @@ const CoinStoreModel = ({ open, handleClose, update, data }) => {
               label="عدد الكوينز"
               variant="outlined"
             />
-  */}
+ 
 
             <div className="d-flex align-items-center justify-content-between">
               {" "}

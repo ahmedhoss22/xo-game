@@ -65,8 +65,10 @@ const register = () => {
             </div>
           </Link>
         </div>
-      <div className="register m-2 ">
-      <form className="col-xl-3  col-lg-4 col-md-5 col-sm-7 col-10 form-shape shadow mt-4"
+        <div className="d-flex align-items-center justify-content-center rtl mt-1  container">
+      <div className="register  m-2 w-full max-w-sm">
+      <form className="shadow-md rounded px-8 pt-6 pb-8 mb-4 border-radius-20"
+            style={{ background: "var(--purple-color)"  }}
 
           onSubmit={formik.handleSubmit}
         >
@@ -184,7 +186,8 @@ const register = () => {
 
           </div>
         </form>
-      </div>
+      </div>  </div>
+      
     </div>
   );
 };

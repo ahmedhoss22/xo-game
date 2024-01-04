@@ -66,8 +66,7 @@ const Homepage = () => {
       <SoundBg />
       {/* <button onClick={()=>setValue(value+1)}></button> */}
 
-      <div className="flex-grow">
-         {/* */}
+      <div className="flex-grow"> 
         <header className="d-flex  justify-content-between-lg justify-content-around  mb-4 p-4 mt-2 align-items-center   text-white  ">
           {/* <img src={xIcon.src} alt="" /> */}
           {/* <div className="prize1 white-container justify-center" style={{justifyContent:"center"}}>
@@ -142,7 +141,7 @@ const Homepage = () => {
             <div
               className="home-page-main-container pointer playWith  w-75 m-auto d-flex  align-items-center justify-content-around text-white fw-bold rtl"
               onClick={() => {
-                router.push("/coinsofgame");
+                router.push("/playwith");
                 play();
               }}
             >
@@ -164,7 +163,7 @@ const Homepage = () => {
             <div
               className="home-page-main-container pointer wallet d-flex  w-75 m-auto align-items-center justify-content-around text-white fw-bold rtl"
               onClick={() => {
-                router.push("/coinsofgame");
+                router.push("/wallet");
                 play();
               }}
             >

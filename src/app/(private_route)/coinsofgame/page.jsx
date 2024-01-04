@@ -3,7 +3,7 @@
 import Footer from "@/components/footer/Footer";
 import "./coinsOfGame.scss";
 import Link from "next/link";
-import ticket from "../../../assets/photos/Ticket.png";
+import ticket from "@/assets/photos/Ticket.png";
 import { motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
@@ -18,9 +18,9 @@ import { setRoomData } from "@/redux/slices/room";
 import { notifyError } from "@/components/toastify/toastify";
 import { startLoading, stopLoading } from "@/redux/slices/loadingSlice";
 import Loading from "@/components/loading/Loading";
-import userImage from "../../../assets/photos/userrr.png"; 
+import userImage from "@/assets/photos/userrr.png"; 
 import SoundBg from "@/components/soundBg/SoundBg";
-
+import PlaygroundLoading from '../../(private_route)/playgroundloading/page.jsx'
 const textVariants = {
   initial: {
     x: -500,
@@ -110,10 +110,10 @@ const coinsOfGame = () => {
   return (
     <>
       {loading ? (
-        <Loading
-          text="جاري الحصول على بيانات الغرفة"
-          close={true}
-          handleClose={handleClose}
+        <PlaygroundLoading
+          // text="جاري الحصول على بيانات الغرفة"
+          // close={true}
+          // handleClose={handleClose}
         />
       ) : (
         <div className="coins-of-game d-flex flex-column ">

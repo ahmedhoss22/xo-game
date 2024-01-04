@@ -6,9 +6,7 @@ import { useDispatch } from "react-redux";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import { getAllItems } from "@/redux/slices/storeSlice";
-import { Typography } from "@mui/material";
 import ticket from "@/assets/photos/Ticket.png";
-import { FaArrowLeft } from "react-icons/fa";
 
 const style = {
   position: "absolute",
@@ -72,10 +70,15 @@ const OrderModel = ({ open, handleClose, data }) => {
           <div className="row rtl ">
             <h4 className="text-center">هل تريد تأكيد أستبدال هذا المنتج ؟</h4>
             <div className="rtl">
-                          <h5 className="mt-3 mb-3" >أسم المنتج : {formik?.values?.name}</h5>
-  <h5   className="d-flex mt-3 mb-3">عدد التوكنز المستحقة :
- <div className="d-flex align-items-center justify-content-center gap-2"> {formik?.values?.cost}<img src={ticket.src} alt="" /> </div> 
-   </h5>
+              <h5 className="mt-3 mb-3">أسم المنتج : {formik?.values?.name}</h5>
+              <h5 className="d-flex mt-3 mb-3">
+                عدد التوكنز المستحقة :
+                <div className="d-flex align-items-center justify-content-center gap-2">
+                  {" "}
+                  {formik?.values?.cost}
+                  <img src={ticket.src} alt="" />{" "}
+                </div>
+              </h5>
             </div>
 
             {formik.values.image && typeof formik.values.image === "string" && (

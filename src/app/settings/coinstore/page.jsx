@@ -65,7 +65,7 @@ const coinStore = () => {
                                 alt=""
                               />
                             </div>
-                            <h5 className="count">20000</h5>
+                            <h5 className="count">{item?.coins}</h5>
                             <h5 className="price text-white">{item?.price}$</h5>
                           </div>
                         </div>
