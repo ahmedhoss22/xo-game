@@ -12,6 +12,7 @@ import { RoomDto } from './dto/room.dto';
 import { PlayingGameDto } from './dto/playingGame.dto';
 import { UserService } from 'src/users/users.service';
 import mongoose from 'mongoose';
+import { PlayerDto } from './dto/player.dto';
 
 @WebSocketGateway(5001, {
   cors: {
@@ -31,6 +32,38 @@ export class UtilitsService {
     this.server = server;
   }
 
+  checkForMatching(
+    data: MatchDto,
+    socketID2: string,
+    roomName: string,
+    waitingPlayers: MatchDto[]
+  ): boolean {
+    const matchedIndex = waitingPlayers?.findIndex(
+      (ele) => ele.coins === data.coins && ele.userID !== data.userID,
+    );
+
+    if (matchedIndex !== -1) {
+      const matchedPlayer = this.waitingPlayers.splice(matchedIndex, 1)[0];
+      this.playingRooms.push({
+        coins: data.coins,
+        winCoins: data.winCoins,
+        roomName,
+        socketID1: matchedPlayer.socketID,
+        socketID2,
+        userID1: matchedPlayer.userID,
+        userID2: data.userID,
+        player1Moves: [],
+        player2Moves: [],
+        rounds: data.rounds,
+        turn: 1,
+        player1Wins: 0,
+        player2Wins: 0,
+      });
+      return true; // Return true when a match is found
+    }
+    return false; // Return false when no match is found
+  }
+  
   errorHandle(sockerId: string, msg: string) {
     this.server.to(sockerId).emit('error', { message: msg });
   }
@@ -133,4 +166,83 @@ export class UtilitsService {
       return this.errorHandle(matchSocket, 'errorMsg');
     }
   }
+
+   isValidMoveData(data: PlayingGameDto): boolean {
+    return !!data.move && !!data.roomName && !!data.userID;
+  }
+
+   isMoveAlreadyTaken(match :RoomDto, move: number): boolean {
+    return (
+      match.player1Moves.includes(move) || match.player2Moves.includes(move)
+    );
+  }
+
+   getPlayerInfo(client: Socket, match :RoomDto) {
+    return client.id === match.socketID1
+      ? {
+          playerNo: 1,
+          playerMoves: match.player1Moves,
+          playerWins: match.player1Wins,
+          playerSocket: match.socketID1,
+        }
+      : {
+          playerNo: 2,
+          playerMoves: match.player2Moves,
+          playerWins: match.player2Wins,
+          playerSocket: match.socketID2,
+        };
+  }
+
+   isPlayerTurn(player :PlayerDto, match : RoomDto): boolean {
+    return player.playerNo === 1 ? match.turn === 1 : match.turn === 2;
+  }
+
+   makeMove(player:PlayerDto, match :RoomDto, move: number): void {
+    player.playerNo === 1
+      ? match.player1Moves.push(move)
+      : match.player2Moves.push(move);
+    match.turn = player.playerNo === 1 ? 2 : 1;
+  }
+
+   handleWinner(client: Socket, match): void {
+    const { userID1, socketID2, userID2, coins, winCoins, roomName } = match;
+    const winnerID = client.id === match.socketID1 ? userID1 : userID2;
+
+    match[client.id === match.socketID1 ? 'player1Wins' : 'player2Wins'] += 1;
+
+    const gameEnd = this.checkEndGame(match);
+
+    if (gameEnd) {
+      const winnerSocket =
+        client.id === match.socketID1 ? socketID2 : match.socketID1;
+      this.handleEndGame(
+        client.id,
+        winnerID,
+        winnerSocket,
+        client.id === match.socketID1 ? userID2 : userID1,
+        coins,
+        winCoins,
+        roomName,
+      );
+
+      this.waitingPlayers = this.waitingPlayers.filter(
+        (ele) => ele.userID !== userID1 && ele.userID !== userID2,
+      );
+      this.playingRooms = this.playingRooms.filter(
+        (ele) => ele.roomName !== roomName,
+      );
+    } else {
+      match.player1Moves = [];
+      match.player2Moves = [];
+      this.server.emit('player-move', match);
+    }
+  }
+
+   updatePlayingRooms(match :RoomDto): void {
+    this.playingRooms = this.playingRooms.map((ele) =>
+      ele.roomName === match.roomName ? match : ele,
+    );
+  }
+
+
 }

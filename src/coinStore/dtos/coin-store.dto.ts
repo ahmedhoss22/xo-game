@@ -7,6 +7,11 @@ export class CoinStoreDto {
   @IsNotEmpty({ message: 'price is requried !!' })
   readonly price: number;
 
+  @IsNumber()
+  @IsPositive()
+  @IsNotEmpty({ message: 'price is requried !!' })
+  readonly coins: number;
+
   @IsOptional()
   _id: mongoose.Types.ObjectId;
 }
