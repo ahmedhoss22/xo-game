@@ -7,5 +7,4 @@ export interface CustomDto {
   readonly winCoins: number;
   readonly rounds: number;
   readonly id:number;
-
 }

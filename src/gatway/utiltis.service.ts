@@ -13,6 +13,7 @@ import { PlayingGameDto } from './dto/playingGame.dto';
 import { UserService } from 'src/users/users.service';
 import mongoose from 'mongoose';
 import { PlayerDto } from './dto/player.dto';
+import { CustomDto } from './dto/custom-room.dto';
 
 @WebSocketGateway(5001, {
   cors: {
@@ -36,15 +37,18 @@ export class UtilitsService {
     data: MatchDto,
     socketID2: string,
     roomName: string,
-    waitingPlayers: MatchDto[]
+    waitingPlayers: MatchDto[],
+    playingRooms: RoomDto[]
+
   ): boolean {
     const matchedIndex = waitingPlayers?.findIndex(
       (ele) => ele.coins === data.coins && ele.userID !== data.userID,
     );
 
     if (matchedIndex !== -1) {
-      const matchedPlayer = this.waitingPlayers.splice(matchedIndex, 1)[0];
-      this.playingRooms.push({
+      const matchedPlayer = waitingPlayers.splice(matchedIndex, 1)[0];
+      
+    playingRooms.push({
         coins: data.coins,
         winCoins: data.winCoins,
         roomName,
@@ -63,7 +67,34 @@ export class UtilitsService {
     }
     return false; // Return false when no match is found
   }
-  
+
+  checkForJoinRoom(
+    data: MatchDto,
+    socketID2: string,
+    roomName: string,
+    customRooms: CustomDto[],
+    playingRooms: RoomDto[]
+  ):Boolean{
+    let matchedIndex = customRooms.findIndex((ele)=>ele.id == data.id)
+    if(matchedIndex == -1) return false
+    const matchedPlayer = customRooms.splice(matchedIndex,1)[0]
+    playingRooms.push({
+      coins:0,
+      winCoins :0,
+      roomName,
+      socketID1:matchedPlayer.socketID,
+      socketID2,
+      userID1:matchedPlayer.userID,
+      userID2:data.userID,
+      player1Moves:[],
+      player1Wins:0,
+      player2Wins:0,
+      player2Moves:[],
+      turn: 1,
+      rounds:1
+    })
+    return true
+  }
   errorHandle(sockerId: string, msg: string) {
     this.server.to(sockerId).emit('error', { message: msg });
   }
@@ -243,6 +274,7 @@ export class UtilitsService {
       ele.roomName === match.roomName ? match : ele,
     );
   }
+
 
 
 }

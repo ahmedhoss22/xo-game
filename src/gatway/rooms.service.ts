@@ -92,6 +92,7 @@ export class RoomsService implements OnGatewayDisconnect {
         client.id,
         roomName,
         this.waitingPlayers,
+        this.playingRooms,
       );
 
       if (matched) {
@@ -117,7 +118,7 @@ export class RoomsService implements OnGatewayDisconnect {
           socketID: client.id,
           winCoins: data.winCoins,
         });
-
+        console.log(this.waitingPlayers);
         let arr = [...this.waitingPlayers, ...this.playingRooms];
         this.server.to(client.id).emit('online-players', arr);
         this.server.emit('online-players', arr);
@@ -126,6 +127,8 @@ export class RoomsService implements OnGatewayDisconnect {
       }
     } catch (error) {
       console.error('Error fetching user details:', error);
+      console.log(error);
+
       return this.utilitsService.errorHandle(
         client.id,
         'Error fetching user details.',
@@ -160,22 +163,76 @@ export class RoomsService implements OnGatewayDisconnect {
         return this.utilitsService.errorHandle(client.id, 'Invalid user ID!');
       }
 
-      const randomNumber = Math.floor(Math.random() * 1000) + 1;
+      const randomNumber = Math.floor(Math.random() * 100000) + 1;
       const room = {
         id: randomNumber,
         userID: data.userID,
         socketID: client.id,
-        winCoins:0,
-        coins:0,
-        rounds:1
-      }; 
+        winCoins: 0,
+        coins: 0,
+        rounds: 1,
+      };
 
-      this.customRooms.push(room)
-      this.server.to(client.id).emit("create-room",randomNumber)
+      this.customRooms.push(room);
+      this.server.to(client.id).emit('create-room', {id:randomNumber});
     } catch (error) {
       return this.utilitsService.errorHandle(
         client.id,
         'Error fetching user details.',
+      );
+    }
+  }
+
+  @SubscribeMessage('join-room')
+  async joinRoom(client: Socket, data: MatchDto) {
+    if (!this.server) {
+      return this.utilitsService.errorHandle(
+        client.id,
+        'Server instance not available.',
+      );
+    }
+
+    if (!data || !data.userID || !data.id) {
+      return this.utilitsService.errorHandle(
+        client.id,
+        'userID and id are required!',
+      );
+    }
+
+    if (!mongoose.isValidObjectId(data.userID)) {
+      return this.utilitsService.errorHandle(client.id, 'userID is not valid!');
+    }
+
+    let user = await this.userService.getUser(data.userID);
+
+    if (!user) {
+      return this.utilitsService.errorHandle(client.id, 'Invalid user ID!');
+    }
+
+    const roomName: string = 'room' + Date.now().toString();
+    const matched = this.utilitsService.checkForJoinRoom(
+      data,
+      client.id,
+      roomName,
+      this.customRooms,
+      this.playingRooms,
+    );
+    if (matched) {
+      let room = this.playingRooms.find((ele) => ele.roomName == roomName);
+
+      this.server.to(room.socketID1).socketsJoin(room.roomName);
+      this.server.to(room.socketID2).socketsJoin(room.roomName);
+
+      this.server.to(room.roomName).emit('matched', {
+        message: 'You are matched! Start playing.',
+        roomName,
+        players: [room.socketID1, room.socketID2],
+        room,
+      });
+    } else {
+      return this.utilitsService.errorHandle(
+        client.id,
+        'No room with that Id !!',
       );
     }
   }

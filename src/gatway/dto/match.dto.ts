@@ -6,4 +6,5 @@ export interface MatchDto {
   readonly coins: number;
   readonly winCoins: number;
   readonly rounds: number;
+  readonly id? : number
 }
