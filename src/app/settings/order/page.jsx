@@ -19,12 +19,11 @@ const order = () => {
   }, []);
 
   const [modal, setModal] = useState({
-    open: false,
-    update: false,
+    open: false,  
     data: null,
   });
   const handleClose = () =>
-    setModal({ open: false, update: false, data: null });
+    setModal({ open: false,   data: null });
 
   async function handleDelete(id) {
     await dispatch(deleteItem(id));
@@ -65,14 +64,14 @@ const order = () => {
                         {item?.user?.name}{" "}
                       </td>
                       <td className=" text-center px-6 py-4 font-semibold text-gray-900 text-white dark:text-white  ">
-                        {item?.store?.name}{" "}
+                        {item?.product?.name}{" "}
                       </td>
 
                       <td className=" px-6 py-4 font-semibold text-gray-900 text-white dark:text-white  ">
                         <div className="d-flex align-items-center justify-content-center ">
                           <img
                             variant="top"
-                            src={apiUrl + item?.store?.image}
+                            src={apiUrl + item?.product?.image}
                             style={{
                               height: "90px",
                               width: "90px",
@@ -84,7 +83,7 @@ const order = () => {
                       </td>
                       <td className=" text-center px-6 py-4 font-semibold text-gray-900 text-white dark:text-white  ">
                         <div className="d-flex align-items-center justify-content-center gap-2">
-                          {item?.store?.cost} <img src={ticket.src} alt="" />
+                          {item?.product?.cost} <img src={ticket.src} alt="" />
                         </div>
                       </td>
 

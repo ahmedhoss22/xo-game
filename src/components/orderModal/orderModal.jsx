@@ -4,8 +4,11 @@ import React, { useEffect, useState } from "react";
 import { notifyError, notifySuccess } from "../toastify/toastify";
 import { useDispatch } from "react-redux";
 import Box from "@mui/material/Box";
-import Modal from "@mui/material/Modal"; 
+import Modal from "@mui/material/Modal";
 import { getAllItems } from "@/redux/slices/storeSlice";
+import { Typography } from "@mui/material";
+import ticket from "@/assets/photos/Ticket.png";
+import { FaArrowLeft } from "react-icons/fa";
 
 const style = {
   position: "absolute",
@@ -40,11 +43,9 @@ const OrderModel = ({ open, handleClose, data }) => {
   }, [data]);
 
   function handleSubmit() {
-   
-
     const url = "/order";
     console.log(data);
-    Api.post(url, {product : data._id} ) 
+    Api.post(url, { product: data._id })
       .then(() => {
         notifySuccess("Rechange is submitted");
         formik.resetForm();
@@ -57,7 +58,6 @@ const OrderModel = ({ open, handleClose, data }) => {
       });
   }
 
- 
   const apiUrl = process.env.NEXT_PUBLIC_API_SERVER;
 
   return (
@@ -70,26 +70,29 @@ const OrderModel = ({ open, handleClose, data }) => {
       <Box sx={style}>
         <form onSubmit={formik.handleSubmit}>
           <div className="row rtl ">
-            <h4 className="text-center">
-هل تريد تأكيد أستبدال هذا المنتج ؟
-            </h4>
-            {formik?.values?.name}
-            {formik?.values?.cost}
-            {formik.values.image && typeof formik.values.image === 'string' && (
-  <div className="d-flex align-items-center justify-content-center">
-    <img
-      src={apiUrl+formik.values.image}
-      alt="Product"
-      style={{
-        width: "200px",
-        height: "200px",
-        marginTop: "5px",
-        marginBottom: "10px",
-      }}
-    />
-  </div>
-)}
- 
+            <h4 className="text-center">هل تريد تأكيد أستبدال هذا المنتج ؟</h4>
+            <div className="rtl">
+                          <h5 className="mt-3 mb-3" >أسم المنتج : {formik?.values?.name}</h5>
+  <h5   className="d-flex mt-3 mb-3">عدد التوكنز المستحقة :
+ <div className="d-flex align-items-center justify-content-center gap-2"> {formik?.values?.cost}<img src={ticket.src} alt="" /> </div> 
+   </h5>
+            </div>
+
+            {formik.values.image && typeof formik.values.image === "string" && (
+              <div className="d-flex align-items-center justify-content-center">
+                <img
+                  src={apiUrl + formik.values.image}
+                  alt="Product"
+                  style={{
+                    width: "200px",
+                    height: "200px",
+                    marginTop: "5px",
+                    marginBottom: "10px",
+                  }}
+                />
+              </div>
+            )}
+
             <div className="d-flex align-items-center justify-content-between">
               {" "}
               <button
@@ -97,7 +100,7 @@ const OrderModel = ({ open, handleClose, data }) => {
                 className="  fw-bold transform-btn model-btn pt-2 pb-2 text-white  "
                 style={{ padding: " 0 50px" }}
               >
-               أستبدال
+                أستبدال
               </button>
               <button
                 className="  fw-bold transform-btn model-btn pt-2 pb-2 text-white "

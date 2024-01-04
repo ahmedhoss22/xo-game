@@ -67,7 +67,7 @@ export const orderSlice = createSlice({
 		builder.addCase(getAllItems.fulfilled, (state, action) => {
 			state.loading = false;
 			state.items = action?.payload; 
-			console.log(action.payload);
+			console.log(action?.payload);
 		}); 
 
 		builder.addCase(createItem.fulfilled, (state, action) => {
