@@ -25,6 +25,7 @@ export default function PrivateRoot({ children }) {
   if (isLoading) {
     return <Loading text="Loading..." />;
   }
+ 
 
   if (!online) {
     redirect('/login');

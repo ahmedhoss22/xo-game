@@ -14,7 +14,7 @@ import userImage from "@/assets/photos/userrr.png";
 import SoundBg from "@/components/soundBg/SoundBg";
 import PlaygroundLoading from "../../(private_route)/playgroundloading/page";
 import { useFormik } from "formik";
-import * as Yup from 'yup';
+import * as Yup from "yup";
 
 const textVariants = {
   initial: {
@@ -42,18 +42,27 @@ const playWith = () => {
   const [error, setError] = useState("");
   const loading = useSelector((state) => state.loading.isLoading);
   const router = useRouter();
+  const [openJoin, setOpenJoin] = useState(false);
+
+  const handelJoin=()=>{
+    setOpenJoin(true)
+  }
+  const handelCreate=()=>{
+    setOpenJoin(false)
+  }
   const [initialState, setInitialState] = useState({
-    joinId: '',
+    joinId: "",
   });
 
   const validationSchema = Yup.object({
-    joinId: Yup.number().required('يجب إدخال رقم الغرفة').positive('يجب إدخال رقم إيجابي'),
+    joinId: Yup.number()
+      .required("يجب إدخال رقم الغرفة")
+      .positive("يجب إدخال رقم إيجابي"),
   });
- 
 
   const formik = useFormik({
     initialValues: initialState,
-    validationSchema: validationSchema,  
+    validationSchema: validationSchema,
     onSubmit: handleSubmit,
   });
 
@@ -67,102 +76,125 @@ const playWith = () => {
 
   return (
     <>
-      {loading ? (
-        <PlaygroundLoading
-        // text="جاري الحصول على بيانات الغرفة"
-        // close={true}
-        // handleClose={handleClose}
-        />
-      ) : (
-        <div className="play-with d-flex flex-column ">
-          <SoundBg />
-          <div className="flex-grow">
-            <div className="container high-z-index  ">
-              <header className="d-flex justify-content-between-lg justify-content-around   mb-4 align-items-center   text-white p-4 mt-2 ">
-                <motion.div
-                  className="ticket-container justify-center"
+      <div className="play-with d-flex flex-column ">
+        <SoundBg />
+        <div className="flex-grow">
+          <div className="container high-z-index  ">
+            <header className="d-flex justify-content-between-lg justify-content-around   mb-4 align-items-center   text-white p-4 mt-2 ">
+              <motion.div
+                className="ticket-container justify-center"
+                variants={textVariants}
+                initial={"initial"}
+                animate={"animate"}
+              >
+                <motion.img
+                  src={ticket.src}
+                  className="ticket"
+                  alt="ticket"
                   variants={textVariants}
-                  initial={"initial"}
-                  animate={"animate"}
-                >
-                  <motion.img
-                    src={ticket.src}
-                    className="ticket"
-                    alt="ticket"
-                    variants={textVariants}
-                  />
-                  <motion.div className="ticket-prize " variants={textVariants}>
-                    <motion.h5>{user.coins}</motion.h5>
-                  </motion.div>
+                />
+                <motion.div className="ticket-prize " variants={textVariants}>
+                  <motion.h5>{user.coins}</motion.h5>
                 </motion.div>
-                <div className="col-3">
-                  <Title />
-                </div>
-              </header>
-              <Link href="/user" className="link ">
-                <div className="rtl  col-11 ms-4 mb-1 ">
-                  <div className="user-container justify-center">
-                    <h5
-                      className="text-white mt-1 "
-                      style={{ fontSize: "15px" }}
-                    >
-                      {user?.name?.slice(0, 13) || "user not found"}
-                    </h5>
-                    <img
-                      src={
-                        user.provider == "local"
-                          ? apiUrl + user?.image
-                          : user.image || userImage.src
-                      }
-                      className="userImage circle-image"
-                      alt="user image"
-                    />
-                  </div>
-                </div>
-              </Link>
-              <div className="d-flex align-items-center justify-content-center rtl mt-4 ">
-                <div className="w-full max-w-xs ">
-                <form onSubmit={formik.handleSubmit} className="shadow-md rounded px-8 pt-6 pb-8 mb-4" style={{ background: "var(--purple-color)" }}>
-  <div className="mb-4">
-    <label className="block text-white text-sm font-bold mb-2">
-      ألانضمام الي الغرفة الان
-    </label>
-    <input
-      className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-      id="joinId"
-      name="joinId"
-      type="number"
-      placeholder="أدخل ID"
-      onChange={formik.handleChange}
-      onBlur={formik.handleBlur}
-      value={formik.values.joinId}
-    />
-    {formik.touched.joinId && formik.errors.joinId ? (
-      <div className="text-red-500">{formik.errors.joinId}</div>
-    ) : null}
-  </div>
-  <div className="create-btn d-flex align-items-center justify-content-center border-radius-20 m-2 transform-btn pointer">
-    <button className="text-white" type="submit">
-      الانضمام
-    </button>
-  </div>
-</form>
-
-                  <Link href={"/playground"} className="link ">
-                    <h6 className="text-center text-white  ">
-                      أنشاء غرفة الأن
-                    </h6>
-                  </Link>
+              </motion.div>
+              <div className="col-3">
+                <Title />
+              </div>
+            </header>
+            <Link href="/user" className="link ">
+              <div className="rtl  col-11 ms-4 mb-1 ">
+                <div className="user-container justify-center">
+                  <h5 className="text-white mt-1 " style={{ fontSize: "15px" }}>
+                    {user?.name?.slice(0, 13) || "user not found"}
+                  </h5>
+                  <img
+                    src={
+                      user.provider == "local"
+                        ? apiUrl + user?.image
+                        : user.image || userImage.src
+                    }
+                    className="userImage circle-image"
+                    alt="user image"
+                  />
                 </div>
               </div>
-            </div>
-          </div>
+            </Link>
 
-          <div className="   high-z-index ">
-            <Footer />
+            {openJoin ? (
+              <div className="d-flex align-items-center justify-content-center rtl mt-4 ">
+                <div className="w-full max-w-xs ">
+                  <form
+                    onSubmit={formik.handleSubmit}
+                    className="shadow-md rounded px-8 pt-6 pb-8 mb-4"
+                    style={{ background: "var(--purple-color)" }}
+                  >
+                    <div className="mb-4">
+                      <label className="block text-white text-sm font-bold mb-2">
+                        ألانضمام الي الغرفة الان
+                      </label>
+                      <input
+                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        id="joinId"
+                        name="joinId"
+                        type="number"
+                        placeholder="أدخل ID"
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        value={formik.values.joinId}
+                      />
+                      {formik.touched.joinId && formik.errors.joinId ? (
+                        <div className="text-red-500">
+                          {formik.errors.joinId}
+                        </div>
+                      ) : null}
+                    </div>
+                    <div className="create-btn d-flex align-items-center justify-content-center border-radius-20 m-2 transform-btn pointer">
+                      <button  className="text-white" type="submit">
+                        الانضمام
+                      </button>
+                    </div>
+                  </form>
+
+                  {/* <Link href={"/playground"} className="link "> */}
+                    <h6 onClick={handelCreate} className="text-center text-white pointer  ">
+                      أنشاء غرفة الأن
+                    </h6>
+                  {/* </Link> */}
+                </div>
+              </div>
+            ) : (
+              <div className="d-flex align-items-center justify-content-center rtl mt-4 ">
+                <div className="w-full max-w-xs ">
+                  <div
+                    className="shadow-md rounded px-8 pt-6 pb-8 mb-4"
+                    style={{ background: "var(--purple-color)" }}
+                  >
+                    <div className="mb-4"></div>
+                    <div className="create-btn d-flex align-items-center justify-content-center border-radius-20 m-2 transform-btn pointer">
+                    <Link href={"/playground"} className="link ">
+
+                      <button  className="text-white" type="submit">
+                        أنشاء غرفة
+                      </button>
+                      </Link>
+
+                    </div>
+                    <div onClick={handelJoin} className="create-btn d-flex align-items-center justify-content-center border-radius-20 m-2 transform-btn pointer">
+                        <button  className="text-white" type="submit">
+                          الانضمام الي غرفة
+                        </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         </div>
-      )}
+
+        <div className="   high-z-index ">
+          <Footer />
+        </div>
+      </div>
     </>
   );
 };

@@ -8,6 +8,7 @@ import storeSlice from './slices/storeSlice';
 import coinStoreSlice from './slices/coinStoreSlice';
 import orderSlice from './slices/orderSlice';
 import room from './slices/room';
+import createRoomSlice from './slices/createRoomSlice';
 
 const store = configureStore({
   reducer: {
@@ -18,7 +19,8 @@ const store = configureStore({
     room,
     storeSlice,
     orderSlice,
-    coinStoreSlice
+    coinStoreSlice,
+    createRoomSlice
   },
 });
 

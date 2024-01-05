@@ -18,6 +18,8 @@ import Link from "next/link";
 import useSound from "use-sound";
 import sound from "@/assets/sound/s.mp3";
 import SoundBg from "@/components/soundBg/SoundBg";
+import Loading from "@/components/loading/Loading";
+import { selectLoading, stopLoading } from "@/redux/slices/loadingSlice";
  
 
 const textVariants = {
@@ -43,25 +45,37 @@ const scrollRight = () => {
 };
 
 const Homepage = () => {
+  // await new Promis(resolve=>setTimeout(resolve, 3000));
   const [play] = useSound(sound);
-
   const user = useSelector((state) => state.user.data);
-  
-  const isAdmin = user?.isAdmin;
-  const online = useSelector((state) => state.user.online);
   const apiUrl = process.env.NEXT_PUBLIC_API_SERVER;
-  const [loading ,setLoading] = useState(true)
   const router = useRouter();
   const dispatch = useDispatch();
+  const isLoading = useSelector(selectLoading);
+
+  useEffect(() => {
+    setTimeout(() => {
+      dispatch(stopLoading());
+    }, 2000);
+  }, []);
 
   useEffect(() => {
     dispatch(fetchUserData())
   }, []);
+  
   function handleLogout() {
     dispatch(offlineUser());
     router.push("/login");
   }
   return (
+    <>
+    {isLoading ? (
+      <Loading
+      text="loading home ... " 
+      close={true}
+      handleClose={handleClose}
+      />
+    ) : (
     <div className="home-page d-flex flex-column ">
       <SoundBg />
       {/* <button onClick={()=>setValue(value+1)}></button> */}
@@ -179,9 +193,9 @@ const Homepage = () => {
 
           <div className="col-lg-6 home-page-main-container-layer gy-4">
             <div
-              className="home-page-main-container shareGame d-flex  w-75 m-auto align-items-center justify-content-around text-white fw-bold rtl"
+              className="home-page-main-container pointer shareGame d-flex  w-75 m-auto align-items-center justify-content-around text-white fw-bold rtl"
               onClick={() => {
-                router.push("/");
+                router.push("/playwith");
                 play();
               }}
             >
@@ -228,6 +242,8 @@ const Homepage = () => {
         <Footer />
       </div>
     </div>
+     )} 
+    </>
   );
 };
 

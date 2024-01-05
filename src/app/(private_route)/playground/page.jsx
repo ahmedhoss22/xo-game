@@ -193,8 +193,11 @@ console.log(room);
                 </div>
               </div>
             </Link>
+    
           </header>
-          <div className="prizes d-flex col-12 justify-content-center pt-3 ">
+  
+          <div className="prizes d-flex flex-column align-items-center col-12 justify-content-center  ">
+            <h6 className="text-white fw-bold">Room Number 123456</h6>
             <motion.div
               className="ticket-container justify-center"
               variants={textVariants}
