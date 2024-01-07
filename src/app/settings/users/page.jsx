@@ -69,17 +69,17 @@ const users = () => {
                       className=" text-center border-b dark:bg-gray-800 dark:border-gray-700   dark:hover:bg-gray-600 pointer"
                     >
                       <td className="px-6 py-4 font-semibold text-gray-900 text-white dark:text-white  ">
-                        {ele.name}
+                        {ele?.name}
                       </td>
                       <td className="px-6 py-4 font-semibold text-gray-900 text-white dark:text-white  ">
-                        {ele.email}
+                        {ele?.email}
                       </td>
 
                       <td className="px-6 py-4 font-semibold text-gray-900 text-white dark:text-white  ">
-                        {ele.coins}
+                        {ele?.coins}
                       </td>
                       <td className="px-6 py-4 font-semibold text-gray-900 text-white dark:text-white  ">
-                        {ele.winning}
+                        {ele?.winning}
                       </td>
                       <td className="px-6 py-4 font-semibold text-gray-900 text-white dark:text-white  ">
                         <div className="d-flex gap-5">
@@ -94,7 +94,7 @@ const users = () => {
                           </button>
                           <button
                             className="delete-btn fw-bold transform-btn "
-                            onClick={() => handleDelete(ele._id)}
+                            onClick={() => handleDelete(ele?._id)}
                           >
                             حذف
                           </button>

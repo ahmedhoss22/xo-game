@@ -3,12 +3,12 @@ import { IoIosArrowForward } from "react-icons/io";
 import Footer from "@/components/footer/Footer";
 import Title from "@/components/title/Title";
 import "./homepage.scss";
-import ticket from "../../../assets/photos/Ticket.png";
-import walletPhoto from "../../../assets/photos/wallet-photo.png";
-import playNowPhoto from "../../../assets/photos/playNow-photo.png";
-import playWithPhoto from "../../../assets/photos/playWith-photo.png";
-import shareGamePhoto from "../../../assets/photos/shareGame-photo.png";
-import userImage from "../../../assets/photos/userrr.png";
+import ticket from "@/assets/photos/Ticket.png";
+import walletPhoto from "@/assets/photos/wallet-photo.png";
+import playNowPhoto from "@/assets/photos/playNow-photo.png";
+import playWithPhoto from "@/assets/photos/playWith-photo.png";
+import shareGamePhoto from "@/assets/photos/shareGame-photo.png";
+import userImage from "@/assets/photos/userrr.png";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { fetchUserData, offlineUser } from "@/redux/slices/user";
@@ -18,7 +18,8 @@ import Link from "next/link";
 import useSound from "use-sound";
 import sound from "../../../assets/sound/s.mp3";
 import SoundBg from "../../../components/soundBg/SoundBg";
-
+import { selectLoading } from "@/redux/slices/loadingSlice";
+ 
 
 const textVariants = {
   initial: {
@@ -43,21 +44,27 @@ const scrollRight = () => {
 };
 
 const Homepage = () => {
+  // await new Promis(resolve=>setTimeout(resolve, 3000));
   const [play] = useSound(sound);
-
   const user = useSelector((state) => state.user.data);
-
+  
   const isAdmin = user?.isAdmin;
   const online = useSelector((state) => state.user.online);
   const apiUrl = process.env.NEXT_PUBLIC_API_SERVER;
-  const [loading, setLoading] = useState(true)
+  const [loading ,setLoading] = useState(true)
   const router = useRouter();
   const dispatch = useDispatch();
+  const isLoading = useSelector(selectLoading);
+
+  useEffect(() => {
+    setTimeout(() => {
+      dispatch(stopLoading());
+    }, 2000);
+  }, []);
 
   useEffect(() => {
     dispatch(fetchUserData())
-  }, [dispatch]);
-
+  }, []);
   function handleLogout() {
     if (user) {
       router.forward("/login");
@@ -67,12 +74,20 @@ const Homepage = () => {
     }
   }
   return (
+    <>
+    {isLoading ? (
+      <Loading
+      text="loading home ... " 
+      close={true}
+      handleClose={handleClose}
+      />
+    ) : (
     <div className="home-page d-flex flex-column ">
       <SoundBg />
       {/* <button onClick={()=>setValue(value+1)}></button> */}
 
       <div className="flex-grow">
-        {/* */}
+         {/* */}
         <header className="d-flex  justify-content-between-lg justify-content-around  mb-4 p-4 mt-2 align-items-center   text-white  ">
           {/* <img src={xIcon.src} alt="" /> */}
           {/* <div className="prize1 white-container justify-center" style={{justifyContent:"center"}}>
@@ -92,7 +107,7 @@ const Homepage = () => {
               variants={textVariants}
             />
             <motion.div className="ticket-prize " variants={textVariants}>
-              <motion.h5>{user.coins}</motion.h5>
+              <motion.h5>{user?.coins}</motion.h5>
             </motion.div>
           </motion.div>
           <div className="col-3">
@@ -108,8 +123,8 @@ const Homepage = () => {
               <img
                 src={
                   user.provider == "local"
-                    ? apiUrl + user.image
-                    : user.image || userImage.src
+                    ? apiUrl + user?.image
+                    : user?.image || userImage.src
                 }
                 className="userImage circle-image"
                 alt="user image"
@@ -147,7 +162,7 @@ const Homepage = () => {
             <div
               className="home-page-main-container pointer playWith  w-75 m-auto d-flex  align-items-center justify-content-around text-white fw-bold rtl"
               onClick={() => {
-                router.push("/coinsofgame");
+                router.push("/playwith");
                 play();
               }}
             >
@@ -169,7 +184,7 @@ const Homepage = () => {
             <div
               className="home-page-main-container pointer wallet d-flex  w-75 m-auto align-items-center justify-content-around text-white fw-bold rtl"
               onClick={() => {
-                router.push("/coinsofgame");
+                router.push("/wallet");
                 play();
               }}
             >
@@ -185,9 +200,9 @@ const Homepage = () => {
 
           <div className="col-lg-6 home-page-main-container-layer gy-4">
             <div
-              className="home-page-main-container shareGame d-flex  w-75 m-auto align-items-center justify-content-around text-white fw-bold rtl"
+              className="home-page-main-container pointer shareGame d-flex  w-75 m-auto align-items-center justify-content-around text-white fw-bold rtl"
               onClick={() => {
-                router.push("/");
+                router.push("/playwith");
                 play();
               }}
             >
@@ -230,6 +245,8 @@ const Homepage = () => {
         <Footer />
       </div>
     </div>
+     )} 
+    </>
   );
 };
 

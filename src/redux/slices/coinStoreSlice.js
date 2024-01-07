@@ -3,7 +3,7 @@ import Api ,{ handleApiError }  from "@/config/api";
 import { toast } from 'react-toastify';
 
 export const getAllItems = createAsyncThunk(
-	'coinsStoreSlice/getAllItems',
+	'coinStoreSlice/getAllItems',
 	async (_, { rejectWithValue }) => {
 	  try {
 		const res = await Api.get('/coin-store/all');  
@@ -15,7 +15,7 @@ export const getAllItems = createAsyncThunk(
   );
    
 export const createItem = createAsyncThunk(
-	'coinsStoreSlice/createItem',
+	'coinStoreSlice/createItem',
 	async (data, { rejectWithValue }) => {
 		try {
 			const res = await Api.post('/coin-store', data);
@@ -27,7 +27,7 @@ export const createItem = createAsyncThunk(
 );
 
 export const updateItem = createAsyncThunk(
-	'coinsStoreSlice/updateItem',
+	'coinStoreSlice/updateItem',
 	async ({ id, data }, { rejectWithValue }) => {
 		try {
 			const res = await Api.patch(`/coin-store/update/${id}`, data);
@@ -41,7 +41,7 @@ export const updateItem = createAsyncThunk(
  
 
 export const deleteItem = createAsyncThunk(
-	'coinsStoreSlice/deleteItem',
+	'coinStoreSlice/deleteItem',
 	async (id, { rejectWithValue }) => {
 		try {
 			const res = await Api.delete(`/coin-store/${id}`);
@@ -53,8 +53,8 @@ export const deleteItem = createAsyncThunk(
 	}
 );
 
-export const coinsStoreSlice = createSlice({
-	name: 'coinsStoreSlice',
+export const coinStoreSlice = createSlice({
+	name: 'coinStoreSlice',
 	initialState: {
 		items: [], 
 		item: null,
@@ -110,4 +110,4 @@ export const coinsStoreSlice = createSlice({
 	},
 });
 
-export default coinsStoreSlice.reducer; 
+export default coinStoreSlice.reducer; 

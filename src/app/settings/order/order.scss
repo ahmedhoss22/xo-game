@@ -1,0 +1,27 @@
+.order-page {
+   
+    .header{
+        background-color: var(--purple-color) !important;
+       
+    }
+    button{
+        background: linear-gradient(180deg, #37007B 0%, #4044A7 100%);
+    padding: 5px 20px;
+    border-radius: 20px;
+    
+    }
+    .delete-btn{
+        color: var(--red-color) !important;
+        border: none;
+    
+    }
+    .update-btn {
+      border: none;
+
+    }
+      @media only screen  and (max-width: 1200px) {
+        .delete-update-btn  {
+          width: 100%;
+        }
+      }
+      }

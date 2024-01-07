@@ -1,14 +1,11 @@
 "use client";
 import "./register.scss";
-import userIcon from "../../../assets/photos/user-icon.png";
-import emailIcon from "../../../assets/photos/email-icon.png";
-import passwordIcon from "../../../assets/photos/password-icon.png";
-import gIcon from "../../../assets/photos/google-icon.png";
-import { BiLogoFacebook } from "react-icons/bi";
+import userIcon from "@/assets/photos/user-icon.png";
+import emailIcon from "@/assets/photos/email-icon.png";
+import passwordIcon from "@/assets/photos/password-icon.png"; 
 import Link from "next/link";
 import { useFormik } from "formik";
-import * as Yup from "yup";
-import ChooseLanguage from "@/components/chooseLanguage/Chooselanguage";
+import * as Yup from "yup"; 
 import Api from "@/config/api";
 import { notifyError, notifySuccess } from "@/components/toastify/toastify";
 import { useRouter } from "next/navigation"; 
@@ -68,8 +65,10 @@ const register = () => {
             </div>
           </Link>
         </div>
-      <div className="register m-2 ">
-      <form className="col-xl-3  col-lg-4 col-md-5 col-sm-7 col-10 form-shape shadow mt-4"
+        <div className="d-flex align-items-center justify-content-center rtl mt-1  container">
+      <div className="register  m-2 w-full max-w-sm">
+      <form className="shadow-md rounded px-8 pt-6 pb-8 mb-4 border-radius-20"
+            style={{ background: "var(--purple-color)"  }}
 
           onSubmit={formik.handleSubmit}
         >
@@ -187,7 +186,8 @@ const register = () => {
 
           </div>
         </form>
-      </div>
+      </div>  </div>
+      
     </div>
   );
 };

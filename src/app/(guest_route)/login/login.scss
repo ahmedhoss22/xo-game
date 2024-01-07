@@ -48,4 +48,18 @@ flex-direction: column;
   padding: 15px !important;
  
 }
+.transform-login-btn { 
+  transition: all 0.2s;
+ box-shadow: 0 var(--shadow-y) 0 rgba(163, 163, 163, 0.785) !important;
+
+}
+.transform-login-btn:hover { 
+ box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+ transform: translateY(-2px);
+}
+.transform-login-btn:active {
+ transform: translateY(2px);
+ --shadow-y: 4px;
+}
+
 }

@@ -25,12 +25,14 @@ export default function PrivateRoot({ children }) {
   if (isLoading) {
     return <Loading text="Loading..." />;
   }
+ 
 
   if (!online) {
     redirect('/login');
     return null;
   }
-
+console.log(online);
+console.log(user);
  
 
   return (

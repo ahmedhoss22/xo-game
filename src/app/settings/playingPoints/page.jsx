@@ -75,16 +75,16 @@ const PlayingPoints = () => {
                         className=" text-center border-b dark:bg-gray-800 dark:border-gray-700   dark:hover:bg-gray-600 pointer"
                       >
                         <td className="px-6 py-4 font-semibold text-gray-900 text-white dark:text-white  ">
-                          {ele.name}{" "}
+                          {ele?.name}{" "}
                         </td>
                         <td className="px-6 py-4 font-semibold text-gray-900 text-white dark:text-white  ">
-                          {ele.coins}{" "}
+                          {ele?.coins}{" "}
                         </td>
                         <td className="px-6 py-4 font-semibold text-gray-900 text-white dark:text-white  ">
-                          {ele.winCoins}
+                          {ele?.winCoins}
                         </td>
                         <td className="px-6 py-4 font-semibold text-gray-900 text-white dark:text-white  ">
-                          {ele.rounds}
+                          {ele?.rounds}
                         </td>
 
                         <td className="px-6 py-4 font-semibold text-gray-900 text-white dark:text-white  ">
@@ -98,7 +98,7 @@ const PlayingPoints = () => {
                           </button>
                           <button
                             className="edit-btn fw-bold transform-btn mr-2"
-                            onClick={() => handleDelete(ele._id)}
+                            onClick={() => handleDelete(ele?._id)}
                           >
                             حذف
                           </button>

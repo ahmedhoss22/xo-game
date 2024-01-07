@@ -1,18 +1,18 @@
 "use client";
 import "./playground.scss";
 import { FaArrowLeft } from "react-icons/fa";
-import userImage from "../../../assets/photos/userrr.png";
-import ticket from "../../../assets/photos/Ticket.png";
-import vs from "../../../assets/photos/VS.png";
+import userImage from "@/assets/photos/userrr.png";
+import ticket from "@/assets/photos/Ticket.png";
+import vs from "@/assets/photos/VS.png";
 import { useEffect, useState } from "react";
 import socket from "@/config/socket";
 import { notifyError, notifySuccess } from "@/components/toastify/toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUserData } from "@/redux/slices/user";
 import Link from "next/link";
-import click from "../../../assets/sound/clickSound.wav";
-import win from "../../../assets/sound/success1.mp3";
-import lose from "../../../assets/sound/lose1.mp3";
+import click from "@/assets/sound/clickSound.wav";
+import win from "@/assets/sound/success1.mp3";
+import lose from "@/assets/sound/lose1.mp3";
 import useSound from "use-sound";
 import { fetchOtherUser, setRoomData } from "@/redux/slices/room";
 import { useRouter } from "next/navigation";
@@ -41,11 +41,9 @@ const playground = () => {
     winner: false,
   });
 
-
   const [clickSound] = useSound(click);
   const [winSound] = useSound(win);
   const [loseSound] = useSound(lose);
-
   const router = useRouter();
   const [data, setData] = useState({});
   const user = useSelector((state) => state.user.data);
@@ -106,7 +104,7 @@ const playground = () => {
       console.log("player-move", data);
     });
 
-    if (room?.userID1 === user._id) {
+    if (room?.userID1 === user?._id) {
       otherPlayerId = room?.userID2;
       setPlayerNumber(1)
     } else if (room?.userID2 === user._id) {
@@ -122,7 +120,7 @@ const playground = () => {
     } else {
       setHoverClass(`o-hover`)
     }
-  }, [user._id, room]);
+  }, [user?._id, room]);
 
   const rows = 5;
   const cols = 5;
@@ -177,8 +175,8 @@ const playground = () => {
                   <img
                     src={
                       user.provider == "local"
-                        ? apiUrl + user.image
-                        : user.image || userImage.src
+                        ? apiUrl + user?.image
+                        : user?.image || userImage.src
                     }
                     className="userImage circle-image"
                     alt="user image"
@@ -186,8 +184,11 @@ const playground = () => {
                 </div>
               </div>
             </Link>
+
           </header>
-          <div className="prizes d-flex col-12 justify-content-center pt-3 ">
+
+          <div className="prizes d-flex flex-column align-items-center col-12 justify-content-center  ">
+            <h6 className="text-white fw-bold">Room Number 123456</h6>
             <motion.div
               className="ticket-container justify-center"
               variants={textVariants}
@@ -201,9 +202,10 @@ const playground = () => {
                 variants={textVariants}
               />
               <motion.div className="ticket-prize " variants={textVariants}>
-                <motion.h5>{user.coins}</motion.h5>
+                <motion.h5>{user.coins} </motion.h5>
               </motion.div>
             </motion.div>
+
           </div>
 
           <div className="players  d-flex col-12 justify-content-center pt-1">
@@ -265,7 +267,7 @@ const playground = () => {
                 {user?._id != room?.userID1 ? "X" : "O"}
               </motion.h2>
               <motion.h5 variants={textVariants}>
-                {player2.name || "player 2"}
+                {player2?.name || "player 2"}
               </motion.h5>
             </motion.div>
           </div>

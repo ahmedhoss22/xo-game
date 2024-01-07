@@ -48,6 +48,7 @@ export default function AdminPanel({ children }) {
   const toggleSidebar = () => {
     setIsSidebarActive(!isSidebarActive);
   };
+  
 
   return (
     <div className="settings">
@@ -82,8 +83,13 @@ export default function AdminPanel({ children }) {
                 </Link>
               </li>
               <li className="active">
-                <Link prefetch href="coinsstore"  as={'/settings/coinsstore'}>
+                <Link prefetch href="coinstore"  as={'/settings/coinstore'}>
                   <span className="fa fa-home mr-3" /> المتجر
+                </Link>
+              </li>
+              <li className="">
+                <Link prefetch href="order"  as={'/settings/order'}>
+                  <span className="fa fa-home mr-3" />الطلبات 
                 </Link>
               </li>{" "}
               <li>

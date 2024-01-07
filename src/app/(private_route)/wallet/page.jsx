@@ -46,7 +46,7 @@ const wallet = () => {
             <img src={userImage.src} className="userImage" alt="" />
             <h5 className="  mt-1 ">User Name</h5>
           </div> */}
-            <Link href='/user' className="link">
+            <Link href='/user' className="link  d-none d-md-block">
               <div className="rtl  col-11 ms-4 mb-1 ">
           <div className="user-container justify-center">
             <h5 className="text-white mt-1 " style={{ fontSize: "15px" }}>

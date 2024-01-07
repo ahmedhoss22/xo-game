@@ -45,7 +45,7 @@ const user = () => {
         </div>
 <div className="user-info rtl    d-flex  align-items-center mb-2 mt-10  ">
 <img    src={
-                  user.provider == "local" ? apiUrl + user.image : user.image
+                  user?.provider == "local" ? apiUrl + user?.image : user?.image
                 || userImage.src} className="" alt="user" />
           <h2 className="text-white ms-4">{user?.name ||'user not found'}</h2>
         </div>
