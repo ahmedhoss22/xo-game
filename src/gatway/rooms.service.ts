@@ -13,6 +13,8 @@ import { PlayingGameDto } from './dto/playingGame.dto';
 import { UserService } from 'src/users/users.service';
 import mongoose from 'mongoose';
 import { UtilitsService } from './utiltis.service';
+import { PlayerDto } from './dto/player.dto';
+import { CustomDto } from './dto/custom-room.dto';
 
 @WebSocketGateway(5001, {
   cors: {
@@ -32,6 +34,7 @@ export class RoomsService implements OnGatewayDisconnect {
   private server: Server;
   private waitingPlayers: MatchDto[] = [];
   private playingRooms: RoomDto[] = [];
+  private customRooms: CustomDto[] = [];
 
   afterInit(server: Server) {
     this.server = server;
@@ -45,57 +48,66 @@ export class RoomsService implements OnGatewayDisconnect {
         'Server instance not available.',
       );
     }
-  
-    if (!data || !data.coins || !data.userID || !data.winCoins || !data.rounds) {
+
+    if (
+      !data ||
+      !data.coins ||
+      !data.userID ||
+      !data.winCoins ||
+      !data.rounds
+    ) {
       return this.utilitsService.errorHandle(
         client.id,
         'coins, userID, winCoins, and rounds are required!',
       );
     }
-  
+
     const roomName: string = 'room' + Date.now().toString();
     this.waitingPlayers = this.waitingPlayers.filter(
       (ele) => ele.socketID !== client.id,
     );
-  
+
     if (!mongoose.isValidObjectId(data.userID)) {
-      return this.utilitsService.errorHandle(
-        client.id,
-        'userID is not valid!',
-      );
+      return this.utilitsService.errorHandle(client.id, 'userID is not valid!');
     }
-  
+
     try {
       // Fetch user details
       let user = await this.userService.getUser(data.userID);
-      
+
       if (!user) {
         return this.utilitsService.errorHandle(client.id, 'Invalid user ID!');
       }
-  
+
       if (user.coins < data.coins) {
         return this.utilitsService.errorHandle(
           client.id,
           'User coins not enough!',
         );
       }
-  
+
       // Check for a matching player
-      const matched = this.checkForMatching(data, client.id, roomName);
-  
+      const matched = this.utilitsService.checkForMatching(
+        data,
+        client.id,
+        roomName,
+        this.waitingPlayers,
+        this.playingRooms,
+      );
+
       if (matched) {
         let room = this.playingRooms.find((ele) => ele.roomName == roomName);
-  
+
         this.server.to(room.socketID1).socketsJoin(room.roomName);
         this.server.to(room.socketID2).socketsJoin(room.roomName);
-  
+
         this.server.to(room.roomName).emit('matched', {
           message: 'You are matched! Start playing.',
           roomName,
           players: [room.socketID1, room.socketID2],
           room,
         });
-  
+
         let arr = [...this.waitingPlayers, ...this.playingRooms];
         this.server.to(client.id).emit('online-players', arr);
         this.server.emit('online-players', arr);
@@ -106,49 +118,123 @@ export class RoomsService implements OnGatewayDisconnect {
           socketID: client.id,
           winCoins: data.winCoins,
         });
-  
+        console.log(this.waitingPlayers);
         let arr = [...this.waitingPlayers, ...this.playingRooms];
         this.server.to(client.id).emit('online-players', arr);
         this.server.emit('online-players', arr);
-  
+
         console.log('Waiting players: ' + this.waitingPlayers.length);
       }
     } catch (error) {
       console.error('Error fetching user details:', error);
-      return this.utilitsService.errorHandle(client.id, 'Error fetching user details.');
+      console.log(error);
+
+      return this.utilitsService.errorHandle(
+        client.id,
+        'Error fetching user details.',
+      );
     }
   }
-  
 
-  checkForMatching(
-    data: MatchDto,
-    socketID2: string,
-    roomName: string,
-  ): boolean {
-    const matchedIndex = this.waitingPlayers?.findIndex(
-      (ele) => ele.coins === data.coins && ele.userID !== data.userID,
+  @SubscribeMessage('create-room')
+  async createRoom(client: Socket, data: MatchDto) {
+    if (!this.server) {
+      return this.utilitsService.errorHandle(
+        client.id,
+        'Server instance not available.',
+      );
+    }
+
+    if (!data || !data.userID) {
+      return this.utilitsService.errorHandle(client.id, 'userID are required!');
+    }
+
+    this.customRooms = this.customRooms.filter(
+      (ele) => ele.socketID !== client.id,
     );
 
-    if (matchedIndex !== -1) {
-      const matchedPlayer = this.waitingPlayers.splice(matchedIndex, 1)[0];
-      this.playingRooms.push({
-        coins: data.coins,
-        winCoins: data.winCoins,
-        roomName,
-        socketID1: matchedPlayer.socketID,
-        socketID2,
-        userID1: matchedPlayer.userID,
-        userID2: data.userID,
-        player1Moves: [],
-        player2Moves: [],
-        rounds: data.rounds,
-        turn: 1,
-        player1Wins: 0,
-        player2Wins: 0,
-      });
-      return true; // Return true when a match is found
+    if (!mongoose.isValidObjectId(data.userID)) {
+      return this.utilitsService.errorHandle(client.id, 'userID is not valid!');
     }
-    return false; // Return false when no match is found
+
+    try {
+      let user = await this.userService.getUser(data.userID);
+      if (!user) {
+        return this.utilitsService.errorHandle(client.id, 'Invalid user ID!');
+      }
+
+      const randomNumber = Math.floor(Math.random() * 100000) + 1;
+      const room = {
+        id: randomNumber,
+        userID: data.userID,
+        socketID: client.id,
+        winCoins: 0,
+        coins: 0,
+        rounds: 1,
+      };
+
+      this.customRooms.push(room);
+      this.server.to(client.id).emit('create-room', {id:randomNumber});
+    } catch (error) {
+      return this.utilitsService.errorHandle(
+        client.id,
+        'Error fetching user details.',
+      );
+    }
+  }
+
+  @SubscribeMessage('join-room')
+  async joinRoom(client: Socket, data: MatchDto) {
+    if (!this.server) {
+      return this.utilitsService.errorHandle(
+        client.id,
+        'Server instance not available.',
+      );
+    }
+
+    if (!data || !data.userID || !data.id) {
+      return this.utilitsService.errorHandle(
+        client.id,
+        'userID and id are required!',
+      );
+    }
+
+    if (!mongoose.isValidObjectId(data.userID)) {
+      return this.utilitsService.errorHandle(client.id, 'userID is not valid!');
+    }
+
+    let user = await this.userService.getUser(data.userID);
+
+    if (!user) {
+      return this.utilitsService.errorHandle(client.id, 'Invalid user ID!');
+    }
+
+    const roomName: string = 'room' + Date.now().toString();
+    const matched = this.utilitsService.checkForJoinRoom(
+      data,
+      client.id,
+      roomName,
+      this.customRooms,
+      this.playingRooms,
+    );
+    if (matched) {
+      let room = this.playingRooms.find((ele) => ele.roomName == roomName);
+
+      this.server.to(room.socketID1).socketsJoin(room.roomName);
+      this.server.to(room.socketID2).socketsJoin(room.roomName);
+
+      this.server.to(room.roomName).emit('matched', {
+        message: 'You are matched! Start playing.',
+        roomName,
+        players: [room.socketID1, room.socketID2],
+        room,
+      });
+    } else {
+      return this.utilitsService.errorHandle(
+        client.id,
+        'No room with that Id !!',
+      );
+    }
   }
 
   handleDisconnect(client: Socket) {
@@ -161,141 +247,59 @@ export class RoomsService implements OnGatewayDisconnect {
     this.server.emit('online-players', arr);
   }
 
-  //game play
   @SubscribeMessage('player-move')
   handlePlayerMove(client: Socket, data: PlayingGameDto) {
-    //validation
-    if (!data.move || !data.roomName || !data.userID) {
-      return this.utilitsService.errorHandle(
-        client.id,
-        'Move and userID and roomName is required !!',
-      );
-    }
-
-    if (!mongoose.isValidObjectId(data.userID)) {
-      return this.utilitsService.errorHandle(
-        client.id,
-        'userID is not Valid !!',
-      );
-    }
-
-    let match = this.playingRooms.find((ele) => ele.roomName == data.roomName);
-    if (!match) {
-      return this.utilitsService.errorHandle(
-        client.id,
-        'Player not in match !!',
-      );
-    }
     if (
-      match.player1Moves.includes(data.move) ||
-      match.player2Moves.includes(data.move)
+      !this.utilitsService.isValidMoveData(data) ||
+      !mongoose.isValidObjectId(data.userID)
     ) {
       return this.utilitsService.errorHandle(
         client.id,
-        'Move is already taken !!',
+        'Invalid move data or userID.',
       );
     }
 
-    let player =
-      client.id == match.socketID1
-        ? {
-            playerNo: 1,
-            playerMoves: match.player1Moves,
-            playerWins: match.player1Wins,
-            playerSocket: match.socketID1,
-          }
-        : {
-            playerNo: 2,
-            playerMoves: match.player2Moves,
-            playerWins: match.player2Wins,
-            playerSocket: match.socketID2,
-          };
-
-    //turn validation
-    if (player.playerNo == 1 && match.turn == 2) {
-      return this.utilitsService.errorHandle(
-        client.id,
-        'Its the turn for other player !!',
-      );
-    }
-    if (player.playerNo == 2 && match.turn == 1) {
-      return this.utilitsService.errorHandle(
-        client.id,
-        'Its the turn for other player !!',
-      );
-    }
-
-    //turn Switch
-    player.playerNo == 1
-      ? match.player1Moves.push(data.move)
-      : match.player2Moves.push(data.move);
-    player.playerNo == 1 ? (match.turn = 2) : (match.turn = 1);
-
-    let winner = this.utilitsService.checkWinner(
-      client.id == match.socketID1 ? match.player1Moves : match.player2Moves,
+    const match: RoomDto = this.playingRooms.find(
+      (room) => room.roomName === data.roomName,
     );
 
-    // display turn for other player
+    if (!match) {
+      return this.utilitsService.errorHandle(client.id, 'Player not in match!');
+    }
+
+    if (this.utilitsService.isMoveAlreadyTaken(match, data.move)) {
+      return this.utilitsService.errorHandle(
+        client.id,
+        'Move is already taken!',
+      );
+    }
+
+    const player = this.utilitsService.getPlayerInfo(client, match);
+
+    if (!this.utilitsService.isPlayerTurn(player, match)) {
+      return this.utilitsService.errorHandle(
+        client.id,
+        "It's the turn for the other player!",
+      );
+    }
+
+    this.utilitsService.makeMove(player, match, data.move);
+
+    const winner = this.utilitsService.checkWinner(
+      client.id === match.socketID1 ? match.player1Moves : match.player2Moves,
+    );
+
     this.server.to(match.roomName).emit('player-move', match);
 
     if (winner) {
-      // update player winning times
-      if (client.id == match.socketID1) {
-        match.player1Wins += 1;
-      } else {
-        match.player2Wins += 1;
-      }
-
-      let gameEnd = this.utilitsService.checkEndGame(match);
-      if (gameEnd) {
-        if (client.id == match.socketID1) {
-          this.utilitsService.handleEndGame(
-            client.id,
-            match.userID1,
-            match.socketID2,
-            match.userID2,
-            match.coins,
-            match.winCoins,
-            match.roomName,
-          );
-        } else {
-          this.utilitsService.handleEndGame(
-            client.id,
-            match.userID2,
-            match.socketID1,
-            match.userID1,
-            match.coins,
-            match.winCoins,
-            match.roomName,
-          );
-        }
-        this.waitingPlayers = this.waitingPlayers.filter(
-          (ele) => ele.userID != match.userID1 || ele.userID != match.userID2,
-        );
-        this.playingRooms = this.playingRooms.filter(
-          (ele) => ele.roomName != match.roomName,
-        );
-      } else {
-        match.player1Moves = [];
-        match.player2Moves = [];
-        this.server.emit('reset-game', { message: 'new round', data: match });
-      }
+      this.utilitsService.handleWinner(client, match);
     } else {
       this.server
-        .to(client.id == match.socketID2 ? match.socketID1 : match.socketID2)
-        .emit('my-turn', {
-          message: 'Your turn ',
-        });
+        .to(client.id === match.socketID2 ? match.socketID1 : match.socketID2)
+        .emit('my-turn', { message: 'Your turn' });
     }
 
-    // update playing room
-    this.playingRooms = this.playingRooms.map((ele) => {
-      if (ele.roomName == data.roomName) {
-        return match;
-      } else {
-        return ele;
-      }
-    });
+    this.utilitsService.updatePlayingRooms(match);
   }
 
   @SubscribeMessage('online-players')
