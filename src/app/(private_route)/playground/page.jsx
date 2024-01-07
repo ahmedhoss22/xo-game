@@ -37,11 +37,9 @@ const textVariants = {
 
 const playground = () => {
   const [modal, setModal] = useState({
-    open: true, 
+    open: false,
     winner: false,
-  }); 
-
- 
+  });
 
 
   const [clickSound] = useSound(click);
@@ -57,33 +55,27 @@ const playground = () => {
   const player2 = useSelector((state) => state.room.otherPlayer);
   const turn = room?.data?.turn
   const [playerNo, setPlayerNumber] = useState("")
-  const [hoverClass,setHoverClass]= useState(null)
-
+  const [hoverClass, setHoverClass] = useState(null)
+  console.log(room);
 
   useEffect(() => {
     dispatch(fetchUserData());
     socket.on("winner", (data) => {
-      console.log("You win !!");
-      notifySuccess("You win");
-      setModal({ open: true , winner:true});
-
+      setModal({ open: true, winner: true });
       winSound();
-      setTimeout(() => { 
-        setModal({ open: false , winner:true});
+      setTimeout(() => {
+        setModal({ open: false, winner: true });
         router.push("/coinsofgame");
-       
-        // dispatch(setRoomData({}));
+        dispatch(setRoomData({}));
       }, 4000);
     });
     socket.on("loser", (data) => {
-      console.log("You lose !!");
-      notifyError("You lose");
-      setModal({ open: true , winner:false});
+      setModal({ open: true, winner: false });
       loseSound();
       setTimeout(() => {
-        setModal({ open: false , winner:false});
+        setModal({ open: false, winner: false });
         router.push("/coinsofgame");
-        // dispatch(setRoomData({}));
+        dispatch(setRoomData({}));
       }, 4000);
     });
     socket.on("player-move", (data) => {
@@ -98,7 +90,7 @@ const playground = () => {
     socket.on("get-room-data", (data) => {
       dispatch(setRoomData(data));
     });
-    
+
     return () => {
       socket.off("matched");
       socket.off("winner");
@@ -106,7 +98,7 @@ const playground = () => {
       socket.off("error");
     };
   }, []);
-console.log(room);
+  console.log(room);
   useEffect(() => {
     let otherPlayerId;
     socket.on("player-move", (data) => {
@@ -125,10 +117,10 @@ console.log(room);
     if (otherPlayerId) {
       dispatch(fetchOtherUser(otherPlayerId));
     }
-    if(playerNo ==1){
-      setHoverClass(`x-hover`)  
-    }else{
-      setHoverClass(`o-hover`)  
+    if (playerNo == 1) {
+      setHoverClass(`x-hover`)
+    } else {
+      setHoverClass(`o-hover`)
     }
   }, [user._id, room]);
 
@@ -161,10 +153,11 @@ console.log(room);
   function getBoxNo(row, column) {
     return row * 5 + column;
   }
-  function disableBtn(row,column){
+  function disableBtn(row, column) {
     let btn = getBoxNo(row, column)
     return room?.player1Moves?.includes(btn) || room?.player2Moves?.includes(btn)
   }
+  console.log(room?.turn, playerNo)
 
   return (
     <>
@@ -286,13 +279,13 @@ console.log(room);
                       <button
                         onClick={() => handleMove(rowIndex, colIndex + 1)}
                         key={colIndex}
-                        className={`box1 col-3 m-1 pointer ${!disableBtn(rowIndex,colIndex+1) &&hoverClass}`}
-                        style={{ userSelect: "none" ,backgroundColor:disableBtn(rowIndex,colIndex+1)?"gray" : "var(--purple-color)"}}
-                        disabled={room?.turn != playerNo || disableBtn(rowIndex,colIndex)}
+                        className={`box1 col-3 m-1 pointer ${!disableBtn(rowIndex, colIndex + 1) && room?.turn == playerNo && hoverClass}`}
+                        style={{ userSelect: "none", backgroundColor: disableBtn(rowIndex, colIndex + 1) ? "gray" : "var(--purple-color)" }}
+                        disabled={room?.turn != playerNo || disableBtn(rowIndex, colIndex)}
                       >
                         <h2
                           className={`text-center fw-bold  `}
-                          style={{ color: "#fff",margin:"0" }}
+                          style={{ color: "#fff", margin: "0" }}
                         >
                           {content}
                         </h2>
@@ -305,8 +298,8 @@ console.log(room);
           </div>
         </div>
         <WinModel
-          open={modal.open} 
-          winner={modal.winner} 
+          open={modal.open}
+          winner={modal.winner}
         />
       </div>
     </>

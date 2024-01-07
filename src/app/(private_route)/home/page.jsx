@@ -18,7 +18,7 @@ import Link from "next/link";
 import useSound from "use-sound";
 import sound from "../../../assets/sound/s.mp3";
 import SoundBg from "../../../components/soundBg/SoundBg";
- 
+
 
 const textVariants = {
   initial: {
@@ -46,20 +46,25 @@ const Homepage = () => {
   const [play] = useSound(sound);
 
   const user = useSelector((state) => state.user.data);
-  
+
   const isAdmin = user?.isAdmin;
   const online = useSelector((state) => state.user.online);
   const apiUrl = process.env.NEXT_PUBLIC_API_SERVER;
-  const [loading ,setLoading] = useState(true)
+  const [loading, setLoading] = useState(true)
   const router = useRouter();
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchUserData())
-  }, []);
+  }, [dispatch]);
+
   function handleLogout() {
-    dispatch(offlineUser());
-    router.push("/login");
+    if (user) {
+      router.forward("/login");
+      dispatch(offlineUser());
+    }else{
+      // router.push("/login");
+    }
   }
   return (
     <div className="home-page d-flex flex-column ">
@@ -67,7 +72,7 @@ const Homepage = () => {
       {/* <button onClick={()=>setValue(value+1)}></button> */}
 
       <div className="flex-grow">
-         {/* */}
+        {/* */}
         <header className="d-flex  justify-content-between-lg justify-content-around  mb-4 p-4 mt-2 align-items-center   text-white  ">
           {/* <img src={xIcon.src} alt="" /> */}
           {/* <div className="prize1 white-container justify-center" style={{justifyContent:"center"}}>
@@ -210,22 +215,18 @@ const Homepage = () => {
           </div>
         ) : (
           <div className="rtl">
-          
-                 <div className="col-xl-2 col-lg-3 col-md-5 col-7  ms-4 high-z-index">
+            <div className="col-xl-2 col-lg-3 col-md-5 col-7  ms-4 high-z-index">
               <div onClick={handleLogout} className="text-decoration-none">
-              
                 <div className="   logOut-btn d-flex align-items-center justify-content-center  border-radius-20 m-2 transform-btn pointer ">
                   <button className="text-white ">تسجيل الخروج </button>
                 </div>
-             </div>
-
+              </div>
             </div>
-         
           </div>
         )}
       </div>
 
-      <div className="  high-z-index ">
+      <div className="high-z-index">   
         <Footer />
       </div>
     </div>
