@@ -241,6 +241,9 @@ export class RoomsService implements OnGatewayDisconnect {
     this.waitingPlayers = this.waitingPlayers.filter(
       (ele) => ele.socketID != client.id,
     );
+    this.customRooms = this.customRooms.filter(
+      (ele) => ele.socketID != client.id,
+    );
     console.log('Waiting players ' + this.waitingPlayers.length);
     let arr = [...this.waitingPlayers, ...this.playingRooms];
     this.server.to(client.id).emit('online-players', arr);
