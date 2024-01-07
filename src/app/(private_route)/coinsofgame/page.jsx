@@ -79,12 +79,7 @@ const coinsOfGame = () => {
     }
   }, [error]);
   useEffect(() => {
-    dispatch(fetchUserData());
-    // if (!online) {
-    //   router.push("/login");
-    // } else {
-    //   router.push("/coinsofgame");
-    // }
+    dispatch(fetchUserData()); 
   }, []);
 
   function calcOnlinePlayers(coins) {

@@ -8,7 +8,7 @@ const Loading = () => {
 
       <div style={{ color: "#8c0e68", zIndex: "100" }}>
         <div style={myFont.style}>
-          <h1 className="fw-bold">Loading page ........ </h1>
+          <h1 className="fw-bold">Loading page ...... </h1>
         </div>
       </div>
     </div>
