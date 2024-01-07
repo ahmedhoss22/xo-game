@@ -37,13 +37,11 @@ const textVariants = {
 };
 
 const coinsOfGame = () => {
-  const user = useSelector((state) => state.user.data);
-  const { online, data } = useSelector((state) => state.user);
+  const user = useSelector((state) => state.user.data); 
   const apiUrl = process.env.NEXT_PUBLIC_API_SERVER;
   const playingCoins = useSelector((state) => state.playingCoins.data);
   const [players, setPlayers] = useState([]);
-  const [error, setError] = useState("");
-  const loading = useSelector((state) => state.loading.isLoading);
+  const [error, setError] = useState(""); 
   const router = useRouter();
 
   useEffect(() => {
@@ -93,8 +91,10 @@ const coinsOfGame = () => {
       winCoins: data.winCoins,
       userID: user._id,
       rounds: data.rounds,
-    });
-    dispatch(startLoading());
+    });       
+    // dispatch(startLoading());
+       router.push("/playgroundloading")
+       console.log('kkkkk');
   }
 
   function handleClose() {

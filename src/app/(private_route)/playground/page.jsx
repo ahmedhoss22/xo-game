@@ -187,8 +187,8 @@ const playground = () => {
 
           </header>
 
-          <div className="prizes d-flex flex-column align-items-center col-12 justify-content-center  ">
-            <h6 className="text-white fw-bold">Room Number 123456</h6>
+          <div className="pt-3 prizes d-flex flex-column align-items-center col-12 justify-content-center  ">
+            {/* <h6 className="text-white fw-bold">Room Number 123456</h6> */}
             <motion.div
               className="ticket-container justify-center"
               variants={textVariants}
@@ -202,7 +202,7 @@ const playground = () => {
                 variants={textVariants}
               />
               <motion.div className="ticket-prize " variants={textVariants}>
-                <motion.h5>{user.coins} </motion.h5>
+                <motion.h5>{user?.coins} </motion.h5>
               </motion.div>
             </motion.div>
 

@@ -8,8 +8,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUserData } from "@/redux/slices/user";
 import Link from "next/link";
-import { motion } from "framer-motion";
-import StartGameSoundBg from "@/components/startGameSoundBg/StartGameSoundBg";
+import { motion } from "framer-motion"; 
 import { setRoomData } from "@/redux/slices/room";
 import socket from "@/config/socket";
 import { useRouter } from 'next/router';
@@ -64,10 +63,16 @@ const playgroundLoading = ({params}) => {
     const handleError = (data) => {
       notifyError(data)
     };
+    socket.on("matched",(data)=>{
+      dispatch(setRoomData(data))
+      router.push("/playground")
+    })
 
     {isCustom == "true" && socket.emit("create-room", {userID:user._id});}
     socket.on("create-room", (data)=>{
         setID(data?.id)
+        
+
     });
     socket.on("join-room", handleRoomJoined);
     socket.on("error", handleError);
@@ -84,8 +89,7 @@ const playgroundLoading = ({params}) => {
 
   return (
     <>
-      <div className="playground-loading">
-        <StartGameSoundBg />
+      <div className="playground-loading"> 
         <div className="container">
           <header className="d-flex  justify-content-between-lg justify-content-around  pt-4 pb-4">
             <Link href="/coinsofgame" className="link">
@@ -110,7 +114,11 @@ const playgroundLoading = ({params}) => {
               </div>
             </Link>
           </header>
-          <div className="prizes d-flex col-12 justify-content-center pt-3 ">
+          <div className="prizes d-flex flex-column align-items-center col-12 justify-content-center  ">
+          {isCustom == "true" && id&& <>       <h3 className="text-white fw-bold pt-4 pb-4">Room Number {id}</h3>
+          </>}
+   
+
             <div
               className="ticket-container justify-center"
             >
@@ -185,12 +193,9 @@ const playgroundLoading = ({params}) => {
               </motion.h5>
             </motion.div>
           </div>
-          {isCustom == "true" && id&& <>
-            <div className="h3">Id الغرفة</div>
-            <p>{id}</p>
-          </>}
+  
           <motion.h2 variants={textVariants}
-            animate={{ y: [0, -5, 0], transition: { repeat: Infinity, duration: 0.5 } }} className="text-white text-center mt-20" ><motion.span >. . . . . . .</motion.span> جاري الحصول علي بيانات الغرفة </motion.h2>
+            animate={{ y: [0, -5, 0], transition: { repeat: Infinity, duration: 0.5 } }} className="text-white text-center mt-20" >. . . . . جاري الحصول علي بيانات الغرفة </motion.h2>
 
         </div>
       </div>
