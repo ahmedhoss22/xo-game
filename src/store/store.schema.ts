@@ -3,7 +3,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 @Schema()
 export class Store {
   @Prop({ type: Number, required: true, trim: true })
-  cost: number;
+  cost: number;    
 
   @Prop({ type: String, required: true, trim: true })
   image: string;
