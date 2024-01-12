@@ -1,20 +1,41 @@
-
-'use client'
-import { useEffect } from "react";
+// SoundBg.js
+import React, { useEffect, useState } from "react";
 import bgSound from "../../assets/sound/bg1.mp3";
 import useSound from "use-sound";
+import { GiSoundOff, GiSoundOn } from "react-icons/gi";
 
 const SoundBg = () => {
-    const [playBg, { stop }] = useSound(bgSound, { volume: 0.05, loop: true });
+  const [playBg, { stop }] = useSound(bgSound, { volume: 0.05, loop: true });
+  const [isSoundOn, setIsSoundOn] = useState(true);
 
-    useEffect(() => {
+  const toggleSound = () => {
+    if (isSoundOn) {
+      stop();
+    } else {
       playBg();
-  
-      return () => {
-        stop();
-      };
-    }, [playBg, stop]);
+    }
+    setIsSoundOn(!isSoundOn);
+  };
 
-}
+  useEffect(() => {
+    if (isSoundOn) {
+      playBg();
+    } else {
+      stop();
+    }
 
-export default SoundBg
+    return () => {
+      stop();
+    };
+  }, [playBg, stop, isSoundOn]);
+
+  return (
+    <div>
+      <button onClick={toggleSound}>
+        {isSoundOn ? <GiSoundOn  style={{fontSize:"35px"}} /> : <GiSoundOff  style={{fontSize:"35px"}}/>}
+      </button>
+    </div>
+  );
+};
+
+export default SoundBg;

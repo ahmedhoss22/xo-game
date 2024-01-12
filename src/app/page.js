@@ -38,8 +38,7 @@ const MainPage = () => {
 
   return (
     <div>
-      <div>
-        {/* <WinModel/> */}
+      <div> 
         {isLoading ? (
           <Loading text="XO Game is Loading ..." />
         ) : online ? (

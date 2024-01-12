@@ -1,6 +1,6 @@
 "use client";
 import "./changeCoins.scss";
-import tickets from "../../../assets/photos/Ticket.png";
+import tickets from "@/assets/photos/Ticket.png";
 import StoreModal from "@/components/storeModal/StoreModal";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -11,7 +11,7 @@ const changeCoins = () => {
   const dispatch = useDispatch();
   const items = useSelector((state) => state.storeSlice.items);
   const apiUrl = process.env.NEXT_PUBLIC_API_SERVER;
-  // console.log(items);
+
   useEffect(() => {
     dispatch(getAllItems());
   }, []);

@@ -16,9 +16,10 @@ import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import useSound from "use-sound";
-import sound from "../../../assets/sound/s.mp3";
-import SoundBg from "../../../components/soundBg/SoundBg";
-import { selectLoading } from "@/redux/slices/loadingSlice";
+import sound from "@/assets/sound/s.mp3";
+import SoundBg from "@/components/soundBg/SoundBg";
+import { selectLoading, stopLoading } from "@/redux/slices/loadingSlice";
+import Loading from "@/app/loading";
  
 
 const textVariants = {
@@ -36,15 +37,8 @@ const textVariants = {
   },
 };
 
-const scrollLeft = () => {
-  document.getElementById("content").scrollLeft += 800;
-};
-const scrollRight = () => {
-  document.getElementById("content").scrollLeft -= 800;
-};
-
 const Homepage = () => {
-  // await new Promis(resolve=>setTimeout(resolve, 3000));
+
   const [play] = useSound(sound);
   const user = useSelector((state) => state.user.data);
   
@@ -67,7 +61,7 @@ const Homepage = () => {
   }, []);
   function handleLogout() {
     if (user) {
-      router.forward("/login");
+      router.push("/login");
       dispatch(offlineUser());
     }else{
       // router.push("/login");
@@ -83,7 +77,7 @@ const Homepage = () => {
       />
     ) : (
     <div className="home-page d-flex flex-column ">
-      <SoundBg />
+    
       {/* <button onClick={()=>setValue(value+1)}></button> */}
 
       <div className="flex-grow">
@@ -94,6 +88,9 @@ const Homepage = () => {
             <img src={money.src} className="money" alt="money" />
             <h5>{user.coins}</h5>
           </div> */}
+          <div className="d-flex gap-2">
+                <div >  <SoundBg /></div>
+
           <motion.div
             className="ticket-container justify-center"
             variants={textVariants}
@@ -110,6 +107,8 @@ const Homepage = () => {
               <motion.h5>{user?.coins}</motion.h5>
             </motion.div>
           </motion.div>
+          </div>
+        
           <div className="col-3">
             <Title />
           </div>
@@ -137,9 +136,10 @@ const Homepage = () => {
           <div className="col-lg-6 home-page-main-container-layer gy-4 ">
             <div
               className="home-page-main-container pointer playNow d-flex  w-75 m-auto align-items-center justify-content-around text-white fw-bold rtl"
-              onClick={() => {
-                router.push("/coinsofgame");
+              onClick={() => {  
                 play();
+                router.push("/coinsofgame");
+              
               }}
             >
               <motion.img
@@ -162,8 +162,9 @@ const Homepage = () => {
             <div
               className="home-page-main-container pointer playWith  w-75 m-auto d-flex  align-items-center justify-content-around text-white fw-bold rtl"
               onClick={() => {
-                router.push("/playwith");
                 play();
+                router.push("/playwith");
+                
               }}
             >
               <img src={playWithPhoto.src} className=" " alt="" />
@@ -183,9 +184,10 @@ const Homepage = () => {
           <div className="col-lg-6  home-page-main-container-layer gy-4 ">
             <div
               className="home-page-main-container pointer wallet d-flex  w-75 m-auto align-items-center justify-content-around text-white fw-bold rtl"
-              onClick={() => {
-                router.push("/wallet");
+              onClick={() => { 
                 play();
+                router.push("/wallet");
+               
               }}
             >
               <img src={walletPhoto.src} alt="" />
@@ -201,9 +203,10 @@ const Homepage = () => {
           <div className="col-lg-6 home-page-main-container-layer gy-4">
             <div
               className="home-page-main-container pointer shareGame d-flex  w-75 m-auto align-items-center justify-content-around text-white fw-bold rtl"
-              onClick={() => {
-                router.push("/playwith");
+              onClick={() => {  
                 play();
+                router.push("/playwith");
+              
               }}
             >
               <img src={shareGamePhoto.src} alt="" />

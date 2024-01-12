@@ -74,7 +74,7 @@ const register = () => {
         >
           <h1 className="text-center text-white mt-1   "> انشاء حساب</h1>
           <div className="row  d-flex align-content-center justify-content-center m-4 ">
-            <div className="col-12 gy-4 ">
+            <div className="ltr col-12 gy-4 ">
               {formik.touched.name && formik.errors.name ? (
                 <h6 className="text-white">{formik.errors.name}</h6>
               ) : null}
@@ -93,7 +93,7 @@ const register = () => {
                 <img src={userIcon.src} className="icon " alt="" />
               </div>
             </div>{" "}
-            <div className="col-12 gy-4">
+            <div className="ltr col-12 gy-4">
               {formik.touched.email && formik.errors.email ? (
                 <h6 className="text-white">{formik.errors.email}</h6>
               ) : null}
@@ -112,7 +112,7 @@ const register = () => {
                 <img src={emailIcon.src} className="icon" alt="" />
               </div>
             </div>
-            <div className="col-12 gy-4">
+            <div className="ltr col-12 gy-4">
               {formik.touched.password && formik.errors.password ? (
                 <h6 className="text-white">
                   {formik.errors.password}
@@ -133,7 +133,7 @@ const register = () => {
                 <img src={passwordIcon.src} className="icon" alt="" />
               </div>
             </div>
-            <div className="col-12 gy-4">
+            <div className="ltr col-12 gy-4">
               {formik.touched.rePassword && formik.errors.rePassword ? (
                 <h6 className="text-white">
                   {formik.errors.rePassword}

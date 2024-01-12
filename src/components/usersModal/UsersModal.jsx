@@ -26,7 +26,7 @@ const UsersModal = ({ open, handleClose, update, data }) => {
   const [intialState, setInitialState] = useState({
     email: "",
     coins: 0,
-    // password: "",
+    password: "",
     name: "",
   });
   const formik = useFormik({
@@ -98,7 +98,7 @@ const UsersModal = ({ open, handleClose, update, data }) => {
               label="الأيميل"
               variant="outlined"
             />
-            {/* {formik.touched.password && formik.errors.password ? (
+            {formik.touched.password && formik.errors.password ? (
               <h4>{formik.errors.password}</h4>
             ) : null}
             <TextField
@@ -111,7 +111,7 @@ const UsersModal = ({ open, handleClose, update, data }) => {
               onBlur={formik.handleBlur}
               label="رقم السر"
               variant="outlined"
-            /> */}
+            />
             {formik.touched.coins && formik.errors.coins ? (
               <h4>{formik.errors.coins}</h4>
             ) : null}

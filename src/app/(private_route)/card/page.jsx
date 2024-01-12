@@ -11,11 +11,14 @@ import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllItems } from "@/redux/slices/coinStoreSlice";
 import { useEffect } from "react";
+import { GiCoins } from "react-icons/gi";
+import { PiCoinsDuotone } from "react-icons/pi";
 
 const card = () => {
   const dispatch = useDispatch();
-  const items = useSelector((state) => state.coinsStoreSlice.items);
-console.log(items);
+  const items = useSelector((state) => state.coinStoreSlice.items);
+
+ console.log(items);
   useEffect(() => {
     dispatch(getAllItems());
   }, []);
@@ -43,9 +46,10 @@ console.log(items);
           {items.map((item, key) => (  
              <div key={key} className="col-6   ">
             <div  className="  ticket">
-              <div className="img-container">
+            <PiCoinsDuotone   className="text-red-500" style={{fontSize:'35px'}} />
+              {/* <div className="img-container">
                 <img src={ticketImage.src} className="ticket-img" alt="" />
-              </div>
+              </div> */}
               <h5 className="count">{item?.coins}</h5>
               <h5 className="price text-white">{item?.price}$</h5>
             </div>
