@@ -4,6 +4,7 @@ import Footer from "@/components/footer/Footer";
 import Title from "@/components/title/Title";
 import "./homepage.scss";
 import ticket from "@/assets/photos/Ticket.png";
+import dollar from "@/assets/photos/dollar.png";
 import walletPhoto from "@/assets/photos/wallet-photo.png";
 import playNowPhoto from "@/assets/photos/playNow-photo.png";
 import playWithPhoto from "@/assets/photos/playWith-photo.png";
@@ -98,7 +99,7 @@ const Homepage = () => {
             animate={"animate"}
           >
             <motion.img
-              src={ticket.src}
+              src={dollar.src}
               className="ticket"
               alt="ticket"
               variants={textVariants}

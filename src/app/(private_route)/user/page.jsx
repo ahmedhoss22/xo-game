@@ -27,7 +27,7 @@ const user = () => {
   return (
     <div className=" user ">
       <div className="container ">
-        <div className="row d-flex justify-content-between pt-4">
+        <div className="row d-flex  justify-content-between-lg justify-content-around pt-4">
           <div className="col-1" onClick={()=>router.push("/")}>
             <FaArrowLeft className="text-white pointer h-5 arrow mt-10" />
           </div>
@@ -39,11 +39,12 @@ const user = () => {
           <div className="col-lg-3 col-md-4 ">
             {/* <ChooseLanguage /> */}
           </div>
-          <div className="col-1">
-            <img src={settingImage.src} alt="settings" />
+          <div className="col-1 d-none d-md-block">
+            <img src={settingImage.src} alt="settings" className="pointer" />
           </div>
         </div>
-<div className="user-info rtl    d-flex  align-items-center mb-2 mt-10  ">
+        <div className="container p-4">
+          <div className="user-info rtl    d-flex  align-items-center mb-2 mt-10  ">
 <img    src={
                   user?.provider == "local" ? apiUrl + user?.image : user?.image
                 || userImage.src} className="" alt="user" />
@@ -64,6 +65,8 @@ const user = () => {
           <h2> المستوي</h2>
           <h2>{user?.level}</h2>
         </div>
+        </div>
+
         {/*         <div className="user-score rtl mb-4  d-flex text-white justify-content-between text-center">
 
           <h2>المستوي</h2>

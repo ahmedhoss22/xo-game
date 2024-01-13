@@ -14,5 +14,16 @@
   transform: scale(1.1);
   transition: .3s;
 }
+@media (min-width: 992px) {
+  .justify-content-between-lg {
+    justify-content: space-between !important;
+  }
+}
+ 
+@media (max-width: 991px) {
+  .justify-content-around {
+    justify-content: space-around !important;
+  }
+}
 }
 

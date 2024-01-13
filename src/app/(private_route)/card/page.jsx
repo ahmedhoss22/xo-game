@@ -4,6 +4,7 @@ import Footer from "@/components/footer/Footer";
 import Title from "@/components/title/Title";
 import { FaArrowLeft } from "react-icons/fa"; 
 import ticketImage from "@/assets/photos/Ticket.png";
+import dollar from "@/assets/photos/dollar.png";
 import visaImage from "@/assets/photos/visa-icon.png";
 import paypalIcon from "@/assets/photos/paypal-icon.png";
 import paypalWord from "@/assets/photos/paypal-word.png";
@@ -44,16 +45,17 @@ const card = () => {
 
        
           {items.map((item, key) => (  
-             <div key={key} className="col-6   ">
+             <div key={key} className="col-md-6   ">
             <div  className="  ticket">
-            <PiCoinsDuotone   className="text-red-500" style={{fontSize:'35px'}} />
-              {/* <div className="img-container">
-                <img src={ticketImage.src} className="ticket-img" alt="" />
-              </div> */}
+               <div className="img-container">          
+                 {/* <PiCoinsDuotone   className="text-yellow-500" style={{fontSize:'50px'}} /> */}
+
+                <img src={dollar.src} className="ticket-img" alt="" />
+              </div> 
               <h5 className="count">{item?.coins}</h5>
               <h5 className="price text-white">{item?.price}$</h5>
             </div>
-              </div>      ))}
+              </div>      ))}     
        
           </div>
           <div className="text-white  p-2 fs-1 fw-bold  w-25 m-auto">

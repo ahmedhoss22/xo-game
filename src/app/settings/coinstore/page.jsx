@@ -1,15 +1,17 @@
 "use client";
 import "./coinStore.scss";
 import tickets from "@/assets/photos/Ticket.png";
+import dollar from "@/assets/photos/dollar.png";
 import CoinStoreModel from "@/components/coinStoreModel/CoinStoreModel";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteItem, getAllItems } from "@/redux/slices/coinStoreSlice";
+import { PiCoinsDuotone } from "react-icons/pi";
 
 const coinStore = () => {
   const dispatch = useDispatch();
   const items = useSelector((state) => state.coinStoreSlice.items);
-
+console.log(items);
   useEffect(() => {
     dispatch(getAllItems());
   }, []);
@@ -60,10 +62,12 @@ const coinStore = () => {
                           <div className="col-md-3 prize ">
                             <div className="img-container">
                               <img
-                                src={tickets.src}
+                                src={dollar.src}
                                 className="ticket-img"
                                 alt=""
                               />
+                                               {/* <PiCoinsDuotone   className="text-yellow-500" style={{fontSize:'50px'}} /> */}
+
                             </div>
                             <h5 className="count">{item?.coins}</h5>
                             <h5 className="price text-white">{item?.price}$</h5>
