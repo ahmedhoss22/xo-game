@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { redirect } from "next/navigation";
 import { selectLoading, stopLoading } from "@/redux/slices/loadingSlice";
 import Loading from "@/components/loading/Loading";
+import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 
 export default function PrivateRoot({ children }) {
   const dispatch = useDispatch();
@@ -25,19 +26,22 @@ export default function PrivateRoot({ children }) {
   if (isLoading) {
     return <Loading text="Loading..." />;
   }
- 
+
 
   if (!online) {
     redirect('/login');
     return null;
   }
-console.log(online);
-console.log(user);
- 
-
+  const initialOptions = {
+    clientId: process.env.NEXT_PUBLIC_CLIENT_ID,
+    currency: "USD",
+    intent: "capture",
+};
   return (
     <>
-      {children}
+      <PayPalScriptProvider options={initialOptions}>
+        {children}
+      </PayPalScriptProvider>
     </>
   );
 }

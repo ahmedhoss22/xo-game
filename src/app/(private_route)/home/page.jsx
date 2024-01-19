@@ -60,12 +60,9 @@ const Homepage = () => {
     dispatch(fetchUserData())
   }, []);
   function handleLogout() {
-    if (user) {
-      router.push("/login");
-      dispatch(offlineUser());
-    }else{
-      // router.push("/login");
-    }
+    console.log("asdasdasdasd");
+    // router.push("/login");
+    dispatch(offlineUser());
   }
   return (
     <>
