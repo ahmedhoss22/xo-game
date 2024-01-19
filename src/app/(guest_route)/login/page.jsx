@@ -11,12 +11,16 @@ import * as Yup from "yup";
 import Api from "@/config/api";
 import { notifyError, notifySuccess } from "@/components/toastify/toastify";
 import { useRouter } from "next/navigation";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { onlineUser } from "@/redux/slices/user";
 
 const login = () => {
+  const dispatch = useDispatch()
+
   function handleLogin(values) {
     Api.post("/auth/login", values)
       .then(() => {
+        dispatch(onlineUser())
         notifySuccess("Welcome!!");
         router.push("/coinsofgame");
       })
@@ -53,7 +57,6 @@ const login = () => {
   function googleRegister() {
     // console.log(process.env.NEXT_PUBLIC_API_SERVER + "/api/auth/google/login");
     // redirect(process.env.NEXT_PUBLIC_API_SERVER + "/api/auth/google/login")
-    console.log("asdsasadsad");
     router.push(process.env.NEXT_PUBLIC_API_SERVER + "/api/auth/google/login");
   }
   function facebookRegister() {
