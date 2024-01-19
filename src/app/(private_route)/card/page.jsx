@@ -14,7 +14,8 @@ import { getAllItems } from "@/redux/slices/coinStoreSlice";
 import { useEffect } from "react";
 import { GiCoins } from "react-icons/gi";
 import { PiCoinsDuotone } from "react-icons/pi";
-
+import { PayPalButtons } from "@paypal/react-paypal-js";
+import Api from "@/config/api";
 const card = () => {
   const dispatch = useDispatch();
   const items = useSelector((state) => state.coinStoreSlice.items);
@@ -24,18 +25,37 @@ const card = () => {
     dispatch(getAllItems());
   }, []);
 
+  const createOrder = (data) => {
+    return Api.post("/my-server/create-paypal-order", {
+      cart: [
+        {
+          sku: "YOUR_PRODUCT_STOCK_KEEPING_UNIT",
+          quantity: "1",
+        },
+      ],
+    })
+    .then((response) => response.data.id);
+  };
+  
+  const onApprove = (data) => {
+    return Api.post("/my-server/capture-paypal-order", {
+      orderID: data.orderID
+    })
+    .then((response) => response.data);
+  };
+ 
   return (
     <div className=" card-page d-flex flex-column ">
     <div className="flex-grow">
       <div className="container ">
       <div className="d-flex justify-content-between-lg justify-content-around pb-4 pt-4">
-  <div className="">
-    <FaArrowLeft className="text-white pointer h-5 mt-10" />
-  </div>
-  <div>
-    <Title />
-  </div>
-</div>
+        <div className="">
+          <FaArrowLeft className="text-white pointer h-5 mt-10" />
+        </div>
+        <div>
+          <Title />
+        </div>
+      </div>
 
 
         {/* <div className=""> */}
@@ -62,16 +82,18 @@ const card = () => {
             <hr />
           </div>
           <div className="row d-flex justify-content-around  w-25 m-auto">
-            <div className="col-lg-4 d-flex justify-content-center payment-method d-flex gap-2 gy-3">
+            {/* <div className="col-lg-4 d-flex justify-content-center payment-method d-flex gap-2 gy-3">
               <Link href="/payment" className="visa">
                 <img src={visaImage.src} alt="" />
               </Link>
-            </div>
+            </div> */}
             <div className="col-lg-4  d-flex justify-content-center payment-method d-flex gap-2 gy-3 mb-4">
-              <Link href={"/payment"} className="paypal d-flex">
+              {/* <Link href={"/payment"} className="paypal d-flex">
                 <img src={paypalIcon.src} className="paypal-icon" alt="" />
                 <img src={paypalWord.src} className="paypal-word" alt="" />
-              </Link>
+              </Link> */}
+                <PayPalButtons />
+
             </div>
           </div>
 
