@@ -1,9 +1,9 @@
 "use client";
-
 import Footer from "@/components/footer/Footer";
 import "./coinsOfGame.scss";
 import Link from "next/link";
 import ticket from "@/assets/photos/Ticket.png";
+import dollar from "@/assets/photos/dollar.png";
 import { motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
@@ -85,16 +85,13 @@ const coinsOfGame = () => {
     return arr.length;
   }
 
-  function startGame(data) {
+  function startGame(data) {     
     socket.emit("start-game", {
       coins: data.coins,
       winCoins: data.winCoins,
       userID: user._id,
       rounds: data.rounds,
-    });       
-    // dispatch(startLoading());
-       router.push("/playgroundloading")
-       console.log('kkkkk');
+    });        
   }
 
   function handleClose() {
@@ -119,7 +116,7 @@ const coinsOfGame = () => {
             animate={"animate"}
           >
             <motion.img
-              src={ticket.src}
+              src={dollar.src}
               className="ticket"
               alt="ticket"
               variants={textVariants}
@@ -162,12 +159,13 @@ const coinsOfGame = () => {
                 {playingCoins.map((ele, ind) => (
                   <div
                     key={ind}
-                    className="col-lg-6 gy-4 d-flex"
-                    onClick={() => startGame(ele)}
-                    style={{ cursor: "pointer", borderRadius: "6px" }}
+                    className="col-lg-6 gy-4 d-flex link"
+                    onClick={() =>{startGame(ele) ; }}
+                    style={{   borderRadius: "6px" }}
                   >
-                    <div
-                      className="col-9 p-2 start-play-div1"
+                    <Link
+                  href='/playgroundloading/false'
+                      className="col-9 p-2 start-play-div1 link"
                       style={{
                         cursor: "pointer",
                         borderRadius: "6px 0 0px 6px ",
@@ -188,21 +186,26 @@ const coinsOfGame = () => {
                         </div>
                         <div className="d-flex gap-1 align-items-center text-secondary  ">
                           <img
-                            src={ticket.src}
+                            src={dollar.src}
                             alt="tickets"
                             className="fs-6 mb-3"
+                            style={{
+                              width:'28px',
+                              height:'28px'
+                            }}
                           />
                           <p>{ele?.coins} الدخول</p>
                         </div>
                       </div>
-                    </div>
-                    <div
-                      className="col-3    text-white start-play-div2"
+                    </Link>
+                    <Link
+                  href='/playgroundloading/false'
+                      className="col-3    text-white start-play-div2 pointer link"
                       style={{ borderRadius: "0 6px 6px 0" }}
                     >
                       <h1> {ele?.winCoins} </h1>
                       <h6> ألعب الان</h6>
-                    </div>
+                    </Link>
                   </div>
                 ))}
               </div>

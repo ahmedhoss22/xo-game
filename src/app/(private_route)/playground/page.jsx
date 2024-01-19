@@ -3,6 +3,7 @@ import "./playground.scss";
 import { FaArrowLeft } from "react-icons/fa";
 import userImage from "@/assets/photos/userrr.png";
 import ticket from "@/assets/photos/Ticket.png";
+import dollar from "@/assets/photos/dollar.png";
 import vs from "@/assets/photos/VS.png";
 import { useEffect, useState } from "react";
 import socket from "@/config/socket";
@@ -196,7 +197,7 @@ const playground = () => {
               animate={"animate"}
             >
               <motion.img
-                src={ticket.src}
+                src={dollar.src}
                 className="ticket"
                 alt="ticket"
                 variants={textVariants}

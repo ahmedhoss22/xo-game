@@ -3,6 +3,7 @@ import "./playgroundLoading.scss";
 import { FaArrowLeft } from "react-icons/fa";
 import userImage from "@/assets/photos/userrr.png";
 import ticket from "@/assets/photos/Ticket.png";
+import dollar from "@/assets/photos/dollar.png";
 import vs from "@/assets/photos/VS.png";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -123,7 +124,7 @@ const playgroundLoading = ({params}) => {
               className="ticket-container justify-center"
             >
               <img
-                src={ticket.src}
+                src={dollar.src}
                 className="ticket"
                 alt="ticket"
               />

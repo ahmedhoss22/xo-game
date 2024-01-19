@@ -1,6 +1,7 @@
 "use client";
 import "./changeCoins.scss";
 import tickets from "@/assets/photos/Ticket.png";
+import dollar from "@/assets/photos/dollar.png";
 import StoreModal from "@/components/storeModal/StoreModal";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -86,7 +87,10 @@ const changeCoins = () => {
                       </td>
                       <td className="text-center px-6 py-4 font-semibold text-gray-900 text-white dark:text-white  ">
                         <div className="d-flex align-items-center justify-content-center gap-2">
-                          {item?.cost} <img src={tickets.src} alt="" />
+                          {item?.cost} <img src={dollar.src} style={{
+                            width:'28px',
+                            height:'28px'
+                          }} alt="" />
                         </div>
                       </td>
                       <td className="text-center px-6 py-4 font-semibold text-gray-900 text-white dark:text-white  ">

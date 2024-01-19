@@ -4,6 +4,7 @@ import Footer from "@/components/footer/Footer";
 import "./playWith.scss";
 import Link from "next/link";
 import ticket from "@/assets/photos/Ticket.png";
+import dollar from "@/assets/photos/dollar.png";
 import { motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
@@ -97,7 +98,7 @@ const playWith = () => {
             animate={"animate"}
           >
             <motion.img
-              src={ticket.src}
+              src={dollar.src}
               className="ticket"
               alt="ticket"
               variants={textVariants}

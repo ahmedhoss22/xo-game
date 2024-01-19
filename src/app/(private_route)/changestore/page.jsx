@@ -4,6 +4,7 @@ import Title from "@/components/title/Title";
 import "./changeStore.scss";
 import Link from "next/link";
 import ticket from "@/assets/photos/Ticket.png";
+import dollar from "@/assets/photos/dollar.png";
 import { motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
@@ -75,7 +76,7 @@ const changeStore = () => {
               animate={"animate"}
             >
               <motion.img
-                src={ticket.src}
+                src={dollar.src}
                 className="ticket"
                 alt="ticket"
                 variants={textVariants}
@@ -131,7 +132,7 @@ const changeStore = () => {
                     <Card.Title>{item?.name} </Card.Title>
                     <Card.Text className="d-flex align-items-center justify-content-center gap-2">
                       {" "}
-                      {item?.cost} <img src={ticket.src} alt="" />
+                      {item?.cost} <img src={dollar.src} style={{width:'28px' , height:'28px'}} alt="" />
                     </Card.Text>
                     <Button
                       onClick={() => setModal({ open: true,  data:item})} 
