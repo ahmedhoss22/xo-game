@@ -1,6 +1,6 @@
  
 import { BsWhatsapp } from "react-icons/bs";
-
+import whatsappImg from '../../assets/photos/w.png'
 const ContactUS = () => { 
   const whatsappNumber = "+1211484800";
 
@@ -17,9 +17,10 @@ const ContactUS = () => {
         marginLeft:'40px',
         zIndex: "1000",
         color :"green",
-        fontSize:'35px'
+        fontSize:'45px'
     }}>
-  <BsWhatsapp   />
+  {/* <BsWhatsapp   /> */}
+  <img src={whatsappImg.src} style={{width:'60px', height:'60px'}} alt="" />
 
     </div>
   );
