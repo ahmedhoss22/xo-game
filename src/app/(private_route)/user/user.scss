@@ -14,5 +14,21 @@
   transform: scale(1.1);
   transition: .3s;
 }
+.edit-btn{
+  background: linear-gradient(180deg, #37007B 0%, #4044A7 100%);
+  padding: 15px !important;
+ 
+}
+@media (min-width: 992px) {
+  .justify-content-between-lg {
+    justify-content: space-between !important;
+  }
+}
+ 
+@media (max-width: 991px) {
+  .justify-content-around {
+    justify-content: space-around !important;
+  }
+}
 }
 

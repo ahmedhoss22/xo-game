@@ -7,6 +7,7 @@ import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import { getAllItems } from "@/redux/slices/storeSlice";
 import ticket from "@/assets/photos/Ticket.png";
+import dollar from "@/assets/photos/dollar.png";
 
 const style = {
   position: "absolute",
@@ -76,7 +77,7 @@ const OrderModel = ({ open, handleClose, data }) => {
                 <div className="d-flex align-items-center justify-content-center gap-2">
                   {" "}
                   {formik?.values?.cost}
-                  <img src={ticket.src} alt="" />{" "}
+                  <img src={dollar.src} style={{width:'28px ', height:'28px'}} alt="" />{" "}
                 </div>
               </h5>
             </div>

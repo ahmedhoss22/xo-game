@@ -4,6 +4,7 @@ import Footer from "@/components/footer/Footer";
 import Title from "@/components/title/Title";
 import { FaArrowLeft } from "react-icons/fa"; 
 import ticketImage from "@/assets/photos/Ticket.png";
+import dollar from "@/assets/photos/dollar.png";
 import visaImage from "@/assets/photos/visa-icon.png";
 import paypalIcon from "@/assets/photos/paypal-icon.png";
 import paypalWord from "@/assets/photos/paypal-word.png";
@@ -60,24 +61,24 @@ const card = () => {
         {/* <div className=""> */}
           {/* <div className="  g-5 justify-content-center  align-items-center"> */}
        
-            <div className="row w-25 m-auto  d-flex justify-content-around ">
+            <div className="row w-25 m-auto  d-flex justify-content-around align-items-center ">
 
        
           {items.map((item, key) => (  
-             <div key={key} className="col-6   ">
-            <div  className="  ticket">
-            <PiCoinsDuotone   className="text-red-500" style={{fontSize:'35px'}} />
-              {/* <div className="img-container">
-                <img src={ticketImage.src} className="ticket-img" alt="" />
-              </div> */}
+             <div key={key} className="col-md-6 col-lg-4">
+            <Link href='/payment'  className=" link ticket">
+               <div className="img-container">          
+                 {/* <PiCoinsDuotone   className="text-yellow-500" style={{fontSize:'50px'}} /> */}
+
+                <img src={dollar.src} className="ticket-img" alt="" />
+              </div> 
               <h5 className="count">{item?.coins}</h5>
               <h5 className="price text-white">{item?.price}$</h5>
-            </div>
-              </div>      ))}
+            </Link>
+              </div>      ))}     
        
           </div>
-          <div className="text-white  p-2 fs-1 fw-bold  w-25 m-auto">
-            <hr />
+          <div className="col-md-6 col-lg-4 m-auto "style={{  borderTop: '1px white solid'}}> 
           </div>
           <div className="row d-flex justify-content-around  w-25 m-auto">
             {/* <div className="col-lg-4 d-flex justify-content-center payment-method d-flex gap-2 gy-3">

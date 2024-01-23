@@ -1,9 +1,11 @@
 "use client";
 import { IoIosArrowForward } from "react-icons/io";
 import Footer from "@/components/footer/Footer";
+import ContactUs from "@/components/contactUs/ContactUs";
 import Title from "@/components/title/Title";
 import "./homepage.scss";
 import ticket from "@/assets/photos/Ticket.png";
+import dollar from "@/assets/photos/dollar.png";
 import walletPhoto from "@/assets/photos/wallet-photo.png";
 import playNowPhoto from "@/assets/photos/playNow-photo.png";
 import playWithPhoto from "@/assets/photos/playWith-photo.png";
@@ -95,7 +97,7 @@ const Homepage = () => {
             animate={"animate"}
           >
             <motion.img
-              src={ticket.src}
+              src={dollar.src}
               className="ticket"
               alt="ticket"
               variants={textVariants}
@@ -110,8 +112,8 @@ const Homepage = () => {
             <Title />
           </div>
         </header>
-        <Link href="/user" className="link">
-          <div className="rtl  col-lg-11 col-10 ms-4 mb-1 ">
+      
+          <div className="rtl  col-lg-11 col-10 ms-4 mb-1 ">  <Link href="/user" className="link">
             <div className="user-container justify-center">
               <h5 className="text-white mt-1 " style={{ fontSize: "15px" }}>
                 {user?.name?.slice(0, 13) || "user not found"}
@@ -125,9 +127,9 @@ const Homepage = () => {
                 className="userImage circle-image"
                 alt="user image"
               />
-            </div>
+            </div>    </Link>
           </div>
-        </Link>
+    
 
         <div className=" row  d-flex horizontal-scroll-container mb-1   high-z-index">
           <div className="col-lg-6 home-page-main-container-layer gy-4 ">
@@ -229,7 +231,7 @@ const Homepage = () => {
             </div>
           </div>
         ) : (
-          <div className="rtl">
+          <div className="rtl d-flex justify-content-between align-items-center">
             <div className="col-xl-2 col-lg-3 col-md-5 col-7  ms-4 high-z-index">
               <div onClick={handleLogout} className="text-decoration-none">
                 <div className="   logOut-btn d-flex align-items-center justify-content-center  border-radius-20 m-2 transform-btn pointer ">
@@ -237,6 +239,8 @@ const Homepage = () => {
                 </div>
               </div>
             </div>
+            <ContactUs />
+
           </div>
         )}
       </div>
