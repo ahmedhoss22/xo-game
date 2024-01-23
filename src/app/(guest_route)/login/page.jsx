@@ -13,9 +13,11 @@ import { notifyError, notifySuccess } from "@/components/toastify/toastify";
 import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { onlineUser } from "@/redux/slices/user";
+import { useTranslation } from 'react-i18next';
 
 const login = () => {
   const dispatch = useDispatch()
+  const { t, i18n } = useTranslation();
 
   function handleLogin(values) {
     Api.post("/auth/login", values)
@@ -82,7 +84,7 @@ const login = () => {
             style={{ background: "var(--purple-color)"  }}
             onSubmit={formik.handleSubmit}
           >
-            <h1 className="text-center text-white mt-1   "> تسجيل الدخول</h1>
+            <h1 className="text-center text-white mt-1   "> {t("login")}</h1>
             <div className="row  d-flex align-content-center justify-content-center m-4 ">
               <div className="col-12 gy-4">
                 {formik.touched.email && formik.errors.email ? (
@@ -131,13 +133,13 @@ const login = () => {
                   type="submit"
                   className="btn form-control border-radius-20 green-bg text-white mt-4  w-100 transform-btn"
                 >
-                  تسجيل الدخول
+                  {t("login")}
                 </button>
               </div>
 
               <div className="col-12  ">
                 <p className="text-center  text-white mt-4 mb-4 middle-line ">
-                  أنشأ حسابك    
+                  أنشأ حسابك     {t("login.title")}
                 </p>
               </div>
               {/* <div className="col-12 d-flex mb-10 justify-content-between">

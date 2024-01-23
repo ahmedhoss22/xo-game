@@ -15,11 +15,11 @@ import { GiCoins } from "react-icons/gi";
 import { PiCoinsDuotone } from "react-icons/pi";
 import { PayPalButtons } from "@paypal/react-paypal-js";
 import Api from "@/config/api";
+
 const card = () => {
   const dispatch = useDispatch();
   const items = useSelector((state) => state.coinStoreSlice.items);
 
- console.log(items);
   useEffect(() => {
     dispatch(getAllItems());
   }, []);
