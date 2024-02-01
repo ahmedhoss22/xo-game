@@ -1,3 +1,4 @@
+'use client'
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 import traslationAR from "./translation/ar.json"
@@ -24,5 +25,5 @@ i18n
     react:{
         useSuspense:false
     }
-  });
+  }); 
   export default i18n;

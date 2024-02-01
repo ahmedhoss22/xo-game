@@ -9,9 +9,12 @@ import * as Yup from "yup";
 import Api from "@/config/api";
 import { notifyError, notifySuccess } from "@/components/toastify/toastify";
 import { useRouter } from "next/navigation"; 
+import ChooseLanguage from "@/components/chooseLanguage/ChooseLanguage";
+import { useTranslation } from "react-i18next";
 
 const register = () => {
   const router = useRouter()
+  const { t } = useTranslation();
 
   function handleRegister(values) {
     Api.post("/auth/register",values)
@@ -57,13 +60,19 @@ const register = () => {
   });
   return (
     <div className="register-bg">
+      <div className=" d-flex align-items-center justify-content-between container mt-4">
 
 <div className="col-lg-2 col-md-3 col-6 ">
           <Link href={"/login"} className="text-decoration-none">
             <div className="register-btn d-flex align-items-center justify-content-center border-radius-20 m-2 transform-btn pointer">
-              <button className="text-white">تسجيل الدخول</button>
+              <button className="text-white"> {t("login.title")}</button>
             </div>
           </Link>
+      
+        </div>
+    <div>
+           <ChooseLanguage />
+        </div>
         </div>
         <div className="d-flex align-items-center justify-content-center rtl mt-1  container">
       <div className="register  m-2 w-full max-w-sm">
@@ -72,7 +81,7 @@ const register = () => {
 
           onSubmit={formik.handleSubmit}
         >
-          <h1 className="text-center text-white mt-1   "> انشاء حساب</h1>
+          <h1 className="text-center text-white mt-1   "> {t("register.title")}</h1>
           <div className="row  d-flex align-content-center justify-content-center m-4 ">
             <div className="ltr col-12 gy-4 ">
               {formik.touched.name && formik.errors.name ? (
@@ -87,7 +96,7 @@ const register = () => {
                   value={formik.values.name}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
-                  placeholder="الأسم"
+                  placeholder={t("register.name")}
                   required
                 />
                 <img src={userIcon.src} className="icon " alt="" />
@@ -106,7 +115,7 @@ const register = () => {
                   value={formik.values.email}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
-                  placeholder="الايميل"
+                  placeholder={t("register.email")}
                   required
                 />
                 <img src={emailIcon.src} className="icon" alt="" />
@@ -127,7 +136,7 @@ const register = () => {
                   value={formik.values.password}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
-                  placeholder="كلمة السر "
+                  placeholder= {t("register.password")}
                   required
                 />
                 <img src={passwordIcon.src} className="icon" alt="" />
@@ -148,7 +157,7 @@ const register = () => {
                   value={formik.values.rePassword}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
-                  placeholder=" اعادة كلمة السر "
+                  placeholder={t("register.rePassword")}
                   required
                 />
                 <img src={passwordIcon.src} className="icon" alt="" />
@@ -159,8 +168,7 @@ const register = () => {
                 type="submit"
                 className="btn form-control border-radius-20  green-bg text-white mt-4 transform-btn"
               >
-                انشاء حساب
-              </button>
+{t("register.title")}              </button>
             </div>
 
             {/* <div className="col-12">

@@ -1,33 +1,43 @@
-import Link from 'next/link'
-import './chooseLanguage.scss'
-import useSound from "use-sound"; 
-import sound from "../../assets/sound/s.mp3";
+import anImg from "../../assets/photos/an.png";
+import enImg from "../../assets/photos/en.png";
+import { useTranslation } from "react-i18next";
 
-import country from "../../assets/photos/country-flag.png";
-import { useTranslation } from 'react-i18next';
 const ChooseLanguage = () => {
-  const { t, i18n } = useTranslation();
-  const [play] =useSound(sound)
-  
-  function toggleLanguage(){
-    if(i18n.language == "ar"){
-      i18n.changeLanguage("en")
-    }else{
-      i18n.changeLanguage("ar")
+  const { i18n } = useTranslation();
+
+  function toggleLanguage() {
+    if (i18n.language == "ar") {
+      i18n.changeLanguage("en");
+    } else {
+      i18n.changeLanguage("ar");
     }
   }
-  return (
-    <> 
-      <Link href={"/"} className="text-decoration-none" onClick={play}>
-        {" "}
-        <div className=" language-btn d-flex align-items-center justify-content-center  border-radius-20 m-2 transform-btn pointer ">
-          <button className="text-white "  onClick={toggleLanguage}>أختر اللغة</button>
-          <img src={country.src} alt="" />
-        </div>
-      </Link>
-      
-    </>
-  )
-}
 
-export default ChooseLanguage
+  return (
+    <div onClick={toggleLanguage} className="pointer" >
+      {i18n.language == "ar" ? (
+        <div className=" d-flex align-items-center justify-content-center gap-1 ">
+        {" "}
+          <span className="text-white m-0"style={{margin:'0px'}}>Ar</span>
+          <img
+            src={anImg.src}
+            alt="Arabic"
+            style={{ height: "35px", width: "35px" }}
+          />
+        </div>
+      ) : (
+        <div className="m-0 d-flex align-items-center justify-content-center gap-1 ">
+          {" "}
+          <span className="text-white m-0" style={{margin:'0px'}}>En</span>
+          <img
+            src={enImg.src}
+            alt="English"
+            style={{ height: "35px", width: "35px" }}
+          />
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default ChooseLanguage;

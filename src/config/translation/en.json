@@ -1,5 +1,66 @@
 {
-    "login":{
-        "title":"Login 222"
+  "login": {
+    "title": "Login ",
+    "email": "Email",
+    "password": "Password",
+    "or": "Or"
+  },
+  "register": {
+    "title": "Sign Up ",
+
+    "email": "Email",
+    "name": "Name",
+    "password": "Password",
+    "rePassword": "rePassword"
+  },
+  "coinOfGame": {
+    "title": "Play with professional people . ",
+    "playNow": "Play Now",
+    "coin": "Coin",
+    "wallet": "wallet"
+  },
+  "home": {
+    "wallet ": "ًWallet",
+    "playWith": "Play with ",
+    "shareGame": "Share Game ",
+    "friend": "  Friend  ",
+    "playNow": "Play Now "
+  },
+
+  "changeStore": {
+    "change": "Change Now",
+
+    "orderModel": {
+      "confirmReplacement": "Do you want to replacement ?",
+      "productName": "Product Name :  ",
+      "tokensDue": "Tokens Due :  ",
+      "replace": "Replace",
+      "cancel": "Cancel"
     }
+  },
+
+  "user": {
+    "total": "Total matches won",
+    "coins": "Coins",
+    "level": "Level",
+    "return": "Return to previous page",
+    "change": "Change Now",
+    "edit": "Edit Data",
+    "name": "Enter New Name",
+    "email": "Email",
+    "oldPassword": "Old Password",
+    "password": "New Password"
+  },
+  "playWith":{
+
+    "create":"Create Room Now",
+    "title":"join Room Now",
+    "joinRoom":"Join to Room",
+    "join":"Join",
+    "back": "Return to previous page"
+
+  },
+  "logOut": {
+    "logOut": "Log Out"
+  }
 }

@@ -15,7 +15,8 @@ import { Button, Card } from "react-bootstrap";
 import userImage from "@/assets/photos/userrr.png";
 import { getAllItems } from "@/redux/slices/storeSlice";
 import OrderModel from "@/components/orderModal/orderModal";
-
+import { useTranslation } from "react-i18next";
+import ChooseLanguage from "@/components/chooseLanguage/ChooseLanguage";
 const textVariants = {
   initial: {
     x: -500,
@@ -32,6 +33,8 @@ const textVariants = {
 };
 
 const changeStore = () => {
+  const { t } = useTranslation();
+
   const dispatch = useDispatch();
   const items = useSelector((state) => state.storeSlice.items);
   const user = useSelector((state) => state.user.data);
@@ -69,7 +72,10 @@ const changeStore = () => {
       <div className="flex-grow">
         <div className="container high-z-index  ">
           <header className="d-flex justify-content-between-lg justify-content-around mb-4 align-items-center   text-white p-4 ">
-            <motion.div
+          <div className="d-flex gap-1 align-items-center justify-content-center">
+     
+  <div >  <ChooseLanguage /></div>
+           <motion.div
               className="ticket-container justify-center"
               variants={textVariants}
               initial={"initial"}
@@ -85,7 +91,8 @@ const changeStore = () => {
                 <motion.h5>{user.coins} </motion.h5>
               </motion.div>
             </motion.div>
-
+       </div>
+   
             <div className="col-3 ">
               <Title />
             </div>
@@ -138,7 +145,7 @@ const changeStore = () => {
                       onClick={() => setModal({ open: true,  data:item})} 
                       className="w-100 transform-btn "
                     >
-                      استبدال الأن{" "}
+               {t("changeStore.change")}
                     </Button>
                   </Card.Body>
                 </Card>

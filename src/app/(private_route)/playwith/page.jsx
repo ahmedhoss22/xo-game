@@ -19,6 +19,8 @@ import socket from "@/config/socket";
 import { selectLoading, startLoading } from "@/redux/slices/loadingSlice";
 import { setRoomData } from "@/redux/slices/room";
 import { notifyError } from "@/components/toastify/toastify";
+import { useTranslation } from "react-i18next";
+import ChooseLanguage from "@/components/chooseLanguage/ChooseLanguage";
 
 const textVariants = {
   initial: {
@@ -37,6 +39,7 @@ const textVariants = {
 
 const playWith = () => {
   const dispatch = useDispatch();
+  const { t ,i18n } = useTranslation();
 
   const user = useSelector((state) => state.user.data);
   const [roomId, setRoomId] = useState("");
@@ -91,6 +94,7 @@ const playWith = () => {
             <div className="d-flex gap-2">
           
       <div >  <SoundBg /></div>
+      <div >  <ChooseLanguage /></div>
           <motion.div
             className="ticket-container justify-center"
             variants={textVariants}
@@ -113,7 +117,7 @@ const playWith = () => {
               </div>
             </header>
             <Link href="/user" className="link ">
-              <div className="rtl  col-11 ms-4 mb-1 ">
+              <div className="  col-11 ms-4 mb-1 rtl ">
                 <div className="user-container justify-center">
                   <h5 className="text-white mt-1 " style={{ fontSize: "15px" }}>
                     {user?.name?.slice(0, 13) || "user not found"}
@@ -132,7 +136,7 @@ const playWith = () => {
             </Link>
 
             {openJoin ? (
-              <div className="d-flex align-items-center justify-content-center rtl mt-4 ">
+              <div className={`d-flex align-items-center justify-content-center ${i18n.language ==='ar'?"rtl":""} mt-4 `}>
                 <div className="w-full max-w-xs ">
                   <div
                     // onSubmit={formik.handleSubmit}
@@ -141,14 +145,14 @@ const playWith = () => {
                   >
                     <div className="mb-4">
                       <label className="block text-white text-sm font-bold mb-2">
-                        ألانضمام الي الغرفة الان
-                      </label>
+{t('playWith.title')}    
+                  </label>
                       <input
                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         id="id"
                         name="id"
                         type="number"
-                        placeholder="أدخل ID"
+                        placeholder="  ID"
                         onChange={(e) => setRoomId(e.target.value)}
                         value={roomId}
                       />
@@ -159,38 +163,27 @@ const playWith = () => {
                         </div>
                       ) : null} */}
                     </div>
-                    <div className="create-btn d-flex align-items-center justify-content-center border-radius-20 m-2 transform-btn pointer">
-                      <button onClick={joinRoom} className="text-white"  >
-                        الانضمام
-                      </button>
+                    <div onClick={joinRoom} className="text-white create-btn d-flex align-items-center justify-content-center border-radius-20 m-2 transform-btn pointer">
+                    {t('playWith.join')}  
                     </div>
                   </div>
                   <h6 onClick={handelCreate} className="text-center text-white pointer  ">
-                    أنشاء غرفة الأن
-                  </h6>
+                  {t('playWith.back')}                    </h6>
                 </div>
               </div>
             ) : (
-              <div className="d-flex align-items-center justify-content-center rtl mt-4 ">
+              <div className={`d-flex align-items-center justify-content-center ${i18n.language ==='ar'?"rtl":""} mt-4 `}>
                 <div className="w-full max-w-xs ">
                   <div
                     className="shadow-md rounded px-8 pt-6 pb-8 mb-4"
                     style={{ background: "var(--purple-color)" }}
                   >
                     <div className="mb-4"></div>
-                    <div className="create-btn d-flex align-items-center justify-content-center border-radius-20 m-2 transform-btn pointer">
-
-
-                      <button onClick={createRoom} className="text-white" >
-                        أنشاء غرفة
-                      </button>
-
+                    <div  onClick={createRoom} className=" text-white create-btn d-flex align-items-center justify-content-center border-radius-20 m-2 transform-btn pointer">
+                    {t('playWith.create')}  
                     </div>
-                    <div onClick={handelJoin} className="create-btn d-flex align-items-center justify-content-center border-radius-20 m-2 transform-btn pointer">
-                      <button className="text-white" >
-                        الانضمام الي غرفة
-                      </button>
-                    </div>
+                    <div onClick={handelJoin} className="text-white create-btn d-flex align-items-center justify-content-center border-radius-20 m-2 transform-btn pointer">
+                    {t('playWith.joinRoom')}                       </div>
                   </div>
                 </div>
               </div>

@@ -8,6 +8,8 @@ import Modal from "@mui/material/Modal";
 import { getAllItems } from "@/redux/slices/storeSlice";
 import ticket from "@/assets/photos/Ticket.png";
 import dollar from "@/assets/photos/dollar.png";
+import { useTranslation } from "react-i18next";
+
 
 const style = {
   position: "absolute",
@@ -23,6 +25,7 @@ const style = {
 };
 
 const OrderModel = ({ open, handleClose, data }) => {
+  const { t ,i18n} = useTranslation();
   const dispatch = useDispatch();
   const [initialState, setInitialState] = useState({
     cost: "",
@@ -68,13 +71,12 @@ const OrderModel = ({ open, handleClose, data }) => {
     >
       <Box sx={style}>
         <form onSubmit={formik.handleSubmit}>
-          <div className="row rtl ">
-            <h4 className="text-center">هل تريد تأكيد أستبدال هذا المنتج ؟</h4>
-            <div className="rtl">
-              <h5 className="mt-3 mb-3">أسم المنتج : {formik?.values?.name}</h5>
+        <div className={`row ${i18n.language === "ar" ? 'rtl' : ''}`}>
+            <h4 className="text-center">{t("changeStore.orderModel.confirmReplacement")}</h4>
+            <div className={` ${i18n.language === "ar" ? 'rtl' : ''}`}>
+              <h5 className="mt-3 mb-3">{t("changeStore.orderModel.productName")}{formik?.values?.name}</h5>
               <h5 className="d-flex mt-3 mb-3">
-                عدد التوكنز المستحقة :
-                <div className="d-flex align-items-center justify-content-center gap-2">
+              {t("changeStore.orderModel.tokensDue")}                <div className="d-flex align-items-center justify-content-center gap-2">
                   {" "}
                   {formik?.values?.cost}
                   <img src={dollar.src} style={{width:'28px ', height:'28px'}} alt="" />{" "}
@@ -104,14 +106,14 @@ const OrderModel = ({ open, handleClose, data }) => {
                 className="  fw-bold transform-btn model-btn pt-2 pb-2 text-white  "
                 style={{ padding: " 0 50px" }}
               >
-                أستبدال
+                     {t("changeStore.orderModel.replace")} 
               </button>
               <button
                 className="  fw-bold transform-btn model-btn pt-2 pb-2 text-white "
                 style={{ padding: " 0 50px" }}
                 onClick={handleClose}
               >
-                الغاء
+                     {t("changeStore.orderModel.cancel")} 
               </button>
             </div>
           </div>

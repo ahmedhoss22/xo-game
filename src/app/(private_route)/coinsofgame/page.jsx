@@ -1,8 +1,7 @@
 "use client";
 import Footer from "@/components/footer/Footer";
 import "./coinsOfGame.scss";
-import Link from "next/link";
-import ticket from "@/assets/photos/Ticket.png";
+import Link from "next/link"; 
 import dollar from "@/assets/photos/dollar.png";
 import { motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
@@ -16,10 +15,11 @@ import { fetchPlayingCoins } from "@/redux/slices/playingCoins";
 import socket from "@/config/socket";
 import { setRoomData } from "@/redux/slices/room";
 import { notifyError } from "@/components/toastify/toastify";
-import { startLoading, stopLoading } from "@/redux/slices/loadingSlice";
-import Loading from "@/components/loading/Loading";
+import {  stopLoading } from "@/redux/slices/loadingSlice"; 
 import userImage from "@/assets/photos/userrr.png";
 import SoundBg from "@/components/soundBg/SoundBg";
+import ChooseLanguage from "@/components/chooseLanguage/ChooseLanguage";
+import { useTranslation } from "react-i18next";
 
 const textVariants = {
   initial: {
@@ -37,6 +37,7 @@ const textVariants = {
 };
 
 const coinsOfGame = () => {
+  const { t  } = useTranslation();
   const user = useSelector((state) => state.user.data); 
   const apiUrl = process.env.NEXT_PUBLIC_API_SERVER;
   const playingCoins = useSelector((state) => state.playingCoins.data);
@@ -106,9 +107,10 @@ const coinsOfGame = () => {
           <div className="container high-z-index  ">
             <header className="d-flex justify-content-between-lg justify-content-around   mb-4 align-items-center   text-white p-4 mt-2 ">
 
-            <div className="d-flex gap-2">
+            <div className="d-flex gap-1 align-items-center justify-content-center">
                 <div >  <SoundBg /></div>
-
+   
+  <div >  <ChooseLanguage /></div>
           <motion.div
             className="ticket-container justify-center"
             variants={textVariants}
@@ -124,7 +126,8 @@ const coinsOfGame = () => {
             <motion.div className="ticket-prize " variants={textVariants}>
               <motion.h5>{user?.coins}</motion.h5>
             </motion.div>
-          </motion.div>
+          </motion.div>            
+         
           </div>
               <div className="col-3">
                 <Title />
@@ -177,7 +180,7 @@ const coinsOfGame = () => {
                         />
                         <h4>{ele?.name}</h4>
                       </div>
-                      <p>ألعب مع ناس محترفين وأثبت نفسك .</p>
+                      <p  > {t("coinOfGame.title")}</p>
 
                       <div className="border-bottom-div d-flex align-items-center justify-content-between">
                         <div className="d-flex gap-1 align-items-center text-secondary  ">
@@ -194,7 +197,7 @@ const coinsOfGame = () => {
                               height:'28px'
                             }}
                           />
-                          <p>{ele?.coins} الدخول</p>
+                          <p>{ele?.coins} {t("coinOfGame.coin")}</p>
                         </div>
                       </div>
                     </Link>
@@ -204,7 +207,7 @@ const coinsOfGame = () => {
                       style={{ borderRadius: "0 6px 6px 0" }}
                     >
                       <h1> {ele?.winCoins} </h1>
-                      <h6> ألعب الان</h6>
+                      <h6> {t("coinOfGame.playNow")}</h6>
                     </Link>
                   </div>
                 ))}

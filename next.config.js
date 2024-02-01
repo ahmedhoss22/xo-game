@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 require("dotenv").config();
 const nextConfig = {};
-const path = require("path");
+const path = require("path"); 
 
 module.exports = {
   sassOptions: {
@@ -46,5 +46,5 @@ module.exports = {
     );
 
     return config;
-  },
-};
+  },  
+}

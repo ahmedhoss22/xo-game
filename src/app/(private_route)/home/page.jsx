@@ -3,8 +3,7 @@ import { IoIosArrowForward } from "react-icons/io";
 import Footer from "@/components/footer/Footer";
 import ContactUs from "@/components/contactUs/ContactUs";
 import Title from "@/components/title/Title";
-import "./homepage.scss";
-import ticket from "@/assets/photos/Ticket.png";
+import "./homepage.scss"; 
 import dollar from "@/assets/photos/dollar.png";
 import walletPhoto from "@/assets/photos/wallet-photo.png";
 import playNowPhoto from "@/assets/photos/playNow-photo.png";
@@ -22,7 +21,8 @@ import sound from "@/assets/sound/s.mp3";
 import SoundBg from "@/components/soundBg/SoundBg";
 import { selectLoading, stopLoading } from "@/redux/slices/loadingSlice";
 import Loading from "@/app/loading";
- 
+import { useTranslation } from "react-i18next"; 
+import ChooseLanguage from "@/components/chooseLanguage/ChooseLanguage";
 
 const textVariants = {
   initial: {
@@ -40,7 +40,7 @@ const textVariants = {
 };
 
 const Homepage = () => {
-
+  const { t , i18n } = useTranslation();
   const [play] = useSound(sound);
   const user = useSelector((state) => state.user.data);
   
@@ -61,9 +61,7 @@ const Homepage = () => {
   useEffect(() => {
     dispatch(fetchUserData())
   }, []);
-  function handleLogout() {
-    console.log("asdasdasdasd");
-    // router.push("/login");
+  function handleLogout() {  
     dispatch(offlineUser());
   }
   return (
@@ -87,9 +85,10 @@ const Homepage = () => {
             <img src={money.src} className="money" alt="money" />
             <h5>{user.coins}</h5>
           </div> */}
-          <div className="d-flex gap-2">
+               <div className="d-flex gap-1 align-items-center justify-content-center">
                 <div >  <SoundBg /></div>
-
+   
+  <div >  <ChooseLanguage /></div>
           <motion.div
             className="ticket-container justify-center"
             variants={textVariants}
@@ -105,7 +104,8 @@ const Homepage = () => {
             <motion.div className="ticket-prize " variants={textVariants}>
               <motion.h5>{user?.coins}</motion.h5>
             </motion.div>
-          </motion.div>
+          </motion.div>            
+         
           </div>
         
           <div className="col-3">
@@ -149,7 +149,7 @@ const Homepage = () => {
                 alt=""
               />
               <div className="text-play-container">
-                <h2 className="fw-bold">العب الان</h2>
+                <h2 className="fw-bold">{t("home.playNow")}</h2>
                 <div className="arrow ">
                   <IoIosArrowForward className=" pointer h-5 " />
                 </div>
@@ -169,8 +169,8 @@ const Homepage = () => {
               <img src={playWithPhoto.src} className=" " alt="" />
               <div className="text-play-container">
                 <h2 className="fw-bold">
-                  العب مع
-                  <br /> صديقك
+                {t("home.playWith")}
+                  <br /> {t("home.friend")}
                 </h2>{" "}
                 <div className="arrow ">
                   <IoIosArrowForward className=" pointer h-5 " />
@@ -191,7 +191,7 @@ const Homepage = () => {
             >
               <img src={walletPhoto.src} alt="" />
               <div className="text-play-container">
-                <h2 className="fw-bold">محفظتي</h2>
+                <h2 className="fw-bold"> {i18n.language==='ar'?"محفظتي":"Wallet"}</h2>
                 <div className="arrow ">
                   <IoIosArrowForward className=" pointer h-5 " />
                 </div>
@@ -210,7 +210,7 @@ const Homepage = () => {
             >
               <img src={shareGamePhoto.src} alt="" />
               <div className="text-play-container">
-                <h2 className="fw-bold">شارك اللعبة</h2>
+                <h2 className="fw-bold">{t("home.shareGame")}</h2>
                 <div className="arrow ">
                   <IoIosArrowForward className=" pointer h-5 " />
                 </div>
@@ -225,7 +225,7 @@ const Homepage = () => {
               <Link href={"/login"} className="text-decoration-none">
                 {" "}
                 <div className=" login-btn d-flex align-items-center justify-content-center  border-radius-20 m-2 transform-btn pointer ">
-                  <button className="text-white ">تسجيل الدخول الان</button>
+                  <button className="text-white ">{t("login.title")}</button>
                 </div>
               </Link>
             </div>
@@ -235,7 +235,7 @@ const Homepage = () => {
             <div className="col-xl-2 col-lg-3 col-md-5 col-7  ms-4 high-z-index">
               <div onClick={handleLogout} className="text-decoration-none">
                 <div className="   logOut-btn d-flex align-items-center justify-content-center  border-radius-20 m-2 transform-btn pointer ">
-                  <button className="text-white ">تسجيل الخروج </button>
+                  <button className="text-white ">{t("logOut.logOut")} </button>
                 </div>
               </div>
             </div>

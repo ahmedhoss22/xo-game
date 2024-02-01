@@ -4,6 +4,7 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+
   .user-info {
     img {
       width: 112px;
@@ -14,11 +15,16 @@
   transform: scale(1.1);
   transition: .3s;
 }
+
+
 .edit-btn{
   background: linear-gradient(180deg, #37007B 0%, #4044A7 100%);
   padding: 15px !important;
+  width: 100%;
  
 }
+}
+
 @media (min-width: 992px) {
   .justify-content-between-lg {
     justify-content: space-between !important;
@@ -29,6 +35,5 @@
   .justify-content-around {
     justify-content: space-around !important;
   }
-}
 }
 
