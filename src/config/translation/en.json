@@ -45,11 +45,13 @@
     "level": "Level",
     "return": "Return to previous page",
     "change": "Change Now",
+    "changePassword": " Change Password",
     "edit": "Edit Data",
     "name": "Enter New Name",
     "email": "Email",
     "oldPassword": "Old Password",
-    "password": "New Password"
+    "newPassword": "New Password",
+    "confirmPassword": "Confirm New Password"
   },
   "playWith":{
 

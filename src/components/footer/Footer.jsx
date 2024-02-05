@@ -27,7 +27,7 @@ const Footer = () => {
   return (
     <footer className="footer mt-auto   d-flex align-items-center justify-content-between  rtl ">
       {isAdmin ? (
-        <Link href={"/settings"} className=" text-white link">
+        <Link href={"/settings"} className=" text-white link ">
           <RiAdminLine  className="pointer footer-icons"  color="#fff"/>
         </Link>
       ) : (
@@ -36,7 +36,7 @@ const Footer = () => {
         </Link>
       )}
 
-      <Link href={"/payment"} className=" text-white link">
+      <Link href={"/payment"} className=" text-white link transform-btn">
         <RiVisaFill className="pointer footer-icons"  color="#fff"/>
       </Link>
       <Link href={"/card"} className=" text-white link">

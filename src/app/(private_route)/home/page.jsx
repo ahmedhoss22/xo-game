@@ -70,7 +70,7 @@ const Homepage = () => {
       <Loading
       text="loading home ... " 
       close={true}
-      handleClose={handleClose}
+      // handleClose={handleClose}
       />
     ) : (
     <div className="home-page d-flex flex-column ">
