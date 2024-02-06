@@ -1,6 +1,7 @@
-import Api from "@/config/api";
+import Api   from "@/config/api";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
+ 
 export const fetchUserData = createAsyncThunk(
   "user/fetchUserData",
   async (_, thunkAPI) => {
@@ -30,19 +31,21 @@ const userSlice = createSlice({
   initialState: {
     data: {},
     all:[],
-    online: false,
+    online: false,   
   },
   reducers: {
     onlineUser: (state, action) => {
       state.online = true;
     },
     offlineUser: (state, action) => {
- 
+
       state.data={}     
       state.online = false;
     },
   },
   extraReducers: (builder) => {
+    builder
+ 
     builder.addCase(fetchUserData.fulfilled, (state, action) => {
       state.online = true
       state.data = action.payload;

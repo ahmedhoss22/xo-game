@@ -28,7 +28,6 @@ export default function PrivateRoot({ children }) {
     return <Loading text="Loading..." />;
   }
 
-
   if (!online) {
     redirect('/login');
     return null;

@@ -23,21 +23,8 @@ import { selectLoading, stopLoading } from "@/redux/slices/loadingSlice";
 import Loading from "@/app/loading";
 import { useTranslation } from "react-i18next"; 
 import ChooseLanguage from "@/components/chooseLanguage/ChooseLanguage";
-
-const textVariants = {
-  initial: {
-    x: -500,
-    opacity: 0,
-  },
-  animate: {
-    x: 0,
-    opacity: 1,
-    transition: {
-      duration: 1,
-      staggerChildren: 0.1,
-    },
-  },
-};
+import { textVariants } from "@/utils/animation";
+ 
 
 const Homepage = () => {
   const { t , i18n } = useTranslation();

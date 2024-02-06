@@ -10,24 +10,9 @@ import localFont from "next/font/local";
 import Button from "@mui/material/Button";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import { motion } from "framer-motion";
-
+import { textVariants } from "@/utils/animation";
 const myFont = localFont({ src: "../../../assets/fonts/Pacifico-Regular.ttf" });
-
-const textVariants = {
-  initial: {
-    x: -500,
-    opacity: 0,
-  },
-  animate: {
-    x: 0,
-    opacity: 1,
-    transition: {
-      duration: 1,
-      staggerChildren: 0.1,
-    },
-  },
  
-};
 
 const message = () => {
   function handleMessage(values) {

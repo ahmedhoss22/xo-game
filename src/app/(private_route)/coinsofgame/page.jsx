@@ -20,22 +20,8 @@ import userImage from "@/assets/photos/userrr.png";
 import SoundBg from "@/components/soundBg/SoundBg";
 import ChooseLanguage from "@/components/chooseLanguage/ChooseLanguage";
 import { useTranslation } from "react-i18next";
-
-const textVariants = {
-  initial: {
-    x: -500,
-    opacity: 0,
-  },
-  animate: {
-    x: 0,
-    opacity: 1,
-    transition: {
-      duration: 1,
-      staggerChildren: 0.1,
-    },
-  },
-};
-
+import { textVariants } from "@/utils/animation";
+ 
 const coinsOfGame = () => {
   const { t } = useTranslation();
   const user = useSelector((state) => state.user.data);
@@ -143,9 +129,9 @@ const coinsOfGame = () => {
                   </h5>
                   <img
                     src={
-                      user.provider == "local"
+                      user?.provider == "local"
                         ? apiUrl + user?.image
-                        : user.image || userImage.src
+                        : user?.image || userImage.src
                     }
                     className="userImage circle-image"
                     alt="user image"

@@ -6,7 +6,6 @@ import gIcon from "@/assets/photos/google-icon.png";
 import { BiLogoFacebook } from "react-icons/bi";
 import Link from "next/link";
 import { useFormik } from "formik";
-import * as Yup from "yup";
 import Api from "@/config/api";
 import { notifyError, notifySuccess } from "@/components/toastify/toastify";
 import ChooseLanguage from "@/components/chooseLanguage/ChooseLanguage";
@@ -14,9 +13,11 @@ import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { onlineUser } from "@/redux/slices/user"; 
 import { useTranslation } from "react-i18next";
+import { loginValidationSchema } from "@/utils/validation";
+
 const login = () => {
   const { t ,i18n } = useTranslation();
-
+  const router = useRouter(); 
   const dispatch = useDispatch();
 
   function handleLogin(values) {
@@ -33,20 +34,15 @@ const login = () => {
       });
   }
 
-  const router = useRouter();
-  const online = useSelector((state) => state.user.online);
+ 
 
-  let validationSchema = Yup.object({
-    email: Yup.string().required("Email is required").email(),
-    password: Yup.string().required("Password is required"),
-  });
 
   let formik = useFormik({
     initialValues: {
       email: "",
       password: "",
     },
-    // validationSchema,
+    loginValidationSchema,
     onSubmit: handleLogin,
   });
 
@@ -94,7 +90,7 @@ const login = () => {
                 <div className="input-with-icon">
                   <input
                     className="form-control input-color "
-                    type="text"
+                    type="email"
                     name="email"
                     id="email"
                     value={formik.values.email}

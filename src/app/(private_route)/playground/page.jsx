@@ -20,22 +20,8 @@ import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import StartGameSoundBg from "@/components/startGameSoundBg/StartGameSoundBg";
 import WinModel from "@/components/winModel/WinModel";
-
-const textVariants = {
-  initial: {
-    x: -500,
-    opacity: 0,
-  },
-  animate: {
-    x: 0,
-    opacity: 1,
-    transition: {
-      duration: 1,
-      staggerChildren: 0.1,
-    },
-  },
-};
-
+import { textVariants } from "@/utils/animation";
+ 
 const playground = () => {
   const [modal, setModal] = useState({
     open: false,
