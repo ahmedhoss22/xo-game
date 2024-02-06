@@ -6,7 +6,7 @@ import { redirect } from "next/navigation";
 import { selectLoading, stopLoading } from "@/redux/slices/loadingSlice";
 import Loading from "@/components/loading/Loading";
 import { PayPalScriptProvider } from "@paypal/react-paypal-js";
-import '../../config/translation'
+import '@/config/translation'
 
 export default function PrivateRoot({ children }) {
   const dispatch = useDispatch();
