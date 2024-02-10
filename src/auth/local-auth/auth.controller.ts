@@ -10,8 +10,6 @@ export class AuthController{
 
     @Post("/register")
     register(@Body() data :RegisterDto){
-        console.log(data);
-        
         return this.authService.register(data)
     }
 

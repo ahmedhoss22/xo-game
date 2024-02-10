@@ -7,6 +7,7 @@ import { UpdateUserDto } from './dtos/update-user.dto';
 import { UserrDto } from './dtos/user.dto';
 import * as fs from 'fs';
 import * as path from 'path';
+const bcrypt = require('bcryptjs');
 
 @Injectable()
 export class UserService {
@@ -25,14 +26,9 @@ export class UserService {
     const user = await this.UserModel.findById(data._id);
     
     if (!user) {
-      // Handle user not found
       throw new NotFoundException('User not found');
     }
-    // Check if the image has changed
-    console.log(user);
-    
     if (data.image) {
-      // Delete the old image
       if (user.image && user.image != "/default.png") {
         const oldImagePath = path.join(
           __dirname,
@@ -93,5 +89,10 @@ export class UserService {
 
   async getUserData(id: mongoose.Types.ObjectId): Promise<Users> {
     return this.UserModel.findById(id);
+  }
+
+  async comparePassword(password , hashed){
+    let validPassword =await bcrypt.compare(password, hashed) ;
+    return validPassword
   }
 }

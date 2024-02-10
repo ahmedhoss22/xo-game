@@ -15,6 +15,7 @@ import {
   ParseFilePipe,
   MaxFileSizeValidator,
   FileTypeValidator,
+  ForbiddenException,
 } from '@nestjs/common';
 import { AuthGuard, AuthAdminGuard } from '../auth/local-auth/auth.guard';
 import { UserService } from './users.service';
@@ -79,11 +80,15 @@ export class UserController {
 
   @Post('/password')
   @UseGuards(AuthGuard)
-  changePassword(
-    @Req() req: any,
-    @Body() data: changePasswordDto,
-  ): Promise<Users> {
+  async changePassword(@Req() req, @Body() data: changePasswordDto) {
     let { _id } = req.user;
+    let validPass = await this.userService.comparePassword(
+      data.oldPassword,
+      req.user.password,
+    );
+    if (!validPass) {
+      throw new ForbiddenException({ message: 'Invalid old password' });
+    }
     const user = this.userService.changePassword(_id, data);
     return user;
   }
