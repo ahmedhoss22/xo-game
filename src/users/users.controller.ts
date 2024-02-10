@@ -33,11 +33,11 @@ export class UserController {
 
   @Post('/user/update')
   @UseGuards(AuthGuard)
-  async updateUser(@Body() data: any): Promise<Users> {
+  async updateUser(@Body() data: any){
     const user: Users = await this.userService.updateUser(data);
     return user;
   }
-
+   
   @Post('/user')
   @UseGuards(AuthAdminGuard)
   async craeteUser(@Body() data: UserrDto): Promise<Users> {
