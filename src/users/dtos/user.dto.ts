@@ -32,7 +32,7 @@ export class UserrDto {
 
   // @IsNotEmpty()
   // @Length(2,20)
-  @IsString()
+  // @IsString()
   @IsOptional()
   readonly country: String;
 
