@@ -12,6 +12,7 @@ import mongoose from 'mongoose';
 import { IsStrongPassword } from 'src/utilites/password.util';
 
 export class UserrDto {
+  @IsOptional()
   readonly _id: mongoose.Types.ObjectId;
 
   @IsEmail()
@@ -46,5 +47,9 @@ export class UserrDto {
   // @IsNumber()
   // @IsOptional()
   readonly coins: number;
+
+  @IsNumber()
+  @IsOptional()
+   image: string;
 
 }

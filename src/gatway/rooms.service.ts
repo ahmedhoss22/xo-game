@@ -33,7 +33,7 @@ export class RoomsService implements OnGatewayDisconnect {
 
   private server: Server;
   private waitingPlayers: MatchDto[] = [];
-  private playingRooms: RoomDto[] = [];
+  public static playingRooms: RoomDto[] = [];
   private customRooms: CustomDto[] = [];
 
   afterInit(server: Server) {
@@ -92,11 +92,11 @@ export class RoomsService implements OnGatewayDisconnect {
         client.id,
         roomName,
         this.waitingPlayers,
-        this.playingRooms,
+        RoomsService.playingRooms,
       );
 
       if (matched) {
-        let room = this.playingRooms.find((ele) => ele.roomName == roomName);
+        let room = RoomsService.playingRooms.find((ele) => ele.roomName == roomName);
 
         this.server.to(room.socketID1).socketsJoin(room.roomName);
         this.server.to(room.socketID2).socketsJoin(room.roomName);
@@ -108,7 +108,7 @@ export class RoomsService implements OnGatewayDisconnect {
           room,
         });
 
-        let arr = [...this.waitingPlayers, ...this.playingRooms];
+        let arr = [...this.waitingPlayers, ...RoomsService.playingRooms];
         this.server.to(client.id).emit('online-players', arr);
         this.server.emit('online-players', arr);
         console.log('Waiting players: ' + this.waitingPlayers.length);
@@ -119,7 +119,7 @@ export class RoomsService implements OnGatewayDisconnect {
           winCoins: data.winCoins,
         });
         console.log(this.waitingPlayers);
-        let arr = [...this.waitingPlayers, ...this.playingRooms];
+        let arr = [...this.waitingPlayers, ...RoomsService.playingRooms];
         this.server.to(client.id).emit('online-players', arr);
         this.server.emit('online-players', arr);
 
@@ -215,10 +215,10 @@ export class RoomsService implements OnGatewayDisconnect {
       client.id,
       roomName,
       this.customRooms,
-      this.playingRooms,
+      RoomsService.playingRooms,
     );
     if (matched) {
-      let room = this.playingRooms.find((ele) => ele.roomName == roomName);
+      let room = RoomsService.playingRooms.find((ele) => ele.roomName == roomName);
 
       this.server.to(room.socketID1).socketsJoin(room.roomName);
       this.server.to(room.socketID2).socketsJoin(room.roomName);
@@ -244,8 +244,13 @@ export class RoomsService implements OnGatewayDisconnect {
     this.customRooms = this.customRooms.filter(
       (ele) => ele.socketID != client.id,
     );
+   
+   //check if user in match 
+    let match = RoomsService.playingRooms.find((ele)=>ele.socketID1 == client.id || ele.socketID2 == client.id )
+   if (match) this.utilitsService.disconnectEndGame(client.id , match)
+
     console.log('Waiting players ' + this.waitingPlayers.length);
-    let arr = [...this.waitingPlayers, ...this.playingRooms];
+    let arr = [...this.waitingPlayers, ...RoomsService.playingRooms];
     this.server.to(client.id).emit('online-players', arr);
     this.server.emit('online-players', arr);
   }
@@ -262,7 +267,7 @@ export class RoomsService implements OnGatewayDisconnect {
       );
     }
 
-    const match: RoomDto = this.playingRooms.find(
+    const match: RoomDto = RoomsService.playingRooms.find(
       (room) => room.roomName === data.roomName,
     );
 
@@ -307,7 +312,7 @@ export class RoomsService implements OnGatewayDisconnect {
 
   @SubscribeMessage('online-players')
   getOnlinePlayers(client: Socket) {
-    let arr = [...this.waitingPlayers, ...this.playingRooms];
+    let arr = [...this.waitingPlayers, ...RoomsService.playingRooms];
     this.server.to(client.id).emit('online-players', arr);
     this.server.emit('online-players', arr);
   }
@@ -316,14 +321,14 @@ export class RoomsService implements OnGatewayDisconnect {
   exitWaiting(client: Socket) {
     let arr = this.waitingPlayers.filter((ele) => ele.socketID != client.id);
     this.waitingPlayers = arr;
-    let arr2 = [...this.waitingPlayers, ...this.playingRooms];
+    let arr2 = [...this.waitingPlayers, ...RoomsService.playingRooms];
     this.server.emit('online-players', arr2);
   }
 
   @SubscribeMessage('get-room-data')
   getRoomData(client: Socket, id: mongoose.Types.ObjectId) {
     if (!id) return;
-    let room = this.playingRooms.find(
+    let room = RoomsService.playingRooms.find(
       (ele) => ele.userID1 == id || ele.userID2,
     );
     this.server.to(client.id).emit('get-room-data', room);
