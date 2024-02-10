@@ -21,7 +21,7 @@ export class GoogleController {
     dotenv.config();
     const user = req.user;
     const token = await this.jwtService.signAsync({ id: user._id });
-
+    
     res.cookie('access_token', `Baerar ${token}`, {
       maxAge: 7 * 24 * 60 * 60 * 1000,
       httpOnly: true,

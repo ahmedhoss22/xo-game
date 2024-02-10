@@ -1,8 +1,6 @@
 import { OnModuleInit } from '@nestjs/common';
 import {
   WebSocketGateway,
-  SubscribeMessage,
-  MessageBody,
   WebSocketServer,
   OnGatewayConnection,
   OnGatewayDisconnect,

@@ -10,6 +10,12 @@ import {
   Param,
   ValidationPipe,
   BadRequestException,
+  UseInterceptors,
+  UploadedFile,
+  ParseFilePipe,
+  MaxFileSizeValidator,
+  FileTypeValidator,
+  ForbiddenException,
 } from '@nestjs/common';
 import { AuthGuard, AuthAdminGuard } from '../auth/local-auth/auth.guard';
 import { UserService } from './users.service';
@@ -19,6 +25,8 @@ import { Request } from 'express';
 import { changePasswordDto } from './dtos/changePassword.dto';
 import { UserrDto } from './dtos/user.dto';
 import mongoose from 'mongoose';
+import { FileInterceptor } from '@nestjs/platform-express';
+import path from 'path';
 
 @Controller('/users')
 export class UserController {
@@ -32,8 +40,26 @@ export class UserController {
   }
 
   @Post('/user/update')
+  @UseInterceptors(FileInterceptor('image'))
   @UseGuards(AuthGuard)
-  async updateUser(@Body() data: any){
+  async updateUser(
+    @UploadedFile(
+      new ParseFilePipe({
+        validators: [
+          new MaxFileSizeValidator({
+            maxSize: 5 * 1024 * 1024,
+            message: 'File size must be less than 5 mb',
+          }),
+          new FileTypeValidator({ fileType: 'image/*' }),
+        ],
+      }),
+    )
+    file: Express.Multer.File,
+    @Body() data: UpdateUserDto,
+  ): Promise<Users> {
+    if (file) {
+      data.image = '/user/' + file.filename;
+    }
     const user: Users = await this.userService.updateUser(data);
     return user;
   }
@@ -54,11 +80,15 @@ export class UserController {
 
   @Post('/password')
   @UseGuards(AuthGuard)
-  changePassword(
-    @Req() req: any,
-    @Body() data: changePasswordDto,
-  ): Promise<Users> {
+  async changePassword(@Req() req, @Body() data: changePasswordDto) {
     let { _id } = req.user;
+    let validPass = await this.userService.comparePassword(
+      data.oldPassword,
+      req.user.password,
+    );
+    if (!validPass) {
+      throw new ForbiddenException({ message: 'Invalid old password' });
+    }
     const user = this.userService.changePassword(_id, data);
     return user;
   }
