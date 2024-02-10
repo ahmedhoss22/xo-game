@@ -33,16 +33,16 @@ export default function PrivateRoot({ children }) {
 //     redirect('/login');
 //     return null;
 //   }
-//   const initialOptions = {
-//     clientId: process.env.NEXT_PUBLIC_CLIENT_ID,
-//     currency: "USD",
-//     intent: "capture",
-// };
+  const initialOptions = {
+    clientId: process.env.NEXT_PUBLIC_CLIENT_ID,
+    currency: "USD",
+    intent: "capture",
+};
   return (
     <>
-      {/* <PayPalScriptProvider options={initialOptions}> */}
+      <PayPalScriptProvider options={initialOptions}>
         {children}
-      {/* </PayPalScriptProvider> */}
+      </PayPalScriptProvider>
     </>
   );
 }

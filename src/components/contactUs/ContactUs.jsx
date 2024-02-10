@@ -2,7 +2,7 @@
 import { BsWhatsapp } from "react-icons/bs";
 import whatsappImg from '../../assets/photos/w.png'
 const ContactUS = () => { 
-  const whatsappNumber = "+1211484800";
+  const whatsappNumber = "+1157122009";
 
   const handleWhatsAppClick = () => {
     const whatsappUrl = `https://wa.me/${whatsappNumber}`;
