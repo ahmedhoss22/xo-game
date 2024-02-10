@@ -21,21 +21,9 @@ import { setRoomData } from "@/redux/slices/room";
 import { notifyError } from "@/components/toastify/toastify";
 import { useTranslation } from "react-i18next";
 import ChooseLanguage from "@/components/chooseLanguage/ChooseLanguage";
+import { textVariants } from "@/utils/animation";
 
-const textVariants = {
-  initial: {
-    x: -500,
-    opacity: 0,
-  },
-  animate: {
-    x: 0,
-    opacity: 1,
-    transition: {
-      duration: 1,
-      staggerChildren: 0.1,
-    },
-  },
-};
+ 
 
 const playWith = () => {
   const dispatch = useDispatch();

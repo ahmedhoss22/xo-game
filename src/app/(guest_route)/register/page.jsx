@@ -4,13 +4,14 @@ import userIcon from "@/assets/photos/user-icon.png";
 import emailIcon from "@/assets/photos/email-icon.png";
 import passwordIcon from "@/assets/photos/password-icon.png"; 
 import Link from "next/link";
-import { useFormik } from "formik";
-import * as Yup from "yup"; 
+import { useFormik } from "formik"; 
 import Api from "@/config/api";
 import { notifyError, notifySuccess } from "@/components/toastify/toastify";
 import { useRouter } from "next/navigation"; 
 import ChooseLanguage from "@/components/chooseLanguage/ChooseLanguage";
 import { useTranslation } from "react-i18next";
+import { registerValidationSchema } from "@/utils/validation";
+
 
 const register = () => {
   const router = useRouter()
@@ -29,17 +30,6 @@ const register = () => {
     })
   }
 
-  let validationSchema = Yup.object({
-    name: Yup.string()
-      .required("name is required")
-      .min(3, "name minlength 3")
-      .max(20, "name maxlength"),
-    email: Yup.string().required("email is required").email(),
-    password: Yup.string().required("Password is required"),
-    rePassword: Yup.string()
-      .required("rePassword is required")
-      .oneOf([Yup.ref("password")], "password dosnot  match"),
-  });
 
   function googleRegister(){
     location.href=process.env.NEXT_PUBLIC_API_SERVER+"/api/auth/google/login"
@@ -55,7 +45,7 @@ const register = () => {
       password: "",
       rePassword: "",
     },
-    validationSchema,
+    registerValidationSchema,
     onSubmit: handleRegister,
   });
   return (
@@ -93,11 +83,12 @@ const register = () => {
                   type="text"
                   name="name"
                   id="name"
+                  autoComplete="off"
                   value={formik.values.name}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   placeholder={t("register.name")}
-                  required
+                  required 
                 />
                 <img src={userIcon.src} className="icon " alt="" />
               </div>
@@ -112,6 +103,7 @@ const register = () => {
                   type="text"
                   name="email"
                   id="email"
+                  autoComplete="off"
                   value={formik.values.email}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
@@ -133,6 +125,7 @@ const register = () => {
                   type="password"
                   name="password"
                   id="password"
+                  autoComplete="off"
                   value={formik.values.password}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
@@ -154,6 +147,7 @@ const register = () => {
                   type="password"
                   name="rePassword"
                   id="rePassword"
+                  autoComplete="off"
                   value={formik.values.rePassword}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}

@@ -15,21 +15,9 @@ import socket from "@/config/socket";
 import { useRouter } from 'next/router';
 import { useParams } from "next/navigation";
 import { notifyError } from "@/components/toastify/toastify";
+import { textVariants } from "@/utils/animation";
+ 
 
-const textVariants = {
-  initial: {
-    x: -500,
-    opacity: 0,
-  },
-  animate: {
-    x: 0,
-    opacity: 1,
-    transition: {
-      duration: 1,
-      staggerChildren: 0.1,
-    },
-  },
-};
 
 const playgroundLoading = ({params}) => {
   const router = useParams();
