@@ -9,7 +9,6 @@ const app = express();
 
 // host static files
 app.use(express.static("client"));
-
 app.use(express.json());
 
 

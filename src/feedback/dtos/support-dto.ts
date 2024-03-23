@@ -1,11 +1,10 @@
-import { IsNotEmpty, IsNumber, IsPositive, IsOptional } from 'class-validator'
+import { IsNotEmpty, IsNumber, IsPositive, IsOptional, IsString } from 'class-validator'
 import mongoose from 'mongoose'
 
 export class CoinStoreDto {
-  @IsNumber()
-  @IsPositive()
-  @IsNotEmpty({ message: 'price is requried !!' })
-  readonly price: number
+  @IsString()
+  @IsNotEmpty({ message: 'message is requried !!' })
+  readonly message: string
 
   @IsNumber()
   @IsPositive()

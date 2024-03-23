@@ -1,7 +1,7 @@
-import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import mongoose from 'mongoose';
-import { Store } from 'src/store/store.schema';
-import { Users } from 'src/users/users.schema';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose'
+import mongoose from 'mongoose'
+import { Store } from 'src/store/store.schema'
+import { Users } from 'src/users/users.schema'
 
 @Schema()
 export class Order {
@@ -11,7 +11,7 @@ export class Order {
     trim: true,
     ref: 'Users',
   })
-  user: Users;
+  user: Users
 
   @Prop({
     type: mongoose.Types.ObjectId,
@@ -19,7 +19,7 @@ export class Order {
     trim: true,
     ref: 'Store',
   })
-  product: Store;
+  product: Store
 }
 
-export const OrderSchema = SchemaFactory.createForClass(Order);
+export const OrderSchema = SchemaFactory.createForClass(Order)

@@ -16,17 +16,17 @@ import {
   MaxFileSizeValidator,
   FileTypeValidator,
   ForbiddenException,
-} from '@nestjs/common';
-import { AuthGuard, AuthAdminGuard } from '../auth/local-auth/auth.guard';
-import { UserService } from './users.service';
-import { Users } from './users.schema';
-import { UpdateUserDto } from './dtos/update-user.dto';
-import { Request } from 'express';
-import { changePasswordDto } from './dtos/changePassword.dto';
-import { UserrDto } from './dtos/user.dto';
-import mongoose from 'mongoose';
-import { FileInterceptor } from '@nestjs/platform-express';
-import path from 'path';
+} from '@nestjs/common'
+import { AuthGuard, AuthAdminGuard } from '../auth/local-auth/auth.guard'
+import { UserService } from './users.service'
+import { Users } from './users.schema'
+import { UpdateUserDto } from './dtos/update-user.dto'
+import { Request } from 'express'
+import { changePasswordDto } from './dtos/changePassword.dto'
+import { UserrDto } from './dtos/user.dto'
+import mongoose from 'mongoose'
+import { FileInterceptor } from '@nestjs/platform-express'
+import path from 'path'
 
 @Controller('/users')
 export class UserController {
@@ -35,8 +35,8 @@ export class UserController {
   @Get('/user')
   @UseGuards(AuthGuard)
   async getUser(@Req() data: any): Promise<Users> {
-    const user: Users = await this.userService.getUser(data?.user?._id);
-    return user;
+    const user: Users = await this.userService.getUser(data?.user?._id)
+    return user
   }
 
   @Post('/user/update')
@@ -58,46 +58,46 @@ export class UserController {
     @Body() data: UpdateUserDto,
   ): Promise<Users> {
     if (file) {
-      data.image = '/user/' + file.filename;
+      data.image = '/user/' + file.filename
     }
-    const user: Users = await this.userService.updateUser(data);
-    return user;
+    const user: Users = await this.userService.updateUser(data)
+    return user
   }
 
   @Post('/user')
   @UseGuards(AuthAdminGuard)
   async craeteUser(@Body() data: UserrDto): Promise<Users> {
-    const user: Users = await this.userService.craeteUser(data);
-    return user;
+    const user: Users = await this.userService.craeteUser(data)
+    return user
   }
 
   @Get('/all')
   @UseGuards(AuthAdminGuard)
   async getAllUsers(): Promise<Users[]> {
-    const allUsers: Users[] = await this.userService.getAllUser();
-    return allUsers;
+    const allUsers: Users[] = await this.userService.getAllUser()
+    return allUsers
   }
 
   @Post('/password')
   @UseGuards(AuthGuard)
   async changePassword(@Req() req, @Body() data: changePasswordDto) {
-    let { _id } = req.user;
+    let { _id } = req.user
     let validPass = await this.userService.comparePassword(
       data.oldPassword,
       req.user.password,
-    );
+    )
     if (!validPass) {
-      throw new ForbiddenException({ message: 'Invalid old password' });
+      throw new ForbiddenException({ message: 'Invalid old password' })
     }
-    const user = this.userService.changePassword(_id, data);
-    return user;
+    const user = this.userService.changePassword(_id, data)
+    return user
   }
 
   @Delete('/user/:id')
   @UseGuards(AuthAdminGuard)
   async deleteUser(@Param() data: any) {
-    await this.userService.deleteUser(data.id);
-    return 'User deleted !!';
+    await this.userService.deleteUser(data.id)
+    return 'User deleted !!'
   }
 
   @Get('/user/:id')
@@ -107,8 +107,8 @@ export class UserController {
     id: mongoose.Types.ObjectId,
   ) {
     if (!mongoose.isValidObjectId(id))
-      throw new BadRequestException('Inavalid object id');
-    let user = await this.userService.getUserData(id);
-    return user;
+      throw new BadRequestException('Inavalid object id')
+    let user = await this.userService.getUserData(id)
+    return user
   }
 }

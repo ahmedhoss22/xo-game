@@ -1,9 +1,9 @@
-import { Injectable } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
-import { PlayingCoins } from './playing-coins.shema';
-import mongoose, { Model } from 'mongoose';
-import { PlayingCoinsDto } from './dtos/Playing-coins.dto';
-import { UpdatePlayingCoinsDto } from './dtos/update-playing-coins.dto';
+import { Injectable } from '@nestjs/common'
+import { InjectModel } from '@nestjs/mongoose'
+import { PlayingCoins } from './playing-coins.shema'
+import mongoose, { Model } from 'mongoose'
+import { PlayingCoinsDto } from './dtos/Playing-coins.dto'
+import { UpdatePlayingCoinsDto } from './dtos/update-playing-coins.dto'
 
 @Injectable()
 export class PlayingCoinsService {
@@ -12,23 +12,23 @@ export class PlayingCoinsService {
   ) {}
 
   addNewPlayingCoins(data: PlayingCoinsDto): Promise<PlayingCoins> {
-    let newPlayingCoins = new this.PlayingCoins(data);
-    return newPlayingCoins.save();
+    let newPlayingCoins = new this.PlayingCoins(data)
+    return newPlayingCoins.save()
   }
 
   getAllPlayingCoins(): Promise<PlayingCoins[]> {
-    return this.PlayingCoins.find();
+    return this.PlayingCoins.find()
   }
 
-  getOnePlayingCoin(id:mongoose.Types.ObjectId):Promise<PlayingCoins>{
+  getOnePlayingCoin(id: mongoose.Types.ObjectId): Promise<PlayingCoins> {
     return this.PlayingCoins.findById(id)
   }
 
-  updatePlayingCoins (data:UpdatePlayingCoinsDto):Promise<PlayingCoins>{
-    return this.PlayingCoins.findByIdAndUpdate(data._id,data)
+  updatePlayingCoins(data: UpdatePlayingCoinsDto): Promise<PlayingCoins> {
+    return this.PlayingCoins.findByIdAndUpdate(data._id, data)
   }
 
   async deletePlayingCoins(id: mongoose.Types.ObjectId): Promise<PlayingCoins> {
-    return this.PlayingCoins.findByIdAndDelete(id);
+    return this.PlayingCoins.findByIdAndDelete(id)
   }
 }

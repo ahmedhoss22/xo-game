@@ -1,8 +1,8 @@
-import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import mongoose, { HydratedDocument, Mongoose } from 'mongoose';
-const bcrypt = require('bcryptjs');
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose'
+import mongoose, { HydratedDocument, Mongoose } from 'mongoose'
+const bcrypt = require('bcryptjs')
 
-export type UsersDocument = HydratedDocument<Users>;
+export type UsersDocument = HydratedDocument<Users>
 
 @Schema()
 export class Users {
@@ -10,90 +10,88 @@ export class Users {
     required: true,
     trim: true,
   })
-  name: string;
+  name: string
 
   @Prop({
     trim: true,
-    default:"/default.png"
+    default: '/default.png',
   })
-  image: string;
+  image: string
 
   @Prop({
     required: true,
     trim: true,
     unique: true,
   })
-  email: string;
+  email: string
 
   @Prop({
     // required:true,
     trim: true,
   })
-  password: string;
+  password: string
 
   @Prop({
     minlength: 4,
   })
-  id: Number;
+  id: Number
 
   @Prop({
     default: false,
   })
-  isAdmin: Boolean;
+  isAdmin: Boolean
 
   @Prop({ type: [String] })
-  tokens: String[];
+  tokens: String[]
 
   @Prop({
     type: String,
     default: 'local',
     enum: ['local', 'google', 'facebook'],
   })
-  provider: string;
+  provider: string
 
   @Prop({
-    default:0
+    default: 0,
   })
-  coins: number;
+  coins: number
 
   @Prop({
-    trim:true
+    trim: true,
   })
-  country: string;
+  country: string
 
   @Prop({
-    default:0
+    default: 0,
   })
-  winning: number;
+  winning: number
 
   @Prop({
-    default:0
+    default: 0,
   })
-  level: number;
+  level: number
 }
 
-export const UsersSchema = SchemaFactory.createForClass(Users);
+export const UsersSchema = SchemaFactory.createForClass(Users)
 
 UsersSchema.pre('save', async function (next) {
-  const user = this;
+  const user = this
   if (!user.isModified('password')) {
-    return next();
+    return next()
   }
   try {
-    const hashedPassword = await bcrypt.hash(user.password, 8);
-    user.password = hashedPassword;
-    next();
+    const hashedPassword = await bcrypt.hash(user.password, 8)
+    user.password = hashedPassword
+    next()
   } catch (error) {
-    return next(error);
+    return next(error)
   }
-});
-
-
+})
 
 UsersSchema.methods.toJSON = function () {
-  var obj = this.toObject();
+  var obj = this.toObject()
 
-  delete obj.password;
-  delete obj.tokens;
-  return obj;
-};
+  delete obj.password
+  delete obj.tokens
+  return obj
+}

@@ -1,13 +1,13 @@
-import { IsNotEmpty, IsOptional } from 'class-validator';
-import mongoose from 'mongoose';
+import { IsNotEmpty, IsOptional } from 'class-validator'
+import mongoose from 'mongoose'
 
 export class OrderDto {
   @IsOptional()
-  user: mongoose.Types.ObjectId;
+  user: mongoose.Types.ObjectId
 
   @IsNotEmpty({ message: 'product is requried !!' })
-  product: mongoose.Types.ObjectId;
+  product: mongoose.Types.ObjectId
 
   @IsOptional()
-  _id : mongoose.Types.ObjectId
+  _id: mongoose.Types.ObjectId
 }

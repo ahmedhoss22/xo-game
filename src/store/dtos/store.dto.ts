@@ -4,23 +4,23 @@ import {
   IsNumber,
   IsPositive,
   IsOptional,
-} from 'class-validator';
-import mongoose from 'mongoose';
+} from 'class-validator'
+import mongoose from 'mongoose'
 
 export class StoreDto {
   // @IsNumber()
   // @IsPositive()
   @IsNotEmpty({ message: 'cost is requried !!' })
-  readonly cost: number;
+  readonly cost: number
 
   //   @IsNotEmpty({ message: 'name is requried !!' })
   @IsString()
-  readonly name: string;
+  readonly name: string
 
   @IsString()
   @IsOptional()
-  image: string;
+  image: string
 
   @IsOptional()
-  _id: mongoose.Types.ObjectId;
+  _id: mongoose.Types.ObjectId
 }
