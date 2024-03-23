@@ -16,8 +16,11 @@ import { GiCoins } from "react-icons/gi";
 import { PiCoinsDuotone } from "react-icons/pi";
 import { PayPalButtons } from "@paypal/react-paypal-js";
 import Api from "@/config/api";
+import { useRouter } from "next/navigation";
 
 const card = () => {
+  
+  const router = useRouter(); 
   const dispatch = useDispatch();
   const items = useSelector((state) => state.coinStoreSlice.items);
 
@@ -29,18 +32,20 @@ const card = () => {
     return Api.post("/paypal/create-paypal-order", {
         currency: "USD",
         price,
+
     })
       .then((response) => {
-      console.log(response.data.id);
       return  response.data.id
       });
   };
 
-  const onApprove = (data, actions) => {
+  const onApprove = (data, price, coins, actions) => {
     return Api.post("/paypal/capture-paypal-order", {
-      orderID: data.orderID
+      orderID: data.orderID,
+      price,
+      coins 
     })
-      .then((response) => response.data);
+  .then((response) =>router.push("/home") )
   };
 
   return (
@@ -70,8 +75,8 @@ const card = () => {
                   <h5 className="price text-white">{item?.price}$</h5>
                 </Link>
             <PayPalButtons
-             createOrder={(data, actions) => createOrder(item?.price, actions)} 
-             onApprove={(data, actions) => onApprove(data, actions)} 
+             createOrder={(data, actions) => createOrder(item?.price , actions)} 
+             onApprove={(data, actions) => onApprove(data, item.price, item.coins, actions)} 
              />
               </div>))}
 
