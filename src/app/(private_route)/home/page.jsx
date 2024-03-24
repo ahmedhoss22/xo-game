@@ -26,13 +26,11 @@ import ChooseLanguage from "@/components/chooseLanguage/ChooseLanguage";
 import { textVariants } from "@/utils/animation";
  
 
-const Homepage = () => {
+const  Homepage = () => {
+
   const { t , i18n } = useTranslation();
   const [play] = useSound(sound);
   const user = useSelector((state) => state.user.data);
-  
-  const isAdmin = user?.isAdmin;
-  const online = useSelector((state) => state.user.online);
   const apiUrl = process.env.NEXT_PUBLIC_API_SERVER;
   const [loading ,setLoading] = useState(true)
   const router = useRouter();
@@ -51,8 +49,10 @@ const Homepage = () => {
   function handleLogout() {  
     dispatch(offlineUser());
   }
+
   return (
     <>
+
     {isLoading ? (
       <Loading
       text="loading home ... " 

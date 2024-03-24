@@ -36,8 +36,7 @@ const changeStore = () => {
     data: null,
   });
   
-  const handleClose = () =>
-    setModal({ open: false, update: false, data: null });
+  const handleClose = () =>setModal({ open: false, update: false, data: null });
 
 
   useEffect(() => {

@@ -20,9 +20,9 @@ const EditUser = ({ toggleEditMode }) => {
   });
 
   const [intialPassword, setInitialPassword] = useState({
+    password: "",
+    rePassword: "",
     oldPassword: "",
-    newPassword: "",
-    confirmPassword: "",
   });
 
   const handleImageChange = (event) => {
@@ -39,7 +39,7 @@ const EditUser = ({ toggleEditMode }) => {
   function handleInfoSubmit(values) { 
     console.log(values);
     const url = "/users/user/update";
-    Api.post(url, values, {
+    Api.post(url, values , {
       headers: {
         "Content-Type": "multipart/form-data",
       },
@@ -47,7 +47,7 @@ const EditUser = ({ toggleEditMode }) => {
       .then(() => {
         notifySuccess("Data submitted");
         dispatch(fetchUserData());
-        toggleEditMode(); // Close edit mode
+        toggleEditMode();  
         formik.resetForm();
       })
       .catch((err) => {
@@ -58,19 +58,19 @@ const EditUser = ({ toggleEditMode }) => {
 
   function handlePasswordSubmit(values) {
     console.log(values);
-    if (values.newPassword !== values.confirmPassword) {
-      return notifyError("Password must be same");
-    }
-    // Api.patch("/user/password",values)
-    // .then(()=>{
-    //   dispatch(fetchUserData())
-    //   setChangeInput(false)
-    //   notifySuccess("Account updated !!")
-    // })
-    // .catch((error)=>{
-    //   let errorMsg = error?.response?.data?.message || error?.response?.data?.error
-    //   notifyError(errorMsg)
-    // })
+ 
+
+    Api.post("/users/password",values)
+    .then(() => {
+      notifySuccess("Password Updated !! ");
+      dispatch(fetchUserData());
+      toggleEditMode();  
+      formik.resetForm();
+    })
+      .catch((err) => {
+        let error = err?.response?.data?.message;
+        notifyError(Array.isArray(error) ? error[0] : error);
+      });
   }
 
   const formik = useFormik({
@@ -170,21 +170,23 @@ const EditUser = ({ toggleEditMode }) => {
                   {formik.touched.email && formik.errors.email && (
                     <div className="text-red-500">{formik.errors.email}</div>
                   )}
-                  <button
+                 </>
+              )}
+                     <button
                     type="submit"
-                    className="d-flex align-items-center justify-content-center edit-btn text-white border-radius-20   pointer"
+                    className="d-flex mb-1 mt-1 align-items-center justify-content-center edit-btn text-white border-radius-20   pointer"
                   >
                     {" "}
                     {t("user.change")}
-                  </button>{" "}
-                </>
-              )}
+                  </button>
             </form>
 
             <form onSubmit={formikPassword.handleSubmit}>
               {provider === "local" && (
                 <>
-                  <label className="text-white">{t("user.oldPassword")}</label>
+                                 <label className="text-white">
+                    {t("user.oldPassword")}
+                  </label>
                   <input
                     className="shadow appearance-none border rounded w-full py-2  px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     id="oldPassword"
@@ -200,40 +202,39 @@ const EditUser = ({ toggleEditMode }) => {
                         {formikPassword.errors.oldPassword}
                       </div>
                     )}
-                  <label className="text-white">{t("user.newPassword")}</label>
+                  <label className="text-white">{t("user.password")}</label>
                   <input
                     className="shadow appearance-none border rounded w-full py-2  px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    id="newPassword"
-                    name="newPassword"
+                    id="password"
+                    name="password"
                     type="password"
-                    placeholder={t("user.newPassword")}
-                    value={formikPassword.values.newPassword}
+                    placeholder={t("user.password")}
+                    value={formikPassword.values.password}
                     onChange={formikPassword.handleChange}
                   />
-                  {formikPassword.touched.confirmPassword &&
-                    formikPassword.errors.confirmPassword && (
+                  {formikPassword.touched.password &&
+                    formikPassword.errors.password && (
                       <div className="text-red-500">
-                        {formikPassword.errors.confirmPassword}
+                        {formikPassword.errors.password}
                       </div>
                     )}
-                  <label className="text-white">
-                    {t("user.confirmPassword")}
-                  </label>
+                  <label className="text-white">{t("user.rePassword")}</label>
                   <input
                     className="shadow appearance-none border rounded w-full py-2  px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    id="confirmPassword"
-                    name="confirmPassword"
+                    id="rePassword"
+                    name="rePassword"
                     type="password"
-                    placeholder={t("user.confirmPassword")}
-                    value={formikPassword.values.confirmPassword}
+                    placeholder={t("user.rePassword")}
+                    value={formikPassword.values.rePassword}
                     onChange={formikPassword.handleChange}
                   />
-                  {formikPassword.touched.confirmPassword &&
-                    formikPassword.errors.confirmPassword && (
+                  {formikPassword.touched.rePassword &&
+                    formikPassword.errors.rePassword && (
                       <div className="text-red-500">
-                        {formikPassword.errors.confirmPassword}
+                        {formikPassword.errors.rePassword}
                       </div>
                     )}
+ 
                   <button
                     type="submit"
                     className="d-flex align-items-center justify-content-center edit-btn text-white border-radius-20  mb-1  pointer"
@@ -245,12 +246,12 @@ const EditUser = ({ toggleEditMode }) => {
             </form>
           </div>
 
-          <h6
+          {/* <h6
             onClick={toggleEditMode}
             className="text-center text-white pointer  "
           >
-            {t("user.return")}{" "}
-          </h6>
+            {t("user.return")}
+          </h6> */}
         </div>
       </div>
     </>

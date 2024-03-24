@@ -1,19 +1,27 @@
 .footer{
     background: linear-gradient(180deg, #3C0384 0%, #953976 100%);
     padding: 8px 60px;
- 
-// img{
-//     width: 220px; 
-
-// }
-
    .footer-icons{
     width: 45px;
     height: 45px;
    }
-
+   .active-link {
+    width: 45px;
+    height: 45px;
+    transform: translateY(-7px);
+    color: white !important;
+  }
+  .not-active{
+    transition: all 0.2s;
+    &:hover{
+      transform: translateY(-2px);
+      color: white;
+    }
+    color: rgba(163, 163, 163, 0.785) ;
+  }
+ 
 }  
-/* Medium-sized screens */
+
 @media (max-width: 992px) {
     .footer {
       padding: 8px 20px;  
@@ -26,7 +34,6 @@
     }
   }
   
-  /* Smaller screens */
   @media (max-width: 480px) {
     .footer {
         padding: 8px 10px;  

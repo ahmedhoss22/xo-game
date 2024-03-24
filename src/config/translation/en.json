@@ -49,9 +49,9 @@
     "edit": "Edit Data",
     "name": "Enter New Name",
     "email": "Email",
-    "oldPassword": "Old Password",
-    "newPassword": "New Password",
-    "confirmPassword": "Confirm New Password"
+    "password": "New Password",
+    "rePassword": "rePassword",
+    "oldPassword": "Old Password"
   },
   "playWith":{
 

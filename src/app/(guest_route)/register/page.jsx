@@ -11,23 +11,33 @@ import { useRouter } from "next/navigation";
 import ChooseLanguage from "@/components/chooseLanguage/ChooseLanguage";
 import { useTranslation } from "react-i18next";
 import { registerValidationSchema } from "@/utils/validation";
+import { useState } from "react";
 
 
 const register = () => {
   const router = useRouter()
   const { t } = useTranslation();
+  const [loadingBtn, setLoadingBtn] = useState(false);
+
 
   function handleRegister(values) {
+    setLoadingBtn(true);
+
     Api.post("/auth/register",values)
     .then(()=>{
         notifySuccess("Account created !!")
         router.push("/home")
     })
     .catch((err)=>{
+      setLoadingBtn(false);
+
       let errMsg = err?.response?.data?.message
       notifyError(Array.isArray(errMsg)? errMsg[0]:errMsg )
       console.log(err);
     })
+    .finally(() => {
+      setLoadingBtn(false);
+    });
   }
 
 
@@ -45,7 +55,7 @@ const register = () => {
       password: "",
       rePassword: "",
     },
-    registerValidationSchema,
+    validationSchema:registerValidationSchema,
     onSubmit: handleRegister,
   });
   return (
@@ -66,7 +76,7 @@ const register = () => {
         </div>
         <div className="d-flex align-items-center justify-content-center rtl mt-1  container">
       <div className="register  m-2 w-full max-w-sm">
-      <form className="shadow-md rounded px-8 pt-6 pb-8 mb-4 border-radius-20"
+      <form className="shadow-md rounded px-8 pt-6 pb-6 mb-2 border-radius-20"
             style={{ background: "var(--purple-color)"  }}
 
           onSubmit={formik.handleSubmit}
@@ -160,9 +170,24 @@ const register = () => {
             <div className="col-12 w-75 m-auto mb-4">
               <button
                 type="submit"
+                disabled={
+                  !formik.isValid ||
+                  (Object.keys(formik.touched).length === 0 &&
+                    formik.touched.constructor === Object)
+                }
                 className="btn form-control border-radius-20  green-bg text-white mt-4 transform-btn"
               >
-{t("register.title")}              </button>
+                      {loadingBtn ? (
+                    <div
+                      className="spinner-border text-light "
+                      role="status"
+                    >
+                      <span className="visually-hidden"  >Loading...</span>
+                    </div>
+                  ) : (
+                    t("register.title")
+                  )}
+</button>
             </div>
 
             {/* <div className="col-12">

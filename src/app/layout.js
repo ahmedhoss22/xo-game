@@ -1,5 +1,5 @@
 import store from "@/redux/store";
-import "./globals.css";
+import "./globals.scss";
 import "bootstrap/dist/css/bootstrap.css";
 import { Cairo } from "next/font/google";
 import { ToastContainer } from "react-toastify";

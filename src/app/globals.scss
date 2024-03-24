@@ -41,64 +41,65 @@ h5{
 .green-bg {
   background: var(--green-color) !important;
   transition: .8s ease;
+  &:hover{
+    background: rgb(7, 199, 39) !important;
+  }
 }
-.green-bg:hover {
-  background: rgb(7, 199, 39) !important;
-}
-
 .blue-bg {
   transition: 0.7s;
   background: var(--blue-color) !important;
+  &:hover{
+    background: rgb(99, 145, 245) !important;
+  }
 }
-.blue-bg:hover {
-  background: rgb(99, 145, 245) !important;
-}
+
 .white-bg {
   transition: 0.7s;
-
   background: rgba(255, 255, 255, 1) !important;
+  &:hover{
+    background: rgb(194, 194, 194) !important;
+  }
 }
-.white-bg:hover {
-  background: rgb(194, 194, 194) !important;
-}
+
 .border-radius-20 {
   border-radius: 20px !important;
+}
+.pointer {
+  cursor: pointer;
 }
 
 .input-with-icon {
   position: relative;
+  input{
+    padding-right: 40px; /* Adjust this value based on the icon size */
+  }
+  .icon{
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+
+  }
+  .icon-text-area {
+    position: absolute;
+    right: 10px;
+    top: 17%;
+    transform: translateY(-50%);
+  }
 }
 
-.input-with-icon input {
-  padding-right: 40px; /* Adjust this value based on the icon size */
-}
-
-.input-with-icon .icon {
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.input-with-icon .icon-text-area {
-  position: absolute;
-  right: 10px;
-  top: 17%;
-  transform: translateY(-50%);
-}
+ 
 
 .form-control {
   transition: border-color 0.3s, box-shadow 0.3s;
-}
-
-.form-control:focus {
-  border-color: var(--green-color) !important;
+  &:focus{
+    border-color: var(--green-color) !important;
   box-shadow: 0 0 5px var(--green-color) !important;
+
+  }
 }
 
-.pointer {
-  cursor: pointer;
-}
+
 .transform-btn {
      font-size: 1rem;
     font-weight: bold;
@@ -106,18 +107,17 @@ h5{
     text-transform: uppercase;
      transition: all 0.2s;
     box-shadow: 0 var(--shadow-y) 0 rgba(163, 163, 163, 0.785) !important;
- 
-  }
-  .transform-btn:hover {
-    /* --shadow-y: 8px; */
+    &:hover{
+          /* --shadow-y: 8px; */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transform: translateY(-2px);
+    }
+    &:active{
+      transform: translateY(2px);
+      --shadow-y: 4px;
+    }
+ 
   }
-  .transform-btn:active {
-    transform: translateY(2px);
-    --shadow-y: 4px;
-  }
-
  
   .user-container {
     display: flex;
@@ -141,7 +141,7 @@ h5{
 .model-btn{
     background: linear-gradient(180deg, #37007B 0%, #4044A7 100% ) !important;
 }
-.not-found-page {
+.not-found-page .loading-page{
   min-height: 100vh;
   display: flex;
   flex-direction: column;

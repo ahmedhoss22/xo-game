@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import "./login.scss";
 import emailIcon from "@/assets/photos/email-icon.png";
 import passwordIcon from "@/assets/photos/password-icon.png";
@@ -11,16 +11,19 @@ import { notifyError, notifySuccess } from "@/components/toastify/toastify";
 import ChooseLanguage from "@/components/chooseLanguage/ChooseLanguage";
 import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
-import { onlineUser } from "@/redux/slices/user"; 
+import { onlineUser } from "@/redux/slices/user";
 import { useTranslation } from "react-i18next";
 import { loginValidationSchema } from "@/utils/validation";
+import { useState } from "react";
 
 const login = () => {
-  const { t ,i18n } = useTranslation();
-  const router = useRouter(); 
+  const { t, i18n } = useTranslation();
+  const [loadingBtn, setLoadingBtn] = useState(false);
+  const router = useRouter();
   const dispatch = useDispatch();
 
   function handleLogin(values) {
+    setLoadingBtn(true);
     Api.post("/auth/login", values)
       .then(() => {
         dispatch(onlineUser());
@@ -28,21 +31,22 @@ const login = () => {
         router.push("/coinsofgame");
       })
       .catch((err) => {
+        setLoadingBtn(false);
         let errMsg = err?.response?.data?.message;
         notifyError(Array.isArray(errMsg) ? errMsg[0] : errMsg);
         console.log(err);
+      })
+      .finally(() => {
+        setLoadingBtn(false);
       });
   }
-
- 
-
 
   let formik = useFormik({
     initialValues: {
       email: "",
       password: "",
     },
-    loginValidationSchema,
+    validationSchema: loginValidationSchema, // Corrected property name
     onSubmit: handleLogin,
   });
 
@@ -57,35 +61,37 @@ const login = () => {
   return (
     <div className="login-bg">
       <div className=" d-flex align-items-center justify-content-between container mt-4">
-       
-     
-<div className="col-lg-2 col-md-3 col-6 ">
+        <div className="col-lg-2 col-md-3 col-6 ">
           <Link href={"/register"} className="text-decoration-none">
             <div className="login-btn d-flex align-items-center justify-content-center border-radius-20 m-2 transform-btn pointer">
               <button className="text-white"> {t("register.title")}</button>
             </div>
           </Link>
-      
         </div>
         <div>
           {" "}
           <ChooseLanguage />
         </div>
       </div>
-      <div className={`d-flex align-items-center justify-content-center  mt-1  container${i18n.language ==='ar'?"rtl":""}  `}>
+      <div
+        className={`d-flex align-items-center justify-content-center  mt-1  container${
+          i18n.language === "ar" ? "rtl" : ""
+        }  `}
+      >
         <div className="login m-2 w-full max-w-sm">
           <form
             className="shadow-md rounded px-8 pt-6 pb-8 border-radius-20"
             style={{ background: "var(--purple-color)" }}
             onSubmit={formik.handleSubmit}
           >
-            <h1 className="text-center text-white mt-1   "> {t("login.title")}</h1>
+            <h1 className="text-center text-white mt-1   ">
+              {" "}
+              {t("login.title")}
+            </h1>
             <div className="row  d-flex align-content-center justify-content-center m-4 ">
               <div className="col-12 gy-4">
                 {formik.touched.email && formik.errors.email ? (
-                  <div className="alert alert-danger">
-                    {formik.errors.email}
-                  </div>
+                  <h6 className="text-white">{formik.errors.email}</h6>
                 ) : null}
                 <div className="input-with-icon">
                   <input
@@ -96,7 +102,7 @@ const login = () => {
                     value={formik.values.email}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
-                    placeholder= {t("login.email")}
+                    placeholder={t("login.email")}
                     required
                   />
                   <img src={emailIcon.src} className="icon" alt="" />
@@ -104,9 +110,7 @@ const login = () => {
               </div>
               <div className="col-12 gy-4">
                 {formik.touched.password && formik.errors.password ? (
-                  <div className="alert alert-danger">
-                    {formik.errors.password}
-                  </div>
+                  <h6 className="text-white">{formik.errors.password}</h6>
                 ) : null}
                 <div className="input-with-icon ">
                   <input
@@ -117,7 +121,7 @@ const login = () => {
                     value={formik.values.password}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
-                    placeholder= {t("login.password")}
+                    placeholder={t("login.password")}
                     required
                   />
                   <img src={passwordIcon.src} className="icon" alt="" />
@@ -125,16 +129,30 @@ const login = () => {
               </div>
               <div className="col-12 w-75 m-auto">
                 <button
+                  disabled={
+                    !formik.isValid ||
+                    (Object.keys(formik.touched).length === 0 &&
+                      formik.touched.constructor === Object)
+                  }
                   type="submit"
                   className="btn form-control border-radius-20 green-bg text-white mt-4  w-100 transform-btn"
                 >
-                  {t("login.title")}
+                  {loadingBtn ? (
+                    <div
+                      className="spinner-border text-light "
+                      role="status"
+                    >
+                      <span className="visually-hidden"  >Loading...</span>
+                    </div>
+                  ) : (
+                    t("login.title")
+                  )}
                 </button>
               </div>
 
               <div className="col-12  ">
                 <p className="text-center  text-white mt-4 mb-4 middle-line ">
-                {t("login.or")}
+                  {t("login.or")}
                 </p>
               </div>
 

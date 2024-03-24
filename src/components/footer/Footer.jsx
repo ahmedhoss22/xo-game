@@ -19,42 +19,33 @@ import { IoWalletOutline } from "react-icons/io5";
 import { MdNotStarted } from "react-icons/md";
 import { RiAdminLine } from "react-icons/ri";
 import { useSelector } from "react-redux";
+import {usePathname} from 'next/navigation'
 
 const Footer = () => {
   const user = useSelector((state) => state.user.data);
-
   const isAdmin = user?.isAdmin;
+  const activeLink = usePathname();
+
+  const links = [
+    { icon: isAdmin ? <RiAdminLine className ='footer-icons ' /> : <FaRegUserCircle className ='footer-icons ' />, href: isAdmin ? '/settings' : '/user' },
+    { icon: < RiVisaFill  className ='footer-icons '/>, href: '/payment' },
+    { icon: <  FaShoppingCart className ='footer-icons '/>, href: '/card' },
+    { icon: < MdNotStarted  className ='footer-icons '/>, href: '/coinsofgame' },
+    { icon: <  IoWalletOutline className ='footer-icons ' />, href: '/wallet' },
+    { icon: < FaStore className ='footer-icons ' />, href: '/changestore' },
+    { icon: < FaHome className ='footer-icons ' />, href: '/home' }
+  ];
+
+
   return (
-    <footer className="footer mt-auto   d-flex align-items-center justify-content-between  rtl ">
-      {isAdmin ? (
-        <Link href={"/settings"} className=" text-white link ">
-          <RiAdminLine  className="pointer footer-icons"  color="#fff"/>
-        </Link>
-      ) : (
-        <Link href={"/user"} className=" text-white link">
-          <FaRegUserCircle className="pointer footer-icons"  color="#fff"/>
-        </Link>
-      )}
+    <footer className="footer mt-auto d-flex align-items-center justify-content-between rtl">
+      
+      {links.map((link, index) => (
+  <Link key={index} href={link.href} className={`${activeLink === link.href ?'active-link ': 'not-active'}`}>
+    {link.icon}
+  </Link>
+))}
 
-      <Link href={"/payment"} className=" text-white link transform-btn">
-        <RiVisaFill className="pointer footer-icons"  color="#fff"/>
-      </Link>
-      <Link href={"/card"} className=" text-white link">
-        <FaShoppingCart className="pointer footer-icons" color="#fff"/>
-      </Link>
-      <Link href={"/coinsofgame"} className=" text-white link">
-        <MdNotStarted className="pointer footer-icons"  color="#fff"/>
-      </Link>
-      <Link href={"/wallet"} className=" text-white link">
-        <IoWalletOutline className="pointer footer-icons" color="#fff" />
-      </Link>
-      <Link href={"/changestore"} className=" text-white link">
-        <FaStore className="pointer footer-icons" color="#fff" />
-      </Link>
-
-      <Link href={"/home"} className=" text-white link">
-        <FaHome className="pointer footer-icons" color="#fff" />
-      </Link>
     </footer>
   );
 };

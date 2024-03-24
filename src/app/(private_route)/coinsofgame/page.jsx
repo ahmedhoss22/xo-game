@@ -80,7 +80,7 @@ const coinsOfGame = () => {
       rounds: data.rounds,
     });
   }
-
+  
   function handleClose() {
     socket.emit("exit-waiting");
     dispatch(stopLoading());
@@ -150,6 +150,7 @@ const coinsOfGame = () => {
                     }}
                     style={{ borderRadius: "6px" }}
                   >
+                    
                     <Link
                       href="/playgroundloading/false"
                       className="col-9 p-2 start-play-div1 link"
