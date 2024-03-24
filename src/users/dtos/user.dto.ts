@@ -20,7 +20,7 @@ export class UserrDto {
   readonly email: String;
 
   @IsString()
-  @IsNotEmpty()
+  @IsNotEmpty()   
   @Length(6, 20)
   @IsStrongPassword({ message: 'Password is not strong enough' })
   readonly password: String;
@@ -36,11 +36,11 @@ export class UserrDto {
   @IsOptional()
   readonly country: String;
 
-  @IsNumber()
+  // @IsNumber()
   @IsOptional()
   readonly winning: number;
 
-  @IsNumber()
+  // @IsNumber()
   @IsOptional()
   readonly level: number;
 
@@ -48,8 +48,6 @@ export class UserrDto {
   // @IsOptional()
   readonly coins: number;
 
-  @IsNumber()
   @IsOptional()
    image: string;
-
 }
