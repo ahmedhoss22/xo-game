@@ -193,7 +193,7 @@ const playground = () => {
                 variants={textVariants}
               />
               <motion.div className="ticket-prize " variants={textVariants}>
-                <motion.h5>{user?.coins} </motion.h5>
+                <motion.h5>{room?.winCoins} </motion.h5>
               </motion.div>
             </motion.div>
 
