@@ -77,11 +77,11 @@ export default function AdminPanel({ children }) {
             </h3>
 
             <ul className="list-unstyled components mb-5">
-              <li>
+              {/* <li>
                 <Link prefetch href="support" as={'/settings/support'}>
                   <span className="fa fa-sticky-note mr-3" /> الدعم
                 </Link>
-              </li>
+              </li> */}
               <li className="active">
                 <Link prefetch href="coinstore"  as={'/settings/coinstore'}>
                   <span className="fa fa-home mr-3" /> المتجر

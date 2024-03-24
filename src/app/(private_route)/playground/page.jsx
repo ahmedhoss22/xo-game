@@ -21,7 +21,7 @@ import { motion } from "framer-motion";
 import StartGameSoundBg from "@/components/startGameSoundBg/StartGameSoundBg";
 import WinModel from "@/components/winModel/WinModel";
 import { textVariants } from "@/utils/animation";
- 
+
 const playground = () => {
   const [modal, setModal] = useState({
     open: false,
@@ -39,7 +39,7 @@ const playground = () => {
   const room = useSelector((state) => state.room.data);
   const player2 = useSelector((state) => state.room.otherPlayer);
   const turn = room?.data?.turn
-  const [playerNo, setPlayerNumber] = useState("")
+  const [playerNo, setPlayerNumber] = useState(1)
   const [hoverClass, setHoverClass] = useState(null)
   console.log(room);
 
@@ -64,15 +64,22 @@ const playground = () => {
       }, 4000);
     });
     socket.on("player-move", (data) => {
+      clickSound();
       dispatch(setRoomData(data));
-      console.log("player-move", data);
     });
     socket.on("error", (data) => {
       notifyError(data?.message);
     });
     dispatch(fetchUserData());
     socket.emit("get-room-data", user?._id);
+
+
     socket.on("get-room-data", (data) => {
+      if (!data) {
+        router.push("/coinsofgame");
+
+      }
+      console.log(data);
       dispatch(setRoomData(data));
     });
 
@@ -83,7 +90,6 @@ const playground = () => {
       socket.off("error");
     };
   }, []);
-  console.log(room);
   useEffect(() => {
     let otherPlayerId;
     socket.on("player-move", (data) => {
@@ -142,8 +148,6 @@ const playground = () => {
     let btn = getBoxNo(row, column)
     return room?.player1Moves?.includes(btn) || room?.player2Moves?.includes(btn)
   }
-  console.log(room?.turn, playerNo)
-
   return (
     <>
       <div className="playground">
@@ -189,7 +193,7 @@ const playground = () => {
                 variants={textVariants}
               />
               <motion.div className="ticket-prize " variants={textVariants}>
-                <motion.h5>{user?.coins} </motion.h5>
+                <motion.h5>{room?.winCoins} </motion.h5>
               </motion.div>
             </motion.div>
 
@@ -234,6 +238,7 @@ const playground = () => {
               animate={"animate"}
             >
               <motion.img src={vs.src} alt="VS" variants={textVariants} />
+              <p style={{ color: "#fff", textAlign: "center" , margin:"0" , fontWeight:700 , fontSize:"24px"}}>{playerNo == 1 ? `${room?.player1Wins || "0"} - ${room?.player2Wins|| "0"}` : `${room?.player2Wins|| "0"} - ${room?.player1Wins|| "0"}`}</p>
             </motion.div>
             <motion.div
               className="player2"
@@ -270,7 +275,8 @@ const playground = () => {
                         key={colIndex}
                         className={`box1 col-3 m-1 pointer ${!disableBtn(rowIndex, colIndex + 1) && room?.turn == playerNo && hoverClass}`}
                         style={{ userSelect: "none", backgroundColor: disableBtn(rowIndex, colIndex + 1) ? "gray" : "var(--purple-color)" }}
-                        disabled={room?.turn != playerNo || disableBtn(rowIndex, colIndex)}
+                        disabled={room?.turn != playerNo || disableBtn(rowIndex, colIndex + 1)}
+                      // disabled={room?.turn != playerNo }
                       >
                         <h2
                           className={`text-center fw-bold  `}
