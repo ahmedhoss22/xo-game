@@ -101,10 +101,11 @@ const coinsOfGame = () => {
                   <ChooseLanguage />
                 </div>
                 <motion.div
-                  className="ticket-container justify-center"
-                  variants={textVariants}
-                  initial={"initial"}
-                  animate={"animate"}
+                   className="ticket-container justify-center pointer"
+                   variants={textVariants}
+                   initial={"initial"}
+                   animate={"animate"}              
+                   onClick={()=>router.push('/coin')}
                 >
                   <motion.img
                     src={dollar.src}

@@ -70,7 +70,7 @@ const payment = () => {
           </Link>
         </div>
 
-        <div className="row  gy-4 mb-4">
+        <div className="row  flex flex-col align-items-center justify-center">
           <form
             onSubmit={formikPaypal.handleSubmit}
             className="paypal col-md-6 gy-4 mb-4"
@@ -118,7 +118,7 @@ const payment = () => {
             </button>
           </form>
 
-          <form onSubmit={formikVisa.handleSubmit} className="visa col-md-6">
+          {/* <form onSubmit={formikVisa.handleSubmit} className="visa col-md-6">
             <div>
               <img src={visaImage.src} className="visa-img" alt="" />
             </div>
@@ -152,8 +152,7 @@ const payment = () => {
               label="Holder Name"
               variant="standard"
             />
-            {/* <div className="d-flex justify-content-around "> */}
-            
+             
               {formikPaypal.touched.cvvNumber &&
               formikPaypal.errors.cvvNumber ? (
                 <h4>{formikPaypal.errors.cvvNumber}</h4>
@@ -165,8 +164,7 @@ const payment = () => {
                 value={formikVisa.values.cvvNumber}
                 onChange={formikVisa.handleChange}
                 onBlur={formikVisa.handleBlur}
-                // className=" mt-4 col-lg-5 col-md-4 col-3"
-                className=" mt-4 col-md-6"
+                 className=" mt-4 col-md-6"
                 label="CVV Number"
                 variant="standard"
               />
@@ -181,13 +179,10 @@ const payment = () => {
                 value={formikVisa.values.expDate}
                 onChange={formikVisa.handleChange}
                 onBlur={formikVisa.handleBlur}
-                // className=" mt-4 col-lg-5 col-md-4 col-3"
-                className=" mt-4 col-md-6"
-                // label="Exp date"
-                variant="standard"
+                 className=" mt-4 col-md-6"
+                 variant="standard"
               />
-            {/* </div> */}
-            <div className="text-white mt-5">
+             <div className="text-white mt-5">
               {formikPaypal.touched.acceptTerms &&
               formikPaypal.errors.acceptTerms ? (
                 <h4>{formikPaypal.errors.acceptTerms}</h4>
@@ -210,7 +205,7 @@ const payment = () => {
               Done
             </button>
           
-          </form>
+          </form> */}
         </div>
       </div>
       </div>

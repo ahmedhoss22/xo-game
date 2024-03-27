@@ -31,9 +31,9 @@ const Footer = () => {
     { icon: < RiVisaFill  className ='footer-icons '/>, href: '/payment' },
     { icon: <  FaShoppingCart className ='footer-icons '/>, href: '/card' },
     { icon: < MdNotStarted  className ='footer-icons '/>, href: '/coinsofgame' },
-    { icon: <  IoWalletOutline className ='footer-icons ' />, href: '/wallet' },
+    // { icon: <  IoWalletOutline className ='footer-icons ' />, href: '/wallet' },
     { icon: < FaStore className ='footer-icons ' />, href: '/changestore' },
-    { icon: < FaHome className ='footer-icons ' />, href: '/home' }
+    { icon: < FaHome className ='footer-icons ' />, href: '/' }
   ];
 
 

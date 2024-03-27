@@ -181,10 +181,11 @@ const playground = () => {
           <div className="pt-3 prizes d-flex flex-column align-items-center col-12 justify-content-center  ">
             {/* <h6 className="text-white fw-bold">Room Number 123456</h6> */}
             <motion.div
-              className="ticket-container justify-center"
-              variants={textVariants}
-              initial={"initial"}
-              animate={"animate"}
+             className="ticket-container justify-center pointer"
+             variants={textVariants}
+             initial={"initial"}
+             animate={"animate"}              
+             onClick={()=>router.push('/coin')}
             >
               <motion.img
                 src={dollar.src}

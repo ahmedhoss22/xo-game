@@ -1,6 +1,6 @@
 "use client";
 import Loading from "@/components/loading/Loading"; 
-import CoinsOfGame from "./(private_route)/coinsofgame/page"; 
+import Home from "./(private_route)/home/page"; 
 import Login from "./(guest_route)/login/page";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
@@ -36,7 +36,7 @@ const MainPage = () => {
         {isLoading ? (
           <Loading text="XO Game is Loading ..." />
         ) : online ? (
-          <CoinsOfGame />
+          <Home />
         ) : (
           <Login />
         )}

@@ -16,7 +16,7 @@ import { useState } from "react";
 
 const register = () => {
   const router = useRouter()
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [loadingBtn, setLoadingBtn] = useState(false);
 
 
@@ -53,13 +53,14 @@ const register = () => {
       name: "",
       email: "",
       password: "",
+      phone: "",
       rePassword: "",
     },
     validationSchema:registerValidationSchema,
     onSubmit: handleRegister,
   });
   return (
-    <div className="register-bg">
+    <div className="register-bg" dir={i18n.language === 'ar'&&'rtl' }>
       <div className=" d-flex align-items-center justify-content-between container mt-4">
 
 <div className="col-lg-2 col-md-3 col-6 ">
@@ -83,91 +84,106 @@ const register = () => {
         >
           <h1 className="text-center text-white mt-1   "> {t("register.title")}</h1>
           <div className="row  d-flex align-content-center justify-content-center m-4 ">
-            <div className="ltr col-12 gy-4 ">
-              {formik.touched.name && formik.errors.name ? (
-                <h6 className="text-white">{formik.errors.name}</h6>
-              ) : null}
-              <div className="input-with-icon ">
-                <input
-                  className="form-control input-color"
-                  type="text"
-                  name="name"
-                  id="name"
-                  autoComplete="off"
-                  value={formik.values.name}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  placeholder={t("register.name")}
-                  required 
-                />
-                <img src={userIcon.src} className="icon " alt="" />
-              </div>
-            </div>{" "}
-            <div className="ltr col-12 gy-4">
-              {formik.touched.email && formik.errors.email ? (
-                <h6 className="text-white">{formik.errors.email}</h6>
-              ) : null}
-              <div className="input-with-icon">
-                <input
-                  className="form-control input-color"
-                  type="text"
-                  name="email"
-                  id="email"
-                  autoComplete="off"
-                  value={formik.values.email}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  placeholder={t("register.email")}
-                  required
-                />
-                <img src={emailIcon.src} className="icon" alt="" />
-              </div>
+
+       
+            <div className="ltr col-12 gy-3 "> 
+  <input 
+    type="text" 
+    className={`form-control ${formik.touched.name && formik.errors.name ? 'is-invalid' : ''}`} 
+    id="validationServer03" 
+    aria-describedby="validationServer03Feedback" 
+    name="name"
+    placeholder={t("register.name")}
+    value={formik.values.name}
+    onChange={formik.handleChange}
+    onBlur={formik.handleBlur}
+    required 
+  />
+  {formik.touched.name && formik.errors.name && (
+    <div className="invalid-feedback">
+      {formik.errors.name}
+    </div>
+  )}
+            </div>    
+            
+            
+            <div className="ltr col-12 gy-3 ">
+            <input 
+    type="text" 
+    className={`form-control ${formik.touched.phone && formik.errors.phone ? 'is-invalid' : ''}`} 
+    id="validationServer03" 
+    aria-describedby="validationServer03Feedback" 
+    name="phone"
+    placeholder={t("register.phone")}
+    value={formik.values.phone}
+    onChange={formik.handleChange}
+    onBlur={formik.handleBlur}
+    required 
+  />
+  {formik.touched.phone && formik.errors.phone && (
+    <div className="invalid-feedback">
+      {formik.errors.phone}
+    </div>
+  )}
+            </div> 
+            <div className="ltr col-12 gy-3">
+            <input 
+    type="text" 
+    className={`form-control ${formik.touched.email && formik.errors.email ? 'is-invalid' : ''}`} 
+    id="validationServer03" 
+    aria-describedby="validationServer03Feedback" 
+    name="email"
+    placeholder={t("register.email")}
+    value={formik.values.email}
+    onChange={formik.handleChange}
+    onBlur={formik.handleBlur}
+    required 
+  />
+  {formik.touched.email && formik.errors.email && (
+    <div className="invalid-feedback">
+      {formik.errors.email}
+    </div>
+  )}
             </div>
-            <div className="ltr col-12 gy-4">
-              {formik.touched.password && formik.errors.password ? (
-                <h6 className="text-white">
-                  {formik.errors.password}
-                </h6>
-              ) : null}
-              <div className="input-with-icon ">
-                <input
-                  className="form-control input-color"
-                  type="password"
-                  name="password"
-                  id="password"
-                  autoComplete="off"
-                  value={formik.values.password}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  placeholder= {t("register.password")}
-                  required
-                />
-                <img src={passwordIcon.src} className="icon" alt="" />
-              </div>
+            <div className="ltr col-12 gy-3">
+            <input 
+    type="text" 
+    className={`form-control ${formik.touched.password && formik.errors.password ? 'is-invalid' : ''}`} 
+    id="validationServer03" 
+    aria-describedby="validationServer03Feedback" 
+    name="password"
+    placeholder={t("register.password")}
+    value={formik.values.password}
+    onChange={formik.handleChange}
+    onBlur={formik.handleBlur}
+    required 
+  />
+  {formik.touched.password && formik.errors.password && (
+    <div className="invalid-feedback">
+      {formik.errors.password}
+    </div>
+  )}
             </div>
-            <div className="ltr col-12 gy-4">
-              {formik.touched.rePassword && formik.errors.rePassword ? (
-                <h6 className="text-white">
-                  {formik.errors.rePassword}
-                </h6>
-              ) : null}
-              <div className="input-with-icon ">
-                <input
-                  className="form-control input-color"
-                  type="password"
-                  name="rePassword"
-                  id="rePassword"
-                  autoComplete="off"
-                  value={formik.values.rePassword}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  placeholder={t("register.rePassword")}
-                  required
-                />
-                <img src={passwordIcon.src} className="icon" alt="" />
-              </div>
+            <div className="ltr col-12 gy-3">
+            <input 
+    type="text" 
+    className={`form-control ${formik.touched.rePassword && formik.errors.rePassword ? 'is-invalid' : ''}`} 
+    id="validationServer03" 
+    aria-describedby="validationServer03Feedback" 
+    name="rePassword"
+    placeholder={t("register.rePassword")}
+    value={formik.values.rePassword}
+    onChange={formik.handleChange}
+    onBlur={formik.handleBlur}
+    required 
+  />
+  {formik.touched.rePassword && formik.errors.rePassword && (
+    <div className="invalid-feedback">
+      {formik.errors.rePassword}
+    </div>
+  )}
             </div>
-            <div className="col-12 w-75 m-auto mb-4">
+            <div className="col-12 w-75 m-auto ">
               <button
                 type="submit"
                 disabled={

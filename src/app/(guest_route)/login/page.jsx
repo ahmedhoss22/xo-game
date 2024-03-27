@@ -28,7 +28,7 @@ const login = () => {
       .then(() => {
         dispatch(onlineUser());
         notifySuccess("Welcome!!");
-        router.push("/coinsofgame");
+        router.push("/");
       })
       .catch((err) => {
         setLoadingBtn(false);
@@ -59,7 +59,7 @@ const login = () => {
   }
 
   return (
-    <div className="login-bg">
+    <div className="login-bg"  dir={i18n.language === 'ar'&&'rtl' }>
       <div className=" d-flex align-items-center justify-content-between container mt-4">
         <div className="col-lg-2 col-md-3 col-6 ">
           <Link href={"/register"} className="text-decoration-none">
@@ -74,7 +74,7 @@ const login = () => {
         </div>
       </div>
       <div
-        className={`d-flex align-items-center justify-content-center  mt-1  container${
+        className={`d-flex align-items-center justify-content-center   container${
           i18n.language === "ar" ? "rtl" : ""
         }  `}
       >
@@ -84,49 +84,51 @@ const login = () => {
             style={{ background: "var(--purple-color)" }}
             onSubmit={formik.handleSubmit}
           >
-            <h1 className="text-center text-white mt-1   ">
+            <h1 className="text-center text-white   ">
               {" "}
               {t("login.title")}
             </h1>
             <div className="row  d-flex align-content-center justify-content-center m-4 ">
               <div className="col-12 gy-4">
-                {formik.touched.email && formik.errors.email ? (
-                  <h6 className="text-white">{formik.errors.email}</h6>
-                ) : null}
-                <div className="input-with-icon">
-                  <input
-                    className="form-control input-color "
-                    type="email"
-                    name="email"
-                    id="email"
-                    value={formik.values.email}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    placeholder={t("login.email")}
-                    required
-                  />
-                  <img src={emailIcon.src} className="icon" alt="" />
-                </div>
+              <input 
+    type="text" 
+    className={`form-control ${formik.touched.email && formik.errors.email ? 'is-invalid' : ''}`} 
+    id="validationServer03" 
+    aria-describedby="validationServer03Feedback" 
+    name="email"
+    placeholder={t("register.email")}
+    value={formik.values.email}
+    onChange={formik.handleChange}
+    onBlur={formik.handleBlur}
+    required 
+  />
+  {formik.touched.email && formik.errors.email && (
+    <div className="invalid-feedback">
+      {formik.errors.email}
+    </div>
+  )}
               </div>
               <div className="col-12 gy-4">
-                {formik.touched.password && formik.errors.password ? (
-                  <h6 className="text-white">{formik.errors.password}</h6>
-                ) : null}
-                <div className="input-with-icon ">
-                  <input
-                    className="form-control input-color "
-                    type="password"
-                    name="password"
-                    id="password"
-                    value={formik.values.password}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    placeholder={t("login.password")}
-                    required
-                  />
-                  <img src={passwordIcon.src} className="icon" alt="" />
-                </div>
-              </div>
+              <input 
+    type="text" 
+    className={`form-control ${formik.touched.password && formik.errors.password ? 'is-invalid' : ''}`} 
+    id="validationServer03" 
+    aria-describedby="validationServer03Feedback" 
+    name="password"
+    placeholder={t("register.password")}
+    value={formik.values.password}
+    onChange={formik.handleChange}
+    onBlur={formik.handleBlur}
+    required 
+  />
+  {formik.touched.password && formik.errors.password && (
+    <div className="invalid-feedback">
+      {formik.errors.password}
+    </div>
+  )}
+              </div>           <div className='col-12      '>
+    <p onClick={()=>router.push('/forgetpassword')} className="text-start mt-2 hover:underline text-gray-500  hover:text-white pointer  transition-all	">{t("login.forgetPassword")}</p>
+</div>
               <div className="col-12 w-75 m-auto">
                 <button
                   disabled={
@@ -135,7 +137,7 @@ const login = () => {
                       formik.touched.constructor === Object)
                   }
                   type="submit"
-                  className="btn form-control border-radius-20 green-bg text-white mt-4  w-100 transform-btn"
+                  className="btn form-control border-radius-20 green-bg text-white  w-100 transform-btn"
                 >
                   {loadingBtn ? (
                     <div
@@ -149,7 +151,7 @@ const login = () => {
                   )}
                 </button>
               </div>
-
+   
               <div className="col-12  ">
                 <p className="text-center  text-white mt-4 mb-4 middle-line ">
                   {t("login.or")}

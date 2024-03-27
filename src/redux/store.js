@@ -8,6 +8,7 @@ import storeSlice from './slices/storeSlice';
 import coinStoreSlice from './slices/coinStoreSlice';
 import orderSlice from './slices/orderSlice';
 import room from './slices/room';
+import soundSlice from './slices/soundSlice';
 import createRoomSlice from './slices/createRoomSlice';
 
 const store = configureStore({
@@ -20,7 +21,8 @@ const store = configureStore({
     storeSlice,
     orderSlice,
     coinStoreSlice,
-    createRoomSlice
+    createRoomSlice,
+    soundSlice
   },
 });
 

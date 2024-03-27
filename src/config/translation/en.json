@@ -3,13 +3,16 @@
     "title": "Login ",
     "email": "Email",
     "password": "Password",
-    "or": "Or"
+    "or": "Or",
+    "forgetPassword":" ! forget Password "
+
   },
   "register": {
     "title": "Sign Up ",
 
     "email": "Email",
     "name": "Name",
+    "phone": "Phone Number",
     "password": "Password",
     "rePassword": "rePassword"
   },
@@ -61,6 +64,10 @@
     "join":"Join",
     "back": "Return to previous page"
 
+  },
+  "coin" : {
+    "changeStore":"Change Store",
+    "card":"Buy Coins"
   },
   "logOut": {
     "logOut": "Log Out"
