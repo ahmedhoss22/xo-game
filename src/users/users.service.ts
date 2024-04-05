@@ -1,13 +1,18 @@
-import { Injectable, NotFoundException } from '@nestjs/common'
-import { Users } from './users.schema'
-import { InjectModel } from '@nestjs/mongoose'
-import mongoose, { Model } from 'mongoose'
-import { changePasswordDto } from './dtos/changePassword.dto'
-import { UpdateUserDto } from './dtos/update-user.dto'
-import { UserrDto } from './dtos/user.dto'
-import * as fs from 'fs'
-import * as path from 'path'
-const bcrypt = require('bcryptjs')
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from "@nestjs/common"
+import {Users} from "./users.schema"
+import {InjectModel} from "@nestjs/mongoose"
+import mongoose, {Model} from "mongoose"
+import {changePasswordDto} from "./dtos/changePassword.dto"
+import {UpdateUserDto} from "./dtos/update-user.dto"
+import {UserrDto} from "./dtos/user.dto"
+import * as fs from "fs"
+import * as path from "path"
+const bcrypt = require("bcryptjs")
+import {Resend} from "resend"
 
 @Injectable()
 export class UserService {
@@ -26,15 +31,15 @@ export class UserService {
     const user = await this.UserModel.findById(data._id)
 
     if (!user) {
-      throw new NotFoundException('User not found')
+      throw new NotFoundException("User not found")
     }
     if (data.image) {
-      if (user.image && user.image != '/default.png') {
+      if (user.image && user.image != "/default.png") {
         const oldImagePath = path.join(
           __dirname,
-          '..',
-          '..',
-          'public',
+          "..",
+          "..",
+          "public",
           user.image,
         )
         // Use the file system module to delete the old image
@@ -64,7 +69,7 @@ export class UserService {
 
   async changePassword(id: any, data: changePasswordDto): Promise<Users> {
     let user = await this.UserModel.findById(id)
-    if (user.provider != 'local') {
+    if (user.provider != "local") {
       return user
     }
     user.password = data.password
@@ -93,5 +98,26 @@ export class UserService {
   async comparePassword(password, hashed) {
     let validPassword = await bcrypt.compare(password, hashed)
     return validPassword
+  }
+
+  async sendMailOtp(email: string) {
+    const resend = new Resend("re_AC96Xonx_3SQxtWuiMSpn5wXw4pWSUMxN")
+    const otp = Math.floor(1000 + Math.random() * 9000).toString()
+
+    resend.emails.send({
+      from: "onboarding@resend.dev",
+      to: email,
+      subject: "Forget Password",
+      html: `
+      <h1>Welcome to matchxo </h1>
+      <p>You can visit our website form  <a href="https://matchxo.com/">here</a></p>
+      <p>This is the otp (Valid for only 10 min): <h2> <strong>${otp}</strong></h2></p>`,
+    })
+
+    return otp
+  }
+
+  getUserByEmail(email: string) {
+    return this.UserModel.findOne({email})
   }
 }
