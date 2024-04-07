@@ -147,7 +147,7 @@ const register = () => {
             </div>
             <div className="ltr col-12 gy-3">
             <input 
-    type="text" 
+    type="password" 
     className={`form-control ${formik.touched.password && formik.errors.password ? 'is-invalid' : ''}`} 
     id="validationServer03" 
     aria-describedby="validationServer03Feedback" 
@@ -166,7 +166,7 @@ const register = () => {
             </div>
             <div className="ltr col-12 gy-3">
             <input 
-    type="text" 
+    type="password" 
     className={`form-control ${formik.touched.rePassword && formik.errors.rePassword ? 'is-invalid' : ''}`} 
     id="validationServer03" 
     aria-describedby="validationServer03Feedback" 
@@ -191,7 +191,7 @@ const register = () => {
                   (Object.keys(formik.touched).length === 0 &&
                     formik.touched.constructor === Object)
                 }
-                className="btn form-control border-radius-20  green-bg text-white mt-4 transform-btn"
+                className="btn form-control border-radius-20  green-bg text-white mt-3 transform-btn"
               >
                       {loadingBtn ? (
                     <div

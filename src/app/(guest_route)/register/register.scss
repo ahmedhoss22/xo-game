@@ -49,6 +49,11 @@
 .register-btn{
   background: linear-gradient(180deg, #37007B 0%, #4044A7 100%) !important;
   padding: 15px !important;
+  border-color:transparent ;
+ 
+}
+.register-btn:disabled{ 
+  border-color:transparent ;
  
 }
 }

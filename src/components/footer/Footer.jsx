@@ -1,12 +1,5 @@
 "use client";
-import "./footer.scss";
-import homeIcon from "../../assets/photos/home-page.png";
-import leaderIcon from "../../assets/photos/leader-board.png";
-import firstPlace from "../../assets/photos/first-place.png";
-import startIcon from "../../assets/photos/Start.png";
-import cardIcon from "../../assets/photos/shopCard.png";
-import userIcon from "../../assets/photos/girl-icon.png";
-import Link from "next/link";
+import "./footer.scss"; 
 import {
   FaCcVisa,
   FaHome,
@@ -20,6 +13,8 @@ import { MdNotStarted } from "react-icons/md";
 import { RiAdminLine } from "react-icons/ri";
 import { useSelector } from "react-redux";
 import {usePathname} from 'next/navigation'
+import { LiaCcPaypal } from "react-icons/lia";
+import Link from "next/link";
 
 const Footer = () => {
   const user = useSelector((state) => state.user.data);
@@ -28,7 +23,7 @@ const Footer = () => {
 
   const links = [
     { icon: isAdmin ? <RiAdminLine className ='footer-icons ' /> : <FaRegUserCircle className ='footer-icons ' />, href: isAdmin ? '/settings' : '/user' },
-    { icon: < RiVisaFill  className ='footer-icons '/>, href: '/payment' },
+    { icon: < LiaCcPaypal   className ='footer-icons '/>, href: '/payment' },
     { icon: <  FaShoppingCart className ='footer-icons '/>, href: '/card' },
     { icon: < MdNotStarted  className ='footer-icons '/>, href: '/coinsofgame' },
     // { icon: <  IoWalletOutline className ='footer-icons ' />, href: '/wallet' },

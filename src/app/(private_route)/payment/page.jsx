@@ -11,49 +11,73 @@ import Link from "next/link";
 import { Checkbox, TextField } from "@mui/material";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { PayPalButtons } from "@paypal/react-paypal-js";
+import { Router } from "@mui/icons-material";
+import { useRouter } from "next/navigation";
+import Api from "@/config/api";
 
 const payment = () => {
-  function handlePaypal(values) {
-    console.log(values);
-  }
+  // function handlePaypal(values) {
+  //   console.log(values);
+  // }
+  // const router =useRouter()
 
-  let validationPaypalSchema = Yup.object({
-    cardNumber: Yup.number().required("Please enter Card Number "),
-    acceptTerms: Yup.string().required("Please Accept Terms and conditions "),
-  });
+  // let validationPaypalSchema = Yup.object({
+  //   cardNumber: Yup.number().required("Please enter Card Number "),
+  //   acceptTerms: Yup.string().required("Please Accept Terms and conditions "),
+  // });
 
-  let formikPaypal = useFormik({
-    initialValues: {
-      cardNumber: "",
-      acceptTerms: true,
-    },
-    validationPaypalSchema,
-    onSubmit: handlePaypal,
-  });
+  // let formikPaypal = useFormik({
+  //   initialValues: {
+  //     cardNumber: "",
+  //     acceptTerms: true,
+  //   },
+  //   validationPaypalSchema,
+  //   onSubmit: handlePaypal,
+  // });
 
-  function handleVisa(values) {
-    console.log(values);
-  }
+  // function handleVisa(values) {
+  //   console.log(values);
+  // }
 
-  let validationVisaSchema = Yup.object({
-    cardNumber: Yup.number().required("Please enter Card Number "),
-    holderName: Yup.string().required("Please enter Holder Name "),
-    expDate: Yup.date().required("Please enter Exp Date "),
-    cvvNumber: Yup.number().required("Please enter CVV Number "),
-    acceptTerms: Yup.string().required("Please Accept Terms and conditions "),
-  });
+  // let validationVisaSchema = Yup.object({
+  //   cardNumber: Yup.number().required("Please enter Card Number "),
+  //   holderName: Yup.string().required("Please enter Holder Name "),
+  //   expDate: Yup.date().required("Please enter Exp Date "),
+  //   cvvNumber: Yup.number().required("Please enter CVV Number "),
+  //   acceptTerms: Yup.string().required("Please Accept Terms and conditions "),
+  // });
 
-  let formikVisa = useFormik({
-    initialValues: {
-      cardNumber: "",
-      holderName: "",
-      expDate: "",
-      cvvNumber: "",
-      acceptTerms: true,
-    },
-    validationVisaSchema,
-    onSubmit: handleVisa,
-  });
+  // let formikVisa = useFormik({
+  //   initialValues: {
+  //     cardNumber: "",
+  //     holderName: "",
+  //     expDate: "",
+  //     cvvNumber: "",
+  //     acceptTerms: true,
+  //   },
+  //   validationVisaSchema,
+  //   onSubmit: handleVisa,
+  // });
+  const createOrder = (price, actions) => {
+    return Api.post("/paypal/create-paypal-order", {
+        currency: "USD",
+        price,
+
+    })
+      .then((response) => {
+      return  response.data.id
+      });
+  };
+
+  const onApprove = (data, price, coins, actions) => {
+    return Api.post("/paypal/capture-paypal-order", {
+      orderID: data.orderID,
+      price,
+      coins 
+    })
+  .then((response) =>router.push("/home") )
+  };
 
   const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
@@ -63,7 +87,7 @@ const payment = () => {
       <div className="container ">
         <div className="  d-flex justify-content-between-lg justify-content-around  pt-4">
           <div className="">
-            <FaArrowLeft className="text-white pointer h-5 mt-10" />
+            <FaArrowLeft onClick={()=>router.push('/card')} className="text-white pointer h-5 mt-10" />
           </div>
           <Link href="/message">
             <Title />
@@ -71,7 +95,13 @@ const payment = () => {
         </div>
 
         <div className="row  flex flex-col align-items-center justify-center">
-          <form
+          <div className="mt-4 flex flex-col align-items-center justify-center" style={{height:'55vh'}}>   <PayPalButtons
+             createOrder={(data, actions) => createOrder(item?.price , actions)} 
+             onApprove={(data, actions) => onApprove(data, item.price, item.coins, actions)} 
+             /> </div>
+            
+          
+          {/* <form
             onSubmit={formikPaypal.handleSubmit}
             className="paypal col-md-6 gy-4 mb-4"
           >
@@ -116,7 +146,7 @@ const payment = () => {
             >
               Done
             </button>
-          </form>
+          </form> */}
 
           {/* <form onSubmit={formikVisa.handleSubmit} className="visa col-md-6">
             <div>

@@ -1,173 +1,143 @@
 'use client'
+import '../forgetPassword.scss'
+import React from 'react'
 import  { useEffect ,useState} from "react";
+import { FaLongArrowAltLeft, FaUnlockAlt } from 'react-icons/fa';
+import { useTranslation } from "react-i18next";
 import Link from 'next/link'
 import TextField from "@mui/material/TextField";
-import React from 'react'
-import '../forgetPassword.scss'
 import icon from "@/assets/photos/icon.png"; 
-import { FaLongArrowAltLeft, FaUnlockAlt } from 'react-icons/fa';
+import * as Yup from "yup";
+import { useFormik } from "formik";
+import Api from '@/config/api';
+import { notifyError } from '@/components/toastify/toastify';
+
  const otp = () => {
-    const [page, setPage] = useState("login");
-    const [email, setEmail] = useState();
-    const [otp, setOTP] = useState();
-    const [timerCount, setTimer] = useState(60);
-    const [OTPinput, setOTPinput] = useState([0, 0, 0, 0]);
-    const [disable, setDisable] = useState(true);
-  
-    function resendOTP() {
-      if (disable) return;
-      axios
-        .post("http://localhost:5000/send_recovery_email", {
-          OTP: otp,
-          recipient_email: email,
-        })
-        .then(() => setDisable(true))
-        .then(() => alert("A new OTP has succesfully been sent to your email."))
-        .then(() => setTimer(60))
-        .catch(console.log);
-    }
-  
-    function verfiyOTP() {
-      if (parseInt(OTPinput.join("")) === otp) {
-        setPage("reset");
-        return;
-      }
-      alert(
-        "The code you have entered is not correct, try again or re-send the link"
-      );
-      return;
-    }
-  
-    useEffect(() => {
-      let interval = setInterval(() => {
-        setTimer((lastTimerCount) => {
-          lastTimerCount <= 1 && clearInterval(interval);
-          if (lastTimerCount <= 1) setDisable(false);
-          if (lastTimerCount <= 0) return lastTimerCount;
-          return lastTimerCount - 1;
-        });
-      }, 1000); //each count lasts for a second
-      //cleanup the interval on complete
-      return () => clearInterval(interval);
-    }, [disable]);
+  const { t, i18n } = useTranslation(); 
+  const [loadingBtn, setLoadingBtn] = useState(false);
+ 
+  const initialValues = {
+    otp1: '',
+    otp2: '',
+    otp3: '',
+    otp4: '',
+  };
+
+  const validationSchema = Yup.object().shape({
+    otp1: Yup.string().required('OTP is required'),
+    otp2: Yup.string().required('OTP is required'),
+    otp3: Yup.string().required('OTP is required'),
+    otp4: Yup.string().required('OTP is required'),
+  });
+
+  const handleSubmit = async (values, { setSubmitting, resetForm }) => {
+    const otp = `${values.otp1}${values.otp2}${values.otp3}${values.otp4}`;
+    Api.post("/users/otp-verify",{ otp })
+    .then(()=>{
+      router.push("/forgetpassword/forgetpasswordchange")
+    })
+    .catch((err)=>{
+      setLoadingBtn(false);
+
+      let errMsg = err?.response?.data?.message
+      notifyError(Array.isArray(errMsg)? errMsg[0]:errMsg )
+      console.log(err);
+    })
+    .finally(() => {
+      setLoadingBtn(false);
+    });
+     
+    setSubmitting(false);
+  };
+
+  const formik = useFormik({
+    initialValues,
+    validationSchema,
+    onSubmit: handleSubmit,
+  });
+
   return (
 
-    <div className="vh-100 forget-password-bg ">
-    <div className="container ">
+    <div className="vh-100 forget-password-bg">
+    <div className="container">
       <div className="mb-10 mt-10">
-        <div className="d-flex fs-2 position-fixed  ">
-          <Link href="/forgetpassword" className="link text-white  ">
+        <div className="d-flex fs-2 position-fixed">
+          <Link href="/forgetpassword" className="link text-white">
             <FaLongArrowAltLeft className="" />
           </Link>
         </div>
         <div className="d-flex justify-content-center align-items-center">
-          <h1 className="text-center fw-bold">Verification Code</h1>
+          <h1 className="text-center fw-bold"> {t('otp.verification')}</h1>
         </div>
       </div>
-      {/* <form onSubmit={formik.handleSubmit}> */}
+      <form onSubmit={formik.handleSubmit}>
         <div className="d-flex flex-col align-items-center">
-          <div className="row max-w-screen-sm ">
+          <div className="row max-w-screen-sm">
             <div className="col-12  mb-5">
-            
               <div className="col-12 d-flex justify-content-center align-items-center flex-col">
-  <div className="d-flex justify-content-center align-items-center rounded-full circle-bg">
-    
-<FaUnlockAlt className='fs-2 '/>
-
+                <div className="d-flex justify-content-center align-items-center rounded-full circle-bg">
+                  <FaUnlockAlt className="fs-2" />
+                </div>
+                <p className="mt-5 mb-3 text-center">{t('otp.title')} Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed voluptates cum mollitia repudiandae laborum alias impedit incidunt quo ipsa. Magnam rem iusto praesentium, numquam labore ea omnis sapiente corporis et.</p>
+                <div className="flex flex-row items-center justify-between mx-auto w-full max-w-xs">
+                  <div className="w-10 h-16 ">
+                    <input
+                      maxLength="1"
+                      className="text-gray-900  h-full flex flex-col items-center justify-center text-center  outline-none rounded-xl border border-gray-200 text-lg bg-white focus:bg-gray-50 focus:ring-1 ring-blue-700"
+                      type="text"
+                      style={{ width: '70px' }}
+                      name="otp1"
+                      value={formik.values.otp1}
+                      onChange={formik.handleChange}
+                    ></input>
+                  </div>
+                  <div className="w-10 h-16 ">
+                    <input
+                      maxLength="1"
+                      className="text-gray-900  h-full flex flex-col items-center justify-center text-center  outline-none rounded-xl border border-gray-200 text-lg bg-white focus:bg-gray-50 focus:ring-1 ring-blue-700"
+                      type="text"
+                      style={{ width: '70px' }}
+                      name="otp2"
+                      value={formik.values.otp2}
+                      onChange={formik.handleChange}
+                    ></input>
+                  </div>
+                  <div className="w-10 h-16 ">
+                    <input
+                      maxLength="1"
+                      className="text-gray-900   h-full flex flex-col items-center justify-center text-center  outline-none rounded-xl border border-gray-200 text-lg bg-white focus:bg-gray-50 focus:ring-1 ring-blue-700"
+                      type="text"
+                      style={{ width: '70px' }}
+                      name="otp3"
+                      value={formik.values.otp3}
+                      onChange={formik.handleChange}
+                    ></input>
+                  </div>
+                  <div className="w-10 h-16 ">
+                    <input
+                      maxLength="1"
+                      className="text-gray-900   h-full flex flex-col items-center justify-center text-center  outline-none rounded-xl border border-gray-200 text-lg bg-white focus:bg-gray-50 focus:ring-1 ring-blue-700"
+                      type="text"
+                      style={{ width: '70px' }}
+                      name="otp4"
+                      value={formik.values.otp4}
+                      onChange={formik.handleChange}
+                    ></input>
+                  </div>
+                </div>
               </div>
-              <p className="mt-5 mb-3 text-center">Please enter the digit code you have received.
-</p>
-<div className="flex flex-row items-center justify-between mx-auto w-full max-w-xs">
-                <div className="w-10 h-16 ">
-                  <input
-                    maxLength="1"
-                    className="text-gray-900  h-full flex flex-col items-center justify-center text-center  outline-none rounded-xl border border-gray-200 text-lg bg-white focus:bg-gray-50 focus:ring-1 ring-blue-700"
-                    type="text"
-                    style={{ width: '70px' }}
-                    name=""
-                    id=""
-                    onChange={(e) =>
-                      setOTPinput([
-                        e.target.value,
-                        OTPinput[1],
-                        OTPinput[2],
-                        OTPinput[3],
-                      ])
-                    }
-                  ></input>
-                </div>
-                <div className="w-10 h-16 ">
-                  <input
-                    maxLength="1"
-                    className="text-gray-900  h-full flex flex-col items-center justify-center text-center  outline-none rounded-xl border border-gray-200 text-lg bg-white focus:bg-gray-50 focus:ring-1 ring-blue-700"
-                    type="text"
-                    style={{ width: '70px' }}
-                    name=""
-                    id=""
-                    onChange={(e) =>
-                      setOTPinput([
-                        OTPinput[0],
-                        e.target.value,
-                        OTPinput[2],
-                        OTPinput[3],
-                      ])
-                    }
-                  ></input>
-                </div>
-                <div className="w-10 h-16 ">
-                  <input
-                    maxLength="1"
-                    className="
-                    text-gray-900   h-full flex flex-col items-center justify-center text-center  outline-none rounded-xl border border-gray-200 text-lg bg-white focus:bg-gray-50 focus:ring-1 ring-blue-700"
-                    type="text"
-                    style={{ width: '70px' }}
-                    name=""
-                    id=""
-                    onChange={(e) =>
-                      setOTPinput([
-                        OTPinput[0],
-                        OTPinput[1],
-                        e.target.value,
-                        OTPinput[3],
-                      ])
-                    }
-                  ></input>
-                </div>
-                <div className="w-10 h-16 ">
-                  <input
-                    maxLength="1"
-                    className="
-                    text-gray-900   h-full flex flex-col items-center justify-center text-center  outline-none rounded-xl border border-gray-200 text-lg bg-white focus:bg-gray-50 focus:ring-1 ring-blue-700"
-                    type="text"
-                    style={{ width: '70px' }}
-                    name=""
-                    id=""
-                    onChange={(e) =>
-                      setOTPinput([
-                        OTPinput[0],
-                        OTPinput[1],
-                        OTPinput[2],
-                        e.target.value,
-                      ])
-                    }
-                  ></input>
-                </div>
-              </div>              </div>
-
-          
             </div>
           </div>
-<div className="col-md-3 col-8 ms-4">
-  <button
-            type="submit"
-            className="forget-btn focus:ring-4  focus:outline-none font-medium rounded-lg text-sm px-36 py-3 text-center  "
-           >
-            Verify
-          </button>
-</div>
-          
+          <div className="col-md-3 col-8 ms-4">
+            <button
+              type="submit"
+              className="forget-btn focus:ring-4  focus:outline-none font-medium rounded-lg text-sm px-36 py-3 text-center"
+            >
+              {t('otp.verify')}
+            </button>
+          </div>
         </div>
-      {/* </form> */}
+      </form>
     </div>
   </div>
   

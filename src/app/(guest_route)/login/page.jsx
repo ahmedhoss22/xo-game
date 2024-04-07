@@ -110,7 +110,7 @@ const login = () => {
               </div>
               <div className="col-12 gy-4">
               <input 
-    type="text" 
+    type="password" 
     className={`form-control ${formik.touched.password && formik.errors.password ? 'is-invalid' : ''}`} 
     id="validationServer03" 
     aria-describedby="validationServer03Feedback" 

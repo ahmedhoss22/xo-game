@@ -4,7 +4,12 @@
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
- 
+  .card-btn{
+    background: linear-gradient(180deg, #37007B 0%, #4044A7 100%);
+    padding: 15px !important;
+    width: 100%;
+   
+  }
 .ticket {
   background-color: var(--purple-color) !important;
   border-radius: 15px;

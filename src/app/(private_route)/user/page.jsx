@@ -34,8 +34,10 @@ const user = () => {
   }, []);
 
   return (
-    <div className=" user ">
-      <div className="container ">
+     
+
+    <div className=" user d-flex flex-column  ">
+       <div className="container flex-grow ">
         <div className="row d-flex  justify-content-between-lg justify-content-around pt-4">
           <div className="col-1" onClick={() => router.push("/")}>
             <FaArrowLeft className="text-white pointer h-5 arrow mt-10" />
@@ -103,12 +105,13 @@ const user = () => {
             </>
           )}
         </div>
+     </div>  
+     <div>      <Footer />
+
+      </div>      
       </div>
-      <div className="fixed-bottom">
-        <Footer />
-      </div>
-    </div>
-  );
+
+   );
 };
 
 export default user;

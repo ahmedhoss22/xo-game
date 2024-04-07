@@ -5,7 +5,11 @@ import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { fetchUserData } from "@/redux/slices/user";
-
+import {
+  changePasswordValidationSchema,
+  editUserDataValidationSchema,
+} from "@/utils/validation";
+changePasswordValidationSchema;
 const EditUser = ({ toggleEditMode }) => {
   const { t, i18n } = useTranslation();
   const dispatch = useDispatch();
@@ -16,6 +20,7 @@ const EditUser = ({ toggleEditMode }) => {
   const [intialState, setInitialState] = useState({
     name: user?.name || "",
     email: user?.email || "",
+    phone: user?.phone || "",
     image: null,
   });
 
@@ -36,10 +41,10 @@ const EditUser = ({ toggleEditMode }) => {
     }
   }, [user]);
 
-  function handleInfoSubmit(values) { 
+  function handleInfoSubmit(values) {
     console.log(values);
     const url = "/users/user/update";
-    Api.post(url, values , {
+    Api.post(url, values, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
@@ -47,7 +52,7 @@ const EditUser = ({ toggleEditMode }) => {
       .then(() => {
         notifySuccess("Data submitted");
         dispatch(fetchUserData());
-        toggleEditMode();  
+        toggleEditMode();
         formik.resetForm();
       })
       .catch((err) => {
@@ -58,15 +63,14 @@ const EditUser = ({ toggleEditMode }) => {
 
   function handlePasswordSubmit(values) {
     console.log(values);
- 
 
-    Api.post("/users/password",values)
-    .then(() => {
-      notifySuccess("Password Updated !! ");
-      dispatch(fetchUserData());
-      toggleEditMode();  
-      formik.resetForm();
-    })
+    Api.post("/users/password", values)
+      .then(() => {
+        notifySuccess("Password Updated !! ");
+        dispatch(fetchUserData());
+        toggleEditMode();
+        formik.resetForm();
+      })
       .catch((err) => {
         let error = err?.response?.data?.message;
         notifyError(Array.isArray(error) ? error[0] : error);
@@ -75,11 +79,13 @@ const EditUser = ({ toggleEditMode }) => {
 
   const formik = useFormik({
     initialValues: intialState,
+    validationSchema: editUserDataValidationSchema,
     onSubmit: handleInfoSubmit,
   });
 
   const formikPassword = useFormik({
     initialValues: intialPassword,
+    validationSchema: changePasswordValidationSchema,
     onSubmit: handlePasswordSubmit,
   });
 
@@ -90,6 +96,7 @@ const EditUser = ({ toggleEditMode }) => {
 
   return (
     <>
+      
       <div
         className={`d-flex align-items-center justify-content-center    ${
           i18n.language === "ar" ? "rtl" : ""
@@ -138,106 +145,166 @@ const EditUser = ({ toggleEditMode }) => {
                 </>
               )}
 
-              <label className="text-white">{t("user.name")} </label>
+              {/* <label className="text-white">{t("user.name")} </label> */}
               <input
-                className="shadow appearance-none border rounded w-full py-2  px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                id="name"
-                name="name"
                 type="text"
+                className={`form-control mt-1 mb-2 ${
+                  formik.touched.name && formik.errors.name ? "is-invalid" : ""
+                }`}
+                id="validationServer03"
+                aria-describedby="validationServer03Feedback"
+                name="name"
                 placeholder={t("user.name")}
-                value={formik?.values?.name}
+                value={formik.values.name}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
+                required
               />
-              {formik.touched.name && formik.errors.name ? (
-                <div className="text-red-500">{formik.errors.name}</div>
-              ) : null}
+              {formik.touched.name && formik.errors.name && (
+                <div className="invalid-feedback">{formik.errors.name}</div>
+              )}
+              {/* <label className="text-white">{t("user.phone")} </label> */}
+              <input
+                type="text"
+                className={`form-control  mt-1 mb-2 ${
+                  formik.touched.phone && formik.errors.phone
+                    ? "is-invalid"
+                    : ""
+                }`}
+                id="validationServer03"
+                aria-describedby="validationServer03Feedback"
+                name="phone"
+                placeholder={t("user.phone")}
+                value={formik.values.phone}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                required
+              />
+              {formik.touched.phone && formik.errors.phone && (
+                <div className="invalid-feedback">{formik.errors.phone}</div>
+              )}
 
               {provider === "local" && (
                 <>
                   {" "}
-                  <label className="text-white">{t("user.email")} </label>
+                  {/* <label className="text-white">{t("user.email")} </label> */}
                   <input
-                    className="shadow appearance-none border rounded w-full py-2   px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    id="email"
+                    type="email"
+                    className={`form-control ${
+                      formik.touched.email && formik.errors.email
+                        ? "is-invalid"
+                        : ""
+                    }`}
+                    id="validationServer03"
+                    aria-describedby="validationServer03Feedback"
                     name="email"
-                    type="text"
                     placeholder={t("user.email")}
                     value={formik.values.email}
                     onChange={formik.handleChange}
-                    initialValues={user?.email}
+                    onBlur={formik.handleBlur}
+                    required
                   />
                   {formik.touched.email && formik.errors.email && (
-                    <div className="text-red-500">{formik.errors.email}</div>
+                    <div className="invalid-feedback">
+                      {formik.errors.email}
+                    </div>
                   )}
-                 </>
+                </>
               )}
-                     <button
-                    type="submit"
-                    className="d-flex mb-1 mt-1 align-items-center justify-content-center edit-btn text-white border-radius-20   pointer"
-                  >
-                    {" "}
-                    {t("user.change")}
-                  </button>
+              <button
+                type="submit"
+                className="d-flex mt-2 mb-1 align-items-center justify-content-center edit-btn text-white border-radius-20   pointer"
+              >
+                {" "}
+                {t("user.change")}
+              </button>
             </form>
 
             <form onSubmit={formikPassword.handleSubmit}>
               {provider === "local" && (
                 <>
-                                 <label className="text-white">
+                  <span className=" fs-5 block text-white text-sm font-bold mb-1 text-center">
+                    {t("user.changePassword")}{" "}
+                  </span>
+                  {/* <label className="text-white">
                     {t("user.oldPassword")}
-                  </label>
+                  </label> */}
                   <input
-                    className="shadow appearance-none border rounded w-full py-2  px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    id="oldPassword"
-                    name="oldPassword"
                     type="password"
+                    className={`form-control  mt-1 mb-2 ${
+                      formikPassword.touched.oldPassword &&
+                      formikPassword.errors.oldPassword
+                        ? "is-invalid"
+                        : ""
+                    }`}
+                    id="validationServer03"
+                    aria-describedby="validationServer03Feedback"
+                    name="oldPassword"
                     placeholder={t("user.oldPassword")}
                     value={formikPassword.values.oldPassword}
                     onChange={formikPassword.handleChange}
+                    onBlur={formikPassword.handleBlur}
+                    required
                   />
                   {formikPassword.touched.oldPassword &&
                     formikPassword.errors.oldPassword && (
-                      <div className="text-red-500">
+                      <div className="invalid-feedback">
                         {formikPassword.errors.oldPassword}
                       </div>
                     )}
-                  <label className="text-white">{t("user.password")}</label>
+
+                  {/* <label className="text-white">{t("user.password")}</label> */}
                   <input
-                    className="shadow appearance-none border rounded w-full py-2  px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    id="password"
-                    name="password"
                     type="password"
+                    className={`form-control  mt-1 mb-2 ${
+                      formikPassword.touched.password &&
+                      formikPassword.errors.password
+                        ? "is-invalid"
+                        : ""
+                    }`}
+                    id="validationServer03"
+                    aria-describedby="validationServer03Feedback"
+                    name="password"
                     placeholder={t("user.password")}
                     value={formikPassword.values.password}
                     onChange={formikPassword.handleChange}
+                    onBlur={formikPassword.handleBlur}
+                    required
                   />
                   {formikPassword.touched.password &&
                     formikPassword.errors.password && (
-                      <div className="text-red-500">
+                      <div className="invalid-feedback">
                         {formikPassword.errors.password}
                       </div>
                     )}
-                  <label className="text-white">{t("user.rePassword")}</label>
+                  {/* <label className="text-white">{t("user.rePassword")}</label> */}
                   <input
-                    className="shadow appearance-none border rounded w-full py-2  px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    id="rePassword"
-                    name="rePassword"
                     type="password"
+                    className={`form-control ${
+                      formikPassword.touched.rePassword &&
+                      formikPassword.errors.rePassword
+                        ? "is-invalid"
+                        : ""
+                    }`}
+                    id="validationServer03"
+                    aria-describedby="validationServer03Feedback"
+                    name="rePassword"
                     placeholder={t("user.rePassword")}
                     value={formikPassword.values.rePassword}
                     onChange={formikPassword.handleChange}
+                    onBlur={formikPassword.handleBlur}
+                    required
                   />
                   {formikPassword.touched.rePassword &&
                     formikPassword.errors.rePassword && (
-                      <div className="text-red-500">
+                      <div className="invalid-feedback">
                         {formikPassword.errors.rePassword}
                       </div>
                     )}
- 
+
                   <button
                     type="submit"
-                    className="d-flex align-items-center justify-content-center edit-btn text-white border-radius-20  mb-1  pointer"
+                    className="mt-2 mb-1 d-flex align-items-center justify-content-center edit-btn text-white border-radius-20  pointer"
                   >
                     {t("user.changePassword")}
                   </button>
@@ -253,7 +320,7 @@ const EditUser = ({ toggleEditMode }) => {
             {t("user.return")}
           </h6> */}
         </div>
-      </div>
+      </div> 
     </>
   );
 };

@@ -14,12 +14,13 @@ import { getAllItems } from "@/redux/slices/coinStoreSlice";
 import { useEffect } from "react";
 import { GiCoins } from "react-icons/gi";
 import { PiCoinsDuotone } from "react-icons/pi";
-import { PayPalButtons } from "@paypal/react-paypal-js";
 import Api from "@/config/api";
 import { useRouter } from "next/navigation";
+import { useTranslation } from "react-i18next";
 
 const card = () => {
-  
+  const { t, i18n } = useTranslation();
+
   const router = useRouter(); 
   const dispatch = useDispatch();
   const items = useSelector((state) => state.coinStoreSlice.items);
@@ -28,25 +29,7 @@ const card = () => {
     dispatch(getAllItems());
   }, []);
 
-  const createOrder = (price, actions) => {
-    return Api.post("/paypal/create-paypal-order", {
-        currency: "USD",
-        price,
-
-    })
-      .then((response) => {
-      return  response.data.id
-      });
-  };
-
-  const onApprove = (data, price, coins, actions) => {
-    return Api.post("/paypal/capture-paypal-order", {
-      orderID: data.orderID,
-      price,
-      coins 
-    })
-  .then((response) =>router.push("/home") )
-  };
+ 
 
   return (
     <div className=" card-page d-flex flex-column ">
@@ -54,7 +37,7 @@ const card = () => {
         <div className="container ">
           <div className="d-flex justify-content-between-lg justify-content-around pb-4 pt-4">
             <div className="">
-              <FaArrowLeft className="text-white pointer h-5 mt-10" />
+              <FaArrowLeft  onClick={()=>router.push('/')}  className="text-white pointer h-5 mt-10" />
             </div>
             <div>
               <Title />
@@ -65,7 +48,7 @@ const card = () => {
           {/* <div className="  g-5 justify-content-center  align-items-center"> */}
           <div className="row w-25 m-auto  d-flex justify-content-around align-items-center ">
             {items.map((item, key) => (
-              <div key={key} className="col-md-6 col-lg-4">
+              <div key={key} className="col-md-6 col-xl-4">
                 <Link href='/payment' className=" link ticket">
                   <div className="img-container">
 
@@ -74,15 +57,20 @@ const card = () => {
                   <h5 className="count">{item?.coins}</h5>
                   <h5 className="price text-white">{item?.price}$</h5>
                 </Link>
-            <PayPalButtons
-             createOrder={(data, actions) => createOrder(item?.price , actions)} 
-             onApprove={(data, actions) => onApprove(data, item.price, item.coins, actions)} 
-             />
+  
               </div>))}
 
           </div>
-          <div className="col-md-6 col-lg-4 m-auto " style={{ borderTop: '1px white solid' }}>
+          <div className="col-8 col-md-6 col-lg-4 col-xl-2 m-auto " style={{ borderTop: '1px white solid' }}>
           </div>
+          <div className="col-8  col-md-6  col-lg-4 col-xl-2 mt-4 m-auto">          <button
+          onClick={()=>router.push('/payment')}
+                    type="submit"
+                    className="transform-btn mt-2 mb-1 d-flex align-items-center justify-content-center card-btn text-white border-radius-20  pointer"
+                  >
+                    {t("card.buy")}
+                  </button></div>
+
           <div className="row d-flex justify-content-around  w-25 m-auto">
             {/* <div className="col-lg-4 d-flex justify-content-center payment-method d-flex gap-2 gy-3">
               <Link href="/payment" className="visa">
