@@ -292,17 +292,15 @@ export class RoomsService implements OnGatewayDisconnect {
 
     const player = this.utilitsService.getPlayerInfo(data, match)
     // check if socket id changes (user refresh the page)
-    if (
-      client.id != match.socketID1 &&
-      client.id != match.socketID2
-    ) {
+    if (client.id != match.socketID1 && client.id != match.socketID2) {
       this.utilitsService.updatePlayerSocket(match, client, data)
       this.server.to(client.id).socketsJoin(match.roomName)
     }
-    console.log(match  , client.id);
-    
 
     if (!this.utilitsService.isPlayerTurn(player, match)) {
+      console.log("player , match")
+      console.log(player, match)
+
       return this.utilitsService.errorHandle(
         client.id,
         "It's the turn for the other player!",

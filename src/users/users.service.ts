@@ -13,6 +13,7 @@ import * as fs from "fs"
 import * as path from "path"
 const bcrypt = require("bcryptjs")
 import {Resend} from "resend"
+import { error } from "console"
 
 @Injectable()
 export class UserService {
@@ -101,23 +102,29 @@ export class UserService {
   }
 
   async sendMailOtp(email: string) {
-    const resend = new Resend("re_AC96Xonx_3SQxtWuiMSpn5wXw4pWSUMxN")
+    const resend = new Resend("re_bV7v7VxH_LzwD5C8uRHigvFqL6UTNjEdw")
+    resend.apiKeys.create({name :"Matchxo"})
     const otp = Math.floor(1000 + Math.random() * 9000).toString()
 
-    resend.emails.send({
+    console.log(email);
+    
+    const { data, error } = await resend.emails.send({
       from: "onboarding@resend.dev",
-      to: email,
+      to: [email],
       subject: "Forget Password",
       html: `
       <h1>Welcome to matchxo </h1>
       <p>You can visit our website form  <a href="https://matchxo.com/">here</a></p>
       <p>This is the otp (Valid for only 10 min): <h2> <strong>${otp}</strong></h2></p>`,
     })
-
+    if (error) {
+      return console.error({ error });
+    }
     return otp
   }
 
   getUserByEmail(email: string) {
     return this.UserModel.findOne({email})
   }
+
 }
