@@ -42,3 +42,10 @@ export const registerValidationSchema = Yup.object({
       .required("rePassword is required")
       .oneOf([Yup.ref("password")], "password dosnot  match"),
   });
+  export const changeForgetPasswordValidationSchema = Yup.object({
+    
+    password: Yup.string().required("Password is required"),
+     rePassword: Yup.string()
+      .required("rePassword is required")
+      .oneOf([Yup.ref("password")], "password dosnot  match"),
+  });

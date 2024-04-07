@@ -1,42 +1,50 @@
 'use client'
-import TextField from "@mui/material/TextField";
-import React, { useState } from 'react'
-import icon from "@/assets/photos/icon.png"; 
-import { FaLongArrowAltLeft, FaUnlockAlt } from 'react-icons/fa';
-import Link from "next/link";
 import '../forgetPassword.scss'
-import { IconBase } from 'react-icons';
-import { useTranslation } from "react-i18next";
-import { changePasswordValidationSchema } from "@/utils/validation";
-import { useFormik } from "formik";
+import TextField from "@mui/material/TextField";
+import React, { useEffect, useState } from 'react'
 import Api from "@/config/api";
+import Link from "next/link";
+import icon from "@/assets/photos/icon.png"; 
+import { IconBase } from 'react-icons';
+import { FaLongArrowAltLeft, FaUnlockAlt } from 'react-icons/fa';
+import { useTranslation } from "react-i18next";
+import { changeForgetPasswordValidationSchema } from "@/utils/validation";
+import { useFormik } from "formik";
+import { fetchUserData } from "@/redux/slices/user";
+import { useDispatch, useSelector } from "react-redux";
+import { Router } from '@mui/icons-material';
+import { notifyError, notifySuccess } from '@/components/toastify/toastify';
 
  const forgetPasswordChange = () => {
+  const dispatch = useDispatch();
+
   const { t, i18n } = useTranslation();
   const [intialPassword, setInitialPassword] = useState({
     password: "",
-    rePassword: "",
-    // oldPassword: "",
+    rePassword: "", 
   });
-  function handlePasswordSubmit(values) {
+  const formik = useFormik({
+    initialValues: intialPassword,
+    validationSchema: changeForgetPasswordValidationSchema,
+    onSubmit: handlePasswordChange,
+  });
+  function handlePasswordChange(values) {
     console.log(values);
+    console.log('values');
 
     Api.post("/users/change-forget-password", values)
       .then(() => {
         notifySuccess("Password Changed !! ");
         
-        formik.resetForm();
+        Router.push('/login')
       })
       .catch((err) => {
         let error = err?.response?.data?.message;
         notifyError(Array.isArray(error) ? error[0] : error);
       });
   }
-  const formik = useFormik({
-    initialValues: intialPassword,
-    validationSchema: changePasswordValidationSchema,
-    onSubmit: handlePasswordSubmit,
-  });
+
+ 
   return (
     <div className="vh-100 forget-password-bg">
     <div className="container ">
@@ -64,26 +72,7 @@ import Api from "@/config/api";
               </div>
               <p className="mt-5 mb-3 text-center"> {t("forgetPasswordChange.create")} 
 </p>
-              {/* <TextField
-                error={
-                  formik.touched.oldPassword &&
-                  Boolean(formik.errors.oldPassword)
-                }
-                helperText={
-                  formik.touched.oldPassword && formik.errors.oldPassword
-                }
-                name="oldPassword"
-                id="oldPassword"
-                value={formik.values.oldPassword}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                label= {t("forgetPasswordChange.oldPassword")} 
-                
-                className="mb-2 mt-2  "
-                type="password"
-
-                fullWidth
-              />    */}
+         
                     <TextField
                 error={
                   formik.touched.password &&

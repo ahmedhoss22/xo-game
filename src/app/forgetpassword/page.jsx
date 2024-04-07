@@ -90,7 +90,7 @@ import * as Yup from "yup";
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 defaultValue={t("forgetPassword.email")}
-                fullWidth
+                // fullWidth
                 label={t("forgetPassword.email")}
                 className="mb-2 mt-2  "
               />                   </div>
