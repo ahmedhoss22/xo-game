@@ -1,12 +1,12 @@
-import { IsNotEmpty, IsString, Length } from 'class-validator'
+import { IsNotEmpty, IsOptional, IsString, Length } from 'class-validator'
 import { IsStrongPassword } from '../../utilites/password.util'
 import { IsEqualTo } from 'src/utilites/equalPasswords.util'
 
 export class changePasswordDto {
   @IsString()
   @IsNotEmpty()
-  @IsStrongPassword({ message: 'Password is not strong enough' })
   readonly password: string
+  // @IsStrongPassword({ message: 'Password is not strong enough' })
 
   @IsString()
   @IsNotEmpty()
@@ -14,8 +14,8 @@ export class changePasswordDto {
   readonly rePassword: String
 
   @IsString()
-  @IsNotEmpty()
+  @IsOptional()
   @Length(6, 20)
-  @IsStrongPassword({ message: 'Password is not strong enough' })
-  readonly oldPassword: string
+  // @IsStrongPassword({ message: 'Password is not strong enough' })
+  readonly oldPassword?: string
 }

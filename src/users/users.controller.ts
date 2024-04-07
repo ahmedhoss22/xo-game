@@ -22,6 +22,7 @@ import {
   AuthGuard,
   AuthAdminGuard,
   OtpGuard,
+  changePasswordGuard,
 } from "../auth/local-auth/auth.guard"
 import {UserService} from "./users.service"
 import {Users} from "./users.schema"
@@ -127,12 +128,14 @@ export class UserController {
     @Body() data: ForgetPasswordDto,
     @Response() res: ExpressResponse,
   ) {
-    let validEmail = this.userService.getUserByEmail(data.email)
+    let validEmail =await this.userService.getUserByEmail(data.email)
     if (!validEmail) {
       throw new BadRequestException({message: "Email is invalid !!"})
     }
 
     const otp = await this.userService.sendMailOtp(data.email)
+    console.log(otp);
+    
 
     const accessToken = await this.jwtService.signAsync(
       {otp, email: data.email},
@@ -172,7 +175,7 @@ export class UserController {
   }
 
   @Post("/change-forget-password")
-  @UseGuards(OtpGuard)
+  @UseGuards(changePasswordGuard)
   async forgetChangePassword(@Body() data: changePasswordDto, @Req() req, @Response() res: ExpressResponse) {
     let {_id} = req.user
     res.clearCookie("change_password")

@@ -124,7 +124,7 @@ export class UserService {
   }
 
   getUserByEmail(email: string) {
-    return this.UserModel.findOne({email})
+    return this.UserModel.findOne({email , provider:"local"})
   }
 
 }

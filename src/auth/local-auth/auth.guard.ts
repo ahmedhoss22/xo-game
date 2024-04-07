@@ -94,6 +94,8 @@ export class OtpGuard implements CanActivate {
     }
     try {
       let {otp, email} = await this.jwtService.verify(token)
+      console.log(otp , email);
+      
       if (!otp || !email) {
         throw new UnauthorizedException({message: "Invalid otp !!"})
       }
@@ -139,7 +141,7 @@ export class changePasswordGuard implements CanActivate {
         throw new UnauthorizedException({message: "Invalid user !!"})
       }
 
-      request.data = {email, id:user._id}
+      request.user = user
 
       return true
     } catch (err) {
