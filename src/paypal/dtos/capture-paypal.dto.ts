@@ -1,8 +1,15 @@
-import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import {IsNotEmpty, IsNumber, IsString} from "class-validator"
 
 export class CapturePaymentDto {
+  @IsString()
+  @IsNotEmpty()
+  readonly orderID: string
+
   @IsNumber()
   @IsNotEmpty()
-  readonly orderID: number;
+  readonly price: number
 
+  @IsNumber()
+  @IsNotEmpty()
+  readonly coins: number
 }

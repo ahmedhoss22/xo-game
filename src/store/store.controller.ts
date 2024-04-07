@@ -14,16 +14,16 @@ import {
   BadRequestException,
   Delete,
   Param,
-} from '@nestjs/common';
-import { StoreDto } from './dtos/store.dto';
-import { StoreService } from './store.service';
-import { AuthAdminGuard, AuthGuard } from 'src/auth/local-auth/auth.guard';
-import { FileInterceptor } from '@nestjs/platform-express';
-import { multerConfig } from 'src/utilites/multerConfig';
-import { filterFilter } from 'src/utilites/file-filter';
-import { IsNotEmpty, IsOptional } from 'class-validator';
-import { UpdateStoreDto } from './dtos/update-store.dto';
-import mongoose from 'mongoose';
+} from '@nestjs/common'
+import { StoreDto } from './dtos/store.dto'
+import { StoreService } from './store.service'
+import { AuthAdminGuard, AuthGuard } from 'src/auth/local-auth/auth.guard'
+import { FileInterceptor } from '@nestjs/platform-express'
+import { multerConfig } from 'src/utilites/multerConfig'
+import { filterFilter } from 'src/utilites/file-filter'
+import { IsNotEmpty, IsOptional } from 'class-validator'
+import { UpdateStoreDto } from './dtos/update-store.dto'
+import mongoose from 'mongoose'
 
 @Controller('store')
 export class StoreController {
@@ -49,21 +49,21 @@ export class StoreController {
     )
     file: Express.Multer.File,
   ) {
-    console.log(file);
-    
+    console.log(file)
+
     if (!file) {
-      throw new BadRequestException({ message: 'Image is required!' });
+      throw new BadRequestException({ message: 'Image is required!' })
     }
-    data.image = '/store/' + file.filename;
-    await this.storeService.addStore(data);
-    return { message: 'Store Added' };
+    data.image = '/store/' + file.filename
+    await this.storeService.addStore(data)
+    return { message: 'Store Added' }
   }
 
   @Get('/all')
   @UseGuards(AuthGuard)
   async getAllStores() {
-    let stores = await this.storeService.getAllStores();
-    return stores;
+    let stores = await this.storeService.getAllStores()
+    return stores
   }
 
   @Post('/update')
@@ -90,21 +90,21 @@ export class StoreController {
     file: Express.Multer.File,
   ) {
     if (file) {
-      data.image = '/store/' + file.filename;
+      data.image = '/store/' + file.filename
     }
 
     // if (!file && !data.image) {
     //   throw new BadRequestException('Image is required if provided');
     // }
 
-    await this.storeService.updateStore(data._id, data);
-    return { message: 'Updated !!' };
+    await this.storeService.updateStore(data._id, data)
+    return { message: 'Updated !!' }
   }
 
   @Delete('/:id')
   @UseGuards(AuthAdminGuard)
   async deleteStore(@Param('id') id: mongoose.Types.ObjectId) {
-    await this.storeService.deleteStore(id);
-    return { message: 'Store Deleted !!' };
+    await this.storeService.deleteStore(id)
+    return { message: 'Store Deleted !!' }
   }
 }

@@ -2,7 +2,7 @@ import {
   FileTypeValidator,
   MaxFileSizeValidator,
   ParseFilePipe,
-} from '@nestjs/common';
+} from '@nestjs/common'
 
 export const filterFilter = () => {
   return {
@@ -13,10 +13,10 @@ export const filterFilter = () => {
           message: 'File size must be less than 5 MB',
         }),
         new FileTypeValidator({ fileType: 'image/jpeg' }),
-      ];
+      ]
 
-      const parseFilePipe = new ParseFilePipe({ validators });
-      parseFilePipe.transform(file);
+      const parseFilePipe = new ParseFilePipe({ validators })
+      parseFilePipe.transform(file)
     },
-  };
-};
+  }
+}

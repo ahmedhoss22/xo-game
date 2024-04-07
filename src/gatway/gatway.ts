@@ -1,12 +1,12 @@
-import { OnModuleInit } from '@nestjs/common';
+import { OnModuleInit } from '@nestjs/common'
 import {
   WebSocketGateway,
   WebSocketServer,
   OnGatewayConnection,
   OnGatewayDisconnect,
-} from '@nestjs/websockets';
-import { Server, Socket } from 'socket.io';
-import { instrument } from '@socket.io/admin-ui';
+} from '@nestjs/websockets'
+import { Server, Socket } from 'socket.io'
+import { instrument } from '@socket.io/admin-ui'
 
 @WebSocketGateway(5001, {
   cors: {
@@ -20,26 +20,26 @@ export class MyGatway
   implements OnModuleInit, OnGatewayConnection, OnGatewayDisconnect
 {
   @WebSocketServer()
-  private readonly server: Server;
-  private onlinePlayers: string[] = [];
+  private readonly server: Server
+  private onlinePlayers: string[] = []
 
   onModuleInit() {
-    this.server.on('connection', (socket) => {});
+    this.server.on('connection', (socket) => {})
     instrument(this.server, {
       auth: false,
       mode: 'development',
-    });
+    })
   }
 
   handleConnection(client: Socket, ...args: any[]) {
     if (!this.onlinePlayers.includes(client.id)) {
-      this.onlinePlayers.push(client.id);
+      this.onlinePlayers.push(client.id)
     }
   }
 
   handleDisconnect(client: Socket) {
-    this.onlinePlayers = this.onlinePlayers.filter((ele) => ele != client.id);
-    console.log(this.onlinePlayers.length, ' Online Players !!');
+    this.onlinePlayers = this.onlinePlayers.filter((ele) => ele != client.id)
+    console.log(this.onlinePlayers.length, ' Online Players !!')
     // this.roomsService.removeWaitingUser(client)
   }
 }

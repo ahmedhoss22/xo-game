@@ -1,11 +1,4 @@
-import { Inject, Injectable, forwardRef } from '@nestjs/common';
-import { MyGatway } from './gatway';
-import {
-  WebSocketGateway,
-  SubscribeMessage,
-  OnGatewayConnection,
-  OnGatewayDisconnect,
-} from '@nestjs/websockets';
+import { WebSocketGateway } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
 import { MatchDto } from './dto/match.dto';
 import { RoomDto } from './dto/room.dto';
@@ -74,8 +67,8 @@ export class UtilitsService {
     roomName: string,
     customRooms: CustomDto[],
     playingRooms: RoomDto[],
-  ): Boolean {
-    let matchedIndex = customRooms.findIndex((ele) => ele.id == data.id);
+  ): boolean {
+    const matchedIndex = customRooms.findIndex((ele) => ele.id == data.id);
     if (matchedIndex == -1) return false;
     const matchedPlayer = customRooms.splice(matchedIndex, 1)[0];
     playingRooms.push({
@@ -103,7 +96,7 @@ export class UtilitsService {
     console.log(moves);
 
     moves = moves.sort((a, b) => a - b);
-    let checkMoves = moves.join('');
+    const checkMoves = moves.join('');
     let winner: boolean = false;
 
     // Array of winning conditions
@@ -150,22 +143,22 @@ export class UtilitsService {
   }
 
   checkEndGame(data: RoomDto): boolean {
-    let player1win = data.player1Wins > data.rounds / 2;
-    let player2win = data.player2Wins > data.rounds / 2;
+    const player1win = data.player1Wins > data.rounds / 2;
+    const player2win = data.player2Wins > data.rounds / 2;
     return (player1win || player2win) as boolean;
   }
-  disconnectEndGame(clientId : string , room :RoomDto){
-    if(clientId == room.socketID1){
-        this.handleEndGame(
-          room.socketID1,
-          room.userID1,
-          room.socketID2,
-          room.userID2,
-          room.coins,
-          room.winCoins,
-          room.roomName
-        )
-    }else{
+  disconnectEndGame(clientId: string, room: RoomDto) {
+    if (clientId == room.socketID1) {
+      this.handleEndGame(
+        room.socketID1,
+        room.userID1,
+        room.socketID2,
+        room.userID2,
+        room.coins,
+        room.winCoins,
+        room.roomName,
+      );
+    } else {
       this.handleEndGame(
         room.socketID2,
         room.userID2,
@@ -173,8 +166,8 @@ export class UtilitsService {
         room.userID1,
         room.coins,
         room.winCoins,
-        room.roomName
-      )
+        room.roomName,
+      );
     }
   }
 
@@ -195,22 +188,22 @@ export class UtilitsService {
     });
 
     //remove room
-    this.removePlayingRoom(matchSocket)
+    this.removePlayingRoom(matchSocket);
     try {
       await this.userService.winnerCoins(winnerId, winCoins);
       await this.userService.loserCoins(loserId, coins);
-
     } catch (error) {
-      let errorMsg = error.message;
+      const errorMsg = error.message;
       console.log(errorMsg);
       return this.errorHandle(matchSocket, 'errorMsg');
     }
   }
 
-  removePlayingRoom(roomName :string){
-    RoomsService.playingRooms = RoomsService.playingRooms.filter((ele)=>ele.roomName != roomName)
+  removePlayingRoom(roomName: string) {
+    RoomsService.playingRooms = RoomsService.playingRooms.filter(
+      (ele) => ele.roomName != roomName,
+    );
   }
-
 
   isValidMoveData(data: PlayingGameDto): boolean {
     return !!data.move && !!data.roomName && !!data.userID;
@@ -222,8 +215,10 @@ export class UtilitsService {
     );
   }
 
-  getPlayerInfo(client: Socket, match: RoomDto) {
-    return client.id === match.socketID1
+  getPlayerInfo(client: PlayingGameDto, match: RoomDto) {
+    console.log(client.userID == match.userID1);
+    
+    return client.userID == match.userID1
       ? {
           playerNo: 1,
           playerMoves: match.player1Moves,
@@ -287,5 +282,13 @@ export class UtilitsService {
     this.playingRooms = this.playingRooms.map((ele) =>
       ele.roomName === match.roomName ? match : ele,
     );
+  }
+
+  updatePlayerSocket(match : RoomDto , client : Socket , data: PlayingGameDto){
+      if(data.userID == match.userID1){
+        match.socketID1 = client.id
+      }else{
+        match.socketID2 = client.id
+      }
   }
 }

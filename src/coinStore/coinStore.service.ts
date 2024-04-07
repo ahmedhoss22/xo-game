@@ -1,37 +1,42 @@
-import { Injectable ,} from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
-import mongoose, { Model } from 'mongoose';
-import { CoinStoreDto } from './dtos/coin-store.dto';
-import { UpdateCoinStoreDto } from './dtos/update-coin-store.dto';
-import { CoinStore } from './coinStore.schema';
+import { Injectable } from '@nestjs/common'
+import { InjectModel } from '@nestjs/mongoose'
+import mongoose, { Model } from 'mongoose'
+import { CoinStoreDto } from './dtos/coin-store.dto'
+import { UpdateCoinStoreDto } from './dtos/update-coin-store.dto'
+import { CoinStore } from './coinStore.schema'
 
 @Injectable()
 export class CoinStoreService {
-    constructor(@InjectModel(CoinStore.name) private CoinStore :Model<CoinStore> ){}
+  constructor(
+    @InjectModel(CoinStore.name) private CoinStore: Model<CoinStore>,
+  ) {}
 
-    addCoinStore(data :CoinStoreDto): Promise<CoinStore>{
-        let newStore = new this.CoinStore(data)
-        return newStore.save()
-    }
- 
-    getCoinAllStores(): Promise<CoinStore[]>{
-        return this.CoinStore.find()
-    }
+  addCoinStore(data: CoinStoreDto): Promise<CoinStore> {
+    let newStore = new this.CoinStore(data)
+    return newStore.save()
+  }
 
-    getCoinStore(id :mongoose.Types.ObjectId): Promise<CoinStore>{
-        return this.CoinStore.findById(id)
-    }
+  getCoinAllStores(): Promise<CoinStore[]> {
+    return this.CoinStore.find()
+  }
 
-    updateCoinStore(id:mongoose.Types.ObjectId,data:UpdateCoinStoreDto): Promise<CoinStore>{
-        delete data._id
-        return this.CoinStore.findByIdAndUpdate(id,data)
-    }
+  getCoinStore(id: mongoose.Types.ObjectId): Promise<CoinStore> {
+    return this.CoinStore.findById(id)
+  }
 
-    deleteCoinStore (id : mongoose.Types.ObjectId):Promise<CoinStore>{
-        return this.CoinStore.findByIdAndDelete(id)
-    }
+  updateCoinStore(
+    id: mongoose.Types.ObjectId,
+    data: UpdateCoinStoreDto,
+  ): Promise<CoinStore> {
+    delete data._id
+    return this.CoinStore.findByIdAndUpdate(id, data)
+  }
 
-    getOneCoinStore(field:any) : Promise<CoinStore>{
-        return this.CoinStore.findOne(field)
-    }
+  deleteCoinStore(id: mongoose.Types.ObjectId): Promise<CoinStore> {
+    return this.CoinStore.findByIdAndDelete(id)
+  }
+
+  getOneCoinStore(field: any): Promise<CoinStore> {
+    return this.CoinStore.findOne(field)
+  }
 }

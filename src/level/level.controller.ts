@@ -1,9 +1,17 @@
-import { Body, Controller, Get, Patch, Post, Res, UseGuards, } from '@nestjs/common';
-import { LevelService } from './level.service';
-import { LevelDto } from './dto/level.dto';
-import { Response } from 'express';
-import { AuthAdminGuard, AuthGuard } from 'src/auth/local-auth/auth.guard';
-import { UpdateLevelDto } from './dto/update-level.dto';
+import {
+  Body,
+  Controller,
+  Get,
+  Patch,
+  Post,
+  Res,
+  UseGuards,
+} from '@nestjs/common'
+import { LevelService } from './level.service'
+import { LevelDto } from './dto/level.dto'
+import { Response } from 'express'
+import { AuthAdminGuard, AuthGuard } from 'src/auth/local-auth/auth.guard'
+import { UpdateLevelDto } from './dto/update-level.dto'
 
 @Controller('/level')
 export class LevelController {
@@ -11,9 +19,9 @@ export class LevelController {
 
   @Post('/')
   @UseGuards(AuthAdminGuard)
-  async addLevel(@Body() data: LevelDto,) {
+  async addLevel(@Body() data: LevelDto) {
     await this.levelService.addLevel(data)
-    return "Level Added !!"
+    return 'Level Added !!'
   }
 
   @Get('/')
@@ -22,11 +30,10 @@ export class LevelController {
     return await this.levelService.getLevels()
   }
 
-  @Post("/update")
+  @Post('/update')
   @UseGuards(AuthAdminGuard)
-  async updateLevel(@Body() data : UpdateLevelDto){
-    
-      await this.levelService.updateLevel(data)
-      return {message: "Updated !!"}
-    }
+  async updateLevel(@Body() data: UpdateLevelDto) {
+    await this.levelService.updateLevel(data)
+    return { message: 'Updated !!' }
+  }
 }

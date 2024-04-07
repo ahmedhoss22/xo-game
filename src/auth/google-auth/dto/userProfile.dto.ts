@@ -1,16 +1,15 @@
-import {  IsEmail, IsNotEmpty, IsString} from "class-validator";
+import { IsEmail, IsNotEmpty, IsString } from 'class-validator'
 
 export class ProfileDto {
+  @IsString()
+  @IsNotEmpty()
+  readonly name: string
 
-   @IsString()
-   @IsNotEmpty()
-   readonly name: string;
- 
-   @IsString()
-   @IsNotEmpty()
-   @IsEmail()
-   readonly email: string;
+  @IsString()
+  @IsNotEmpty()
+  @IsEmail()
+  readonly email: string
 
-   @IsString()
-   readonly image: string;
+  @IsString()
+  readonly image: string
 }

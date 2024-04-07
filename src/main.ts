@@ -1,22 +1,22 @@
-import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
-import { ValidationPipe } from '@nestjs/common';
-import helmet from 'helmet';
-import * as cookieParser from 'cookie-parser';
-import * as session from 'express-session';
-import * as dotenv from 'dotenv';
-import * as cors from "cors"
-import * as express from 'express';
-import {NestExpressApplication} from "@nestjs/platform-express"
-import {join} from "path"
-import * as bodyParser from 'body-parser';
+import { NestFactory } from '@nestjs/core'
+import { AppModule } from './app.module'
+import { ValidationPipe } from '@nestjs/common'
+import helmet from 'helmet'
+import * as cookieParser from 'cookie-parser'
+import * as session from 'express-session'
+import * as dotenv from 'dotenv'
+import * as cors from 'cors'
+import * as express from 'express'
+import { NestExpressApplication } from '@nestjs/platform-express'
+import { join } from 'path'
+import * as bodyParser from 'body-parser'
 
 async function bootstrap() {
-  const app = await NestFactory.create<NestExpressApplication>(AppModule, { });
-  app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
-  dotenv.config();
+  const app = await NestFactory.create<NestExpressApplication>(AppModule, {})
+  app.useGlobalPipes(new ValidationPipe({ whitelist: true }))
+  dotenv.config()
   // app.useGlobalFilters(new HttpExceptionFilter());
-  app.useStaticAssets(join(__dirname,"..","public"),{});
+  app.useStaticAssets(join(__dirname, '..', 'public'), {})
 
   //sessions
   app.use(
@@ -31,22 +31,22 @@ async function bootstrap() {
         sameSite: 'none',
       },
     }),
-  );
-  app.use(cookieParser());
-  app.use(bodyParser.urlencoded({ extended: true }));
-  app.setGlobalPrefix('api');
-  app.use(cors({
-    origin:process.env.APP_DOMAIN || '*',
-    credentials:true
-  }))
+  )
+  app.use(cookieParser())
+  app.use(bodyParser.urlencoded({ extended: true }))
+  app.setGlobalPrefix('api')
+  app.use(
+    cors({
+      origin: process.env.APP_DOMAIN || '*',
+      credentials: true,
+    }),
+  )
   // app.enableCors({
   //   // origin: process.env.APP_DOMAIN,
   //   origin: process.env.APP_DOMAIN || '*',
   //   // credentials: true,
   //   credentials: true,
   // });
-
-  
 
   app.use(
     helmet({
@@ -67,11 +67,10 @@ async function bootstrap() {
         },
       },
     }),
-  );
-    const PORT = process.env.PORT || 5000
-  await app.listen(PORT,()=>{
-      console.log(`App is running in port ${PORT}`);
-      
-  });
+  )
+  const PORT = process.env.PORT || 5000
+  await app.listen(PORT, () => {
+    console.log(`App is running in port ${PORT}`)
+  })
 }
-bootstrap();
+bootstrap()
