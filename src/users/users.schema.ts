@@ -61,6 +61,12 @@ export class Users {
   })
   country: string
 
+
+  @Prop({
+    trim: true,
+  })
+  phone: string
+
   @Prop({
     default: 0,
   })

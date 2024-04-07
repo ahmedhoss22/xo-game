@@ -20,7 +20,7 @@ export class UserrDto {
   readonly email: String
 
   @IsString()
-  @IsNotEmpty()
+  @IsNotEmpty()   
   @Length(6, 20)
   @IsStrongPassword({ message: 'Password is not strong enough' })
   readonly password: String
@@ -35,6 +35,9 @@ export class UserrDto {
   // @IsString()
   @IsOptional()
   readonly country: String
+
+  @IsOptional()
+  readonly phone: String
 
   // @IsNumber()
   @IsOptional()
