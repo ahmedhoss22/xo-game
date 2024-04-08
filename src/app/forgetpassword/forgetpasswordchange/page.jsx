@@ -50,12 +50,12 @@ import { notifyError, notifySuccess } from '@/components/toastify/toastify';
     <div className="container ">
       <div className="mb-10 mt-10">
         <div className="d-flex fs-2 position-fixed  ">
-          <Link href="/otp" className="link text-white ">
+          <Link href="/forgetpassword/otp" className="link text-white ">
             <FaLongArrowAltLeft className="" />
           </Link>
         </div>
         <div className="d-flex justify-content-center align-items-center">
-          <h1 className="text-center fw-bold">             {t("forgetPasswordChange.create")}
+          <h1 className="text-center fw-bold">            {i18n.language==='ar'?" قم بأنشاء كلمة سر جديد":" Create New Password "}  
 </h1>
         </div>
       </div>
@@ -70,7 +70,7 @@ import { notifyError, notifySuccess } from '@/components/toastify/toastify';
 <FaUnlockAlt className='fs-2 '/>
 
               </div>
-              <p className="mt-5 mb-3 text-center"> {t("forgetPasswordChange.create")} 
+              <p className="mt-5 mb-3 text-center">      {i18n.language==='ar'?"من فضلك قم بادخال كلمة السر الجديدة":" Please insert your new password "}  
 </p>
          
                     <TextField
@@ -86,7 +86,7 @@ import { notifyError, notifySuccess } from '@/components/toastify/toastify';
                 value={formik.values.password}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                label= {t("forgetPasswordChange.newPassword")} 
+                label=   {i18n.language==='ar'?"كلمة السر الجديدة":" New Password "}  
                 type="password"
                 
                 className="mb-2 mt-2  "
@@ -105,7 +105,7 @@ import { notifyError, notifySuccess } from '@/components/toastify/toastify';
                 value={formik.values.rePassword}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                label= {t("forgetPasswordChange.rePassword")} 
+                label=  {i18n.language==='ar'?"تأكيد كلمة السر":" Confirm Password "}  
                 type="password"
                                 className="mb-2 mt-2 w-100 "
                 fullWidth
@@ -119,8 +119,7 @@ import { notifyError, notifySuccess } from '@/components/toastify/toastify';
             type="submit"
             className=" forget-btn focus:ring-4   focus:outline-none font-medium rounded-lg text-sm px-24  py-3 text-center  "
            >
-{t("forgetPasswordChange.save")}          
- </button>
+{i18n.language==='ar'?"حفظ":" Save "}   </button>
         </div>
       </form>
     </div>

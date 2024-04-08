@@ -1,22 +1,73 @@
 "use client";
 import "./payment.scss";
+import "../card.scss";
 import Title from "@/components/title/Title";
 import Footer from "@/components/footer/Footer";
-import { FaArrowLeft } from "react-icons/fa";
-import moneyImage from "../../../assets/photos/money-bag.png";
-import visaImage from "../../../assets/photos/visa-icon.png";
-import paypalIcon from "../../../assets/photos/paypal-icon.png";
-import paypalWord from "../../../assets/photos/paypal-word.png";
+import dollar from "@/assets/photos/dollar.png";
 import Link from "next/link";
+import Api from "@/config/api";
+import { PayPalButtons } from "@paypal/react-paypal-js";
+import { useRouter } from "next/navigation";
+import { FaArrowLeft } from "react-icons/fa";
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { getAllItems } from "@/redux/slices/coinStoreSlice";
+import moneyImage from "@/assets/photos/money-bag.png";
+import visaImage from "@/assets/photos/visa-icon.png";
+import paypalIcon from "@/assets/photos/paypal-icon.png";
+import paypalWord from "@/assets/photos/paypal-word.png";
 import { Checkbox, TextField } from "@mui/material";
 import { useFormik } from "formik";
-import * as Yup from "yup";
-import { PayPalButtons } from "@paypal/react-paypal-js";
-import { Router } from "@mui/icons-material";
-import { useRouter } from "next/navigation";
-import Api from "@/config/api";
+import * as Yup from "yup"; 
+const payment = ({ params }) => {
+  const router = useRouter()
+  const [item, setItem] = useState(null);
+  const dispatch = useDispatch();
+ 
+  
+  
+  async function getItem() {
+    try {
+      let res = await Api.get("/coin-store/all");
+      let data = res.data;
+      let item = data?.find((ele) => ele._id == params.id);
+      setItem(item);
+      console.log(item);
+      // setitems(res.data);
+    } catch (e) {
+      let error = e?.response?.data?.message || e?.response?.data?.error;
+      console.log(`error ${error}`);
+    }
+  }
+  useEffect(() => {
+    dispatch(getAllItems());
+    getItem();
+  }, []);
 
-const payment = () => {
+  const createOrder = (price, actions) => {
+    return Api.post("/paypal/create-paypal-order", {
+        currency: "USD",
+        price,
+
+    })
+      .then((response) => {
+      return  response.data.id
+      });
+  };
+
+  const onApprove = (data, price, coins, actions) => {
+    return Api.post("/paypal/capture-paypal-order", {
+      orderID: data.orderID,
+      price,
+      coins 
+    })
+  .then((response) =>router.push("/home") )
+  };
+
+  const label = { inputProps: { "aria-label": "Checkbox demo" } };
+
+
+
   // function handlePaypal(values) {
   //   console.log(values);
   // }
@@ -59,27 +110,6 @@ const payment = () => {
   //   validationVisaSchema,
   //   onSubmit: handleVisa,
   // });
-  const createOrder = (price, actions) => {
-    return Api.post("/paypal/create-paypal-order", {
-        currency: "USD",
-        price,
-
-    })
-      .then((response) => {
-      return  response.data.id
-      });
-  };
-
-  const onApprove = (data, price, coins, actions) => {
-    return Api.post("/paypal/capture-paypal-order", {
-      orderID: data.orderID,
-      price,
-      coins 
-    })
-  .then((response) =>router.push("/home") )
-  };
-
-  const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
   return (
     <div className=" payment d-flex flex-column ">
@@ -93,9 +123,23 @@ const payment = () => {
             <Title />
           </Link>
         </div>
+        {/* <div className="row justify-content-center align-items-center"> */}
+  <div className="col-12 w-100 m-auto justify-center align-center flex mt-4" >
+    <div className="ticket d-flex flex-column justify-content-center align-items-center">
+      <div className="img-container">
+        <img src={dollar.src} className="ticket-img" alt="" />
+      </div>
+      <h5 className="count">{item?.coins}</h5>
+      <h5 className="price text-white">{item?.price}$</h5>
+    </div>
+  </div>
+{/* </div> */}
+
+                   <div className="col-8 col-md-6 col-lg-4 col-xl-2 m-auto " style={{ borderTop: '1px white solid' }}>
+          </div>
 
         <div className="row  flex flex-col align-items-center justify-center">
-          <div className="mt-4 flex flex-col align-items-center justify-center" style={{height:'55vh'}}>   <PayPalButtons
+          <div className="mt-4 flex flex-col align-items-center justify-center" style={{height:'20vh'}}>   <PayPalButtons
              createOrder={(data, actions) => createOrder(item?.price , actions)} 
              onApprove={(data, actions) => onApprove(data, item.price, item.coins, actions)} 
              /> </div>

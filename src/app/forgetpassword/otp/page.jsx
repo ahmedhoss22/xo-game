@@ -67,7 +67,7 @@ import { notifyError } from '@/components/toastify/toastify';
           </Link>
         </div>
         <div className="d-flex justify-content-center align-items-center">
-          <h1 className="text-center fw-bold"> {t('otp.verification')}</h1>
+          <h1 className="text-center fw-bold">   {i18n.language==='ar'?"      كود التحقق":" Verification Code "}</h1>
         </div>
       </div>
       <form onSubmit={formik.handleSubmit}>
@@ -78,7 +78,7 @@ import { notifyError } from '@/components/toastify/toastify';
                 <div className="d-flex justify-content-center align-items-center rounded-full circle-bg">
                   <FaUnlockAlt className="fs-2" />
                 </div>
-                <p className="mt-5 mb-3 text-center">{t('otp.title')} Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed voluptates cum mollitia repudiandae laborum alias impedit incidunt quo ipsa. Magnam rem iusto praesentium, numquam labore ea omnis sapiente corporis et.</p>
+                <p className="mt-5 mb-3 text-center">  {i18n.language==='ar'?" من فضلك قم بادخال كود التحقق الذي وصل لك ":" Please enter the digit code you have received. "}</p>
                 <div className="flex flex-row items-center justify-between mx-auto w-full max-w-xs">
                   <div className="w-10 h-16 ">
                     <input
@@ -128,13 +128,12 @@ import { notifyError } from '@/components/toastify/toastify';
               </div>
             </div>
           </div>
-          <div className="col-md-3 col-8 ms-4">
+          <div className="col-md-3 col-8 ms-4  d-flex justify-content-center">
             <button
               type="submit"
-              className="forget-btn focus:ring-4  focus:outline-none font-medium rounded-lg text-sm px-36 py-3 text-center"
+              className="forget-btn focus:ring-4  focus:outline-none font-medium rounded-lg text-sm px-28 py-3 text-center"
             >
-              {t('otp.verify')}
-            </button>
+ {i18n.language==='ar'?" تحقق":" Verify "}            </button>
           </div>
         </div>
       </form>

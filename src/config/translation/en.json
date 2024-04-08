@@ -86,13 +86,12 @@
   "forgetPasswordChange":{
     "create":"Create New Password",
     "title":"Please insert your new password",
-    "oldPassword" :"Old Password",
-    "newPassword" :"New Password",
+     "newPassword" :"New Password",
     "rePassword" :"Confirm Password",
     "save":"save"
   },
   "card":{
-    "buy":"Go to payment page"
+    "buy":"Buy"
   },
   "logOut": {
     "logOut": "Log Out"

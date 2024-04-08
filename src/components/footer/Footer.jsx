@@ -23,7 +23,7 @@ const Footer = () => {
 
   const links = [
     { icon: isAdmin ? <RiAdminLine className ='footer-icons ' /> : <FaRegUserCircle className ='footer-icons ' />, href: isAdmin ? '/settings' : '/user' },
-    { icon: < LiaCcPaypal   className ='footer-icons '/>, href: '/payment' },
+    // { icon: < LiaCcPaypal   className ='footer-icons '/>, href: '/payment' },
     { icon: <  FaShoppingCart className ='footer-icons '/>, href: '/card' },
     { icon: < MdNotStarted  className ='footer-icons '/>, href: '/coinsofgame' },
     // { icon: <  IoWalletOutline className ='footer-icons ' />, href: '/wallet' },

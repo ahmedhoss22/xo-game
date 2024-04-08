@@ -50,80 +50,75 @@ import * as Yup from "yup";
 
   return (
     <div className="vh-100 forget-password-bg">
-    <div className="container ">
-      <div className="mb-10 mt-10">
-        <div className="d-flex fs-2 position-fixed  ">
-          <Link href="/login" className="link text-white  ">
-            <FaLongArrowAltLeft className="" />
-          </Link>
+      <div className="container ">
+        <div className="mb-10 mt-10">
+          <div className="d-flex fs-2 position-fixed  ">
+            <Link href="/login" className="link text-white  ">
+              <FaLongArrowAltLeft className="" />
+            </Link>
+          </div>
+          <div className="d-flex justify-content-center align-items-center">
+            <h1 className="text-center fw-bold">
+              {" "}
+              {i18n.language === "ar" ? "نسيت كلمة السر" : "Forget Password"}
+            </h1>
+          </div>
         </div>
-        <div className="d-flex justify-content-center align-items-center">
-          <h1 className="text-center fw-bold">              {t("forgetPassword.forget")}
-</h1>
-        </div>
-      </div>
-      {/* <form onSubmit={formik.handleSubmit}> */}
+        {/* <form onSubmit={formik.handleSubmit}> */}
+          <form onSubmit={formik.handleSubmit}>
         <div className="d-flex flex-col align-items-center">
-<form onSubmit={formik.handleSubmit}>   <div className="row max-w-screen-sm ">
-            <div className="col-12 ">
-            
-              <div className="col-12 d-flex justify-content-center align-items-center flex-col">
-  <div className="circle-bg d-flex justify-content-center align-items-center rounded-full"  >
-    
-<FaUnlockAlt className='fs-2 '/>
-
+            {" "}
+            <div className="row max-w-screen-sm ">
+              <div className="col-12 ">
+                <div className="col-12 d-flex justify-content-center align-items-center flex-col">
+                  <div className="circle-bg d-flex justify-content-center align-items-center rounded-full">
+                    <FaUnlockAlt className="fs-2 " />
+                  </div>
+                  <p className="mt-5 mb-3 text-center">
+                    {i18n.language === "ar"
+                      ? "     من فضلك قم بادخال البريد الالكتروني ليصلك كود التحقق "
+                      : " Please enter your Email Address to receive a Verification Code "}
+                  </p>
+                  <TextField
+                    error={formik.touched.email && Boolean(formik.errors.email)}
+                    helperText={formik.touched.email && formik.errors.email}
+                    name="email"
+                    id="email"
+                    value={formik.values.email}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    defaultValue={i18n.language === "ar" ? "     الايميل " : " Email "}
+                    // fullWidth
+                    label={i18n.language === "ar" ? "     الايميل " : " Email "}
+                    className="mb-2 mt-2  "
+                  />
+                </div>
               </div>
-              <p className="mt-5 mb-3 text-center">
-              {t("forgetPassword.title")}
-</p>
-              <TextField
-                error={
-                  formik.touched.email &&
-                  Boolean(formik.errors.email)
-                }
-                helperText={
-                  formik.touched.email && formik.errors.email
-                }
-                name="email"
-                id="email"
-                value={formik.values.email}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                defaultValue={t("forgetPassword.email")}
-                // fullWidth
-                label={t("forgetPassword.email")}
-                className="mb-2 mt-2  "
-              />                   </div>
-
-          
             </div>
-          </div> <button
-            type="submit"
-            disabled={
-              !formik.isValid ||
-              (Object.keys(formik.touched).length === 0 &&
-                formik.touched.constructor === Object)
-            }
-            className="forget-btn focus:ring-4   focus:outline-none font-medium rounded-lg text-sm px-24 py-3  text-center  "
-           >
-                           {loadingBtn ? (
-                    <div
-                      className="spinner-border text-light "
-                      role="status"
-                    >
-                      <span className="visually-hidden"  >Loading...</span>
-                    </div>
-                  ) : (
-                    t("forgetPassword.send")                  )}
-                
-
-          </button></form>
-       
-
-         
+            <button
+              type="submit"
+              disabled={
+                !formik.isValid ||
+                (Object.keys(formik.touched).length === 0 &&
+                  formik.touched.constructor === Object)
+              }
+              className="forget-btn focus:ring-4   focus:outline-none font-medium rounded-lg text-sm px-24 py-3  text-center  "
+            >
+              {loadingBtn ? (
+                <div className="spinner-border text-light " role="status">
+                  <span className="visually-hidden">Loading...</span>
+                </div>
+              ) : i18n.language === "ar" ? (
+                "أرسال"
+              ) : (
+                "Send"
+              )}
+            </button>
         </div>
-      {/* </form> */}
+          </form>
+        {/* </form> */}
+      </div>
     </div>
-  </div>  )
+  );
 }
 export default forgetPassword
