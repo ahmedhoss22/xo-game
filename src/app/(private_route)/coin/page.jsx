@@ -20,7 +20,7 @@ import { selectLoading, startLoading } from "@/redux/slices/loadingSlice";
 import { setRoomData } from "@/redux/slices/room";
 import { notifyError } from "@/components/toastify/toastify";
 import { useTranslation } from "react-i18next";
-import ChooseLanguage from "@/components/chooseLanguage/ChooseLanguage";
+import ChooseLanguage from "@/components/chooseLanguage/Chooselanguage";
 import { textVariants } from "@/utils/animation";
 
  
