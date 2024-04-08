@@ -13,5 +13,6 @@ export interface RoomDto {
   player2Moves: number[]
   player1Wins: number
   player2Wins: number
-  turn: number
+  turn: number,
+  autoPlay : boolean
 }

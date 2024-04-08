@@ -55,6 +55,7 @@ export class UtilitsService {
         turn: 1,
         player1Wins: 0,
         player2Wins: 0,
+        autoPlay:false
       })
       return true // Return true when a match is found
     }
@@ -85,9 +86,11 @@ export class UtilitsService {
       player2Moves: [],
       turn: 1,
       rounds: 1,
+      autoPlay:false
     })
     return true
   }
+  
   errorHandle(sockerId: string, msg: string) {
     this.server.to(sockerId).emit("error", {message: msg})
   }

@@ -15,6 +15,7 @@ import mongoose from "mongoose"
 import {UtilitsService} from "./utiltis.service"
 import {PlayerDto} from "./dto/player.dto"
 import {CustomDto} from "./dto/custom-room.dto"
+import { AutoGameDto } from "./dto/autoGame.dto"
 
 @WebSocketGateway(5001, {
   cors: {
@@ -240,6 +241,49 @@ export class RoomsService implements OnGatewayDisconnect {
       )
     }
   }
+
+  @SubscribeMessage("start-auto-game")
+  async startAutoGameMatch(client: Socket, data: AutoGameDto) {
+    if (!this.server) {
+      return this.utilitsService.errorHandle(
+        client.id,
+        "Server instance not available.",
+      )
+    }
+
+    const roomName: string = "room" + Date.now().toString()
+
+    try {
+
+        const room = RoomsService.playingRooms.find(
+          (ele) => ele.roomName == roomName,
+        )
+
+        this.server.to(room.socketID1).socketsJoin(room.roomName)
+        this.server.to(room.socketID2).socketsJoin(room.roomName)
+
+        this.server.to(room.roomName).emit("matched", {
+          message: "You are matched! Start playing.",
+          roomName,
+          players: [room.socketID1, room.socketID2],
+          room,
+        })
+
+        const arr = [...this.waitingPlayers, ...RoomsService.playingRooms]
+        this.server.to(client.id).emit("online-players", arr)
+        this.server.emit("online-players", arr)
+        console.log("Waiting players: " + this.waitingPlayers.length)
+    } catch (error) {
+      console.error("Error fetching user details:", error)
+      console.log(error)
+
+      return this.utilitsService.errorHandle(
+        client.id,
+        "Error fetching user details.",
+      )
+    }
+  }
+
 
   handleDisconnect(client: Socket) {
     console.log("Disconnect " + client.id)
