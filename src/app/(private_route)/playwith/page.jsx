@@ -16,7 +16,7 @@ import SoundBg from "@/components/soundBg/SoundBg";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import socket from "@/config/socket";
-import { selectLoading, startLoading } from "@/redux/slices/loadingSlice";
+import { selectLoading, startLoading, stopLoading } from "@/redux/slices/loadingSlice";
 import { setRoomData } from "@/redux/slices/room";
 import { notifyError } from "@/components/toastify/toastify";
 import { useTranslation } from "react-i18next";

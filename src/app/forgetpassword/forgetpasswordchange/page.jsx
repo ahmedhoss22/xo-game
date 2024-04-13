@@ -50,7 +50,7 @@ import { notifyError, notifySuccess } from '@/components/toastify/toastify';
     <div className="container ">
       <div className="mb-10 mt-10">
         <div className="d-flex fs-2 position-fixed  ">
-          <Link href="/forgetpassword/otp" className="link text-white ">
+          <Link href="/forgetpassword/otp" className="text-decoration-none text-white ">
             <FaLongArrowAltLeft className="" />
           </Link>
         </div>

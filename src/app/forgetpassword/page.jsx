@@ -53,7 +53,7 @@ import * as Yup from "yup";
       <div className="container ">
         <div className="mb-10 mt-10">
           <div className="d-flex fs-2 position-fixed  ">
-            <Link href="/login" className="link text-white  ">
+            <Link href="/login" className="text-decoration-none text-white  ">
               <FaLongArrowAltLeft className="" />
             </Link>
           </div>

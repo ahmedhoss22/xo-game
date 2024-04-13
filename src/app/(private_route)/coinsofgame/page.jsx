@@ -122,7 +122,7 @@ const coinsOfGame = () => {
                 <Title />
               </div>
             </header>
-            <Link href="/user" className="link">
+            <Link href="/user" className=" text-decoration-none text-white ">
               <div className="rtl  col-11 ms-4 mb-1 ">
                 <div className="user-container justify-center">
                   <h5 className="text-white mt-1 " style={{ fontSize: "15px" }}>
@@ -191,7 +191,7 @@ const coinsOfGame = () => {
                     </Link>
                     <Link
                       href="/playgroundloading/false"
-                      className="col-3    text-white start-play-div2 pointer link"
+                      className="col-3    text-decoration-none text-white start-play-div2 pointer  "
                       style={{ borderRadius: "0 6px 6px 0" }}
                     >
                       <h1> {ele?.winCoins} </h1>
