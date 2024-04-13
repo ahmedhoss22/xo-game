@@ -12,7 +12,7 @@ import { useEffect, useState } from "react";
 import { fetchUserData } from "@/redux/slices/user";
 import Title from "@/components/title/Title";
 import userImage from "@/assets/photos/userrr.png";
-import SoundBg from "@/components/soundBg/SoundBg"; 
+import SoundBg from "@/components/soundBg/SoundBg";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import socket from "@/config/socket";
@@ -23,11 +23,11 @@ import { useTranslation } from "react-i18next";
 import ChooseLanguage from "@/components/chooseLanguage/ChooseLanguage";
 import { textVariants } from "@/utils/animation";
 
- 
+
 
 const playWith = () => {
   const dispatch = useDispatch();
-  const { t ,i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const user = useSelector((state) => state.user.data);
   const [roomId, setRoomId] = useState("");
@@ -46,15 +46,15 @@ const playWith = () => {
   }
   useEffect(() => {
     dispatch(fetchUserData());
-    socket.on("matched",(data)=>{
+    socket.on("matched", (data) => {
       dispatch(setRoomData(data))
       router.push("/playground")
     })
-    socket.on("error",(data)=>{
+    socket.on("error", (data) => {
       notifyError(data?.message)
       console.log(data);
     })
-    return ()=>{
+    return () => {
       socket.off("matched")
       socket.off("error")
 
@@ -76,31 +76,31 @@ const playWith = () => {
   return (
     <>
       <div className="play-with d-flex flex-column ">
-         <div className="flex-grow">
+        <div className="flex-grow">
           <div className="container high-z-index  ">
             <header className="d-flex justify-content-between-lg justify-content-around   mb-4 align-items-center   text-white p-4 mt-2 ">
-            <div className="d-flex gap-2">
-          
-      <div >  <SoundBg /></div>
-      <div >  <ChooseLanguage /></div>
-          <motion.div
-              className="ticket-container justify-center pointer"
-              variants={textVariants}
-              initial={"initial"}
-              animate={"animate"}              
-              onClick={()=>router.push('/coin')}
-          >
-            <motion.img
-              src={dollar.src}
-              className="ticket"
-              alt="ticket"
-              variants={textVariants}
-            />
-            <motion.div className="ticket-prize " variants={textVariants}>
-              <motion.h5>{user?.coins}</motion.h5>
-            </motion.div>
-          </motion.div>
-          </div>
+              <div className="d-flex gap-2">
+
+                <div >  <SoundBg /></div>
+                <div >  <ChooseLanguage /></div>
+                <motion.div
+                  className="ticket-container justify-center pointer"
+                  variants={textVariants}
+                  initial={"initial"}
+                  animate={"animate"}
+                  onClick={() => router.push('/coin')}
+                >
+                  <motion.img
+                    src={dollar.src}
+                    className="ticket"
+                    alt="ticket"
+                    variants={textVariants}
+                  />
+                  <motion.div className="ticket-prize " variants={textVariants}>
+                    <motion.h5>{user?.coins}</motion.h5>
+                  </motion.div>
+                </motion.div>
+              </div>
               <div className="col-3">
                 <Title />
               </div>
@@ -125,7 +125,7 @@ const playWith = () => {
             </Link>
 
             {openJoin ? (
-              <div className={`d-flex align-items-center justify-content-center ${i18n.language ==='ar'?"rtl":""} mt-4 `}>
+              <div className={`d-flex align-items-center justify-content-center ${i18n.language === 'ar' ? "rtl" : ""} mt-4 `}>
                 <div className="w-full max-w-xs ">
                   <div
                     // onSubmit={formik.handleSubmit}
@@ -134,8 +134,8 @@ const playWith = () => {
                   >
                     <div className="mb-4">
                       <label className="block text-white text-sm font-bold mb-2">
-{t('playWith.title')}    
-                  </label>
+                        {t('playWith.title')}
+                      </label>
                       <input
                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         id="id"
@@ -153,26 +153,26 @@ const playWith = () => {
                       ) : null} */}
                     </div>
                     <div onClick={joinRoom} className="text-white create-btn d-flex align-items-center justify-content-center border-radius-20 m-2 transform-btn pointer">
-                    {t('playWith.join')}  
+                      {t('playWith.join')}
                     </div>
                   </div>
                   <h6 onClick={handelCreate} className="text-center text-white pointer  ">
-                  {t('playWith.back')}                    </h6>
+                    {t('playWith.back')}                    </h6>
                 </div>
               </div>
             ) : (
-              <div className={`d-flex align-items-center justify-content-center ${i18n.language ==='ar'?"rtl":""} mt-4 `}>
+              <div className={`d-flex align-items-center justify-content-center ${i18n.language === 'ar' ? "rtl" : ""} mt-4 `}>
                 <div className="w-full max-w-xs ">
                   <div
                     className="shadow-md rounded px-8 pt-6 pb-8 mb-4"
                     style={{ background: "var(--purple-color)" }}
                   >
                     <div className="mb-4"></div>
-                    <div  onClick={createRoom} className=" text-white create-btn d-flex align-items-center justify-content-center border-radius-20 m-2 transform-btn pointer">
-                    {t('playWith.create')}  
+                    <div onClick={createRoom} className=" text-white create-btn d-flex align-items-center justify-content-center border-radius-20 m-2 transform-btn pointer">
+                      {t('playWith.create')}
                     </div>
                     <div onClick={handelJoin} className="text-white create-btn d-flex align-items-center justify-content-center border-radius-20 m-2 transform-btn pointer">
-                    {t('playWith.joinRoom')}                       </div>
+                      {t('playWith.joinRoom')}                       </div>
                   </div>
                 </div>
               </div>

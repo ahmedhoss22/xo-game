@@ -18,14 +18,15 @@ import paypalIcon from "@/assets/photos/paypal-icon.png";
 import paypalWord from "@/assets/photos/paypal-word.png";
 import { Checkbox, TextField } from "@mui/material";
 import { useFormik } from "formik";
-import * as Yup from "yup"; 
+import * as Yup from "yup";
 const payment = ({ params }) => {
   const router = useRouter()
   const [item, setItem] = useState(null);
   const dispatch = useDispatch();
- 
-  
-  
+
+  console.log(item);
+
+
   async function getItem() {
     try {
       let res = await Api.get("/coin-store/all");
@@ -46,22 +47,22 @@ const payment = ({ params }) => {
 
   const createOrder = (price, actions) => {
     return Api.post("/paypal/create-paypal-order", {
-        currency: "USD",
-        price,
+      currency: "USD",
+      price:item.price,
 
     })
       .then((response) => {
-      return  response.data.id
+        return response.data.id
       });
   };
 
   const onApprove = (data, price, coins, actions) => {
     return Api.post("/paypal/capture-paypal-order", {
       orderID: data.orderID,
-      price,
-      coins 
+      price:item.price,
+      coins:item.coins
     })
-  .then((response) =>router.push("/home") )
+      .then((response) => router.push("/home"))
   };
 
   const label = { inputProps: { "aria-label": "Checkbox demo" } };
@@ -113,39 +114,39 @@ const payment = ({ params }) => {
 
   return (
     <div className=" payment d-flex flex-column ">
-    <div className="flex-grow">
-      <div className="container ">
-        <div className="  d-flex justify-content-between-lg justify-content-around  pt-4">
-          <div className="">
-            <FaArrowLeft onClick={()=>router.push('/card')} className="text-white pointer h-5 mt-10" />
+      <div className="flex-grow">
+        <div className="container ">
+          <div className="  d-flex justify-content-between-lg justify-content-around  pt-4">
+            <div className="">
+              <FaArrowLeft onClick={() => router.push('/card')} className="text-white pointer h-5 mt-10" />
+            </div>
+            <Link href="/message">
+              <Title />
+            </Link>
           </div>
-          <Link href="/message">
-            <Title />
-          </Link>
-        </div>
-        {/* <div className="row justify-content-center align-items-center"> */}
-  <div className="col-12 w-100 m-auto justify-center align-center flex mt-4" >
-    <div className="ticket d-flex flex-column justify-content-center align-items-center">
-      <div className="img-container">
-        <img src={dollar.src} className="ticket-img" alt="" />
-      </div>
-      <h5 className="count">{item?.coins}</h5>
-      <h5 className="price text-white">{item?.price}$</h5>
-    </div>
-  </div>
-{/* </div> */}
+          {/* <div className="row justify-content-center align-items-center"> */}
+          <div className="col-12 w-100 m-auto justify-center align-center flex mt-4" >
+            <div className="ticket d-flex flex-column justify-content-center align-items-center">
+              <div className="img-container">
+                <img src={dollar.src} className="ticket-img" alt="" />
+              </div>
+              <h5 className="count">{item?.coins}</h5>
+              <h5 className="price text-white">{item?.price}$</h5>
+            </div>
+          </div>
+          {/* </div> */}
 
-                   <div className="col-8 col-md-6 col-lg-4 col-xl-2 m-auto " style={{ borderTop: '1px white solid' }}>
+          <div className="col-8 col-md-6 col-lg-4 col-xl-2 m-auto " style={{ borderTop: '1px white solid' }}>
           </div>
 
-        <div className="row  flex flex-col align-items-center justify-center">
-          <div className="mt-4 flex flex-col align-items-center justify-center" style={{height:'20vh'}}>   <PayPalButtons
-             createOrder={(data, actions) => createOrder(item?.price , actions)} 
-             onApprove={(data, actions) => onApprove(data, item.price, item.coins, actions)} 
-             /> </div>
-            
-          
-          {/* <form
+          <div className="row  flex flex-col align-items-center justify-center">
+            <div className="mt-4 flex flex-col align-items-center justify-center" style={{ height: '20vh' }}>   <PayPalButtons
+              createOrder={(data, actions) => createOrder(item?.price, actions)}
+              onApprove={(data, actions) => onApprove(data, item.price, item.coins, actions)}
+            /> </div>
+
+
+            {/* <form
             onSubmit={formikPaypal.handleSubmit}
             className="paypal col-md-6 gy-4 mb-4"
           >
@@ -192,7 +193,7 @@ const payment = ({ params }) => {
             </button>
           </form> */}
 
-          {/* <form onSubmit={formikVisa.handleSubmit} className="visa col-md-6">
+            {/* <form onSubmit={formikVisa.handleSubmit} className="visa col-md-6">
             <div>
               <img src={visaImage.src} className="visa-img" alt="" />
             </div>
@@ -280,11 +281,11 @@ const payment = ({ params }) => {
             </button>
           
           </form> */}
+          </div>
         </div>
       </div>
-      </div>
-         <Footer />
-     </div>
+      <Footer />
+    </div>
   );
 };
 
