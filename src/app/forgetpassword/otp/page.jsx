@@ -66,13 +66,11 @@ const otp = () => {
       <div className="container">
         <div className="mb-10 mt-10">
           <div className="d-flex fs-2 position-fixed">
-            <Link href="/forgetpassword" className="link text-white">
+            <Link href="/forgetpassword" className="text-decoration-none text-white">
               <FaLongArrowAltLeft className="" />
             </Link>
           </div>
-          <div className="d-flex justify-content-center align-items-center">
-            <h1 className="text-center fw-bold"> {t('otp.verification')}</h1>
-          </div>
+          
         </div>
         <div className="d-flex justify-content-center align-items-center">
           <h1 className="text-center fw-bold">   {i18n.language==='ar'?"      كود التحقق":" Verification Code "}</h1>
@@ -88,18 +86,7 @@ const otp = () => {
                 </div>
                 <p className="mt-5 mb-3 text-center">  {i18n.language==='ar'?" من فضلك قم بادخال كود التحقق الذي وصل لك ":" Please enter the digit code you have received. "}</p>
                 <div className="flex flex-row items-center justify-between mx-auto w-full max-w-xs">
-                  <div className="w-10 h-16 ">
-                    <input
-                      maxLength="1"
-                      className="text-gray-900  h-full flex flex-col items-center justify-center text-center  outline-none rounded-xl border border-gray-200 text-lg bg-white focus:bg-gray-50 focus:ring-1 ring-blue-700"
-                      type="text"
-                      style={{ width: '70px' }}
-                      name="otp1"
-                      value={formik.values.otp1}
-                      onChange={formik.handleChange}
-                    ></input>
-                  </div>
-                  <p className="mt-5 mb-3 text-center">{t('otp.title')} Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed voluptates cum mollitia repudiandae laborum alias impedit incidunt quo ipsa. Magnam rem iusto praesentium, numquam labore ea omnis sapiente corporis et.</p>
+                 
                   <div className="flex flex-row items-center justify-between mx-auto w-full max-w-xs">
                     <div className="w-10 h-16 ">
                       <input
@@ -149,14 +136,7 @@ const otp = () => {
                 </div>
               </div>
             </div>
-            <div className="col-md-3 col-8 ms-4">
-              <button
-                type="submit"
-                className="forget-btn focus:ring-4  focus:outline-none font-medium rounded-lg text-sm px-36 py-3 text-center"
-              >
-                {t('otp.verify')}
-              </button>
-            </div>
+ 
           </div>
           <div className="col-md-3 col-8 ms-4  d-flex justify-content-center">
             <button
