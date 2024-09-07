@@ -24,11 +24,7 @@ const EditUser = ({ toggleEditMode }) => {
     image: null,
   });
 
-  const [intialPassword, setInitialPassword] = useState({
-    password: "",
-    rePassword: "",
-    oldPassword: "",
-  });
+
 
   const handleImageChange = (event) => {
     formik.setFieldValue("image", event.currentTarget.files[0]);
@@ -61,6 +57,12 @@ const EditUser = ({ toggleEditMode }) => {
       });
   }
 
+  const [intialPassword, setInitialPassword] = useState({
+    password: "",
+    rePassword: "",
+    oldPassword: "",
+  });
+  
   function handlePasswordSubmit(values) {
     console.log(values);
 
@@ -76,6 +78,11 @@ const EditUser = ({ toggleEditMode }) => {
         notifyError(Array.isArray(error) ? error[0] : error);
       });
   }
+ const formikPassword = useFormik({
+    initialValues: intialPassword,
+    validationSchema: changePasswordValidationSchema,
+    onSubmit: handlePasswordSubmit,
+  });
 
   const formik = useFormik({
     initialValues: intialState,
@@ -83,12 +90,7 @@ const EditUser = ({ toggleEditMode }) => {
     onSubmit: handleInfoSubmit,
   });
 
-  const formikPassword = useFormik({
-    initialValues: intialPassword,
-    validationSchema: changePasswordValidationSchema,
-    onSubmit: handlePasswordSubmit,
-  });
-
+ 
   useEffect(() => {
     dispatch(fetchUserData());
     return () => {};
