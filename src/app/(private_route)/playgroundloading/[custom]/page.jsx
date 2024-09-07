@@ -9,20 +9,20 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUserData } from "@/redux/slices/user";
 import Link from "next/link";
-import { motion } from "framer-motion"; 
+import { motion } from "framer-motion";
 import { setRoomData } from "@/redux/slices/room";
 import socket from "@/config/socket";
-import { useRouter } from 'next/router';
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { notifyError } from "@/components/toastify/toastify";
 import { textVariants } from "@/utils/animation";
- 
 
 
-const playgroundLoading = ({params}) => {
-  const router = useParams();
+
+const playgroundLoading = ({ params }) => {
+
+  const router = useRouter();
   const { query } = router;
-  const isCustom= params?.custom
+  const isCustom = params?.custom
   const [data, setData] = useState({});
   const [playerNo, setPlayerNumber] = useState("");
   const user = useSelector((state) => state.user.data);
@@ -30,7 +30,7 @@ const playgroundLoading = ({params}) => {
   const apiUrl = process.env.NEXT_PUBLIC_API_SERVER;
   const room = useSelector((state) => state.room.data);
   const player2 = useSelector((state) => state.room.otherPlayer);
-  const [id,setID] = useState("")
+  const [id, setID] = useState("")
 
   useEffect(() => {
     dispatch(fetchUserData());
@@ -52,15 +52,15 @@ const playgroundLoading = ({params}) => {
     const handleError = (data) => {
       notifyError(data)
     };
-    socket.on("matched",(data)=>{
+    socket.on("matched", (data) => {
       dispatch(setRoomData(data))
       router.push("/playground")
     })
 
-    {isCustom == "true" && socket.emit("create-room", {userID:user._id});}
-    socket.on("create-room", (data)=>{
-        setID(data?.id)
-        
+    { isCustom == "true" && socket.emit("create-room", { userID: user._id }); }
+    socket.on("create-room", (data) => {
+      setID(data?.id)
+
 
     });
     socket.on("join-room", handleRoomJoined);
@@ -78,7 +78,7 @@ const playgroundLoading = ({params}) => {
 
   return (
     <>
-      <div className="playground-loading"> 
+      <div className="playground-loading">
         <div className="container">
           <header className="d-flex  justify-content-between-lg justify-content-around  pt-4 pb-4">
             <Link href="/coinsofgame" className="link">
@@ -104,9 +104,9 @@ const playgroundLoading = ({params}) => {
             </Link>
           </header>
           <div className="prizes d-flex flex-column align-items-center col-12 justify-content-center  ">
-          {isCustom == "true" && id&& <>       <h3 className="text-white fw-bold pt-4 pb-4">Room Number {id}</h3>
-          </>}
-   
+            {isCustom == "true" && id && <>       <h3 className="text-white fw-bold pt-4 pb-4">Room Number {id}</h3>
+            </>}
+
 
             <div
               className="ticket-container justify-center"
@@ -182,7 +182,7 @@ const playgroundLoading = ({params}) => {
               </motion.h5>
             </motion.div>
           </div>
-  
+
           <motion.h2 variants={textVariants}
             animate={{ y: [0, -5, 0], transition: { repeat: Infinity, duration: 0.5 } }} className="text-white text-center mt-20" >. . . . . جاري الحصول علي بيانات الغرفة </motion.h2>
 
